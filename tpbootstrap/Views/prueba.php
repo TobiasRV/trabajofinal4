@@ -1,17 +1,9 @@
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
-<h1>asdasdsad</h1>
+<?php
+
+use DAO\api as api;
+
+$themoviedb = new api();
+
+//$string = json_encode($themoviedb->getNowPlayingMovies());
+echo $themoviedb->getNowPlayingMovies();
+?>
