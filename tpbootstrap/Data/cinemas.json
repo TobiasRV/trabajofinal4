@@ -1,0 +1,143 @@
+[
+    {
+        "id": 1,
+        "name": "Ambassador",
+        "address": "Cordoba 1234",
+        "billBoard": [
+            {
+                "adult": 1,
+                "idMovie": 1,
+                "idGenre": 2,
+                "homePage": "www.mipagina.ek",
+                "language": "Español",
+                "title": "El Joker",
+                "overview": "La pasión de Arthur Fleck, un hombre ignorado por la sociedad, es hacer reír a la gente. Sin embargo, una serie de trágicos sucesos harán que su visión del mundo se distorsione considerablemente convirtiéndolo en un brillante criminal.",
+                "posterPath": "www.asdsadsad.com\/adlaskd\/223opi",
+                "releaseDate": "12\/12\/1996"
+            },
+            {
+                "adult": 4,
+                "idMovie": 2,
+                "idGenre": 1,
+                "homePage": "www.peli2.ek",
+                "language": "Español",
+                "title": "Terminator 4",
+                "overview": "Mientras las máquinas se preparan para un ataque final, John Connor y un extraño entran en el corazón de Skynet y descubren que va a haber una terrible masacre.",
+                "posterPath": "www.posterpath.com\/adlaskd\/223opi",
+                "releaseDate": "20\/10\/2019"
+            }
+        ],
+        "seats": [
+            {
+                "number": 1,
+                "status": false
+            },
+            {
+                "number": 2,
+                "status": true
+            },
+            {
+                "number": 3,
+                "status": true
+            },
+            {
+                "number": 4,
+                "status": false
+            },
+            {
+                "number": 5,
+                "status": false
+            },
+            {
+                "number": 6,
+                "status": false
+            },
+            {
+                "number": 7,
+                "status": false
+            },
+            {
+                "number": 8,
+                "status": false
+            },
+            {
+                "number": 9,
+                "status": false
+            },
+            {
+                "number": 10,
+                "status": false
+            }
+        ],
+        "ticketPrice": 120
+    },
+    {
+        "id": 2,
+        "name": "Aldrey",
+        "address": "Juan b justo 1234",
+        "billBoard": [
+            {
+                "adult": 4,
+                "idMovie": 2,
+                "idGenre": 1,
+                "homePage": "www.peli2.ek",
+                "language": "Español",
+                "title": "Terminator 4",
+                "overview": "Mientras las máquinas se preparan para un ataque final, John Connor y un extraño entran en el corazón de Skynet y descubren que va a haber una terrible masacre.",
+                "posterPath": "www.posterpath.com\/adlaskd\/223opi",
+                "releaseDate": "20\/10\/2019"
+            }
+        ],
+        "seats": [
+            {
+                "number": 1,
+                "status": true
+            },
+            {
+                "number": 2,
+                "status": false
+            },
+            {
+                "number": 3,
+                "status": false
+            }
+        ],
+        "ticketPrice": 120
+    },
+    {
+        "id": 2,
+        "name": "Del Paseo",
+        "address": "Colon",
+        "billBoard": [
+            {
+                "adult": 1,
+                "idMovie": 1,
+                "idGenre": 2,
+                "homePage": "www.mipagina.ek",
+                "language": "Español",
+                "title": "El Joker",
+                "overview": "La pasión de Arthur Fleck, un hombre ignorado por la sociedad, es hacer reír a la gente. Sin embargo, una serie de trágicos sucesos harán que su visión del mundo se distorsione considerablemente convirtiéndolo en un brillante criminal.",
+                "posterPath": "www.asdsadsad.com\/adlaskd\/223opi",
+                "releaseDate": "12\/12\/1996"
+            },
+            {
+                "adult": 4,
+                "idMovie": 2,
+                "idGenre": 1,
+                "homePage": "www.peli2.ek",
+                "language": "Español",
+                "title": "Terminator 4",
+                "overview": "Mientras las máquinas se preparan para un ataque final, John Connor y un extraño entran en el corazón de Skynet y descubren que va a haber una terrible masacre.",
+                "posterPath": "www.posterpath.com\/adlaskd\/223opi",
+                "releaseDate": "20\/10\/2019"
+            }
+        ],
+        "seats": [
+            {
+                "number": 1,
+                "status": false
+            }
+        ],
+        "ticketPrice": 40
+    }
+]
