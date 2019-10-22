@@ -2,19 +2,34 @@
 
 class Movie{
     private $adult;
-    private $idGenre;
+    private $idGenre = array();
     private $idMovie;
-    private $homePage;
-    private $language;
-    private $title;
+	private $title;
+	private $originalTitle;
     private $overview;
     private $posterPath;
-    private $releaseDate;
+	private $releaseDate;
+	private $backdropPath;
 
     public function __construct()
     {
         
     }
+
+	public function getOriginalTitle(){
+		return $this->originalTitle;
+	}
+
+	public function setOriginalTitle($originalTitle){
+		$this->originalTitle = $originalTitle;
+	}
+	public function getBackdropPath(){
+		return $this->backdropPath;
+	}
+	
+	public function setBackdropPath($backdropPath){
+		$this->backdropPath = $backdropPath;
+	}
 
     public function getAdult(){
 		return $this->adult;
@@ -40,21 +55,6 @@ class Movie{
 		$this->idMovie = $idMovie;
 	}
 
-	public function getHomePage(){
-		return $this->homePage;
-	}
-
-	public function setHomePage($homePage){
-		$this->homePage = $homePage;
-	}
-
-	public function getLanguage(){
-		return $this->language;
-	}
-
-	public function setLanguage($language){
-		$this->language = $language;
-	}
 
 	public function getTitle(){
 		return $this->title;
