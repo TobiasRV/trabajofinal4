@@ -6,7 +6,7 @@
      <ul class="navbar-nav ml-auto">
           
           <li class="nav-item">
-               <a class="nav-link" href=<?php echo VIEWS_PATH . "movieCardsView.php"; ?>>Cartelera</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>/movie/showNewMovies">Cartelera</a>
           </li>
           <li class="nav-item">
                <a class="nav-link" href="">Tickets</a>

@@ -1,8 +1,8 @@
 <?php namespace Views;
 
-use Controllers\movieController as movieController;
+use Controllers\MovieController as MovieController;
 
-$api = new movieController();
+$api = new MovieController();
 
 $movies = $api->getNowPlaying();
 

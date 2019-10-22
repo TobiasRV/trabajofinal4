@@ -1,6 +1,6 @@
 <?php namespace Views;
 
-use Controllers\movieController as movieController;
+use Controllers\MovieController as movieController;
 
 $api = new movieController();
 
@@ -25,18 +25,18 @@ $movies = $api->getNewest3();
           </ol>
           <div class="carousel-inner">
             
-              <!-- <div class="carousel-item active">
-                  <img class="d-block w-100" src=<?php// echo $movies[0]->getBackdropPath();?> alt="First slide">
+              <div class="carousel-item active">
+                  <img class="d-block w-90" src=<?php echo $movies[0]->getBackdropPath();?> alt="First slide">
                   <div class="carousel-caption d-none d-md-block">
-                      <h5><?php// echo $movies[0]->getTitle();?></h5>
+                      <h5><?php echo $movies[0]->getTitle();?></h5>
                       <p>The whole caption will only show up if the screen is at least medium size.</p>
                   </div>
-              </div> -->
-              <div class="carousel-item active">
-                  <img class="d-block w-100" src="https://placeimg.com/1080/500/arch" alt="Second slide">
               </div>
               <div class="carousel-item">
-                  <img class="d-block w-100" src="https://placeimg.com/1080/500/nature" alt="Third slide">
+                  <img class="d-block w-90" src="https://placeimg.com/1080/500/arch" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                  <img class="d-block w-90" src="https://placeimg.com/1080/500/nature" alt="Third slide">
               </div>
           </div>
           <a class="carousel-control-prev" href="#Newest3movies" role="button" data-slide="prev">

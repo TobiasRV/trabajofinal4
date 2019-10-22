@@ -27,6 +27,15 @@ class movieController{
 
         return $movie;
     }
+
+    public function showMovieCard($name){
+        $movie = $this->searchMovie($name);
+        require_once(VIEWS_PATH . "movieCard.php");
+    }
+
+    public function showNewMovies(){
+        require(VIEWS_PATH . "billboard.php");
+    }
 }
 
 ?>

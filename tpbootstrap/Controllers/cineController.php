@@ -10,7 +10,9 @@ class cinemaController{
         $this->cineDAO = new CinemaRepository();
     }
 
-    public function
+    public function addCinema(){
+
+    }
 }
 
 ?>
