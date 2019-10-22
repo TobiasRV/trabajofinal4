@@ -13,6 +13,7 @@ class movieController{
 
     public function getNowPlaying(){
         return $this->movieDAO->getNowPlayingMovies();
+        
     }
 
     public function getNewest3(){
@@ -36,6 +37,12 @@ class movieController{
     public function showNewMovies(){
         require(VIEWS_PATH . "billboard.php");
     }
+    
+    public function getGenreId($idList){
+        $genreNames = array();
+        $genreNames = $movieDAO->getMovieGenreName();
+    }
+
 }
 
 ?>

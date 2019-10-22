@@ -37,7 +37,7 @@ class movieDAO{
             $jsonData = $arrayJsonData[$i];
             $adult = $jsonData["adult"];
             $idGenre = array();
-            $idGenre = $this->getMovie$jsonData["genre_ids"];
+            $idGenre = $jsonData["genre_ids"];
             $idMovie = $jsonData["id"];
             $title = $jsonData["title"];
             $originalTitle = $jsonData["original_title"];
@@ -108,7 +108,7 @@ class movieDAO{
 
             array_push($movies,$movie);
         }    
-        read_exif_data $movies;    
+        return $movies;    
     }
 
     public function getGenres(){
@@ -151,7 +151,7 @@ class movieDAO{
 
         return $genres[$i]->getName();
     }
-    public function getMovieGenreName($id = array()){
+    public function getMovieGenreName($id){
         $movieGenres = array();
         for($i=0;$i<count($id);$i++){
             $name = $this->getGenreNameById($id[$i]);

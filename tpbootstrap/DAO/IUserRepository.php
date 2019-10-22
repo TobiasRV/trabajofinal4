@@ -3,7 +3,7 @@
 interface IUserRepository{
 
     public function create($user);
-    public funcion getAll();
+    public function getAll();
     function saveData();
     function retrieveData();
 

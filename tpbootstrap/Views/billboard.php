@@ -15,7 +15,7 @@ $movies = $api->getNowPlaying();
                     <img class="card-img" src=<?php echo $value->getPosterPath();?> alt="Card image">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $value->getTitle();?></h5>
-                        <p class="card-text"><?php echo $value->getOverview();?></p>
+                        <p class="card-text"><?php echo $value->getOverview(); ?></p>
                         <a href="#" class="btn btn-primary">Ver Ficha</a>
                     </div>
                 </div>
