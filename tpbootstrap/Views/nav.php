@@ -9,7 +9,10 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT?>/movie/showNewMovies">Cartelera</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="">Tickets</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>/Cinema/formAddCinema">Cargar Cine</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>/Cinema/listCinemas">Listar Cines</a>
           </li>
           <li class="nav-item">
                <a class="nav-link" href="">Login</a>

@@ -55,7 +55,6 @@ class Movie{
 		$this->idMovie = $idMovie;
 	}
 
-
 	public function getTitle(){
 		return $this->title;
 	}

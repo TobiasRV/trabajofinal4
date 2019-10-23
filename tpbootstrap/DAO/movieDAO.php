@@ -10,8 +10,6 @@ class movieDAO{
         
     }
     
-    
-
     public function getNowPlayingMovies(){
 
         $curl = curl_init();
@@ -145,20 +143,6 @@ class movieDAO{
         return $genres;
     }
 
-    public function getGenreNameById($id){
-        $genres = $this->getGenres();
-        $i = array_search($id,$genres,TRUE);
-
-        return $genres[$i]->getName();
-    }
-    public function getMovieGenreName($id){
-        $movieGenres = array();
-        for($i=0;$i<count($id);$i++){
-            $name = $this->getGenreNameById($id[$i]);
-            array_push($movieGenres,$name);
-        }
-        return $movieGenres;
-    }
 }
 
 ?>

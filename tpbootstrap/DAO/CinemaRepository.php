@@ -10,14 +10,14 @@ class CinemaRepository
 {
     private $cinemaList = array();
 
-    public function deleteCinema($code)
+    public function deleteCinema($name)
     {
         $this->RetrieveData();
 
         $i = 0;
 
         foreach ($this->cinemaList as $value) {
-            if ($value->getId() == $code) {
+            if ($value->getName() == $name) {
                 unset($this->cinemaList[$i]);
             }
             $i++;
@@ -52,7 +52,6 @@ class CinemaRepository
             $ArrayAsientos = $cine->getSeats();
             $ArrayConDatosAsientos = array();
 
-            $ArrayConDatos['id'] = $cine->getId();
             $ArrayConDatos['name'] = $cine->getName();
             $ArrayConDatos['address'] = $cine->getAddress();
 
@@ -60,12 +59,12 @@ class CinemaRepository
                 $ArrayConDatosPeliculas['adult'] = $pelicula->getAdult();
                 $ArrayConDatosPeliculas['idMovie'] = $pelicula->getIdMovie();
                 $ArrayConDatosPeliculas['idGenre'] = $pelicula->getIdGenre();
-                $ArrayConDatosPeliculas['homePage'] = $pelicula->getHomePage();
-                $ArrayConDatosPeliculas['language'] = $pelicula->getLanguage();
+                $ArrayConDatosPeliculas['originalTitle'] = $pelicula->getOriginalTitle();
                 $ArrayConDatosPeliculas['title'] = $pelicula->getTitle();
                 $ArrayConDatosPeliculas['overview'] = $pelicula->getOverview();
                 $ArrayConDatosPeliculas['posterPath'] = $pelicula->getPosterPath();
                 $ArrayConDatosPeliculas['releaseDate'] = $pelicula->getReleaseDate();
+                $ArrayConDatosPeliculas['backdropPath'] = $pelicula->getBackdropPath();
                 $ArrayConDatos['billBoard'][] = $ArrayConDatosPeliculas;
             }
 
@@ -84,7 +83,6 @@ class CinemaRepository
         file_put_contents('Data/cinemas.json', $jsonContent);
     }
 
-
     private function RetrieveData()
     {
         $this->cinemaList = array();
@@ -98,7 +96,6 @@ class CinemaRepository
                 $arrayMovies = array();
                 $arraySeats = array();
                 $cinema = new Cinema();
-                $cinema->setId($valuesArray['id']);
                 $cinema->setName($valuesArray['name']);
                 $cinema->setAddress($valuesArray['address']);
 
@@ -109,12 +106,12 @@ class CinemaRepository
                     $peli->setAdult($movie['adult']);
                     $peli->setIdGenre($movie['idGenre']);
                     $peli->setIdMovie($movie['idMovie']);
-                    $peli->setHomePage($movie['homePage']);
-                    $peli->setLanguage($movie['language']);
                     $peli->setTitle($movie['title']);
+                    $peli->setOriginalTitle($movie['originalTitle']);
                     $peli->setOverview($movie['overview']);
                     $peli->setPosterPath($movie['posterPath']);
                     $peli->setReleaseDate($movie['releaseDate']);
+                    $peli->setBackdropPath($movie['backdropPath']);
                     array_push($arrayMovies, $peli);
                 }
                 $cinema->setBillBoard($arrayMovies);
