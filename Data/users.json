@@ -1,0 +1,36 @@
+[
+    {
+        "userName": "juanludu",
+        "password": "1234",
+        "email": "juan@gmail.com",
+        "firstname": "Juan Martin",
+        "lastname": "Ludueña",
+        "permissions": true,
+        "tickets": [  
+        ]
+    },
+    {
+        "userName": "bpilegi98",
+        "password": "4321",
+        "email": "bianca@gmail.com",
+        "firstname": "Bianca",
+        "lastname": "Pilegi",
+        "permissions": false,
+        "tickets": [
+            {
+                "price": 120,
+                "id": 0,
+                "cinema": "Ambassador",
+                "seat": 1,
+                "movie": "Terminator 4",
+                "date": "25\/10\/2019"
+            }
+        ]
+    }
+
+
+
+
+
+
+]

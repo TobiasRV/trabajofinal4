@@ -1,0 +1,410 @@
+{ 
+    "results": [
+      {
+        "popularity": 516.555,
+        "vote_count": 3164,
+        "video": false,
+        "poster_path": "/v0eQLbzT6sWelfApuYsEkYpzufl.jpg",
+        "id": 475557,
+        "adult": false,
+        "backdrop_path": "/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg",
+        "original_language": "en",
+        "original_title": "Joker",
+        "genre_ids": [
+          80,
+          18,
+          53
+        ],
+        "title": "Guasón",
+        "vote_average": 8.6,
+        "overview": "Arthur Fleck (Phoenix) es un hombre ignorado por la sociedad, cuya motivación en la vida es hacer reír. Pero una serie de trágicos acontecimientos le llevarán a ver el mundo de otra forma. Película basada en el popular personaje de DC Comics Joker, conocido como archivillano de Batman, pero que en este film tomará un cariz más realista y oscuro.",
+        "release_date": "2019-10-04"
+      },
+      {
+        "popularity": 206.692,
+        "id": 559969,
+        "video": false,
+        "vote_count": 867,
+        "vote_average": 7.2,
+        "title": "El Camino: Una película de Breaking Bad",
+        "release_date": "2019-10-11",
+        "original_language": "en",
+        "original_title": "El Camino: A Breaking Bad Movie",
+        "genre_ids": [
+          80,
+          18,
+          53
+        ],
+        "backdrop_path": "/uLXK1LQM28XovWHPao3ViTeggXA.jpg",
+        "adult": false,
+        "overview": "Después de escapar de Jack y su pandilla, Jesse Pinkman huye de la policía e intenta escapar de su propia tormenta interna.",
+        "poster_path": "/hoWADuvXs3Ua4AXBAiZYnppTupO.jpg"
+      },
+      {
+        "popularity": 163.901,
+        "vote_count": 275,
+        "video": false,
+        "poster_path": "/gJpbw3pVCAKksp1LgsTGW7c8SFV.jpg",
+        "id": 453405,
+        "adult": false,
+        "backdrop_path": "/c3F4P2oauA7IQmy4hM0OmRt2W7d.jpg",
+        "original_language": "en",
+        "original_title": "Gemini Man",
+        "genre_ids": [
+          28,
+          53
+        ],
+        "title": "Proyecto Géminis",
+        "vote_average": 6,
+        "overview": "Gemini Man es un innovador thriller de acción protagonizado por Will Smith como Henry Brogan, un asesino de élite, que de repente es atacado y perseguido por un misterioso joven operario que aparentemente puede predecir cada uno de sus movimientos. La película está dirigida por el cineasta ganador del Premio de la Academia® Ang Lee y producida por los reconocidos productores Jerry Bruckheimer, David Ellison, Dana Goldberg y Don Granger. También protagonizan Mary Elizabeth Winstead, Clive Owen y Benedict Wong.",
+        "release_date": "2019-10-11"
+      },
+      {
+        "popularity": 122.785,
+        "vote_count": 1606,
+        "video": false,
+        "poster_path": "/9oERKIVyTWpHNum3STVsAGD4ojz.jpg",
+        "id": 474350,
+        "adult": false,
+        "backdrop_path": "/8moTOzunF7p40oR5XhlDvJckOSW.jpg",
+        "original_language": "en",
+        "original_title": "It Chapter Two",
+        "genre_ids": [
+          27
+        ],
+        "title": "It Capítulo dos",
+        "vote_average": 7,
+        "overview": "En el misterioso pueblo de Derry, un malvado payaso llamado Pennywise vuelve 27 años después para atormentar a los ya adultos miembros del Club de los Perdedores, que ahora están más alejados unos de otros.",
+        "release_date": "2019-09-04"
+      },
+      {
+        "popularity": 122.566,
+        "id": 301528,
+        "video": false,
+        "vote_count": 2672,
+        "vote_average": 7.6,
+        "title": "Toy Story 4",
+        "release_date": "2019-06-19",
+        "original_language": "en",
+        "original_title": "Toy Story 4",
+        "genre_ids": [
+          12,
+          16,
+          35,
+          10751,
+          14
+        ],
+        "backdrop_path": "/m67smI1IIMmYzCl9axvKNULVKLr.jpg",
+        "adult": false,
+        "overview": "Woody siempre ha tenido claro cuál es su labor en el mundo, y cuál es su prioridad: cuidar a su dueño, ya sea Andy o Bonnie. Pero cuando Bonnie añade Forky, un nuevo y reluciente juguete a su habitación, arranca una nueva aventura que servirá para que los viejos y nuevos amigos le enseñen a Woody lo grande que puede ser el mundo para un juguete.",
+        "poster_path": "/yF1vPDuHVrAUMX5dy1tVMbAjkEL.jpg"
+      },
+      {
+        "popularity": 121.618,
+        "id": 420809,
+        "video": false,
+        "vote_count": 70,
+        "vote_average": 7,
+        "title": "Maléfica: Dueña del mal",
+        "release_date": "2019-10-16",
+        "original_language": "en",
+        "original_title": "Maleficent: Mistress of Evil",
+        "genre_ids": [
+          12,
+          14,
+          10751
+        ],
+        "backdrop_path": "/HmEXofYSc56wBHIqY6tJDroCSw.jpg",
+        "adult": false,
+        "overview": "Aventura de fantasía que retoma la historia de MALÉFICA varios años más tarde en la que se dieron a conocer los hechos que endurecieron el corazón de la villana más emblemática de Disney y la llevaron a arrojar una maldición sobre la princesa recién nacida: Aurora. La película continúa explorando la compleja relación entre el hada de enormes cuernos y la futura reina, mientras forjan nuevas alianzas y se enfrentan a nuevos adversarios en su lucha por proteger el páramo y las criaturas mágicas que lo habitan.",
+        "poster_path": "/eZOkXqHXWCKytd78TggAtJ0M3gU.jpg"
+      },
+      {
+        "popularity": 93.845,
+        "vote_count": 2,
+        "video": false,
+        "poster_path": "/mAWBfTDAmfpvQGMVFuzuVl49N1P.jpg",
+        "id": 449924,
+        "adult": false,
+        "backdrop_path": "/ekP6EVxL81lZ4ivcqPsoZ72rY0h.jpg",
+        "original_language": "cn",
+        "original_title": "葉問4",
+        "genre_ids": [
+          28,
+          18,
+          36
+        ],
+        "title": "Ip Man 4",
+        "vote_average": 0,
+        "overview": "Ip Man llega a San Francisco, Estados Unidos, donde su estudiante, Bruce Lee , ha molestado a la comunidad local de artes marciales al abrir una escuela de Wing Chun",
+        "release_date": "2019-10-18"
+      },
+      {
+        "popularity": 86.771,
+        "vote_count": 2949,
+        "video": false,
+        "poster_path": "/aKw7oqYdfn4pkKYvp18Gd1YhK6m.jpg",
+        "id": 458156,
+        "adult": false,
+        "backdrop_path": "/stemLQMLDrlpfIlZ5OjllOPT8QX.jpg",
+        "original_language": "en",
+        "original_title": "John Wick: Chapter 3 - Parabellum",
+        "genre_ids": [
+          28,
+          80,
+          53
+        ],
+        "title": "John Wick 3: Parabellum",
+        "vote_average": 7.1,
+        "overview": "Después de matar a un miembro del misterioso gremio internacional de asesinos, la Mesa Alta, John Wick está excomulgado, pero los hombres y mujeres más despiadados del mundo esperan cada  uno su turno.",
+        "release_date": "2019-05-15"
+      },
+      {
+        "popularity": 80.542,
+        "vote_count": 2351,
+        "video": false,
+        "poster_path": "/vKSyaptSA7zZ9H8mSfaDnvyQl9k.jpg",
+        "id": 466272,
+        "adult": false,
+        "backdrop_path": "/kKTPv9LKKs5L3oO1y5FNObxAPWI.jpg",
+        "original_language": "en",
+        "original_title": "Once Upon a Time... in Hollywood",
+        "genre_ids": [
+          35,
+          18
+        ],
+        "title": "Había una vez en Hollywood",
+        "vote_average": 7.6,
+        "overview": "La película se centra en el panorama cambiante de Hollywood a finales de los años 60, cuando la industria empezaba a olvidarse de los pilares clásicos. La estrella de un western televisivo, Rick Dalton (DiCaprio), intenta amoldarse a estos cambios al mismo tiempo que su doble (Pitt). Sin embargo, la vida de Dalton parece que está ligada a sus raíces de Hollywood, puesto que es vecino de la actriz y modelo Sharon Tate (Robbie), que acaba siendo víctima de la familia Manson en la matanza de agosto de 1969.",
+        "release_date": "2019-08-16"
+      },
+      {
+        "popularity": 71.733,
+        "vote_count": 30,
+        "video": false,
+        "poster_path": "/fIkRmyo1UPlwM9zEVfs5QqevmuI.jpg",
+        "id": 338967,
+        "adult": false,
+        "backdrop_path": "/jCCdt0e8Xe9ttvevD4S3TSMNdH.jpg",
+        "original_language": "en",
+        "original_title": "Zombieland: Double Tap",
+        "genre_ids": [
+          28,
+          35,
+          27
+        ],
+        "title": "Tierra de Zombies 2: Tiro de gracia",
+        "vote_average": 7.1,
+        "overview": "Los cazadores de zombis viajan desde la Casa Blanca hasta el corazón de los Estados Unidos, donde tendrán que defenderse de nuevas clases de muertos vivientes que han evolucionado. Mientras intentan salvar el mundo, los miembros de la pandilla también tendrán que aprender a convivir.",
+        "release_date": "2019-10-09"
+      },
+      {
+        "popularity": 68.29,
+        "vote_count": 462,
+        "video": false,
+        "poster_path": "/kG3pY61LWGAzcaSne12CGEeRvtg.jpg",
+        "id": 522938,
+        "adult": false,
+        "backdrop_path": "/spYx9XQFODuqEVoPpvaJI1ksAVt.jpg",
+        "original_language": "en",
+        "original_title": "Rambo: Last Blood",
+        "genre_ids": [
+          28,
+          53
+        ],
+        "title": "Rambo 5: La última misión",
+        "vote_average": 5.9,
+        "overview": "John Rambo está en horas bajas y viviendo en un rancho en Arizona, pero cuando recibe la noticia de que su nieta ha desaparecido, tras haber cruzado la frontera a México para ir a una fiesta, Rambo decide ir en su búsqueda.",
+        "release_date": "2019-09-20"
+      },
+      {
+        "popularity": 63.076,
+        "vote_count": 34,
+        "video": false,
+        "poster_path": "/lJEWS2QCr4DWhrVbEgB5kHMTKAY.jpg",
+        "id": 481084,
+        "adult": false,
+        "backdrop_path": "/nHZpVTiGLj0GXP3D9bFbmvzw73y.jpg",
+        "original_language": "en",
+        "original_title": "The Addams Family",
+        "genre_ids": [
+          16,
+          35,
+          14,
+          27,
+          10751
+        ],
+        "title": "Los Locos Addams",
+        "vote_average": 6.4,
+        "overview": "En esta animación, la macabra familia Addams se está preparando para una fiesta brillante mientras espera la llegada de otros miembros del clan familiar.",
+        "release_date": "2019-10-25"
+      },
+      {
+        "popularity": 61.647,
+        "vote_count": 18,
+        "video": false,
+        "poster_path": "/hi7WQseemJ3mW1Iz29JSgI4FK0l.jpg",
+        "id": 428045,
+        "adult": false,
+        "backdrop_path": "/5yiCqzmxYv36GGdc05egCMHedbX.jpg",
+        "original_language": "ru",
+        "original_title": "Тайна Печати Дракона",
+        "genre_ids": [
+          12,
+          14
+        ],
+        "title": "Viy 2: Viaje a China",
+        "vote_average": 5,
+        "overview": "El aventurero británico Jonathan Green recibe de Pedro el Grande la orden de topografiar una zona inexplorada de Rusia. Su viaje conduce hasta China, donde una princesa ha sido destronada por una diabólica mujer que pretende controlar al gran dragón.",
+        "release_date": "2019-08-16"
+      },
+      {
+        "popularity": 61.019,
+        "vote_count": 29,
+        "video": false,
+        "poster_path": "/suPfemWGPk8xOePePITOhg1C5EP.jpg",
+        "id": 568012,
+        "adult": false,
+        "backdrop_path": "/iGnCzXEx0cFlUbpyAMeHwHWhPhx.jpg",
+        "original_language": "ja",
+        "original_title": "ワンピーススタンピード",
+        "genre_ids": [
+          28,
+          12,
+          16
+        ],
+        "title": "One Piece: Stampede",
+        "vote_average": 8.3,
+        "overview": "Sé testigo de una batalla campal entre piratas, marines, los Siete Señores de la Guerra y el Ejército Revolucionario con motivo del Festival de los Piratas.",
+        "release_date": "2019-08-09"
+      },
+      {
+        "popularity": 54.033,
+        "vote_count": 495,
+        "video": false,
+        "poster_path": "/Ai4mWR2wHh6jemkzu6CI49Zxsw4.jpg",
+        "id": 484641,
+        "adult": false,
+        "backdrop_path": "/pIL9e5cN6RNugDCCLwn3stfb9HE.jpg",
+        "original_language": "fr",
+        "original_title": "Anna",
+        "genre_ids": [
+          28,
+          53
+        ],
+        "title": "Anna: el peligro tiene nombre",
+        "vote_average": 6.4,
+        "overview": "Bajo la hipnotizante belleza de Anna Poliatova yace un secreto que le permite desatar una imparable agilidad y fuerza y convertirse en una de las asesinas más temidas por los gobiernos del mundo.",
+        "release_date": "2019-09-27"
+      },
+      {
+        "popularity": 48.402,
+        "vote_count": 18,
+        "video": false,
+        "poster_path": "/4SC4cyzHWWzDEdszdxHYPWd32YH.jpg",
+        "id": 503919,
+        "adult": false,
+        "backdrop_path": "/5BmcysaAASA00FM0gRjD0ClMUY9.jpg",
+        "original_language": "en",
+        "original_title": "The Lighthouse",
+        "genre_ids": [
+          18,
+          14,
+          27,
+          9648
+        ],
+        "title": "El Faro",
+        "vote_average": 8.5,
+        "overview": "Ambientada a finales del siglo XIX, cuenta la historia de dos fareros que trabajan juntos en una misteriosa isla perdida de Nueva Inglaterra.",
+        "release_date": "2019-10-18"
+      },
+      {
+        "popularity": 46.734,
+        "vote_count": 630,
+        "video": false,
+        "poster_path": "/vPCQHc1LqLEC2ozuFQngqvc2SIO.jpg",
+        "id": 511987,
+        "adult": false,
+        "backdrop_path": "/lm4xH0YwFbVvTgdtau1thNK5S6J.jpg",
+        "original_language": "en",
+        "original_title": "Crawl",
+        "genre_ids": [
+          28,
+          18,
+          27,
+          53
+        ],
+        "title": "Infierno en la tormenta",
+        "vote_average": 6.1,
+        "overview": "Cuando un enorme huracán llega a su pueblo en Florida, Haley ignora las órdenes de evacuación para buscar a su padre. Tras encontrarle gravemente herido, ambos quedan atrapados por la inundación. Prácticamente sin tiempo para escapar de la tormenta que arrecia, Haley y su padre descubren que la subida del nivel del agua es el menor de sus problemas.",
+        "release_date": "2019-07-11"
+      },
+      {
+        "popularity": 46.438,
+        "vote_count": 293,
+        "video": false,
+        "poster_path": "/di8JeI8otBrQMy6SZr4Hc3Ve3oj.jpg",
+        "id": 540901,
+        "adult": false,
+        "backdrop_path": "/5GynP6w2OQWSbKnCLHrBIriF4Cw.jpg",
+        "original_language": "en",
+        "original_title": "Hustlers",
+        "genre_ids": [
+          35,
+          80,
+          18
+        ],
+        "title": "Estafadoras de Wall Street",
+        "vote_average": 6.1,
+        "overview": "Un grupo de stripers de un club neoyorquino forman un equipo para convertir sus mesas de trabajo en sus clientes de Wall Street.",
+        "release_date": "2019-09-12"
+      },
+      {
+        "popularity": 44.616,
+        "vote_count": 190,
+        "video": false,
+        "poster_path": "/bOGQkgI2oWRpCbV13nGGiTsZ8WW.jpg",
+        "id": 513045,
+        "adult": false,
+        "backdrop_path": "/xgfn98c2UzvFWP6MXDzytearmQ3.jpg",
+        "original_language": "en",
+        "original_title": "Stuber",
+        "genre_ids": [
+          28,
+          35,
+          80,
+          53
+        ],
+        "title": "Stuber: Locos al volante",
+        "vote_average": 6.4,
+        "overview": "La vida de un apacible conductor de Uber, Stu (Kumail Nanjiani), cambia repentinamente cuando se sube a su vehículo un pasajero (Dave Bautista) que resulta ser un policía que sigue la pista a un brutal asesino. Stu se ve obligado a luchar por salvar la vida, protagonizando una misión en la que nunca pidió participar, y cuyo principal objetivo tiene claro desde que descubre lo que está sucediendo: obtener las cinco estrellas de calificación en este movido viaje.",
+        "release_date": "2019-07-11"
+      },
+      {
+        "popularity": 44.102,
+        "vote_count": 0,
+        "video": false,
+        "poster_path": "/xGecvRFG8vBQewLAqoNzVSYIdVr.jpg",
+        "id": 290859,
+        "adult": false,
+        "backdrop_path": "/a6cDxdwaQIFjSkXf7uskg78ZyTq.jpg",
+        "original_language": "en",
+        "original_title": "Terminator: Dark Fate",
+        "genre_ids": [
+          28,
+          878
+        ],
+        "title": "Terminator: Destino oscuro",
+        "vote_average": 0,
+        "overview": "Linda Hamilton (“Sarah Connor”) y Arnold Schwarzenegger (“T-800”) regresan con sus icónicas interpretaciones en Terminator: Destino Oculto, dirigida por Tim Miller (Deadpool) y producida por el visionario realizador James Cameron y David Ellison. Después de los eventos ocurridos en Terminator 2: El Juicio Final, Terminator: Destino Oculto también es estelarizada por Mackenzie Davis, Natalia Reyes, Gabriel Luna y Diego Boneta.",
+        "release_date": "2019-11-01"
+      }
+    ],
+    "page": 1,
+    "total_results": 1381,
+    "dates": {
+      "maximum": "2019-10-23",
+      "minimum": "2019-09-05"
+    },
+    "total_pages": 70
+  }
