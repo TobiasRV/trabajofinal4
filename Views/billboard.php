@@ -1,20 +1,11 @@
-<?php namespace Views;
+<?php
 
 include_once(VIEWS_PATH . "header.php");
 include_once(VIEWS_PATH . "nav.php");
 
 use Controllers\MovieController as MovieController;
 
-$api = new MovieController();
 
-$movie = array();
-$genres = $api->getGenres();
-if(isset($_POST["movies"])){
-    $movies = $_POST["movies"];
-}
-else{
-    $movies = $api->getNowPlaying();
-}
 
 ?>
 <div class="container fluid p-0">
@@ -30,7 +21,7 @@ else{
             </div>
             <div class="form-group mr-3">
                 <label for="genre">Genero:</label>
-                <select class="form-control" name="genre">
+                <select class="form-control" name="selectGenre">
                     <option value="null">Sin Genero</option>
                     <?php foreach($genres as $genre){ ?>
                         <option value=<?php echo $genre->getId();?>><?php echo $genre->getName();?></option>
@@ -49,7 +40,15 @@ else{
                     <img class="card-img" src=<?php echo $value->getPosterPath();?> alt="Card image">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $value->getTitle();?></h5>
-                        <p class="card-text"><?php echo $value->getOverview(); ?></p>
+                        <p class="card-text"><?php
+                                            foreach ($value->getIdGenre() as $genero) {
+                                            foreach ($genres as $gen) {
+                                                if ($gen->getId() == $genero) {
+                                                echo $gen->getName() . ", ";
+                                                }
+                                            }
+                                            }
+                                            ?></p>
                         
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#movieDetails<?php echo $value->getTitle();?>">Ver Ficha</button>
                     </div>
@@ -71,7 +70,7 @@ else{
                                     </div>
                                     <div class="row">
                                         <p>Titulo Original: <?php echo $value->getOriginalTitle();?></p>
-                                        <p>Sinopsis: <?php echo $value->getOverview();?></p>
+                                        <p>Sinopsis: <?php echo $value->getOverview();?>
                                         <p>Fecha de Estreno: <?php echo $value->getReleaseDate(); ?></p>
                                     </div>
                                 </div>

@@ -111,22 +111,22 @@ class MovieController
         return $result;
     }
 
-    public function searchMovie(){
+    public function searchMovie($selectTime = "null", $selectGenre = "null"){
         $result= array();
-        if(isset($_POST["selectTime"])){
-            if($_POST["selectTime"] === "nowPlaying"){
-                if($_POST["genre"]!= "null"){
+        if($selectTime != "null"){
+            if($selectTime === "nowPlaying"){
+                if( $selectGenre != "null"){
                   
-                    $result = $this->getNowPlayingMovieByGenre($_POST["genre"]);
+                    $result = $this->getNowPlayingMovieByGenre($selectGenre);
                 }
                 else{
                     $result = $this->getNowPlaying();
                 }
                 
             }
-            if($_POST["selectTime"] === "upcoming"){
-                if($_POST["genre"]!= "null"){
-                    $result = $this->getUpcomingMovieByGenre($_POST["genre"]);
+            if($selectTime === "upcoming"){
+                if($selectGenre!= "null"){
+                    $result = $this->getUpcomingMovieByGenre($selectGenre);
                 }
                 else{
                     $result = $this->getUpcoming();
@@ -137,11 +137,14 @@ class MovieController
         else{
             $result = $this->getNowPlaying();
         }
-        $this->showMovies($result);
+        return $result;
     }
 
-    public function showMovies($movies = array()){
-        $_POST['movies'] = $movies;
+    public function showMovies($selectTime = "null", $selectGenre = "null"){
+        $movies = array();
+        $movies = $this->searchMovie($selectTime,$selectGenre);
+        $genres = array();
+        $genres = $this->getGenres();
         require_once(VIEWS_PATH."billboard.php");
     }
 }
