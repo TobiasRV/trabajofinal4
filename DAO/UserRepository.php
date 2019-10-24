@@ -1,8 +1,9 @@
 <?php namespace DAO;
 
 use Models\User as User;
+use DAO\IRepository as IRepository;
 
-class UserRepository implements IUserRepository
+class UserRepository implements IRepository
 {
     private $userList = array ();
     
@@ -10,31 +11,35 @@ class UserRepository implements IUserRepository
 
     }
 
-    public function create(User $user){ //falta completar
+    public function Add($user){ //falta completar
 
-        session_start();
+        // session_start();
 
-        $add = true;
+        // $add = true;
 
-        if(isset($_SESSION['users'])){
+        // if(isset($_SESSION['users'])){
 
-        $userList = $_SESSION['users'];
+        // $userList = $_SESSION['users'];
 
-        foreach($userList as $key => $value){
+        // foreach($userList as $key => $value){
 
-            if($object->getUser() == $value->getUser()){
+        //     if($object->getUser() == $value->getUser()){
 
-                $add = false;
+        //         $add = false;
 
-            }
-        }
-        }
-        if($add){
+        //     }
+        // }
+        // }
+        // if($add){
 
-            $userList[] = $user;
-            $_SESSION['users'] = $userList;
+        //     $userList[] = $user;
+        //     $_SESSION['users'] = $userList;
 
-        }
+        // }
+
+        $this->getAll();//esto esta bien?
+        $userList[]=$user;
+        $this->saveData();
     }
 
     public function getAll(){
@@ -91,7 +96,7 @@ class UserRepository implements IUserRepository
                 $user->setTickets($valuesArray["tickets"]);
               
 
-                $user->toString();
+                //$user->toString();
                 array_push($this->userList, $user);
             }
         }

@@ -2,7 +2,7 @@
 
 interface IRepository{
 
-    function Add(Movie $movie);
+    function Add($obj);
     function getAll();
     function saveData();
     function retrieveData();

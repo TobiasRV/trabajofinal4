@@ -69,4 +69,8 @@ class User{
 	public function setTickets($tickets){
 		$this->tickets = $tickets;
 	}
+
+	public function toString(){
+		$this->getUserName();
+	}
 }
