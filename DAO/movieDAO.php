@@ -14,24 +14,11 @@ class movieDAO{
 
     public function getNowPlayingMovies(){
 
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.themoviedb.org/3/movie/now_playing?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => array(
-            "cache-control: no-cache"
-        ),
-        ));
-
-        $json = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
+     $json = file_get_contents('https://api.themoviedb.org/3/movie/now_playing?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1');
         $jsonArray = json_decode($json, true);
         $arrayJsonData = $jsonArray["results"];
         $movies = array();
+
 
         for($i=0;$i<count($arrayJsonData); $i++){
             $jsonData = $arrayJsonData[$i];
@@ -63,24 +50,13 @@ class movieDAO{
     }
 
     public function getUpcomingMovies(){
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.themoviedb.org/3/movie/upcoming?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => array(
-            "cache-control: no-cache"
-        ),
-        ));
 
-        $json = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
+        $json = file_get_contents('https://api.themoviedb.org/3/movie/upcoming?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1');
         $jsonArray = json_decode($json, true);
         $arrayJsonData = $jsonArray["results"];
         $movies = array();
+
+
 
         for($i=0;$i<count($arrayJsonData); $i++){
             $jsonData = $arrayJsonData[$i];
@@ -112,21 +88,8 @@ class movieDAO{
     }
 
     public function getGenres(){
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.themoviedb.org/3/genre/movie/list?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => array(
-            "cache-control: no-cache"
-        ),
-        ));
-
-        $json = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
+        
+        $json = file_get_contents('https://api.themoviedb.org/3/genre/movie/list?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX');
         $jsonArray = json_decode($json, true);
         $arrayJsonData = $jsonArray["genres"];
         $genres = array();
