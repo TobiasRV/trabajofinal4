@@ -9,10 +9,10 @@ echo $themoviedb->getNowPlayingMovies();
 */
 
 
-use DAO\UserRepository as UserRepository;
+// use DAO\UserRepository as UserRepository;
 
-$pruebaUR = new UserRepository;
+// $pruebaUR = new UserRepository;
 
-$pruebaUR->retrieveData();
-$pruebaUR->toString();
+// $pruebaUR->retrieveData();
+// $pruebaUR->toString();
 ?>

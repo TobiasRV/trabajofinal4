@@ -37,8 +37,10 @@ class UserRepository implements IRepository
 
         // }
 
-        $this->getAll();//esto esta bien?
-        $userList[]=$user;
+        $this->getAll();
+
+        array_push($this->userList, $user);
+
         $this->saveData();
     }
 
@@ -113,4 +115,24 @@ class UserRepository implements IRepository
 
     }
     
+    public function userNameAt($i)
+    {
+
+        return $this->userList[$i]->getUserName();
+
+    }
+
+    public function passwordAt($i)
+    {
+        return $this->userList[$i]->getPassword();
+
+    }
+    // private $userName;
+    // private $password;
+    // private $email;
+    // private $firstname;
+    // private $lastname;
+    // private $permissions;
+    // private $tickets = array();
+
 }

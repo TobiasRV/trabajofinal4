@@ -14,21 +14,33 @@ class UserController{
     {
             $add=true;
             $userList= new UserRepository();
-            $userList->getAll();
-            foreach($userList as $values){
-                if($values->getEmail()==$email){
+            $userList->getAll(); //trae todos los usuarios registrados en el json hasta el momento
+            foreach($userList as $values) 
+            { 
+                if($values->getEmail()==$email) //comprueba que no exista un usuario con ese mismo email
+                {
                     $add=false;
                 }
             }
             if($add){
-                $user= new User();
+                $user= new User(); //crea el nuevo usuario y setea los datos
                 $user->setUserName($username);
                 $user->setPassword($password);
                 $user->setFirstname($firstname);
                 $user->setLastname($lastname);
                 $user->setEmail($email);
                 $userList->Add($user);
-                require_once(VIEWS_PATH . "index.php");
+
+                //session_start(); se inicia sesion con el nuevo usuario registrado
+
+                $_SESSION["loggedUser"] = $user; //se setea el usuario en sesion a la variable session
+
+                require_once(VIEWS_PATH . "index.php"); //vista del home
+            }
+            else{
+                echo "No se ha podido registrar el usuario. Inténtelo de nuevo." . "<br>";
+
+                $this->signUpForm(); //si no se pudo registrar el usuario se redirecciona al formulario para volver a ingresar datos
             }
     }
 
@@ -37,23 +49,48 @@ class UserController{
         require_once(VIEWS_PATH . "login.php");
     }
 
-    public function logIn($email, $password)
+    public function logIn($user, $password)
     {
 
             $login=false;
-            $userList = new UserRepository();
-            $userList->getAll();
-            foreach ($userList as $values) {
-                if($values->getEmail()==$email && $values->getPassword()==$password){
+            $users = new UserRepository();
+            $users->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
+            var_dump($users);
+            //foreach ($users as $v) 
+            echo count($users);
+            for($i=0;$i<count($users);$i++)
+            {
+                echo "PASO";
+                if(($users->userNameAt($i)==$user) && ($users->passwordAt($i)==$password)) //buscar si coinciden usuario y contraseña
+                {
                     $login=true;
                 }
             }
-            if($login){
-                require_once(VIEWS_PATH . "index.php");
+            if($login==true)
+            {
+                //session_star(); deberia iniciarse sesion aca, al ingresar un usuario registrado a la web
+
+                $loggedUser = new User();
+                $loggedUser->setUserName($user);
+                $loggedUser->setPassword($password);
+
+                $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
+
+                require_once(VIEWS_PATH . "index.php"); //vista del home 
             }
-            else{
-                echo "Datos incorrectos. Inténtelo de nuevo.";
-                $this->logInForm();
+            else
+            {
+                echo "Datos incorrectos. Inténtelo de nuevo." . "<br>";
+                $this->logInForm(); //al estar incorrectos los datos se redirecciona al formulario para volverlos a ingresar
             }
+    }
+
+    public function logOut()
+    {
+        //session_star(); se inicia sesion en caso de que se oprima el boton logout y no haya usuario en sesion
+
+        //session_destroy(); se destruye la sesion
+
+        require_once(VIEWS_PATH . "index.php"); //vista del home
     }
 }
