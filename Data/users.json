@@ -4,10 +4,9 @@
         "password": "1234",
         "email": "juan@gmail.com",
         "firstname": "Juan Martin",
-        "lastname": "Ludueña",
+        "lastname": "Ludue\u00f1a",
         "permissions": true,
-        "tickets": [  
-        ]
+        "tickets": []
     },
     {
         "userName": "bpilegi98",
@@ -15,7 +14,7 @@
         "email": "bianca@gmail.com",
         "firstname": "Bianca",
         "lastname": "Pilegi",
-        "permissions": false,
+        "permissions": null,
         "tickets": [
             {
                 "price": 120,
@@ -26,11 +25,14 @@
                 "date": "25\/10\/2019"
             }
         ]
+    },
+    {
+        "userName": "asd",
+        "password": "asd",
+        "email": "a@a.com",
+        "firstname": "asd",
+        "lastname": "asd",
+        "permissions": null,
+        "tickets": []
     }
-
-
-
-
-
-
 ]

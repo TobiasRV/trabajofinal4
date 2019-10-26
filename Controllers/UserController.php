@@ -15,9 +15,9 @@ class UserController{
             $add=true;
             $userList= new UserRepository();
             $userList->getAll(); //trae todos los usuarios registrados en el json hasta el momento
-            foreach($userList as $values) 
+            for($i=0;$i<count($userList->getArray());$i++)
             { 
-                if($values->getEmail()==$email) //comprueba que no exista un usuario con ese mismo email
+                if($userList->emailAt($i)==$email) //comprueba que no exista un usuario con ese mismo email
                 {
                     $add=false;
                 }
@@ -53,18 +53,24 @@ class UserController{
     {
 
             $login=false;
-            $users = new UserRepository();
-            $users->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
-            var_dump($users);
-            //foreach ($users as $v) 
-            echo count($users);
-            for($i=0;$i<count($users);$i++)
+            $userList = new UserRepository();
+            $userList->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
+            $view=null;
+            for($i=0;$i<count($userList->getArray());$i++)
             {
-                echo "PASO";
-                if(($users->userNameAt($i)==$user) && ($users->passwordAt($i)==$password)) //buscar si coinciden usuario y contraseña
+                if(($userList->userNameAt($i)==$user) && ($userList->passwordAt($i)==$password)) //buscar si coinciden usuario y contraseña
                 {
                     $login=true;
+                    if($userList->permissionsAt($i)==true)
+                    {
+                        $view="admin";
+                    }
+                    else
+                    {
+                        $view="client";
+                    }
                 }
+                
             }
             if($login==true)
             {
@@ -76,7 +82,15 @@ class UserController{
 
                 $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
 
-                require_once(VIEWS_PATH . "index.php"); //vista del home 
+                if($view=="client")
+                {
+                    require_once(VIEWS_PATH . "indexClient.php"); //vista del home cliente
+                }
+                else
+                {
+                    require_once(VIEWS_PATH . "indexAdmin.php"); //vista del home admin
+                }
+                 
             }
             else
             {

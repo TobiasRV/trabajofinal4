@@ -69,7 +69,7 @@ class UserRepository implements IRepository
             array_push($arrayToJson, $valuesArray);
         }
 
-        $jsonContent = json_enconde($arrayToJson, JSON_PRETTY_PRINT);
+        $jsonContent = json_encode($arrayToJson, JSON_PRETTY_PRINT);
 
         file_put_contents('Data/users.json', $jsonContent);
     }
@@ -127,6 +127,23 @@ class UserRepository implements IRepository
         return $this->userList[$i]->getPassword();
 
     }
+
+    public function emailAt($i)
+    {
+        return $this->userList[$i]->getEmail();
+
+    }
+
+    public function getArray(){
+        return $this->userList;
+    }
+
+    public function permissionsAt($i)
+    {
+        return $this->userList[$i]->getPermissions();
+
+    }
+
     // private $userName;
     // private $password;
     // private $email;

@@ -17,9 +17,6 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT?>/Cinema/listCinemas">Listar Cines</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>/User/signUpForm">Sign up</a>
-          </li>
-          <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT?>/User/logInForm">Logout</a>
           </li>
      </ul>
