@@ -16,11 +16,11 @@ include_once(VIEWS_PATH . "nav.php");
     </div>
     <div class="form-group">
       <label for="seats">Nº Asientos</label>
-      <input id="seats" name="seats" placeholder="Cantidad de Asientos" type="text" required="required" class="form-control">
+      <input id="seats" name="seats" placeholder="Cantidad de Asientos" type="number" required="required" min="0" max="200" class="form-control">
     </div>
     <div class="form-group">
       <label for="price">Precio</label>
-      <input id="price" name="price" placeholder="Precio de la Entrada" type="text" required="required" class="form-control">
+      <input id="price" name="price" placeholder="Precio de la Entrada" type="number" required="required" min="0" max="500" class="form-control">
     </div>
     <div class="form-group">
       <table class="table">
