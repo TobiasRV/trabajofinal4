@@ -1,7 +1,19 @@
-<?php
+<?php namespace Views;
 
-include_once(VIEWS_PATH . "header.php");
-include_once(VIEWS_PATH . "navClient.php");
-include_once(VIEWS_PATH . "upcomingslider.php");
+use Controllers\UserController as UserController;
+
+$control = new UserController();
+
+if($control->checkSession())
+{
+    include_once(VIEWS_PATH . "header.php");
+    include_once(VIEWS_PATH . "navClient.php");
+    include_once(VIEWS_PATH . "upcomingslider.php");
+}
+else
+{
+    include_once(VIEWS_PATH . "login.php");
+}
+
 
 ?>

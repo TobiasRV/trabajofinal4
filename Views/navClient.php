@@ -17,7 +17,7 @@
                <a class="nav-link" href="">Comprar tickets</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>/User/logInForm">Logout</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>/User/logOut">Logout</a>
           </li>
      </ul>
 </nav>

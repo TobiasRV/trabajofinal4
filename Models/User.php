@@ -1,12 +1,13 @@
 <?php namespace Models;
 
 class User{
+	private $id=null;
     private $userName;
     private $password;
     private $email;
     private $firstname;
     private $lastname;
-    private $permissions;
+    private $permissions; //asignar un id dependiendo del rol, en un futuro pueden existir mas roles como gerente, empleado, etc
     private $tickets = array();
 
     public function __construct()

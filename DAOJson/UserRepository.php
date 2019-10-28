@@ -1,4 +1,4 @@
-<?php namespace DAO;
+<?php namespace DAOJson;
 
 use Models\User as User;
 use DAO\IRepository as IRepository;
@@ -112,15 +112,14 @@ class UserRepository implements IRepository
         $this->userList = $this->getAll();
         $flag=false;
         $i=0;
-        while($flag==false && $i<count($userList))
+        while($flag==false && $i<count($this->userList))
         {
-            if($userName==$userList->userNameAt($i)){
+            if($userName==$this->userNameAt($i)){
                 $flag=true;
-                return $userList->getUserAt($i);
+                return $this->getUserAt($i);
             }
             $i++;
         }
-        return false;
     }
 
 

@@ -1,9 +1,10 @@
 <?php namespace Controllers;
 
-use DAO\UserRepository as UserRepository;
+use DAOJson\UserRepository as UserRepository;
 use Models\User as User;
 
-class UserController{
+class UserController {
+
 
     public function signUpForm()
     {
@@ -31,8 +32,6 @@ class UserController{
                 $user->setEmail($email);
                 $userList->Add($user);
 
-                //session_start(); se inicia sesion con el nuevo usuario registrado
-
                 $_SESSION["loggedUser"] = $user; //se setea el usuario en sesion a la variable session
 
                 require_once(VIEWS_PATH . "index.php"); //vista del home
@@ -49,14 +48,16 @@ class UserController{
         require_once(VIEWS_PATH . "login.php");
     }
 
-    public function logIn($user, $password)
+    public function logIn($user=null, $password=null)
     {
-
+           
             $login=false;
             $userList = new UserRepository();
             $userList->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
             $view=null;
-            for($i=0;$i<count($userList->getArray());$i++)
+            $i=0;
+            $flag=0;
+            for($i=0;$i<count($userList->getArray()) && $flag==0;$i++)
             {
                 if(($userList->userNameAt($i)==$user) && ($userList->passwordAt($i)==$password)) //buscar si coinciden usuario y contraseña
                 {
@@ -64,22 +65,26 @@ class UserController{
                     if($userList->permissionsAt($i)==true)
                     {
                         $view="admin";
+                        
                     }
                     else
                     {
                         $view="client";
+                        
                     }
+                    $flag=1;
                 }
                 
             }
             if($login==true)
             {
-                //session_star(); deberia iniciarse sesion aca, al ingresar un usuario registrado a la web
-
+                //session_start();
                 $loggedUser = new User();
                 $loggedUser->setUserName($user);
                 $loggedUser->setPassword($password);
-
+                // $loggedUser->$userList->firstNameAt($i);
+                // $loggedUser->$userList->lastNameAt($i);
+                // $loggedUser->$userList->emailAt($i);
                 $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
 
                 if($view=="client")
@@ -101,10 +106,52 @@ class UserController{
 
     public function logOut()
     {
-        //session_star(); se inicia sesion en caso de que se oprima el boton logout y no haya usuario en sesion
-
-        //session_destroy(); se destruye la sesion
-
+        unset($_SESSION["loggedUser"]); //se vacia la variable global
+        //echo "Ha cerrado sesion correctamente"; ponerlo de forma mas bonita visualmente
+        //var_dump($_SESSION["loggedUser"]);
         require_once(VIEWS_PATH . "index.php"); //vista del home
     }
+
+    // public function checkSession($user=null)
+    // {   
+    //     if($user==null)
+    //     {
+    //         return false;
+    //     }
+    //     else
+    //     {
+    //         $userRepo = new UserRepository();
+    //         $userRepo->getAll();
+
+    //         while($flag==false && $i <count($userRepo))
+    //         { 
+    //             if($user->getUserName()==$userList->userNameAt($i))
+    //             {
+    //                 if($user->getPassword() == $userList->passwordAt($i)){ 
+    //                     return $user;    
+    //                 }
+    //                 $flag=true;
+    //             }
+    //             $i++;         
+    //         }
+
+    //     }
+    //     return false;
+    // }
+    public function checkSession() {
+        if (session_status() == PHP_SESSION_NONE)
+             session_start();
+
+        if(isset($_SESSION['loggedUser'])) {
+             $userRepo = new UserRepository();
+
+             $user = $userRepo->searchUser($_SESSION['loggedUser']->getUserName());
+
+             if($user->getPassword() == $_SESSION['loggedUser']->getPassword())
+                  return $user;
+
+        } else {
+             return false;
+        }
+   }
 }

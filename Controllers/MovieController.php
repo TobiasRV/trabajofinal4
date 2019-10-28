@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use DAO\movieDAO as MovieDAO;
+use DAOJson\movieDAO as MovieDAO;
 
 class MovieController
 {

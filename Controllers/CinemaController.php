@@ -4,7 +4,7 @@ namespace Controllers;
 
 ini_set("max_execution_time", 0);
 
-use DAO\CinemaRepository as CinemaRepository;
+use DAOJson\CinemaRepository as CinemaRepository;
 use Controllers\MovieController as MovieController;
 use Models\Cinema as Cinema;
 

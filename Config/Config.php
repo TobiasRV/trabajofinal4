@@ -7,3 +7,13 @@ define("FRONT_ROOT", "http://localhost/trabajofinal4-master"); // ACA HAY QUE CA
 
 //define("FRONT_ROOT", "http://localhost/Proyectos/trabajofinal4/"); // ACA HAY QUE CAMBIAR LA RUTA RELATIVA AL DIRECTORIO ROOT.
 define("FRONT_CSS", FRONT_ROOT . 'Views/css/');
+
+
+//DATABASE
+
+/* BACK */
+
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'MoviePass');
+define('DB_USER', ROOT);
+define('DB_PASS', null);
