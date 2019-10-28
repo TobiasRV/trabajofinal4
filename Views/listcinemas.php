@@ -5,8 +5,18 @@ namespace Views;
 use DAO\CinemaRepository as CinemaRepository;
 use Controllers\MovieController as MovieController;
 
-include_once(VIEWS_PATH . "header.php");
-include_once(VIEWS_PATH . "nav.php");
+//checkear permisos del usuario en sesion para las vistas
+
+if($_SESSION["loggedUser"]->getPermissions()==1)
+{
+  include_once(VIEWS_PATH . "header.php");
+  include_once(VIEWS_PATH . "navAdmin.php");
+}
+else
+{
+  include_once(VIEWS_PATH . "header.php");
+  include_once(VIEWS_PATH . "navClient.php");
+}
 
 $repo = new CinemaRepository();
 

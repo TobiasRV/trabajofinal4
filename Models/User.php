@@ -8,7 +8,8 @@ class User{
     private $firstname;
     private $lastname;
     private $permissions; //asignar un id dependiendo del rol, en un futuro pueden existir mas roles como gerente, empleado, etc
-    private $tickets = array();
+	//1 Admin, 2 Client
+	private $tickets = array();
 
     public function __construct()
     {

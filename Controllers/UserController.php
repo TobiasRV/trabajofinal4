@@ -30,6 +30,7 @@ class UserController {
                 $user->setFirstname($firstname);
                 $user->setLastname($lastname);
                 $user->setEmail($email);
+                $user->setPermissions(1);
                 $userList->Add($user);
 
                 $_SESSION["loggedUser"] = $user; //se setea el usuario en sesion a la variable session
@@ -62,7 +63,7 @@ class UserController {
                 if(($userList->userNameAt($i)==$user) && ($userList->passwordAt($i)==$password)) //buscar si coinciden usuario y contraseña
                 {
                     $login=true;
-                    if($userList->permissionsAt($i)==true)
+                    if($userList->permissionsAt($i)==1)
                     {
                         $view="admin";
                         
@@ -82,9 +83,10 @@ class UserController {
                 $loggedUser = new User();
                 $loggedUser->setUserName($user);
                 $loggedUser->setPassword($password);
-                // $loggedUser->$userList->firstNameAt($i);
-                // $loggedUser->$userList->lastNameAt($i);
-                // $loggedUser->$userList->emailAt($i);
+                $loggedUser->setFirstname($userList->firstNameAt($i-1));
+                $loggedUser->setLastname($userList->lastNameAt($i-1));
+                $loggedUser->setEmail($userList->emailAt($i-1));
+                $loggedUser->setPermissions($userList->permissionsAt($i-1));
                 $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
 
                 if($view=="client")

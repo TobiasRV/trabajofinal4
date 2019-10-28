@@ -5,7 +5,7 @@
         "email": "juan@gmail.com",
         "firstname": "Juan Martin",
         "lastname": "Ludue\u00f1a",
-        "permissions": true,
+        "permissions": 1,
         "tickets": []
     },
     {
@@ -14,7 +14,7 @@
         "email": "bianca@gmail.com",
         "firstname": "Bianca",
         "lastname": "Pilegi",
-        "permissions": null,
+        "permissions": 2,
         "tickets": [
             {
                 "price": 120,
@@ -32,7 +32,7 @@
         "email": "a@a.com",
         "firstname": "asd",
         "lastname": "asd",
-        "permissions": null,
+        "permissions": 2,
         "tickets": []
     }
 ]

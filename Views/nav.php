@@ -8,12 +8,6 @@
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT?>/Movie/showMovies">Cartelera</a>
           </li>
-          <!-- <li class="nav-item">
-               <a class="nav-link" href="<?php //echo FRONT_ROOT?>/Cinema/formAddCinema">Cargar Cine</a>
-          </li>
-          <li class="nav-item">
-               <a class="nav-link" href="<?php //echo FRONT_ROOT?>/Cinema/listCinemas">Listar Cines</a>
-          </li> -->
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT?>/User/signUpForm">Sign up</a>
           </li>
