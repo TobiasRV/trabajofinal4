@@ -57,7 +57,6 @@ $movies = $api->get3Upcoming();
   </div>
 </div> -->
 
-
 <div class="container p-0"> 
    <div class="row">
     <div class="col">
@@ -101,8 +100,8 @@ $movies = $api->get3Upcoming();
               <span class="sr-only">Next</span>
           </a>
       </div>
-
-
     </div>
   </div>
 </div>
+
+<?php include_once(VIEWS_PATH . "footer.php");
