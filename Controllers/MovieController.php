@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 use DAOJson\movieDAO as MovieDAO;
+use DAOJson\cinemaRepository as cinemaRepository;
 class MovieController
 {
     private $movieDAO;
@@ -122,6 +123,8 @@ class MovieController
         $movies = $this->searchMovie($selectTime,$selectGenre);
         $genres = array();
         $genres = $this->getGenres();
+        $cinemaRepository = new cinemaRepository();
+        $cinemaList = $cinemaRepository->getAll();
         require_once(VIEWS_PATH."billboard.php");
     }
 }

@@ -94,7 +94,13 @@ else
                                     <div class="row">
                                         <p>Titulo Original: <?php echo $value->getOriginalTitle();?></p>
                                         <p>Sinopsis: <?php echo $value->getOverview();?>
-                                        <p>Fecha de Estreno: <?php echo $value->getReleaseDate(); ?></p>
+                                        <!-- <p>Fecha de Estreno: <?php //echo $value->getReleaseDate(); ?></p> -->
+                                        <ul class="list-group">Cine: 
+                                            <?php foreach($cinemaList as $cinema){
+                                                if(in_array($value,$cinema->getBillboard())){?>
+                                                    <li class="list-group-item"><?php echo $cinema->getName();?></li>
+                                                <?php } }?>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -108,4 +114,3 @@ else
 </div>
 
 <?php include_once(VIEWS_PATH . "footer.php");?>
-
