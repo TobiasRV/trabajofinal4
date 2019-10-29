@@ -34,5 +34,14 @@
         "lastname": "asd",
         "permissions": 2,
         "tickets": []
+    },
+    {
+        "userName": "soldano",
+        "password": "pepito123",
+        "email": "soldanochristian@hotmail.com",
+        "firstname": "Christian",
+        "lastname": "Soldano",
+        "permissions": 1,
+        "tickets": []
     }
 ]

@@ -1,41 +1,29 @@
 <?php
-
 namespace Controllers;
-
 use DAOJson\movieDAO as MovieDAO;
-
 class MovieController
 {
-
     private $movieDAO;
-
     public function __construct()
     {
         $this->movieDAO = new MovieDAO();
     }
-
     public function getNowPlaying()
     {
         return $this->movieDAO->getNowPlayingMovies();
     }
-
     public function getUpcoming()
     {
         return $this->movieDAO->getUpcomingMovies();
     }
-
     public function get3Upcoming(){
         $result = array();
-
         $result = array_slice($this->getUpcoming(),0,3);
-
         return $result;
     }
-
     public function searchMovieByTitle($title)
     {
         $moviesArray = $this->getNowPlaying();
-
         foreach($moviesArray as $movie){
             if($movie->getTitle() == $title){
                 $resultado = $movie;
@@ -44,22 +32,18 @@ class MovieController
         }
         return $resultado;
     }
-
     public function getGenres()
     {
         return $this->movieDAO->getGenres();
     }
-
     public function getGenreListNameById($idList)
     {
         $genreNames = array();
         foreach ($idList as $id) {
             array_push($genreNames, $this->getGenreNameById($id));
         }
-
         return $genreNames;
     }
-
     public function getGenreNameById($id)
     {
         $genres = $this->movieDAO->getGenres();
@@ -71,7 +55,6 @@ class MovieController
         }
         return $resultado;
     }
-
     public function getGenreIdByName($name)
     {
         $genreList = $this->movieDAO->getGenres();
@@ -82,7 +65,6 @@ class MovieController
         }
         return $genreId;
     }
-
     public function getNowPlayingMovieByGenre($genre){
         $movieList = $this->movieDAO->getNowPlayingMovies();
         $result = array();
@@ -93,11 +75,8 @@ class MovieController
                 array_push($result,$movie);
             }
         }
-
         return $result;
-
     }
-
     public function getUpcomingMovieByGenre($genre){
         $movieList = $this->movieDAO->getUpcomingMovies();
         $result = array();
@@ -110,7 +89,6 @@ class MovieController
         }
         return $result;
     }
-
     public function searchMovie($selectTime = "null", $selectGenre = "null"){
         $result= array();
         if($selectTime != "null"){
@@ -139,7 +117,6 @@ class MovieController
         }
         return $result;
     }
-
     public function showMovies($selectTime = "null", $selectGenre = "null"){
         $movies = array();
         $movies = $this->searchMovie($selectTime,$selectGenre);

@@ -2,9 +2,7 @@
 
 namespace Controllers;
 
-ini_set("max_execution_time", 0);
-
-use DAOJson\CinemaRepository as CinemaRepository;
+use DAO\CinemaRepository as CinemaRepository;
 use Controllers\MovieController as MovieController;
 use Models\Cinema as Cinema;
 
@@ -24,8 +22,8 @@ class CinemaController
         $movieController = new MovieController();
         $nowPlaying = $movieController->getNowPlaying();
 
-        // Traer todos los generos y guardarlos en un array
-        
+        $arrayGeneros = $movieController->getGenres();
+
         require_once(VIEWS_PATH . "addcinema.php");
     }
 
@@ -43,22 +41,49 @@ class CinemaController
 
         $movieController = new MovieController();
 
-        foreach ($pelisPost as $title) {
-            array_push($arrayPeliculas, $movieController->searchMovieByTitle($title));
+        if (!empty($pelisPost)) {
+            foreach ($pelisPost as $title) {
+                array_push($arrayPeliculas, $movieController->searchMovieByTitle($title));
+            }
+            $cinema->setBillBoard($arrayPeliculas);
         }
-        
-        $cinema->setBillBoard($arrayPeliculas);
 
         $this->cineDAO->Add($cinema);
         require_once(VIEWS_PATH . "listcinemas.php");
     }
 
-    public function listCinemas(){
+    public function listCinemas()
+    {
         require_once(VIEWS_PATH . "listcinemas.php");
     }
 
-    public function deleteCinema($name){
-        $this->cineDAO->deleteCinema($name);
+    public function deleteCinema($id)
+    {
+        $this->cineDAO->deleteCinema($id);
+        require_once(VIEWS_PATH . "listcinemas.php");
+    }
+
+    public function modifyBillBoard($id, $moviechecked)
+    {
+        $nuevaCartelera = array();
+        $nuevaCartelera = $moviechecked;
+        $arrayPeliculas = array();
+        $movieController = new MovieController();
+
+        if ($moviechecked != "") {
+            foreach ($nuevaCartelera as $title) {
+                array_push($arrayPeliculas, $movieController->searchMovieByTitle($title));
+            }
+
+            $this->cineDAO->modifyBillBoard($id, $arrayPeliculas);
+        } else
+            $this->cineDAO->modifyBillBoard($id, $arrayPeliculas);
+    }
+
+    public function modifyCinema($id, $nombre, $direccion, $asientos, $precio, $estado = false, $moviechecked = "")
+    {
+        $this->cineDAO->modifyCinema($id, $nombre, $direccion, $asientos, $precio, $estado);
+        $this->modifyBillBoard($id, $moviechecked);
         require_once(VIEWS_PATH . "listcinemas.php");
     }
 }

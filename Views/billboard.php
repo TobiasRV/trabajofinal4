@@ -34,7 +34,7 @@ else
 <div class="container fluid p-0">
     <div class="row mt-3">
         
-        <form class="form-inline" action="<?php echo FRONT_ROOT?>/Movie/searchMovie" method="post">
+        <form class="form-inline" action="<?php echo FRONT_ROOT?>Movie/searchMovie" method="post">
             <div class="form-group mr-3">
                 <label for="selectTime">Fecha:</label>
                 <select class="form-control" name="selectTime">

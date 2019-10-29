@@ -4,14 +4,17 @@ namespace Models;
 
 class Cinema
 {
+	private $id;
+	private $status;
 	private $name;
 	private $address;
 	private $billBoard = array();
 	private $seats = array();
 	private $ticketPrice;
 
-	public function __construct()
-	{ }
+	public function __construct(){
+		$this->status = true;
+	}
 
 	public function createSeats($cant)
 	{
@@ -19,6 +22,22 @@ class Cinema
 			$seat = new Seat($i, false);
 			array_push($this->seats, $seat);
 		}
+	}
+
+	public function getId(){
+		return $this->id;
+	}
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getStatus(){
+		return $this->status;
+	}
+
+	public function setStatus($status){
+		$this->status = $status;
 	}
 
 	public function getSeatsNumer(){
