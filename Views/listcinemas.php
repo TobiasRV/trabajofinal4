@@ -2,6 +2,10 @@
 
 <body>
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
+
+
+
     <?php
     include_once(VIEWS_PATH . "navAdmin.php");
 
@@ -58,8 +62,7 @@
                             ?>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cinemaModify<?php echo $cine->getId(); ?>">Modificar</button>
-                    </td>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cinemaModify<?php echo $cine->getId(); ?>">Modificar</button>                    </td>
                 </tr>
             <?php } ?>
         </tbody>
@@ -70,7 +73,6 @@
 
 
     <!-- MODAL -->
-    <?php foreach($listado as $cine){?>
     <div class="modal fade" id="cinemaModify<?php echo $cine->getId(); ?>">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -118,7 +120,7 @@
                                     <label for="status">
                                         <h5>Estado</h5>
                                     </label><br>
-                                    <input type="checkbox" name="status" data-toggle="toggle" data-on="Activo" data-off="Inactivo" data-onstyle="success" data-offstyle="danger" data-width="100" <?php if ($cine->getStatus() == true) echo "checked"; ?>>
+                                    <input type="checkbox" name="status" data-toggle="toggle" data-on="Activo" data-off="Inactivo" data-onstyle="success" data-offstyle="danger" data-width="100" <?php if($cine->getStatus() == true) echo "checked"; ?>>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -175,6 +177,5 @@
             </div>
         </div>
     </div>
-    <?php } ?>
 
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
