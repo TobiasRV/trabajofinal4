@@ -607,8 +607,8 @@
     {
         "id": 4,
         "status": "on",
-        "name": "asd",
-        "address": "asd",
+        "name": "Cinemacenter",
+        "address": "Acevedo 1256",
         "billBoard": [
             {
                 "adult": false,
@@ -624,6 +624,289 @@
                 "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/v0eQLbzT6sWelfApuYsEkYpzufl.jpg",
                 "releaseDate": "2019-10-04",
                 "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 420809,
+                "idGenre": [
+                    12,
+                    14,
+                    10751
+                ],
+                "originalTitle": "Maleficent: Mistress of Evil",
+                "title": "Maléfica: Dueña del mal",
+                "overview": "Aventura de fantasía que retoma la historia de MALÉFICA varios años más tarde en la que se dieron a conocer los hechos que endurecieron el corazón de la villana más emblemática de Disney y la llevaron a arrojar una maldición sobre la princesa recién nacida: Aurora. La película continúa explorando la compleja relación entre el hada de enormes cuernos y la futura reina, mientras forjan nuevas alianzas y se enfrentan a nuevos adversarios en su lucha por proteger el páramo y las criaturas mágicas que lo habitan.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/eZOkXqHXWCKytd78TggAtJ0M3gU.jpg",
+                "releaseDate": "2019-10-16",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/skvI4rYFrKXS73BJxWGH54Omlvv.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 290859,
+                "idGenre": [
+                    28,
+                    878
+                ],
+                "originalTitle": "Terminator: Dark Fate",
+                "title": "Terminator: Destino oscuro",
+                "overview": "Linda Hamilton (“Sarah Connor”) y Arnold Schwarzenegger (“T-800”) regresan con sus icónicas interpretaciones en Terminator: Destino Oculto, dirigida por Tim Miller (Deadpool) y producida por el visionario realizador James Cameron y David Ellison. Después de los eventos ocurridos en Terminator 2: El Juicio Final, Terminator: Destino Oculto también es estelarizada por Mackenzie Davis, Natalia Reyes, Gabriel Luna y Diego Boneta.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/xGecvRFG8vBQewLAqoNzVSYIdVr.jpg",
+                "releaseDate": "2019-11-01",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/a6cDxdwaQIFjSkXf7uskg78ZyTq.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 338967,
+                "idGenre": [
+                    28,
+                    35,
+                    27
+                ],
+                "originalTitle": "Zombieland: Double Tap",
+                "title": "Tierra de zombies 2: Tiro de gracia",
+                "overview": "En esta secuel, el grupo de protagonistas tendrá que viajar desde la Casa Blanca hasta el corazón de los Estados Unidos, sobreviviendo a nuevas clases de muertos vivientes que han evolucionado desde lo sucedido hace algunos años, así como a algunos supervivientes humanos rezagados. Pero, por encima de todo, tendrán que tratar de soportar los inconvenientes de convivir entre ellos.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/fIkRmyo1UPlwM9zEVfs5QqevmuI.jpg",
+                "releaseDate": "2019-10-09",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/jCCdt0e8Xe9ttvevD4S3TSMNdH.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 454640,
+                "idGenre": [
+                    16,
+                    35,
+                    28,
+                    12,
+                    10751
+                ],
+                "originalTitle": "The Angry Birds Movie 2",
+                "title": "Angry Birds 2",
+                "overview": "En esta nueva aventura, tanto los cerdos como los pájaros tendrán que aunar sus fuerzas para hacer frente a Zeta, la villana interpretada por Leslie Jones. Zeta ha venido desde su isla helada en busca de un lugar más cómodo para vivir, pero su llegada está a punto de poner la vida de Red (Jason Sudeikis), Chuck (Josh Gad), Bomb (Danny McBride), Leonard (Bill Hader) y compañía patas arriba. Secuela de la película 'Angry Birds'.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/xfgMVop9eZ3sP1Qpx9nW5jLKUrJ.jpg",
+                "releaseDate": "2019-08-02",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/k7sE3loFwuU2mqf7FbZBeE3rjBa.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 559969,
+                "idGenre": [
+                    80,
+                    18,
+                    53
+                ],
+                "originalTitle": "El Camino: A Breaking Bad Movie",
+                "title": "El Camino: Una película de Breaking Bad",
+                "overview": "Después de escapar de Jack y su pandilla, Jesse Pinkman huye de la policía e intenta escapar de su propia tormenta interna.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/hoWADuvXs3Ua4AXBAiZYnppTupO.jpg",
+                "releaseDate": "2019-10-11",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/ijiE9WoGSwSzM16zTxvUneJ8RXc.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 417384,
+                "idGenre": [
+                    27,
+                    53
+                ],
+                "originalTitle": "Scary Stories to Tell in the Dark",
+                "title": "Historias de miedo para contar en la oscuridad",
+                "overview": "Mill Valley, Pennsylvania, noche de Halloween, 1968. Después de gastar una broma a un matón de la escuela, Sarah y sus amigos deciden colarse en una casa supuestamente embrujada que una vez perteneció a la poderosa familia Bellows, desatando fuerzas oscuras que no podrán controlar.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/lfmxj0BZuTlwahHB3AEMqvjygef.jpg",
+                "releaseDate": "2019-08-08",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/qBI3Spq93lNxGzecdGpbwV5lOvU.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 568012,
+                "idGenre": [
+                    28,
+                    12,
+                    16
+                ],
+                "originalTitle": "ワンピーススタンピード",
+                "title": "One Piece: Stampede",
+                "overview": "Sé testigo de una batalla campal entre piratas, marines, los Siete Señores de la Guerra y el Ejército Revolucionario con motivo del Festival de los Piratas.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/suPfemWGPk8xOePePITOhg1C5EP.jpg",
+                "releaseDate": "2019-08-09",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/iGnCzXEx0cFlUbpyAMeHwHWhPhx.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 474350,
+                "idGenre": [
+                    27
+                ],
+                "originalTitle": "It Chapter Two",
+                "title": "It Capítulo dos",
+                "overview": "En el misterioso pueblo de Derry, un malvado payaso llamado Pennywise vuelve 27 años después para atormentar a los ya adultos miembros del Club de los Perdedores, que ahora están más alejados unos de otros.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/9oERKIVyTWpHNum3STVsAGD4ojz.jpg",
+                "releaseDate": "2019-09-04",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/8moTOzunF7p40oR5XhlDvJckOSW.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 453405,
+                "idGenre": [
+                    28,
+                    53
+                ],
+                "originalTitle": "Gemini Man",
+                "title": "Proyecto Géminis",
+                "overview": "Gemini Man es un innovador thriller de acción protagonizado por Will Smith como Henry Brogan, un asesino de élite, que de repente es atacado y perseguido por un misterioso joven operario que aparentemente puede predecir cada uno de sus movimientos. La película está dirigida por el cineasta ganador del Premio de la Academia® Ang Lee y producida por los reconocidos productores Jerry Bruckheimer, David Ellison, Dana Goldberg y Don Granger. También protagonizan Mary Elizabeth Winstead, Clive Owen y Benedict Wong.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/gJpbw3pVCAKksp1LgsTGW7c8SFV.jpg",
+                "releaseDate": "2019-10-11",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/c3F4P2oauA7IQmy4hM0OmRt2W7d.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 458156,
+                "idGenre": [
+                    28,
+                    80,
+                    53
+                ],
+                "originalTitle": "John Wick: Chapter 3 - Parabellum",
+                "title": "John Wick 3: Parabellum",
+                "overview": "Después de matar a un miembro del misterioso gremio internacional de asesinos, la Mesa Alta, John Wick está excomulgado, pero los hombres y mujeres más despiadados del mundo esperan cada  uno su turno.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/aKw7oqYdfn4pkKYvp18Gd1YhK6m.jpg",
+                "releaseDate": "2019-05-15",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/stemLQMLDrlpfIlZ5OjllOPT8QX.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 481084,
+                "idGenre": [
+                    16,
+                    35,
+                    14,
+                    10751
+                ],
+                "originalTitle": "The Addams Family",
+                "title": "Los Locos Addams",
+                "overview": "En esta animación, la macabra familia Addams se está preparando para una fiesta brillante mientras espera la llegada de otros miembros del clan familiar.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/307Y96L1iJ6gujCfuGPWNTqgbBd.jpg",
+                "releaseDate": "2019-10-25",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/xS89uFXPKKwyWJgM7ljAmuAtDMh.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 428045,
+                "idGenre": [
+                    12,
+                    14
+                ],
+                "originalTitle": "Тайна Печати Дракона",
+                "title": "Viy 2: Viaje a China",
+                "overview": "El aventurero británico Jonathan Green recibe de Pedro el Grande la orden de topografiar una zona inexplorada de Rusia. Su viaje conduce hasta China, donde una princesa ha sido destronada por una diabólica mujer que pretende controlar al gran dragón.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/hi7WQseemJ3mW1Iz29JSgI4FK0l.jpg",
+                "releaseDate": "2019-08-16",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/5yiCqzmxYv36GGdc05egCMHedbX.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 496243,
+                "idGenre": [
+                    35,
+                    18,
+                    53
+                ],
+                "originalTitle": "기생충",
+                "title": "Parásito",
+                "overview": "Tanto Gi Taek (Song Kang Ho) como su familia están sin trabajo. Cuando su hijo mayor, Gi Woo (Choi Woo Shik), empieza a recibir clases particulares en casa de Park (Lee Sun Gyun), las dos familias, que tienen mucho en común pese a pertenecer a dos mundos totalmente distintos, comienzan una interrelación de resultados impresivibles.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/zHk9i6yFodI6fJPbY85z9HURNnQ.jpg",
+                "releaseDate": "2019-10-18",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 578189,
+                "idGenre": [
+                    28,
+                    80,
+                    18
+                ],
+                "originalTitle": "Black and Blue",
+                "title": "Black and Blue",
+                "overview": "Una policía afroamericana novata de Detroit sorprende a unos policías corruptos asesinando a un narcotraficante, hechos que graba con su cámara. Ellos la perseguirán con el fin de destruir esas imágenes.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/fjmMu9fpqMMF17mCyLhNfkagKB0.jpg",
+                "releaseDate": "2019-10-25",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/zBAoNL50oFRCAJvEEQEKD8M48pV.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 511987,
+                "idGenre": [
+                    28,
+                    18,
+                    27,
+                    53
+                ],
+                "originalTitle": "Crawl",
+                "title": "Infierno en la tormenta",
+                "overview": "Cuando un enorme huracán llega a su pueblo en Florida, Haley ignora las órdenes de evacuación para buscar a su padre. Tras encontrarle gravemente herido, ambos quedan atrapados por la inundación. Prácticamente sin tiempo para escapar de la tormenta que arrecia, Haley y su padre descubren que la subida del nivel del agua es el menor de sus problemas.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/vPCQHc1LqLEC2ozuFQngqvc2SIO.jpg",
+                "releaseDate": "2019-07-11",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/lm4xH0YwFbVvTgdtau1thNK5S6J.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 515195,
+                "idGenre": [
+                    35,
+                    14,
+                    10402,
+                    10749
+                ],
+                "originalTitle": "Yesterday",
+                "title": "Yesterday",
+                "overview": "Jack Malik es un joven músico cuya carrera sólo sabe de fracasos. Un día, luego de un accidente y un apagón eléctrico a nivel mundial, se entera que Los Beatles han desaparecido por completo de la faz de la tierra: nadie recuerda sus temas, ni a sus integrantes y ni siquiera existe información alguna sobre ellos en internet. Todos desconocen ahora al grupo musical más célebre del siglo XX. Todos excepto Jack, y él es el único que además interpreta sus canciones",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/b8VhTJxAitF5ynjosPuqEAQvdlg.jpg",
+                "releaseDate": "2019-06-27",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/t5Kp02Jzixl0KfpwthHp9ZUex9t.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 466272,
+                "idGenre": [
+                    35,
+                    18
+                ],
+                "originalTitle": "Once Upon a Time... in Hollywood",
+                "title": "Había una vez en Hollywood",
+                "overview": "La película se centra en el panorama cambiante de Hollywood a finales de los años 60, cuando la industria empezaba a olvidarse de los pilares clásicos. La estrella de un western televisivo, Rick Dalton (DiCaprio), intenta amoldarse a estos cambios al mismo tiempo que su doble (Pitt). Sin embargo, la vida de Dalton parece que está ligada a sus raíces de Hollywood, puesto que es vecino de la actriz y modelo Sharon Tate (Robbie), que acaba siendo víctima de la familia Manson en la matanza de agosto de 1969.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/vKSyaptSA7zZ9H8mSfaDnvyQl9k.jpg",
+                "releaseDate": "2019-08-16",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/kKTPv9LKKs5L3oO1y5FNObxAPWI.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 522938,
+                "idGenre": [
+                    28,
+                    53
+                ],
+                "originalTitle": "Rambo: Last Blood",
+                "title": "Rambo 5: La última misión",
+                "overview": "John Rambo está en horas bajas y viviendo en un rancho en Arizona, pero cuando recibe la noticia de que su nieta ha desaparecido, tras haber cruzado la frontera a México para ir a una fiesta, Rambo decide ir en su búsqueda.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/kG3pY61LWGAzcaSne12CGEeRvtg.jpg",
+                "releaseDate": "2019-09-20",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/spYx9XQFODuqEVoPpvaJI1ksAVt.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 480105,
+                "idGenre": [
+                    53,
+                    27,
+                    12,
+                    18
+                ],
+                "originalTitle": "47 Meters Down: Uncaged",
+                "title": "Terror a 47 metros: El Segundo Ataque",
+                "overview": "Esta secuela de \"47 Meters Down\" traslada la mortífera acción de los tiburones desde México a Brasil, y seguirá a un grupo de chicas en busca de aventuras en la costa de Recife. Con la esperanza de salir del rutinario sendero turístico, las chicas escuchan algo acerca de unas ruinas submarinas ocultas, pero descubren que bajo las olas turquesas su Atlantis secreta no está completamente deshabitada.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/tWZ9tgEEpeku0hBjjHLBPHd0jXT.jpg",
+                "releaseDate": "2019-10-18",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/3uG3aOhEzFCjcQulsJQiAzLSrw8.jpg"
             }
         ],
         "seats": [
@@ -738,16 +1021,8 @@
             {
                 "number": 28,
                 "status": false
-            },
-            {
-                "number": 29,
-                "status": false
-            },
-            {
-                "number": 30,
-                "status": false
             }
         ],
-        "ticketPrice": "532"
+        "ticketPrice": "299"
     }
 ]

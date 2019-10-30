@@ -1,7 +1,14 @@
-<?php include_once(VIEWS_PATH . "header.php"); ?>
+<?php include_once(VIEWS_PATH . "header.php"); 
 
-<body>
-  <?php include_once(VIEWS_PATH . "navAdmin.php"); ?>
+use Controllers\UserController as UserController;
+
+$userControl = new UserController();
+
+if ($userControl->checkSession() != false) {
+    if ($_SESSION["loggedUser"]->getPermissions() == 1) {
+        include_once(VIEWS_PATH . "header.php");
+        include_once(VIEWS_PATH . "navAdmin.php"); ?>
+        <body>
 
   <div class="container">
     <h2 class="mb-4">Crear Cine</h2>
@@ -62,3 +69,17 @@
     </form>
   </div>
   <?php include_once(VIEWS_PATH . "footer.php"); ?>
+    
+    <?php } else {
+        if ($_SESSION["loggedUser"]->getPermissions() == 2) {
+            include_once(VIEWS_PATH . "index.php");
+        }
+    }
+} else {
+            include_once(VIEWS_PATH . "index.php");
+}
+
+
+?>
+
+

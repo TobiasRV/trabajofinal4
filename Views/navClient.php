@@ -8,7 +8,7 @@
      <ul class="navbar-nav ml-auto">
           
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>/Movie/showMovies">Cartelera</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>Movie/showMovies">Cartelera</a>
           </li>
           <li class="nav-item">
                <a class="nav-link" href="">Carrito</a>
@@ -17,7 +17,7 @@
                <a class="nav-link" href="">Comprar tickets</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>/User/logOut">Logout</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/logOut">Logout</a>
           </li>
      </ul>
 </nav>
