@@ -83,7 +83,7 @@ else
                         <div class="modal-content">
                             <div class="modal-header">
                                 
-                                <h4 class="modal-title"><?php echo $value->getTitle();?></h4>
+                                <h1 class="modal-title"><?php echo $value->getTitle();?></h1>
                                 <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">
@@ -92,17 +92,19 @@ else
                                         <img class="card-img" src=<?php echo $value->getBackdropPath();?> alt="Card image">
                                     </div>
                                     <div class="row">
-                                        <p>Titulo Original: <?php echo $value->getOriginalTitle();?></p>
-                                        <p>Sinopsis: <?php echo $value->getOverview();?>
-                                        <!-- <p>Fecha de Estreno: <?php //echo $value->getReleaseDate(); ?></p> -->
-                                        <ul class="list-group">Cine: 
+                                        <h4>Titulo Original: <?php echo $value->getOriginalTitle();?></h4>
+                                        <p class="text-justify">Sinopsis: <?php echo $value->getOverview();?>
+                                        <p class="font-weight-light">Fecha de Estreno: <?php echo $value->getReleaseDate(); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer-left">
+                            <ul class="list-group">Cine: 
                                             <?php foreach($cinemaList as $cinema){
                                                 if(in_array($value,$cinema->getBillboard())){?>
                                                     <li class="list-group-item"><?php echo $cinema->getName();?></li>
                                                 <?php } }?>
                                         </ul>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

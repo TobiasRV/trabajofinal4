@@ -70,6 +70,7 @@
 
 
     <!-- MODAL -->
+    <?php foreach($listado as $cine){?>
     <div class="modal fade" id="cinemaModify<?php echo $cine->getId(); ?>">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -174,5 +175,6 @@
             </div>
         </div>
     </div>
+    <?php } ?>
 
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
