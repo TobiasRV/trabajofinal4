@@ -1,7 +1,7 @@
 <?php
 namespace Controllers;
 use DAOJson\movieDAO as MovieDAO;
-use DAOJson\CinemaRepository as CinemaRepository;
+use DAO\CinemaRepository as CinemaRepository;
 class MovieController
 {
     private $movieDAO;
@@ -118,6 +118,7 @@ class MovieController
         }
         return $result;
     }
+
     public function showMovies($selectTime = "null", $selectGenre = "null"){
         $movies = array();
         $movies = $this->searchMovie($selectTime,$selectGenre);

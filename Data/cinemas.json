@@ -606,10 +606,26 @@
     },
     {
         "id": 4,
-        "status": "",
+        "status": "on",
         "name": "asd",
         "address": "asd",
-        "billBoard": "No hay peliculas cargadas",
+        "billBoard": [
+            {
+                "adult": false,
+                "idMovie": 475557,
+                "idGenre": [
+                    80,
+                    53,
+                    18
+                ],
+                "originalTitle": "Joker",
+                "title": "Guasón",
+                "overview": "Arthur Fleck (Phoenix) es un hombre ignorado por la sociedad, cuya motivación en la vida es hacer reír. Pero una serie de trágicos acontecimientos le llevarán a ver el mundo de otra forma. Película basada en el popular personaje de DC Comics Joker, conocido como archivillano de Batman, pero que en este film tomará un cariz más realista y oscuro.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/v0eQLbzT6sWelfApuYsEkYpzufl.jpg",
+                "releaseDate": "2019-10-04",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg"
+            }
+        ],
         "seats": [
             {
                 "number": 1,
