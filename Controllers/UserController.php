@@ -30,7 +30,7 @@ class UserController {
                 $user->setFirstname($firstname);
                 $user->setLastname($lastname);
                 $user->setEmail($email);
-                $user->setPermissions(1);
+                $user->setPermissions(2);
                 $userList->Add($user);
 
                 $_SESSION["loggedUser"] = $user; //se setea el usuario en sesion a la variable session
@@ -63,16 +63,6 @@ class UserController {
                 if(($userList->userNameAt($i)==$user) && ($userList->passwordAt($i)==$password)) //buscar si coinciden usuario y contraseña
                 {
                     $login=true;
-                    if($userList->permissionsAt($i)==1)
-                    {
-                        $view="admin";
-                        
-                    }
-                    else
-                    {
-                        $view="client";
-                        
-                    }
                     $flag=1;
                 }
                 
@@ -89,14 +79,15 @@ class UserController {
                 $loggedUser->setPermissions($userList->permissionsAt($i-1));
                 $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
 
-                if($view=="client")
-                {
-                    require_once(VIEWS_PATH . "indexClient.php"); //vista del home cliente
-                }
-                else
-                {
-                    require_once(VIEWS_PATH . "indexAdmin.php"); //vista del home admin
-                }
+                // if($view=="client")
+                // {
+                //     require_once(VIEWS_PATH . "indexClient.php"); //vista del home cliente
+                // }
+                // else
+                // {
+                //     require_once(VIEWS_PATH . "indexAdmin.php"); //vista del home admin
+                // }
+                require_once(VIEWS_PATH . "index.php");
                  
             }
             else
