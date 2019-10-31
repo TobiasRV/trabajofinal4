@@ -1,10 +1,42 @@
 [
     {
         "id": 1,
-        "status": "",
+        "status": "on",
         "name": "Ambassador",
         "address": "Cordoba 1673",
-        "billBoard": "No hay peliculas cargadas",
+        "billBoard": [
+            {
+                "adult": false,
+                "idMovie": 475557,
+                "idGenre": [
+                    80,
+                    18,
+                    53
+                ],
+                "originalTitle": "Joker",
+                "title": "Guasón",
+                "overview": "Arthur Fleck (Phoenix) es un hombre ignorado por la sociedad, cuya motivación en la vida es hacer reír. Pero una serie de trágicos acontecimientos le llevarán a ver el mundo de otra forma. Película basada en el popular personaje de DC Comics Joker, conocido como archivillano de Batman, pero que en este film tomará un cariz más realista y oscuro.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/v0eQLbzT6sWelfApuYsEkYpzufl.jpg",
+                "releaseDate": "2019-10-04",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 511987,
+                "idGenre": [
+                    28,
+                    18,
+                    27,
+                    53
+                ],
+                "originalTitle": "Crawl",
+                "title": "Infierno en la tormenta",
+                "overview": "Cuando un enorme huracán llega a su pueblo en Florida, Haley ignora las órdenes de evacuación para buscar a su padre. Tras encontrarle gravemente herido, ambos quedan atrapados por la inundación. Prácticamente sin tiempo para escapar de la tormenta que arrecia, Haley y su padre descubren que la subida del nivel del agua es el menor de sus problemas.",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/vPCQHc1LqLEC2ozuFQngqvc2SIO.jpg",
+                "releaseDate": "2019-07-11",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/lm4xH0YwFbVvTgdtau1thNK5S6J.jpg"
+            }
+        ],
         "seats": [
             {
                 "number": 1,
@@ -205,6 +237,126 @@
             {
                 "number": 10,
                 "status": false
+            },
+            {
+                "number": 11,
+                "status": false
+            },
+            {
+                "number": 12,
+                "status": false
+            },
+            {
+                "number": 13,
+                "status": false
+            },
+            {
+                "number": 14,
+                "status": false
+            },
+            {
+                "number": 15,
+                "status": false
+            },
+            {
+                "number": 16,
+                "status": false
+            },
+            {
+                "number": 17,
+                "status": false
+            },
+            {
+                "number": 18,
+                "status": false
+            },
+            {
+                "number": 19,
+                "status": false
+            },
+            {
+                "number": 20,
+                "status": false
+            },
+            {
+                "number": 21,
+                "status": false
+            },
+            {
+                "number": 22,
+                "status": false
+            },
+            {
+                "number": 23,
+                "status": false
+            },
+            {
+                "number": 24,
+                "status": false
+            },
+            {
+                "number": 25,
+                "status": false
+            },
+            {
+                "number": 26,
+                "status": false
+            },
+            {
+                "number": 27,
+                "status": false
+            },
+            {
+                "number": 28,
+                "status": false
+            },
+            {
+                "number": 29,
+                "status": false
+            },
+            {
+                "number": 30,
+                "status": false
+            },
+            {
+                "number": 31,
+                "status": false
+            },
+            {
+                "number": 32,
+                "status": false
+            },
+            {
+                "number": 33,
+                "status": false
+            },
+            {
+                "number": 34,
+                "status": false
+            },
+            {
+                "number": 35,
+                "status": false
+            },
+            {
+                "number": 36,
+                "status": false
+            },
+            {
+                "number": 37,
+                "status": false
+            },
+            {
+                "number": 38,
+                "status": false
+            },
+            {
+                "number": 39,
+                "status": false
+            },
+            {
+                "number": 40,
+                "status": false
             }
         ],
         "ticketPrice": "200"
@@ -219,10 +371,10 @@
                 "adult": false,
                 "idMovie": 454640,
                 "idGenre": [
-                    16,
-                    35,
                     28,
                     12,
+                    16,
+                    35,
                     10751
                 ],
                 "originalTitle": "The Angry Birds Movie 2",
@@ -231,6 +383,21 @@
                 "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/xfgMVop9eZ3sP1Qpx9nW5jLKUrJ.jpg",
                 "releaseDate": "2019-08-02",
                 "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/k7sE3loFwuU2mqf7FbZBeE3rjBa.jpg"
+            },
+            {
+                "adult": false,
+                "idMovie": 449924,
+                "idGenre": [
+                    28,
+                    18,
+                    36
+                ],
+                "originalTitle": "葉問4",
+                "title": "Ip Man 4",
+                "overview": "Ip Man llega a San Francisco, Estados Unidos, donde su estudiante, Bruce Lee , ha molestado a la comunidad local de artes marciales al abrir una escuela de Wing Chun",
+                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/mAWBfTDAmfpvQGMVFuzuVl49N1P.jpg",
+                "releaseDate": "2019-10-18",
+                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/ekP6EVxL81lZ4ivcqPsoZ72rY0h.jpg"
             }
         ],
         "seats": [
@@ -353,14 +520,94 @@
             {
                 "number": 30,
                 "status": false
+            },
+            {
+                "number": 31,
+                "status": false
+            },
+            {
+                "number": 32,
+                "status": false
+            },
+            {
+                "number": 33,
+                "status": false
+            },
+            {
+                "number": 34,
+                "status": false
+            },
+            {
+                "number": 35,
+                "status": false
+            },
+            {
+                "number": 36,
+                "status": false
+            },
+            {
+                "number": 37,
+                "status": false
+            },
+            {
+                "number": 38,
+                "status": false
+            },
+            {
+                "number": 39,
+                "status": false
+            },
+            {
+                "number": 40,
+                "status": false
+            },
+            {
+                "number": 41,
+                "status": false
+            },
+            {
+                "number": 42,
+                "status": false
+            },
+            {
+                "number": 43,
+                "status": false
+            },
+            {
+                "number": 44,
+                "status": false
+            },
+            {
+                "number": 45,
+                "status": false
+            },
+            {
+                "number": 46,
+                "status": false
+            },
+            {
+                "number": 47,
+                "status": false
+            },
+            {
+                "number": 48,
+                "status": false
+            },
+            {
+                "number": 49,
+                "status": false
+            },
+            {
+                "number": 50,
+                "status": false
             }
         ],
         "ticketPrice": "300"
     },
     {
         "id": 4,
-        "status": "on",
-        "name": "Cinemacenterr",
+        "status": "",
+        "name": "Cinemacenter",
         "address": "Acevedo 1256",
         "billBoard": "No hay peliculas cargadas",
         "seats": [
@@ -474,14 +721,6 @@
             },
             {
                 "number": 28,
-                "status": false
-            },
-            {
-                "number": 29,
-                "status": false
-            },
-            {
-                "number": 30,
                 "status": false
             }
         ],

@@ -1,178 +1,160 @@
 <?php namespace DAO;
 
 use Models\User as User;
-use DAO\IRepository as IRepository;
+use DAO\Connection as Connection;
 
-class UserRepository implements IRepository
-{
-    private $userList = array ();
+     /**
+      *
+      */
+     class User 
+     {
+          private $connection;
 
-    public function __constructor(){
+          function __construct() {}
 
-    }
+          /**
+           *
+           */
+          public function Add($user) {
 
-    public function Add($user){ 
+               // Guardo como string la consulta sql utilizando como values, marcadores de parámetros con nombre (:name) o signos de interrogación (?) por los cuales los valores reales serán sustituidos cuando la sentencia sea ejecutada
+			$sql = "INSERT INTO users (firstname, lastname, email, username, password, permissions) VALUES (:firstname, :lastname, :email, :username, :password, :permissions)";
 
-        $this->getAll();
+               $parameters['fistname'] = $user->getFirstname();
+               $parameters['lastname'] = $user->getLastname();
+               $parameters['email'] = $user->getEmail();
+               $parameters['username'] = $user->getUserName();
+               $parameters['password'] = $user->getPassword();
+               $parameters['permissions'] = $user->getPermissions();
 
-        array_push($this->userList, $user);
-
-        $this->saveData();
-    }
-
-    public function getAll(){
-
-        $this->retrieveData();
-
-        return $this->userList;
-    }
-
-    public function saveData(){
-
-        $arrayToJson = array();
-
-        foreach($this->userList as $user){
-
-            $valuesArray["userName"] = $user->getUserName();
-            $valuesArray["password"] = $user->getPassword();
-            $valuesArray["email"] = $user->getEmail();
-            $valuesArray["firstname"] = $user->getFirstname();
-            $valuesArray["lastname"] = $user->getLastname();
-            $valuesArray["permissions"] = $user->getPermissions();
-            $valuesArray["tickets"] = $user->getTickets();
-           
-
-            array_push($arrayToJson, $valuesArray);
-        }
-
-        $jsonContent = json_encode($arrayToJson, JSON_PRETTY_PRINT);
-
-        file_put_contents('Data/users.json', $jsonContent);
-    }
+               try {
+                    // creo la instancia connection
+     			$this->connection = Connection::getInstance();
+				// Ejecuto la sentencia.
+				return $this->connection->ExecuteNonQuery($sql, $parameters);
+			} catch(\PDOException $ex) {
+                   throw $ex;
+              }
+          }
 
 
-    public function retrieveData(){
+          /**
+           *
+           */
+          public function read($_email) {
 
-        $this->userList = array ();
-       
-        if(file_exists('Data/users.json')){
+               $sql = "SELECT * FROM users where email = :email";
 
-            $jsonContent = file_get_contents('Data/users.json');
-    
-            $arrayToDecode= ($jsonContent) ? json_decode($jsonContent, true) : array();
-         
-            foreach($arrayToDecode as $valuesArray){
+               $parameters['email'] = $_email;
 
-                $user = new User();
-                
-                $user->setUserName($valuesArray["userName"]);
-                $user->setPassword($valuesArray["password"]);
-                $user->setEmail($valuesArray["email"]);
-                $user->setFirstname($valuesArray["firstname"]);
-                $user->setLastname($valuesArray["lastname"]);
-                $user->setPermissions($valuesArray["permissions"]);
-                $user->setTickets($valuesArray["tickets"]);
-              
-
-                //$user->toString();
-                array_push($this->userList, $user);
-            }
-        }
-    }
-
-    public function toString(){
-
-        $i=0;
-        for($i=0;$i<sizeof($this->userList);$i++){
-
-        echo $this->userList[$i]->getUserName();          
-
-        }
-
-    }
-
-    public function getUserAt($i){
-        return $this->userList[$i];
-    }
-
-    public function userExists($username)
-    {   
-        $flag=false;
-        while($flag==false && $i<count($userList))
-        {
-            if($userName==$userList->userNameAt($i)){
-                $flag=true;
-            }
-            $i++;
-        }
-        return $flag;
-    }
-    //tiene que si o si existir el usuario
-    public function searchUser($userName){ 
-        $this->userList = $this->getAll();
-        $flag=false;
-        $i=0;
-        while($flag==false && $i<count($userList))
-        {
-            if($userName==$userList->userNameAt($i)){
-                $flag=true;
-                return $userList->getUserAt($i);
-            }
-            $i++;
-        }
-        return false;
-    }
+               try {
+                    $this->connection = Connection::getInstance();
+                    $resultSet = $this->connection->execute($sql, $parameters);
+               } catch(Exception $ex) {
+                   throw $ex;
+               }
 
 
-    public function userNameAt($i)
-    {
+               if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+               else
+                    return false;
+          }
 
-        return $this->userList[$i]->getUserName();
+          /**
+           *
+           */
+          public function getAll() {
+               $sql = "SELECT * FROM users";
 
-    }
+               try {
+                    $this->connection = Connection::getInstance();
+                    $resultSet = $this->connection->execute($sql);
+               } catch(Exception $ex) {
+                   throw $ex;
+               }
 
-    public function passwordAt($i)
-    {
-        return $this->userList[$i]->getPassword();
-
-    }
-
-    public function emailAt($i)
-    {
-        return $this->userList[$i]->getEmail();
-
-    }
-
-    public function firstNameAt($i)
-    {
-        return $this->userList[$i]->getFirstname();
-
-    }
-
-
-    public function lastNameAt($i)
-    {
-        return $this->userList[$i]->getLastname();
-
-    }
+               if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+               else
+                    return false;
+          }
 
 
-    public function getArray(){
-        return $this->userList;
-    }
+          /**
+           *
+           */
+          public function edit($_user) {
+               $sql = "UPDATE users SET name = :name, surname = :surname, nationality = :nationality, state = :state, city = :city, birthdate = :birthdate, email = :email, password = :password, avatar = :avatar, role = :role";
 
-    public function permissionsAt($i)
-    {
-        return $this->userList[$i]->getPermissions();
+               $parameters['name'] = $_user->getName();
+               $parameters['surname'] = $_user->getSurname();
+               $parameters['nationality'] = $_user->getNationality();
+               $parameters['state'] = $_user->getState();
+               $parameters['city'] = $_user->getCity();
+               $parameters['birthdate'] = $_user->getBirthdate();
+               $parameters['email'] = $_user->getEmail();
+               $parameters['pass'] = $_user->getPass();
+               $parameters['avatar'] = $_user->getAvatar()['avatar']['name'];
+               $parameters['role'] = $_user->getRole();
 
-    }
+               try {
+                    // creo la instancia connection
+     			$this->connection = Connection::getInstance();
+				// Ejecuto la sentencia.
+				return $this->connection->ExecuteNonQuery($sql, $parameters);
+			} catch(\PDOException $ex) {
+                   throw $ex;
+              }
+          }
 
-    // private $userName;
-    // private $password;
-    // private $email;
-    // private $firstname;
-    // private $lastname;
-    // private $permissions;
-    // private $tickets = array();
+          /**
+           *
+           */
+          public function update($value) {
 
-}
+          }
+          /**
+           *
+           */
+          public function delete($email) {
+               /*$sql = "DELETE FROM usuarios WHERE email = :email";
+
+               $obj_pdo = new Conexion();
+
+               try {
+                    $conexion = $obj_pdo->conectar();
+
+				// Creo una sentencia llamando a prepare. Esto devuelve un objeto statement
+				$sentencia = $conexion->prepare($sql);
+
+                    $sentencia->bindParam(":email", $email);
+
+                    $sentencia->execute();
+
+
+               } catch(PDOException $Exception) {
+
+				throw new MyDatabaseException( $Exception->getMessage( ) , $Exception->getCode( ) );
+
+			}*/
+          }
+
+          /**
+		* Transforma el listado de usuario en
+		* objetos de la clase Usuario
+		*
+		* @param  Array $gente Listado de personas a transformar
+		*/
+		protected function mapear($value) {
+
+			$value = is_array($value) ? $value : [];
+
+			$resp = array_map(function($p){
+				return new M_Usuario($p['id'], $p['name'], $p['surname'], $p['birthdate'], $p['nationality'], $p['state'], $p['city'], $p['email'], $p['password'], $p['avatar'], $p['role']);
+			}, $value);
+
+               return count($resp) > 1 ? $resp : $resp['0'];
+
+		}
+     }

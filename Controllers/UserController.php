@@ -14,6 +14,11 @@ class UserController
         require_once(VIEWS_PATH . "signup.php");
     }
 
+    public function userProfile()
+    {
+        require_once(VIEWS_PATH . "profile.php");
+    }
+
     public function signUp($username, $password, $firstname, $lastname, $email)
     {
         $add = true;
@@ -147,5 +152,13 @@ class UserController
         } else {
             return false;
         }
+    }
+
+    public function modifyUser($firstname, $lastname, $email, $username, $password)
+    {
+        echo "EN PROCESO DE DESARROLLO";
+        // $userList = new UserRepository();
+        // $this->modifyUser($firstname, $lastname, $email, $username, $password);
+        // require_once(VIEWS_PATH . "profile.php");
     }
 }

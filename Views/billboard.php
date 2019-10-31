@@ -1,3 +1,5 @@
+<body class="home">
+
 <?php
 
 use Controllers\MovieController as MovieController;

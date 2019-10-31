@@ -1,3 +1,5 @@
+<body class="home">
+
 <?php include_once(VIEWS_PATH . "header.php"); 
 
 use Controllers\UserController as UserController;
