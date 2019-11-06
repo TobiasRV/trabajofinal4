@@ -3,22 +3,18 @@
 use Models\User as User;
 use DAO\Connection as Connection;
 
-     /**
-      *
-      */
-     class User 
+
+     class User extends Singleton
      {
           private $connection;
 
-          function __construct() {}
+          function __construct() {
 
-          /**
-           *
-           */
+          }
+
           public function Add($user) {
 
-               // Guardo como string la consulta sql utilizando como values, marcadores de parámetros con nombre (:name) o signos de interrogación (?) por los cuales los valores reales serán sustituidos cuando la sentencia sea ejecutada
-			$sql = "INSERT INTO users (firstname, lastname, email, username, password, permissions) VALUES (:firstname, :lastname, :email, :username, :password, :permissions)";
+			$sql = "INSERT INTO Users (firstname, lastname, email, username, password, permissions) VALUES (:firstname, :lastname, :email, :username, :password, :permissions)";
 
                $parameters['fistname'] = $user->getFirstname();
                $parameters['lastname'] = $user->getLastname();
@@ -28,22 +24,16 @@ use DAO\Connection as Connection;
                $parameters['permissions'] = $user->getPermissions();
 
                try {
-                    // creo la instancia connection
      			$this->connection = Connection::getInstance();
-				// Ejecuto la sentencia.
 				return $this->connection->ExecuteNonQuery($sql, $parameters);
 			} catch(\PDOException $ex) {
                    throw $ex;
               }
           }
 
-
-          /**
-           *
-           */
           public function read($_email) {
 
-               $sql = "SELECT * FROM users where email = :email";
+               $sql = "SELECT * FROM Users where email = :email";
 
                $parameters['email'] = $_email;
 
@@ -61,11 +51,9 @@ use DAO\Connection as Connection;
                     return false;
           }
 
-          /**
-           *
-           */
+
           public function getAll() {
-               $sql = "SELECT * FROM users";
+               $sql = "SELECT * FROM Users";
 
                try {
                     $this->connection = Connection::getInstance();
@@ -81,42 +69,25 @@ use DAO\Connection as Connection;
           }
 
 
-          /**
-           *
-           */
           public function edit($_user) {
-               $sql = "UPDATE users SET name = :name, surname = :surname, nationality = :nationality, state = :state, city = :city, birthdate = :birthdate, email = :email, password = :password, avatar = :avatar, role = :role";
+               $sql = "UPDATE users SET firstname = :firstname, lastname = :lastname, email = :email, username = :username, city = :city, birthdate = :birthdate, email = :email, password = :password";
 
-               $parameters['name'] = $_user->getName();
-               $parameters['surname'] = $_user->getSurname();
-               $parameters['nationality'] = $_user->getNationality();
-               $parameters['state'] = $_user->getState();
-               $parameters['city'] = $_user->getCity();
-               $parameters['birthdate'] = $_user->getBirthdate();
-               $parameters['email'] = $_user->getEmail();
-               $parameters['pass'] = $_user->getPass();
-               $parameters['avatar'] = $_user->getAvatar()['avatar']['name'];
-               $parameters['role'] = $_user->getRole();
+               $parameters['fistname'] = $user->getFirstname();
+               $parameters['lastname'] = $user->getLastname();
+               $parameters['email'] = $user->getEmail();
+               $parameters['username'] = $user->getUserName();
+               $parameters['password'] = $user->getPassword();
+               $parameters['permissions'] = $user->getPermissions();
 
                try {
-                    // creo la instancia connection
      			$this->connection = Connection::getInstance();
-				// Ejecuto la sentencia.
 				return $this->connection->ExecuteNonQuery($sql, $parameters);
 			} catch(\PDOException $ex) {
                    throw $ex;
               }
           }
 
-          /**
-           *
-           */
-          public function update($value) {
-
-          }
-          /**
-           *
-           */
+  
           public function delete($email) {
                /*$sql = "DELETE FROM usuarios WHERE email = :email";
 
@@ -140,12 +111,7 @@ use DAO\Connection as Connection;
 			}*/
           }
 
-          /**
-		* Transforma el listado de usuario en
-		* objetos de la clase Usuario
-		*
-		* @param  Array $gente Listado de personas a transformar
-		*/
+
 		protected function mapear($value) {
 
 			$value = is_array($value) ? $value : [];

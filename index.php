@@ -10,6 +10,7 @@
     use Config\Autoload as Autoload;
     use Config\Router as Router;
     use Config\Request as Request;
+    use DAO\Singleton as Singleton;
 
     Autoload::start();
 

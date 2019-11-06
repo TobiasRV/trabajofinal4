@@ -6,7 +6,7 @@ use Models\Cinema as Cinema;
 use Models\Movie as Movie;
 use Models\Seat as Seat;
 
-class CinemaRepository
+class CinemaRepository extends Singleton
 {
     private $cinemaList = array();
 

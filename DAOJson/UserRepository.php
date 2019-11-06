@@ -80,6 +80,29 @@ class UserRepository implements IRepository
         }
     }
 
+    public function edit($user){
+
+        $this->userList = $this->getAll();
+            $flag=false;
+            $i=0;
+            while($flag==false && $i<count($this->userList))
+            {
+                
+                if($user->getEmail()==$this->userList[$i]->getEmail()){
+                    $flag=true;
+                   
+                    $this->userList[$i]->setFirstname($user->getFirstname());
+                    $this->userList[$i]->setLastname($user->getLastname());
+                    $this->userList[$i]->setPassword($user->getPassword());
+                    //$this->userList->setDni($user->getDni());
+                } 
+                $i++;
+            }
+           
+        $this->saveData();
+        }
+        
+
     public function toString(){
 
         $i=0;
@@ -163,6 +186,13 @@ class UserRepository implements IRepository
     public function permissionsAt($i)
     {
         return $this->userList[$i]->getPermissions();
+
+    }
+
+    public function dniAt($i)
+    {
+
+        return $this->userList[$i]->getDni();
 
     }
 

@@ -17,6 +17,7 @@
     <input type="text" name="firstname" id="firstname" placeholder="First Name" required >
     <input type="text" name="lastname" id="lastname" placeholder="Last Name" required >
     <input type="email" name="email" id="email" placeholder="Email" required>
+    <input type="number" name="dni" id="dni" placeholder="DNI" required pattern="[0-9]{8}" title="Solo números (máximo 8 caracteres)">
     <button type="submit" id="login-submit">SIGN UP</button>
 </form>
 

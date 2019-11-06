@@ -8,7 +8,7 @@ class Ticket{
     private $movie;
     private $date;
 
-    public function __construct()
+    public function __construct($price=null, $id=null, $cinema=null, $seat=null, $movie=null, $date=null)
     {
         
     }

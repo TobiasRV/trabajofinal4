@@ -18,7 +18,7 @@ if($userControl->checkSession()!=false)
         if($_SESSION["loggedUser"]->getPermissions()==2)
         {
             include_once(VIEWS_PATH . "header.php");
-            include_once(VIEWS_PATH . "navAdmin.php");
+            include_once(VIEWS_PATH . "navClient.php");
         }
     }
   ?>
@@ -46,6 +46,10 @@ if($userControl->checkSession()!=false)
                     <th scope="row">Contraseña</th>
                     <td><?php echo $_SESSION["loggedUser"]->getPassword(); ?></td>
                 </tr>
+                <!-- <tr>
+                    <th scope="row">DNI</th>
+                    <td><?php //echo $_SESSION["loggedUser"]->getDni(); ?></td>
+                </tr> -->
         </tbody>
     </table>
 
@@ -89,13 +93,13 @@ if($userControl->checkSession()!=false)
                                     <label for="email">
                                         <h5>Email</h5>
                                     </label>
-                                    <input id="email" name="email" placeholder="Email" type="email" required value="<?php echo $_SESSION["loggedUser"]->getEmail(); ?>" class="form-control">
+                                    <input id="email" name="email"  type="email" value="<?php echo $_SESSION["loggedUser"]->getEmail(); ?>" class="form-control" readonly >
                                 </div>
                                 <div class="form-group">
                                     <label for="username">
                                         <h5>Usuario</h5>
                                     </label>
-                                    <input id="username" name="username" placeholder="Usuario" type="text" value="<?php echo $_SESSION["loggedUser"]->getUserName(); ?>" class="form-control" required pattern="[A-Za-z0-9]{1,15}" title="Solo letras o números (máximo 15 caracteres)">
+                                    <input id="username" name="username"  type="text" value="<?php echo $_SESSION["loggedUser"]->getUserName(); ?>" class="form-control" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">

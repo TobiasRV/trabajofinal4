@@ -11,6 +11,7 @@ class Cinema
 	private $billBoard = array();
 	private $seats = array();
 	private $ticketPrice;
+	private $shows = array();
 
 	public function __construct(){
 		$this->status = true;
