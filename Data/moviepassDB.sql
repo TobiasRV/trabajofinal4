@@ -81,7 +81,7 @@ create table creditcards (
 id_creditcard int auto_increment,
 company varchar(50),
 id_user int,
-constraint	pk_id_creditcard primary key (id_creditcard),
+constraint pk_id_creditcard primary key (id_creditcard),
 CONSTRAINT fk_id_user FOREIGN KEY (id_user) references Users(id_user)
 );
 
@@ -102,7 +102,7 @@ id_ticket int auto_increment,
 id_show int,
 id_purchase int,
 constraint id_ticket primary key (id_ticket),
-CONSTRAINT fk_id_show FOREIGN KEY (id_show) references Shows(id_show),
+CONSTRAINT fk_id_show FOREIGN KEY (id_show) references shows(id_show),
 CONSTRAINT fk_id_purchase foreign key (id_purchase) references purchase (id_purchase)
 );
 
