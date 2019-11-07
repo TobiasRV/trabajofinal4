@@ -1,4 +1,4 @@
-(Estas clases no son finales sino una guia de como hay CREO que hay que hacerlas)
+(Estas clases no son finales sino una guia de como CREO que hay que hacerlas)
 
 
 Movie Theater(
@@ -6,8 +6,8 @@ Movie Theater(
 -status
 -name
 -addres
--ticket price
 -billboard
+-ticket price
 -cinemas
 )
 
@@ -41,8 +41,7 @@ Movie(
 Ticket(
 -id
 -id show
--seat
-
+-seat(puede que no)
 )
 
 Genre(.
@@ -59,12 +58,11 @@ User(
 -lastname
 -permissions
 -tickets
--id credit card
 -dni
+-id credit card(puede que no)
 )
 
 Credit card(
 -id
-)
 -type
 )

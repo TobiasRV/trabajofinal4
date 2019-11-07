@@ -7,23 +7,24 @@ class Cinema
 	private $id;
 	private $status;
 	private $name;
-	private $address;
-	private $billBoard = array();
-	private $seats = array();
-	private $ticketPrice;
-	private $shows = array();
+	private $seats;
+	private $idMovieTheater;
 
-	public function __construct(){
+	public function __construct($id = null,$status = null,$name = null, $seats = null)
+	{	
+		$this->id = $id;
 		$this->status = true;
+		$this->name = $name;
+		$this->seats = $seats;
 	}
 
-	public function createSeats($cant)
-	{
-		for ($i = 1; $i <= $cant; $i++) {
-			$seat = new Seat($i, false);
-			array_push($this->seats, $seat);
-		}
-	}
+	// public function createSeats($cant)
+	// {
+	// 	for ($i = 1; $i <= $cant; $i++) {
+	// 		$seat = new Seat($i, false);
+	// 		array_push($this->seats, $seat);
+	// 	}
+	// }
 
 	public function getId(){
 		return $this->id;
@@ -41,17 +42,6 @@ class Cinema
 		$this->status = $status;
 	}
 
-	public function getSeatsNumer(){
-		return count($this->seats);
-	}
-
-	public function setSeats($seats){
-		$this->seats = $seats;
-	}
-
-	public function getSeats(){
-		return $this->seats;
-	}
 
 	public function getName()
 	{
@@ -63,33 +53,20 @@ class Cinema
 		$this->name = $name;
 	}
 
-	public function getAddress()
-	{
-		return $this->address;
+	public function getSeats(){
+		return $this->seats;
+	}
+	public function setSeats($seats){
+		$this->seats = $seats;
 	}
 
-	public function setTicketPrice($ticketPrice)
+	public function getShows()
 	{
-		$this->ticketPrice = $ticketPrice;
+		return $this->shows;
 	}
 
-	public function getTicketPrice()
+	public function setShows($shows)
 	{
-		return $this->ticketPrice;
-	}
-
-	public function setAddress($address)
-	{
-		$this->address = $address;
-	}
-
-	public function getBillBoard()
-	{
-		return $this->billBoard;
-	}
-
-	public function setBillBoard($billBoard)
-	{
-		$this->billBoard = $billBoard;
-	}
+		$this->shows = $shows;
+    }
 }

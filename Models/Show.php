@@ -6,7 +6,8 @@ class Show
     private $date;
     private $id_cinema;
     private $id_movie;
-
+    private $idCinema;
+    
     public function __construct($id=null, $date=null, $id_cinema=null, $id_movie=null)
     {
 

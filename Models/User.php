@@ -13,7 +13,7 @@ class User{
 	private $dni;
 	private $creditCards = array();
 
-    public function __construct( $userName=null, $password=null, $email=null, $firstname=null, $lastname=null, $permissions=null, $dni=null)
+    public function __construct($userName=null, $password=null, $email=null, $firstname=null, $lastname=null, $permissions=null, $dni=null)
     {
 		$this->userName = $userName;
 		$this->password = $password;
