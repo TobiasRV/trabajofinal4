@@ -45,7 +45,7 @@ CONSTRAINT fk_shows_id_cinema foreign key (id_cinema) references Cinemas(id_cine
 CONSTRAINT fk_shows_id_movie foreign key (id_movie) references Movies(id_movie)
 );
 
-
+ 
 
 create table Genres(
 id_genre int,
@@ -73,7 +73,8 @@ dni int,
 permissions int,
 password varchar(50) not null,
 CONSTRAINT pk_id_user PRIMARY KEY (id_user),
-CONSTRAINT unq_email UNIQUE (email)
+CONSTRAINT unq_email UNIQUE (email),
+CONSTRAINT unq_dni UNIQUE (dni)
 );
 
 

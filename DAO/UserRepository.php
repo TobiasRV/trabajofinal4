@@ -14,7 +14,7 @@ use DAO\Connection as Connection;
 
           public function Add($user) {
 
-			$sql = "INSERT INTO Users (firstname, lastname, email, username, password, permissions) VALUES (:firstname, :lastname, :email, :username, :password, :permissions)";
+			$sql = "INSERT INTO Users (firstname, lastname, email, username, password, permissions, dni) VALUES (:firstname, :lastname, :email, :username, :password, :permissions, :dni)";
 
                $parameters['fistname'] = $user->getFirstname();
                $parameters['lastname'] = $user->getLastname();
@@ -22,6 +22,7 @@ use DAO\Connection as Connection;
                $parameters['username'] = $user->getUserName();
                $parameters['password'] = $user->getPassword();
                $parameters['permissions'] = $user->getPermissions();
+               $parameters['dni'] = $user->getDni();
 
                try {
      			$this->connection = Connection::getInstance();
@@ -70,7 +71,7 @@ use DAO\Connection as Connection;
 
 
           public function edit($_user) {
-               $sql = "UPDATE users SET firstname = :firstname, lastname = :lastname, email = :email, username = :username, city = :city, birthdate = :birthdate, email = :email, password = :password";
+               $sql = "UPDATE Users SET firstname = :firstname, lastname = :lastname, email = :email, username = :username, password = :password, permissions = :permissions, dni = :dni WHERE id_user = :id_user";
 
                $parameters['fistname'] = $user->getFirstname();
                $parameters['lastname'] = $user->getLastname();
@@ -78,6 +79,7 @@ use DAO\Connection as Connection;
                $parameters['username'] = $user->getUserName();
                $parameters['password'] = $user->getPassword();
                $parameters['permissions'] = $user->getPermissions();
+               $parameters['dni'] = $user->getDni();
 
                try {
      			$this->connection = Connection::getInstance();
@@ -89,14 +91,13 @@ use DAO\Connection as Connection;
 
   
           public function delete($email) {
-               /*$sql = "DELETE FROM usuarios WHERE email = :email";
+               /*$sql = "DELETE FROM Users WHERE email = :email";
 
                $obj_pdo = new Conexion();
 
                try {
                     $conexion = $obj_pdo->conectar();
 
-				// Creo una sentencia llamando a prepare. Esto devuelve un objeto statement
 				$sentencia = $conexion->prepare($sql);
 
                     $sentencia->bindParam(":email", $email);
@@ -117,7 +118,7 @@ use DAO\Connection as Connection;
 			$value = is_array($value) ? $value : [];
 
 			$resp = array_map(function($p){
-				return new M_Usuario($p['id'], $p['name'], $p['surname'], $p['birthdate'], $p['nationality'], $p['state'], $p['city'], $p['email'], $p['password'], $p['avatar'], $p['role']);
+				return new M_Usuario($p['id_user'], $p['firstname'], $p['lastname'], $p['email'], $p['username'], $p['password'], $p['permissions'], $p['dni']);
 			}, $value);
 
                return count($resp) > 1 ? $resp : $resp['0'];
