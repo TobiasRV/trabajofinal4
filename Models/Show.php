@@ -4,13 +4,14 @@ class Show
 {
     private $id;
     private $date;
+    private $time;
     private $id_cinema;
     private $id_movie;
-    private $idCinema;
+    private $status;
     
-    public function __construct($id=null, $date=null, $id_cinema=null, $id_movie=null)
+    public function __construct()
     {
-
+        $this->status = true;
     }
 
     public function getId()
@@ -21,6 +22,26 @@ class Show
     public function setId($id)
     {
         $this->id=$id;
+    }
+
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    public function setTime($time)
+    {
+        $this->time=$time;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status=$status;
     }
 
     public function getDate()

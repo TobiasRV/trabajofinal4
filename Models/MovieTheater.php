@@ -10,9 +10,8 @@ class MovieTheater
     private $billBoard = array();
 	private $cinemas = array();
 
-    public function __construct($id = null ,$status = null ,$name = null ,$address = null ,$ticketPrice = null)
+    public function __construct()
     {
-        $this->id = $id;
 		$this->status = true;
     }
     

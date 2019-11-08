@@ -10,8 +10,6 @@ class movieDAO{
         
     }
     
-    
-
     public function getNowPlayingMovies(){
 
      $json = file_get_contents('https://api.themoviedb.org/3/movie/now_playing?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1');
@@ -108,9 +106,31 @@ class movieDAO{
         return $genres;
     }
 
+    public function getMovieDetails($idMovie){
+        $json = file_get_contents('https://api.themoviedb.org/3/movie/%27.$idMovie.%27?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX%27');
+        $jsonData = json_decode($json, true);
+        $adult = $jsonData["adult"];
+        $idGenre = array();
+        $idGenre = $jsonData["genre_ids"];
+        $idMovie = $jsonData["id"];
+        $title = $jsonData["title"];
+        $originalTitle = $jsonData["original_title"];
+        $overview = $jsonData["overview"];
+        $posterPath = "https://image.tmdb.org/t/p/original" . $jsonData["poster_path"];
+        $releaseDate = $jsonData["release_date"];
+        $backdropPath = "https://image.tmdb.org/t/p/original" . $jsonData["backdrop_path"];
+        $movie = new Movie();
+        $movie->setAdult($adult);
+        $movie->setIdGenre($idGenre);
+        $movie->setIdMovie($idMovie);
+        $movie->setTitle($title);
+        $movie->setOriginalTitle($originalTitle);
+        $movie->setOverview($overview);
+        $movie->setPosterPath($posterPath);
+        $movie->setReleaseDate($releaseDate);
+        $movie->setBackdropPath($backdropPath);
+
+        return $movie;
+    }
+
 }
-
-
-
-
-?>

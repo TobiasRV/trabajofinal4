@@ -606,7 +606,7 @@
     },
     {
         "id": 4,
-        "status": "",
+        "status": "on",
         "name": "Cinemacenter",
         "address": "Acevedo 1256",
         "billBoard": "No hay peliculas cargadas",

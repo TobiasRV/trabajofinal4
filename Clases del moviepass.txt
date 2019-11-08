@@ -3,27 +3,33 @@
 
 Movie Theater(
 -id
--status
+-status (baja logica)
 -name
 -addres
 -billboard
 -ticket price
--cinemas
+-cinemas (salas)
+)
+
+Seats(
+    id
+    status
 )
 
 Cinema(
 -id
 -status
 -name/number
--shows
+-shows (funciones)
+-seats 
 )
 
 Show(
 -id
 -date
 -time
--movie(id movie)
--seats
+-movie (id movie)
+-seats 
 )
 
 Movie(
@@ -41,7 +47,7 @@ Movie(
 Ticket(
 -id
 -id show
--seat(puede que no)
+-seat
 )
 
 Genre(.
@@ -66,3 +72,4 @@ Credit card(
 -id
 -type
 )
+
