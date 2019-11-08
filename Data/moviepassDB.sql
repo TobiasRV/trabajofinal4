@@ -2,6 +2,10 @@ create database MoviePass;
 use MoviePass;
 
 
+-------------------------------------------------------------------------------
+--                               TABLES
+-------------------------------------------------------------------------------
+
 create table MovieTheaters(
 id_movietheater int auto_increment,
 name varchar(20),
@@ -107,6 +111,31 @@ CONSTRAINT fk_id_purchase foreign key (id_purchase) references purchase (id_purc
 );
 
 
+-------------------------------------------------------------------------------
+--                         STORE PROCEDURES
+-------------------------------------------------------------------------------
 
+DELIMITER //
+CREATE PROCEDURE cargarMT (IN nameMT varchar(20), IN addressMT varchar(20), IN ticketPriceMT int, IN statusMT boolean)
+BEGIN
+insert into MovieTheaters(name, address, ticketPrice, status)
+values(nameMT, addressMT, ticketPriceMT, statusMT);
+END//
+
+call cargarMT ('Cine Paseo', 'Cordoba 2555', 200, true);
+call cargarMT ('Cinemacenter', 'Salta 456', 500, false);
+call cargarMT ('Cine Gallegos', 'Mendoza 6589', 800, true);
+
+
+DELIMITER //
+CREATE PROCEDURE cargarU (IN userNameU varchar(20), IN firstnameU varchar(50), IN lastnameU varchar(50), IN emailU varchar(50), IN dniU int, IN permissionsU int, IN passwordU varchar(50))
+BEGIN
+insert into Users(userName, firstname, lastname, email, dni, permissions, password)
+values(userNameU, firstnameU, lastnameU, emailU, dniU, permissionsU, passwordU);
+END//
+
+call cargarU ('juanludu', 'Juan', 'Luduenia', 'juan@gmail.com', 41306521, 1, '1234');
+call cargarU ('bpilegi98', 'Bianca', 'Pilegi', 'bianca@gmail.com', 41307541, 2, '4321');
+call cargarU('asd', 'asd', 'asd', 'asd@gmail.com', 41306988, 2, 'asd123');
 
 

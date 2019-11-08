@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use DAOJson\UserRepository as UserRepository;
+use DAO\UserRepository as UserRepository;
 use Models\User as User;
 
 class UserController
