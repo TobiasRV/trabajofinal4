@@ -29,6 +29,9 @@ class CinemaRepository
     {
         $this->RetrieveData();
 
+        $id = count($this->cinemaList) + 1;
+        $cinema->setId($id);
+
         array_push($this->cinemaList, $cinema);
 
         $this->Savedata();

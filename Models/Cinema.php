@@ -2,29 +2,38 @@
 
 namespace Models;
 
+use Models\Seat as Seat;
+
 class Cinema
 {
 	private $id;
 	private $status;
 	private $name;
-	private $seats;
+	private $seats = array();
 	private $idMovieTheater;
 
-	public function __construct($id = null,$status = null,$name = null, $seats = null)
+	public function __construct()
 	{	
-		$this->id = $id;
 		$this->status = true;
-		$this->name = $name;
-		$this->seats = $seats;
 	}
 
-	// public function createSeats($cant)
-	// {
-	// 	for ($i = 1; $i <= $cant; $i++) {
-	// 		$seat = new Seat($i, false);
-	// 		array_push($this->seats, $seat);
-	// 	}
-	// }
+	public function createSeats($seatsNumber)
+	{
+		$this->seats = array();
+		
+		for ($i = 1; $i <= $seatsNumber; $i++) {
+			$seat = new Seat($i, false);
+			array_push($this->seats, $seat);
+		}
+	}
+
+	public function getIdMovieTheater(){
+		return $this->idMovieTheater;
+	}
+
+	public function setIdMovieTheater($idMovieTheater){
+		$this->idMovieTheater = $idMovieTheater;
+	}
 
 	public function getId(){
 		return $this->id;

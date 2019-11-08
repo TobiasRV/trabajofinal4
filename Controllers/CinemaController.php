@@ -1,89 +1,49 @@
-<?php
+<?php namespace Controllers;
 
-namespace Controllers;
-
-use DAO\CinemaRepository as CinemaRepository;
-use Controllers\MovieController as MovieController;
+use DAOJson\CinemaDAO as CinemaDAO;
 use Models\Cinema as Cinema;
 
-
-class CinemaController
-{
-
-    private $cineDAO;
-
+class CinemaController{
+    private $cinemaDAO;
+    
     public function __construct()
-    {
-        $this->cineDAO = new CinemaRepository();
+    { 
+        $this->cinemaDAO = new CinemaDAO();
     }
 
-    public function formAddCinema()
-    {
-        $movieController = new MovieController();
-        $nowPlaying = $movieController->getNowPlaying();
-
-        $arrayGeneros = $movieController->getGenres();
-
-        require_once(VIEWS_PATH . "addcinema.php");
-    }
-
-    public function addCinema($name, $address, $seats, $price, $moviechecked = array())
+    public function createCinema($name, $seatsNumber, $idMovieTheater)
     {
         $cinema = new Cinema();
+        $cinema->setId($this->getNextId());
         $cinema->setName($name);
-        $cinema->setAddress($address);
-        $cinema->createSeats($seats);
-        $cinema->setTicketPrice($price);
+        $cinema->createSeats($seatsNumber);
+        $cinema->setIdMovieTheater($idMovieTheater);
 
-        $pelisPost = array();
-        $pelisPost = $moviechecked;
-        $arrayPeliculas = array();
+        $this->showDAO->Add($cinema);
 
-        $movieController = new MovieController();
+    }
 
-        if (!empty($pelisPost)) {
-            foreach ($pelisPost as $title) {
-                array_push($arrayPeliculas, $movieController->searchMovieByTitle($title));
+    public function getNextId()
+    {
+        $cinemaList = $this->cinemaDAO->getAll();
+        $newId = count($cinemaList) + 1;
+        return $newId;
+    }
+
+    public function modifyCinema($id, $status, $name, $seatsNumber, $idMovieTheater){
+        $cinemaList = $this->cinemaDAO->getAll();
+
+        foreach($cinemaList as $cinema){
+            if($cinema->getId() == $id){
+                $cinema->setStatus($status);
+                $cinema->setName($name);
+                $cinema->createSeats($seatsNumber);
+                $cinema->setIdMovieTheater($idMovieTheater);
+                break;
             }
-            $cinema->setBillBoard($arrayPeliculas);
         }
-
-        $this->cineDAO->Add($cinema);
-        require_once(VIEWS_PATH . "listcinemas.php");
+        $this->showDAO->saveList($cinemaList);
     }
 
-    public function listCinemas()
-    {
-        require_once(VIEWS_PATH . "listcinemas.php");
-    }
 
-    public function deleteCinema($id)
-    {
-        $this->cineDAO->deleteCinema($id);
-        require_once(VIEWS_PATH . "listcinemas.php");
-    }
-
-    public function modifyBillBoard($id, $moviechecked)
-    {
-        $nuevaCartelera = array();
-        $nuevaCartelera = $moviechecked;
-        $arrayPeliculas = array();
-        $movieController = new MovieController();
-
-        if ($moviechecked != "") {
-            foreach ($nuevaCartelera as $title) {
-                array_push($arrayPeliculas, $movieController->searchMovieByTitle($title));
-            }
-
-            $this->cineDAO->modifyBillBoard($id, $arrayPeliculas);
-        } else
-            $this->cineDAO->modifyBillBoard($id, $arrayPeliculas);
-    }
-
-    public function modifyCinema($id, $nombre, $direccion, $asientos, $precio, $estado = false, $moviechecked = "")
-    {
-        $this->cineDAO->modifyCinema($id, $nombre, $direccion, $asientos, $precio, $estado);
-        $this->modifyBillBoard($id, $moviechecked);
-        require_once(VIEWS_PATH . "listcinemas.php");
-    }
 }
