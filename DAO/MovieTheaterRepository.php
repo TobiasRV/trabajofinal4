@@ -77,6 +77,9 @@ class MovieTheaterRepository extends Singleton
 
 
           public function edit($movieTheater) {
+
+
+            
                $sql = "UPDATE MovieTheaters SET status = :status, name = :name, address = :address, ticketPrice = :ticketPrice WHERE id_movietheater = :id_movietheater";
 
                $parameters['status'] = $movieTheater->getStatus();

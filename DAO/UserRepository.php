@@ -4,7 +4,7 @@ use Models\User as User;
 use DAO\Connection as Connection;
 
 
-     class User extends Singleton
+     class UserRepository extends Singleton
      {
           private $connection;
 
@@ -14,12 +14,12 @@ use DAO\Connection as Connection;
 
           public function Add($user) {
 
-			$sql = "INSERT INTO Users (firstname, lastname, email, username, password, permissions, dni) VALUES (:firstname, :lastname, :email, :username, :password, :permissions, :dni)";
+			$sql = "INSERT INTO Users (firstname, lastname, email, userName, password, permissions, dni) VALUES (:firstname, :lastname, :email, :userName, :password, :permissions, :dni)";
 
                $parameters['fistname'] = $user->getFirstname();
                $parameters['lastname'] = $user->getLastname();
                $parameters['email'] = $user->getEmail();
-               $parameters['username'] = $user->getUserName();
+               $parameters['userName'] = $user->getUserName();
                $parameters['password'] = $user->getPassword();
                $parameters['permissions'] = $user->getPermissions();
                $parameters['dni'] = $user->getDni();
@@ -52,6 +52,10 @@ use DAO\Connection as Connection;
                     return false;
           }
 
+          public function getArray(){
+               $this->getAll();
+           }
+
 
           public function getAll() {
                $sql = "SELECT * FROM Users";
@@ -71,12 +75,12 @@ use DAO\Connection as Connection;
 
 
           public function edit($_user) {
-               $sql = "UPDATE Users SET firstname = :firstname, lastname = :lastname, email = :email, username = :username, password = :password, permissions = :permissions, dni = :dni WHERE id_user = :id_user";
+               $sql = "UPDATE Users SET firstname = :firstname, lastname = :lastname, email = :email, userName = :userName, password = :password, permissions = :permissions, dni = :dni WHERE id_user = :id_user";
 
                $parameters['fistname'] = $user->getFirstname();
                $parameters['lastname'] = $user->getLastname();
                $parameters['email'] = $user->getEmail();
-               $parameters['username'] = $user->getUserName();
+               $parameters['userName'] = $user->getUserName();
                $parameters['password'] = $user->getPassword();
                $parameters['permissions'] = $user->getPermissions();
                $parameters['dni'] = $user->getDni();
@@ -118,7 +122,7 @@ use DAO\Connection as Connection;
 			$value = is_array($value) ? $value : [];
 
 			$resp = array_map(function($p){
-				return new M_Usuario($p['id_user'], $p['firstname'], $p['lastname'], $p['email'], $p['username'], $p['password'], $p['permissions'], $p['dni']);
+				return new User($p['id_user'], $p['firstname'], $p['lastname'], $p['email'], $p['userName'], $p['password'], $p['permissions'], $p['dni']);
 			}, $value);
 
                return count($resp) > 1 ? $resp : $resp['0'];
