@@ -15,14 +15,17 @@ class User{
 
     public function __construct($userName=null, $password=null, $email=null, $firstname=null, $lastname=null, $permissions=null, $dni=null)
     {
-		$this->userName = $userName;
-		$this->password = $password;
-		$this->email = $email;
-		$this->firstname = $firstname;
-		$this->lastname = $lastname;
-		$this->permissions = $permissions;
-		$this->dni = $dni;
-    }
+
+	}
+
+	public function getId(){
+		return $this->id;
+	}
+
+	
+	public function setId($id){
+		$this->id=$id;
+	}
 
     public function getUserName(){
 		return $this->userName;

@@ -12,18 +12,19 @@ use DAO\Connection as Connection;
 
           }
 
+         
+
           public function Add($user) {
 
 			$sql = "INSERT INTO Users (firstname, lastname, email, userName, password, permissions, dni) VALUES (:firstname, :lastname, :email, :userName, :password, :permissions, :dni)";
 
-               $parameters['fistname'] = $user->getFirstname();
+               $parameters['firstname'] = $user->getFirstname();
                $parameters['lastname'] = $user->getLastname();
                $parameters['email'] = $user->getEmail();
                $parameters['userName'] = $user->getUserName();
                $parameters['password'] = $user->getPassword();
-               $parameters['permissions'] = $user->getPermissions();
+               $parameters['permissions'] = 2;
                $parameters['dni'] = $user->getDni();
-
                try {
      			$this->connection = Connection::getInstance();
 				return $this->connection->ExecuteNonQuery($sql, $parameters);
@@ -52,10 +53,6 @@ use DAO\Connection as Connection;
                     return false;
           }
 
-          public function getArray(){
-               $this->getAll();
-           }
-
 
           public function getAll() {
                $sql = "SELECT * FROM Users";
@@ -74,17 +71,13 @@ use DAO\Connection as Connection;
           }
 
 
-          public function edit($_user) {
-               $sql = "UPDATE Users SET firstname = :firstname, lastname = :lastname, email = :email, userName = :userName, password = :password, permissions = :permissions, dni = :dni WHERE id_user = :id_user";
+          public function edit($user) {
+               $sql = "UPDATE Users SET firstname = :firstname, lastname = :lastname, password = :password WHERE id_user = :id_user";
 
-               $parameters['fistname'] = $user->getFirstname();
+               $parameters['firstname'] = $user->getFirstname();
                $parameters['lastname'] = $user->getLastname();
-               $parameters['email'] = $user->getEmail();
-               $parameters['userName'] = $user->getUserName();
-               $parameters['password'] = $user->getPassword();
-               $parameters['permissions'] = $user->getPermissions();
-               $parameters['dni'] = $user->getDni();
-
+               $parameters['password'] = $user->getPassword();   
+               $parameters['id_user'] = $user->getId();          
                try {
      			$this->connection = Connection::getInstance();
 				return $this->connection->ExecuteNonQuery($sql, $parameters);
@@ -122,8 +115,17 @@ use DAO\Connection as Connection;
 			$value = is_array($value) ? $value : [];
 
 			$resp = array_map(function($p){
-				return new User($p['id_user'], $p['firstname'], $p['lastname'], $p['email'], $p['userName'], $p['password'], $p['permissions'], $p['dni']);
-			}, $value);
+                    $user = new User();
+                    $user->setId($p['id_user']);
+                    $user->setUserName($p['userName']);
+                    $user->setFirstName($p['firstname']);
+                    $user->setLastName($p['lastname']);
+                    $user->setEmail($p['email']);
+                    $user->setPassword($p['password']);
+                    $user->setPermissions($p['permissions']);
+                    $user->setDni($p['dni']);
+                    return $user;
+               }, $value);
 
                return count($resp) > 1 ? $resp : $resp['0'];
 

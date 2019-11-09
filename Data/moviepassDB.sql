@@ -68,7 +68,7 @@ CONSTRAINT fk_genre_x_movie_id_movie FOREIGN KEY (id_movie) references Movies(id
 
 
 CREATE TABLE Users(
-id_user int auto_increment,
+id_user int auto_increment not null,
 userName varchar(50) not null,
 firstname varchar(50),
 lastname varchar(50),

@@ -43,7 +43,6 @@ class Connection {
 			// Creo una sentencia llamando a prepare. Esto devuelve un objeto statement
                $this->pdoStatement = $this->pdo->prepare($query);
 
-               var_dump($this->pdoStatement);
 
                foreach($parameters as $parameterName => $value)
                {
