@@ -1,0 +1,75 @@
+(Estas clases no son finales sino una guia de como CREO que hay que hacerlas)
+
+
+Movie Theater(
+-id
+-status (baja logica)
+-name
+-addres
+-billboard
+-ticket price
+-cinemas (salas)
+)
+
+Seats(
+    id
+    status
+)
+
+Cinema(
+-id
+-status
+-name/number
+-shows (funciones)
+-seats 
+)
+
+Show(
+-id
+-date
+-time
+-movie (id movie)
+-seats 
+)
+
+Movie(
+-id
+-genres
+-adult
+-title
+-original title
+-overview
+-poster path
+-release date
+-backdrop path
+)
+
+Ticket(
+-id
+-id show
+-seat
+)
+
+Genre(.
+-id
+-name
+)
+
+User(
+-id
+-username
+-password
+-email
+-firstname
+-lastname
+-permissions
+-tickets
+-dni
+-id credit card(puede que no)
+)
+
+Credit card(
+-id
+-type
+)
+
