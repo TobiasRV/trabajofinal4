@@ -11,10 +11,10 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT?>Movie/showMovies">Cartelera</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>Ticket/showCart">Carrito</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>Purchase/showCart">Carrito</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>Ticket/purchase">Comprar tickets</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>Purchase/purchase">Comprar tickets</a>
           </li>
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT?>User/userProfile">Perfil</a>

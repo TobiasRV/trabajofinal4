@@ -2,15 +2,19 @@
 
 <?php 
 
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+$date= date('d/m/Y');
+$mod_date = strtotime($date."+ 6 days");
+
 include_once(VIEWS_PATH . "header.php"); 
 
 use Controllers\UserController as UserController;
-use DAOJson\CinemaRepository as CinemaRepository;
+use DAO\MovieRepository as MovieRepository;
 
 $userControl = new UserController();
 
-$cinemaRepo = new CinemaRepository();
-$listado=$cinemaRepo->getAll();
+$movieRepo = new MovieRepository();
+$listado=$movieRepo->getNowPlayingMovies();
 
 if ($userControl->checkSession() != false) {
     if ($_SESSION["loggedUser"]->getPermissions() == 2) {
@@ -20,27 +24,25 @@ if ($userControl->checkSession() != false) {
 
   <div class="container" align="center">
     <h2 class="mb-4">Comprar Tickets</h2>
-    <form action="<?php echo FRONT_ROOT ?>Ticket/ticketPurchase" method="post">
-        <input type="hidden" id="id" name="id" value="<?php //id purchase ?>">
-        <label for="cinema_id">Cine</label><br>
-        <select style="width:170px">
+    <form action="<?php echo FRONT_ROOT ?>Purchase/ticketPurchase" method="post">
+        <!-- <input type="hidden" id="id" name="id" value=""> -->
+        <label for="cinema_id">Película</label><br>
+        <select style="width:170px" id="movie" name="movie">
         <?php 
-            foreach ($listado as $cine)
+            foreach ($listado as $movies)
             {
                 ?>
-            <option value=<?php $cine->getId(); ?>><?php echo $cine->getName(); ?></option>
+            <option value=<?php $movies->getIdMovie(); ?>><?php echo $movies->getTitle(); ?></option>
                 <?php
             }
         ?>
-        </select><br>
-        <!-- falta hacer un select con las funciones disponibles por cine y por pelicula -->
+        </select><br><br>
         <label for="quantityTickets">Cantidad</label><br>
-        <input type="text" id="quantityTickets" name="quantityTickets" placeholder="Cantidad de Tickets" required min=1 max=6 title="Solo números (máximo 6 tickets por compra)"><br>
-        <label for="discount">Descuento</label><br>
-        <input id="discount" name="discount" type="number" value="<?php //valor del descuento si es que esta habilitado para la compra ?>" readonly><br>
-        <label for="total">Total</label><br>
-        <input id="total" name="total" type="number" value="<?php //suma del total de los tickets a comprar ?>" readonly><br>
-        <input id="emailUser" name="emailUser" type="hidden" required value="<?php //email del usuario realizando la compra ?>">
+        <input type="number" style="width:170px" id="quantityTickets" name="quantityTickets" placeholder="Cantidad de Tickets" required min=1 max=6 title="Solo números (máximo 6 tickets por compra)"><br>
+        <label for="date">Fecha</label><br>
+        <!-- ver como limitar el rango de las fechas -->
+        <input type="date" style="width:170px" id="date" name="date" required min="<?php $date ?>" max="<?php $mod_date ?>" title="La fecha de la función no puede ser mayor a una semana a partir de la fecha actual"><br>
+        <input id="emailUser" name="emailUser" type="hidden" required value="<?php $_SESSION["loggedUser"]->getEmail() ?>">
         <br><button name="submit" type="submit">Comprar</button>
     </form>
   </div>

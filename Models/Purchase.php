@@ -2,7 +2,7 @@
 
 class Purchase
 {
-    private $id;
+    private $idPurchase;
     private $purchaseDate;
     private $quantityTickets;
     private $total;
@@ -16,9 +16,14 @@ class Purchase
         
     }
 
-    public function getId()
+    public function getIdPurchase()
     {
         return $this->id;
+    }
+
+    public function setIdPurchase()
+    {
+        $this->idPurchase=$idPurchase;
     }
     
     public function getPurchaseDate()
@@ -46,10 +51,6 @@ class Purchase
         return $this->emailUser;
     }
     
-    public function setId($id)
-    {
-        $this->id=$id;
-    }
 
     public function setPurchaseDate($purchaseDate)
     {

@@ -17,7 +17,7 @@ if ($userControl->checkSession() != false) {
     <div class="container" align="center">
     <h2 class="mb-4">Carrito</h2>
     <form action="<?php echo FRONT_ROOT ?>Ticket/cartPurchase" method="post">
-        <input type="hidden" id="id" name="id" value="<?php //id purchase ?>">
+        <!-- <input type="hidden" id="id" name="id" value=""> -->
         <label for="cinema_id">Método de Pago</label><br>
         <select style="width:170px">
         <option value="Visa">Tarjeta de Crédito Visa</option>
