@@ -4,181 +4,117 @@ namespace DAO;
 
 use Models\Cinema as Cinema;
 use Models\Movie as Movie;
-use Models\Seat as Seat;
 
 class CinemaRepository extends Singleton
 {
-    private $cinemaList = array();
+    private $connection;
+    function __construct() {
 
-    public function deleteCinema($id)
-    {
-        $this->RetrieveData();
-
-        $i = 0;
-
-        foreach ($this->cinemaList as $value) {
-            if ($value->getId() == $id) {
-                $value->setStatus(false);
-            }
-            $i++;
-        }
-        $this->Savedata();
     }
 
-    public function modifyCinema($id, $nombre, $direccion, $asientos, $precio, $estado = false)
+    public function Add($cinema)
     {
-        $this->RetrieveData();
 
-        $i = 0;
+        $sql = "INSERT INTO Cinemas(status, name, id_movietheater) VALUES (:status, :name, id_movietheater)";
 
-        foreach ($this->cinemaList as $value) {
-            if ($value->getId() == $id) {
+        $parameters['status'] = $cinema->getStatus();
+        $parameters['name'] = $cinema->getName();
+        $parameters['id_movietheater'] = $cinema->getIdMovieTheater();
 
-                $value->setName($nombre);
-                $value->setAddress($direccion);
-                $a = array();
-                $value->setSeats($a);
-                $value->createSeats($asientos);
-                $value->setTicketPrice($precio);
-                $value->setStatus($estado);
-            }
-            $i++;
-        }
-        $this->Savedata();
+        try {
+          $this->connection = Connection::getInstance();
+         return $this->connection->ExecuteNonQuery($sql, $parameters);
+     } catch(\PDOException $ex) {
+            throw $ex;
+       }
     }
 
-    public function modifyBillBoard($id, $nuevaCartelera)
-    {
-        $this->RetrieveData();
+    public function read($name) {
 
-        $i = 1;
+        $sql = "SELECT * FROM Cinemas where name = :name";
 
-        foreach ($this->cinemaList as $value) {
-            if ($value->getId() == $id) {
-                $value->setBillBoard($nuevaCartelera);
-            }
-            $i++;
-        }
-        $this->Savedata();
-    }
+        $parameters['name'] = $name;
 
-    public function Add(Cinema $cinema)
-    {
-        $this->RetrieveData();
-
-        $id = count($this->cinemaList) + 1;
-        $cinema->setId($id);
-
-        array_push($this->cinemaList, $cinema);
-
-        $this->Savedata();
-    }
-
-    public function getAll()
-    {
-        $this->RetrieveData();
-
-        return $this->cinemaList;
-    }
-
-    private function Savedata()
-    {
-        $arrayToEncode = array();
-
-        foreach ($this->cinemaList as $cine) {
-            $ArrayConDatos = array();
-            $ArrayConDatosPeliculas = array();
-            $ArrayAsientos = $cine->getSeats();
-            $ArrayConDatosAsientos = array();
-
-            $ArrayConDatos['id'] = $cine->getId();
-            $ArrayConDatos['status'] = $cine->getStatus();
-            $ArrayConDatos['name'] = $cine->getName();
-            $ArrayConDatos['address'] = $cine->getAddress();
-
-
-            $ArrayPeliculas = $cine->getBillBoard();
-
-            if (!empty($ArrayPeliculas)) {
-                foreach ($ArrayPeliculas as $pelicula) {
-                    $ArrayConDatosPeliculas['adult'] = $pelicula->getAdult();
-                    $ArrayConDatosPeliculas['idMovie'] = $pelicula->getIdMovie();
-                    $ArrayConDatosPeliculas['idGenre'] = $pelicula->getIdGenre();
-                    $ArrayConDatosPeliculas['originalTitle'] = $pelicula->getOriginalTitle();
-                    $ArrayConDatosPeliculas['title'] = $pelicula->getTitle();
-                    $ArrayConDatosPeliculas['overview'] = $pelicula->getOverview();
-                    $ArrayConDatosPeliculas['posterPath'] = $pelicula->getPosterPath();
-                    $ArrayConDatosPeliculas['releaseDate'] = $pelicula->getReleaseDate();
-                    $ArrayConDatosPeliculas['backdropPath'] = $pelicula->getBackdropPath();
-                    $ArrayConDatos['billBoard'][] = $ArrayConDatosPeliculas;
-                }
-            }else{
-                $ArrayConDatos['billBoard'] = "No hay peliculas cargadas";
-            }
-            foreach ($ArrayAsientos as $asiento) {
-                $ArrayConDatosAsientos['number'] = $asiento->getNumber();
-                $ArrayConDatosAsientos['status'] = $asiento->getStatus();
-                $ArrayConDatos['seats'][] = $ArrayConDatosAsientos;
-            }
-
-            $ArrayConDatos['ticketPrice'] = $cine->getTicketPrice();
-
-            array_push($arrayToEncode, $ArrayConDatos);
+        try {
+             $this->connection = Connection::getInstance();
+             $resultSet = $this->connection->execute($sql, $parameters);
+        } catch(Exception $ex) {
+            throw $ex;
         }
 
-        $jsonContent = json_encode($arrayToEncode, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        file_put_contents('Data/cinemas.json', $jsonContent);
+
+        if(!empty($resultSet))
+             return $this->mapear($resultSet);
+        else
+             return false;
+   }
+
+
+   public function getAll() {
+    $sql = "SELECT * FROM MovieTheaters";
+
+    try {
+         $this->connection = Connection::getInstance();
+         $resultSet = $this->connection->execute($sql);
+    } catch(Exception $ex) {
+        throw $ex;
     }
 
-    private function RetrieveData()
-    {
-        $this->cinemaList = array();
+    if(!empty($resultSet))
+         return $this->mapear($resultSet);
+    else
+         return false;
+    }
 
-        if (file_exists('Data/cinemas.json')) {
-            $jsonContent = file_get_contents('Data/cinemas.json');
+    public function edit($cinema) {
+      
+        $sql = "UPDATE Cinemas SET status = :status, name = :name WHERE id_cinema = :id_cinema";
+        $parameters['status'] = $cinema->getStatus();
+        $parameters['name'] = $cinema->getName();
+        $parameters['id_cinema'] = $cinema->getId();
 
-            $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
+        try {
+          $this->connection = Connection::getInstance();
+         return $this->connection->ExecuteNonQuery($sql, $parameters);
+     } catch(\PDOException $ex) {
+            throw $ex;
+       }
+   }
 
-            foreach ($arrayToDecode as $valuesArray) {
-                $arrayMovies = array();
-                $arraySeats = array();
+
+   public function delete($name) {
+    $sql = "UPDATE  Cinemas SET status=:status WHERE name = :name";
+    
+    $parameters['status'] = false;
+    $parameters['name'] = $cinema->getName();
+
+    try {
+        $this->connection = Connection::getInstance();
+       return $this->connection->ExecuteNonQuery($sql, $parameters);
+   } catch(\PDOException $ex) {
+          throw $ex;
+     }
+     }
+
+
+    protected function mapear($value) {
+
+        $value = is_array($value) ? $value : [];
+
+        $resp = array_map(function($p){              
+                 
                 $cinema = new Cinema();
-                $cinema->setId($valuesArray['id']);
-                $cinema->setStatus($valuesArray['status']);
-                $cinema->setName($valuesArray['name']);
-                $cinema->setAddress($valuesArray['address']);
+                $cinema->setId($p['id_cinema']);
+                $cinema->setStatus($p['status']);
+                $cinema->setName($p['name']);
+                $cinema->setIdMovieTheater($p['id_movieTheater']);
+                return $cinema;
+           }, $value);
 
-                $arrayDatosMovies = $valuesArray['billBoard'];
-                $arrayMovies = array();
-                if($arrayDatosMovies != "No hay peliculas cargadas"){
-                    foreach ($arrayDatosMovies as $movie) {
-                        $peli = new Movie();
-                        $peli->setAdult($movie['adult']);
-                        $peli->setIdGenre($movie['idGenre']);
-                        $peli->setIdMovie($movie['idMovie']);
-                        $peli->setTitle($movie['title']);
-                        $peli->setOriginalTitle($movie['originalTitle']);
-                        $peli->setOverview($movie['overview']);
-                        $peli->setPosterPath($movie['posterPath']);
-                        $peli->setReleaseDate($movie['releaseDate']);
-                        $peli->setBackdropPath($movie['backdropPath']);
-                        array_push($arrayMovies, $peli);
-                    }
-                    $cinema->setBillBoard($arrayMovies);
-                }
+           return count($resp) > 1 ? $resp : $resp['0'];
 
-                $arrayDatosSeats = $valuesArray['seats'];
-                $arraySeats = array();
-
-                foreach ($arrayDatosSeats as $seat) {
-                    $asiento = new Seat($seat['number'], $seat['status']);
-                    array_push($arraySeats, $asiento);
-                }
-                $cinema->setSeats($arraySeats);
-
-                $cinema->setTicketPrice($valuesArray['ticketPrice']);
-                array_push($this->cinemaList, $cinema);
-            }
-        }
     }
+
+
+    
 }

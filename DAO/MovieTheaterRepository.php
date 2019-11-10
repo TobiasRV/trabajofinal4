@@ -9,12 +9,6 @@ use Models\Seat as Seat;
 class MovieTheaterRepository extends Singleton
 {
 
-    // private $id;
-	// private $status;
-	// private $name;
-	// private $address;
-    // private $ticketPrice;
-    
     private $connection;
 
           function __construct() {
@@ -96,36 +90,39 @@ class MovieTheaterRepository extends Singleton
           }
 
   
-          public function delete($name) {
-               /*$sql = "DELETE FROM MovieTheaters WHERE name = :name";
-
-               $obj_pdo = new Conexion();
-
-               try {
-                    $conexion = $obj_pdo->conectar();
-
-				$sentencia = $conexion->prepare($sql);
-
-                    $sentencia->bindParam(":name", $name);
-
-                    $sentencia->execute();
-
-
-               } catch(PDOException $Exception) {
-
-				throw new MyDatabaseException( $Exception->getMessage( ) , $Exception->getCode( ) );
-
-			}*/
-          }
+              }
+       public function delete($name) {
+            /*
+    $sql = "UPDATE  Cinemas SET status=:status WHERE name = :name";
+    
+    $parameters['status'] = false;
+    $parameters['name'] = $cinema->getName();
+    
+    try {
+        $this->connection = Connection::getInstance();
+       return $this->connection->ExecuteNonQuery($sql, $parameters);
+   } catch(\PDOException $ex) {
+          throw $ex;
+     }
+     }
+     */
+  }
 
 
 		protected function mapear($value) {
 
 			$value = is_array($value) ? $value : [];
 
-			$resp = array_map(function($p){
-				return new M_Usuario($p['id_movietheater'], $p['status'], $p['name'], $p['address'], $p['ticketPrice']);
-			}, $value);
+			$resp = array_map(function($p){              
+                     
+                    $movieTheater = new MovieTheater();
+                    $movieTheater->setId($p['id_movietheater']);
+                    $movieTheater->setStatus($p['status']);
+                    $movieTheater->setName($p['name']);
+                    $movieTheater->setAddress($p['address']);
+                    $movieTheater->setTicketPrice($p['ticketPrice']);
+                    return $movieTheater;
+               }, $value);
 
                return count($resp) > 1 ? $resp : $resp['0'];
 
