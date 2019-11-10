@@ -1,5 +1,4 @@
 <?php
-
 namespace DAO;
 
 use Models\Cinema as Cinema;
@@ -86,7 +85,7 @@ class CinemaRepository extends Singleton
     $sql = "UPDATE  Cinemas SET status=:status WHERE name = :name";
     
     $parameters['status'] = false;
-    $parameters['name'] = $cinema->getName();
+    $parameters['name'] = $name;
 
     try {
         $this->connection = Connection::getInstance();
@@ -114,7 +113,4 @@ class CinemaRepository extends Singleton
            return count($resp) > 1 ? $resp : $resp['0'];
 
     }
-
-
-    
 }
