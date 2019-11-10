@@ -20,7 +20,6 @@ class MovieTheaterRepository extends Singleton
           function __construct() {
 
           }
-
           public function Add($movieTheater) {
 
 			$sql = "INSERT INTO MovieTheaters (status, name, address, ticketPrice) VALUES (:status, :name, :address, :ticketPrice)";
@@ -86,6 +85,7 @@ class MovieTheaterRepository extends Singleton
                $parameters['name'] = $movieTheater->getName();
                $parameters['address'] = $movieTheater->getAddress();
                $parameters['ticketPrice'] = $movieTheater->getTicketPrice();
+               $parameters['id_movietheater'] = $movieTheater->getId();
 
                try {
      			$this->connection = Connection::getInstance();
