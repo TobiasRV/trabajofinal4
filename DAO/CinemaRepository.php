@@ -51,7 +51,7 @@ class CinemaRepository extends Singleton
 
 
    public function getAll() {
-    $sql = "SELECT * FROM MovieTheaters";
+    $sql = "SELECT * FROM Cinemas";
 
     try {
          $this->connection = Connection::getInstance();
