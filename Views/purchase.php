@@ -24,7 +24,7 @@ if ($userControl->checkSession() != false) {
 
   <div class="container" align="center">
     <h2 class="mb-4">Comprar Tickets</h2>
-    <form action="<?php echo FRONT_ROOT ?>Purchase/ticketPurchase" method="post">
+    <form action="<?php echo FRONT_ROOT ?>Purchase/ticketPurchase" method="POST">
         <!-- <input type="hidden" id="id" name="id" value=""> -->
         <label for="cinema_id">Película</label><br>
         <select style="width:170px" id="movie" name="movie">
@@ -32,7 +32,8 @@ if ($userControl->checkSession() != false) {
             foreach ($listado as $movies)
             {
                 ?>
-            <option value=<?php $movies->getIdMovie(); ?>><?php echo $movies->getTitle(); ?></option>
+            <option value=<?php echo $movies->getIdMovie(); ?>><?php echo $movies->getTitle(); ?></option>
+                
                 <?php
             }
         ?>
@@ -42,7 +43,6 @@ if ($userControl->checkSession() != false) {
         <label for="date">Fecha</label><br>
         <!-- ver como limitar el rango de las fechas -->
         <input type="date" style="width:170px" id="date" name="date" required min="<?php $date ?>" max="<?php $mod_date ?>" title="La fecha de la función no puede ser mayor a una semana a partir de la fecha actual"><br>
-        <input id="emailUser" name="emailUser" type="hidden" required value="<?php $_SESSION["loggedUser"]->getEmail() ?>">
         <br><button name="submit" type="submit">Comprar</button>
     </form>
   </div>

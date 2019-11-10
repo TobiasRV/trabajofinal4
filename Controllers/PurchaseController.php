@@ -17,11 +17,12 @@ class PurchaseController
         require_once(VIEWS_PATH . "shoppingCart.php");
     }
 
-    public function ticketPurchase($idMovie, $quantity, $date)
+    public function ticketPurchase($id, $quant, $dt)
     {
-        echo $idMovie . " Movie <br>";
-        echo $quantity . " Cantidad <br>";
-        echo $date . " Dia <br>";
+       $idMovie=$id;
+       $quantity=$quant;
+       $date=$dt;
+       $this->showCart();
     }
 
     public function cartPurchase()
