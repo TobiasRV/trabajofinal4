@@ -50,7 +50,7 @@ class CreditCardRepository extends Singleton
 
 
           public function getAll() {
-               $sql = "SELECT * FROM CreditCard";
+               $sql = "SELECT * FROM CreditCards";
 
                try {
                     $this->connection = Connection::getInstance();
@@ -108,7 +108,7 @@ class CreditCardRepository extends Singleton
 			$resp = array_map(function($p){              
                      
                     $creditCard = new CreditCard();
-                    $creditCard->setId($p['id_creditCard']);
+                    $creditCard->setId($p['id_creditcard']);
                     $creditCard->setCompany($p['company']);
                     $creditCard->setNumber($p['number']);
                     $creditCard->setIdUser($p['id_user']);

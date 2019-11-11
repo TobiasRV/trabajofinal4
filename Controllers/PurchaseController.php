@@ -8,6 +8,8 @@ use Models\CreditCard as CreditCard;
 use Controllers\UserController as UserController;
 use DAO\MovieTheaterRepository as MovieTheaterRepository;
 use DAO\CinemaRepository as CinemaRepository;
+use DAO\PurchaseRepository as PurchaseRepository;
+use DAO\CreditCardRepository as CreditCardRepository;
 
 class PurchaseController
 {
@@ -39,10 +41,8 @@ class PurchaseController
 
     public function continuePurchase2($idShow, $idCinema, $avaiableSeats)
     {
-        //vista donde se incluye valor total de la compra con/sin descuentos
-        //elegir metodo de pago, ingresar datos de la tarjeta, chequear datos del usuario
         $purchase = new Purchase();
-        $purchase->setShowId($idShow);
+        $purchase->setIdShow($idShow);
         $_SESSION["purchase"] = $purchase;
         $_SESSION["idCinema"]=$idCinema;
         $_SESSION["avaiableSeats"]=$avaiableSeats;
@@ -53,6 +53,8 @@ class PurchaseController
     public function purchaseStep3()
     {
         $userControl = new UserController();
+        $creditCardsRepo = new CreditCardRepository();
+        $listado = $creditCardsRepo->getAll();
         require_once(VIEWS_PATH . "purchaseStep3.php");
     }
 
@@ -90,6 +92,8 @@ class PurchaseController
                 $purchase->setDiscount(0.25);
             }
             $purchase->setTotal($totalAux - ($totalAux * $purchase->getDiscount()));
+            $purchaseRepo = new PurchaseRepository();
+            $purchaseRepo->Add($purchase);
         }
 
         require_once(VIEWS_PATH . "confirmPurchase.php");
@@ -110,6 +114,16 @@ class PurchaseController
         }
 
         return $flag;
+    }
+
+    public function addCreditCard($company, $number)
+    {
+        $newCreditCard = new CreditCard();
+        $newCreditCard->setNumber($number);
+        $newCreditCard->setCompany($company);
+        $newCreditCard->setIdUser($_SESSION["loggedUser"]->getId());
+        $creditCardRepo = new CreditCardRepository();
+        $creditCardRepo->Add($newCreditCard);
     }
 
 }

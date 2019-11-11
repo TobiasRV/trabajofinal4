@@ -18,14 +18,31 @@ if ($userControl->checkSession() != false) {
     <form action="<?php echo FRONT_ROOT ?>Purchase/confirmPurchase" method="POST">
         <!-- <input type="hidden" id="id" name="id" value=""> -->
 
-        <label for="cinema_id">Método de Pago</label><br>
+        <label for="cinema_id">Seleccione una Tarjeta</label><br>
+        <select style="width:170px">
+        <?php
+        foreach($listado as $creditCard)
+        {
+            if($creditCard->getIdUser() == $_SESSION["loggedUser"]->getId())
+            {
+                ?>
+                <option value="<?php echo $creditCard->getId(); ?>"><?php echo $creditCard->getCompany() . " " . $creditCard->getNumber();  ?></option>
+                <?php
+            }
+        }
+        ?>
+        </select><br>
+
+        <br><button type="button" data-toggle="modal" data-target="#addCreditCard">Agregar Tarjeta</button><br><br>
+
+        <!-- <label for="cinema_id">Método de Pago</label><br>
         <select style="width:170px">
         <option value="Visa">Tarjeta de Crédito Visa</option>
         <option value="Master">Tarjeta de Crédito Master</option>
         </select><br>
 
         <label for="cardNumber">Número de Tarjeta</label><br>
-        <input type="number" style="width:170px" id="cardNumber" name="cardNumber" placeholder="Número de Tarjeta" required min=16 max=16 title="Solo números"><br>
+        <input type="number" style="width:170px" id="cardNumber" name="cardNumber" placeholder="Número de Tarjeta" required min=16 max=16 title="Solo números"><br> -->
 
         <label for="quantityTickets">Cantidad</label><br>
         <input type="number" style="width:170px" id="quantityTickets" name="quantityTickets" placeholder="Cantidad de Tickets" required min=1 max=6 title="Solo números (máximo 6 tickets por compra)"><br>
@@ -65,3 +82,45 @@ else
 
 
 ?>
+
+<!-- MODAL -->
+<div class="modal fade" id="addCreditCard">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title"><?php echo "Agregar Tarjeta "; ?></h4>
+                    <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container fluid">
+                        <div class="row">
+
+                            <form action="<?php echo FRONT_ROOT ?>Purchase/addCreditCard" method="post">
+                                <div class="form-group">
+                                    <label for="company">
+                                        <h5>Compañía</h5>
+                                    </label>
+                                    <select>
+                                    <option value="Visa">Visa</option>
+                                    <option value="Master">Master</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="number">
+                                        <h5>Número de Tarjeta</h5>
+                                    </label>
+                                    <input type="number" style="width:170px" id="cardNumber" name="cardNumber" placeholder="Número de Tarjeta" required min=16 max=16 title="Solo números"><br>
+                                </div>
+                                <div class="form-group">
+                                    <button name="submit" type="submit" class="btn btn-primary btn-success btn-block">Agregar</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    
