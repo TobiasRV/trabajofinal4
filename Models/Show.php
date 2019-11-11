@@ -7,6 +7,7 @@ class Show
     private $time;
     private $id_cinema;
     private $id_movie;
+    private $seats;
     private $status;
     
     public function __construct()
@@ -42,6 +43,15 @@ class Show
     public function setStatus($status)
     {
         $this->status=$status;
+    }
+    public function getSeats()
+    {
+        return $this->seats;
+    }
+
+    public function setSeats($seats)
+    {
+        $this->seats=$seats;
     }
 
     public function getDate()

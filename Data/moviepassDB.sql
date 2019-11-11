@@ -169,4 +169,6 @@ on s.id_cinema=c.id_cinema;
 END//
 
 
-
+--año-mes-dia
+insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-25","12:05:06",100,true,1,330457);
+insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-24","15:05:06",120,true,1,290859);
