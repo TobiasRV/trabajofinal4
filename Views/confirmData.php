@@ -7,7 +7,10 @@
 if ($userControl->checkSession() != false) {
     if ($_SESSION["loggedUser"]->getPermissions() == 2) {
         include_once(VIEWS_PATH . "header.php");
-        include_once(VIEWS_PATH . "navClient.php"); ?>
+        include_once(VIEWS_PATH . "navClient.php"); 
+    }
+}
+?>
 
 
     <html>
@@ -24,7 +27,15 @@ if ($userControl->checkSession() != false) {
                 </tr>
                 <tr>
                     <th scope="row">Película</th>
-                    <td><?php echo $listMovies->getMovieTitle($_SESSION["idMovieSearch"]); ?></td>
+                    <td><?php 
+                            foreach($listMovies as $lm)
+                            {
+                                if($lm->getIdMovie() == $_SESSION["idMovieSearch"])
+                                {
+                                    echo $lm->getMovieTitle($_SESSION["idMovieSearch"]);
+                                }
+                            }
+                        ?></td>
                 </tr>
                 <tr>
                     <th scope="row">Cine</th>

@@ -60,7 +60,6 @@ class PurchaseController
 
     public function confirmPurchase($id_creditcard, $qTickets)
     {
-        var_dump($_POST);
 
         $ccRepo = new CreditCardRepository();
         $listadoCC = $ccRepo->getAll();
