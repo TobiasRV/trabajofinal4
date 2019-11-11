@@ -10,7 +10,6 @@ create table MovieTheaters(
 id_movietheater int auto_increment,
 name varchar(20),
 address varchar(20),
-ticketPrice int not null,
 status boolean,
 CONSTRAINT pk_id_movietheater primary key (id_movietheater),
 CONSTRAINT unq_name UNIQUE (name)
@@ -20,6 +19,8 @@ create table Cinemas(
 id_cinema int auto_increment,
 status boolean,
 name varchar(50),
+ticketPrice int not null,
+seats int not null,
 id_movietheater int,
 CONSTRAINT pk_id_cinema primary key (id_cinema),
 constraint fk_id_movietheater foreign key(id_movietheater) references MovieTheaters (id_movietheater)
@@ -85,30 +86,32 @@ CONSTRAINT unq_email UNIQUE (email)
 create table creditcards (
 id_creditcard int auto_increment,
 company varchar(50),
+number int,
 id_user int,
 constraint pk_id_creditcard primary key (id_creditcard),
 CONSTRAINT fk_id_user FOREIGN KEY (id_user) references Users(id_user)
 );
 
 
-create table purchase(
+create table purchases(
 id_purchase int auto_increment not null,
 purchase_day date,
 quantity_tickets int,
 total float,
 discount float,
-id_user int,
+id_show int,
+id_creditcard int,
 CONSTRAINT pk_id_purchase PRIMARY KEY (id_purchase),
-CONSTRAINT fk_id_user_purchase FOREIGN KEY (id_user) references Users(id_user)
+CONSTRAINT fk_id_creditcard_purchases FOREIGN KEY (id_creditcard) references creditcards(id_creditcard),
+CONSTRAINT fk_id_show_purchases FOREIGN KEY (id_show) references Shows(id_show)
+
 );
 
 create table Tickets (
 id_ticket int auto_increment,
-id_show int,
 id_purchase int,
 constraint id_ticket primary key (id_ticket),
-CONSTRAINT fk_id_show FOREIGN KEY (id_show) references shows(id_show),
-CONSTRAINT fk_id_purchase foreign key (id_purchase) references purchase (id_purchase)
+CONSTRAINT fk_id_purchases foreign key (id_purchase) references purchases (id_purchase)
 );
 
 
@@ -121,28 +124,17 @@ CONSTRAINT fk_id_purchase foreign key (id_purchase) references purchase (id_purc
 -------------------------------------------------------------------------------
 
 DELIMITER //
-CREATE PROCEDURE cargarMT (IN nameMT varchar(20), IN addressMT varchar(20), IN ticketPriceMT int, IN statusMT boolean)
+CREATE PROCEDURE cargarMT (IN nameMT varchar(20), IN addressMT varchar(20), IN statusMT boolean)
 BEGIN
-insert into MovieTheaters(name, address, ticketPrice, status)
-values(nameMT, addressMT, ticketPriceMT, statusMT);
+insert into MovieTheaters(name, address, status)
+values(nameMT, addressMT, statusMT);
 END//
-
-call cargarMT ('Cine Paseo', 'Cordoba 2555', 200, true);
-call cargarMT ('Cinemacenter', 'Salta 456', 500, false);
-call cargarMT ('Cine Gallegos', 'Mendoza 6589', 800, true);
-
-
 DELIMITER //
 CREATE PROCEDURE cargarU (IN userNameU varchar(20), IN firstnameU varchar(50), IN lastnameU varchar(50), IN emailU varchar(50), IN dniU int, IN permissionsU int, IN passwordU varchar(50))
 BEGIN
 insert into Users(userName, firstname, lastname, email, dni, permissions, password)
 values(userNameU, firstnameU, lastnameU, emailU, dniU, permissionsU, passwordU);
 END//
-
-call cargarU ('juanludu', 'Juan', 'Luduenia', 'juan@gmail.com', 41306521, 1, '1234');
-call cargarU ('bpilegi98', 'Bianca', 'Pilegi', 'bianca@gmail.com', 41307541, 2, '4321');
-call cargarU('asd', 'asd', 'asd', 'asd@gmail.com', 41306988, 2, 'asd123');
-
 
 DELIMITER //
 CREATE PROCEDURE listarMovieTheaters ()
@@ -168,7 +160,27 @@ join Cinemas c
 on s.id_cinema=c.id_cinema;
 END//
 
-insert into Cinemas(status,name,id_movietheater) values (true,"sala1",1);
+
+call cargarMT ('Cine Paseo', 'Cordoba 2555', true);
+call cargarMT ('Cinemacenter', 'Salta 456', false);
+call cargarMT ('Cine Gallegos', 'Mendoza 6589', true);
+
+call cargarU ('juanludu', 'Juan', 'Luduenia', 'juan@gmail.com', 41306521, 1, '1234');
+call cargarU ('bpilegi98', 'Bianca', 'Pilegi', 'bianca@gmail.com', 41307541, 2, '4321');
+call cargarU('asd', 'asd', 'asd', 'asd@gmail.com', 41306988, 2, 'asd123');
+
+
+select *from movies
+insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala1",200,100,1);
 --año-mes-dia
 insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-25","12:05:06",100,true,1,330457);
 insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-24","15:05:06",120,true,1,290859);
+
+insert into Users (username,firstname,lastname,email,dni,permissions,password) values ("juan","firstname","lastname","juan@prueba",123,2,"1234"); 
+
+select * from purchase
+select *from shows
+select * from tickets
+
+insert into creditcards (company, id_user) values ("Visa", 2);
+

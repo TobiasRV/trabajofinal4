@@ -6,7 +6,6 @@ class MovieTheater
 	private $status;
 	private $name;
 	private $address;
-    private $ticketPrice;
     private $billBoard = array();
 	private $cinemas = array();
 
@@ -44,16 +43,6 @@ class MovieTheater
 	public function getAddress()
 	{
 		return $this->address;
-	}
-
-	public function setTicketPrice($ticketPrice)
-	{
-		$this->ticketPrice = $ticketPrice;
-	}
-
-	public function getTicketPrice()
-	{
-		return $this->ticketPrice;
 	}
 
 	public function setAddress($address)

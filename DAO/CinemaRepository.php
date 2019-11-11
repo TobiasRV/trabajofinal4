@@ -14,10 +14,12 @@ class CinemaRepository extends Singleton
     public function Add($cinema)
     {
 
-        $sql = "INSERT INTO Cinemas(status, name, id_movietheater) VALUES (:status, :name, id_movietheater)";
+        $sql = "INSERT INTO Cinemas(status, name,ticketprice,seats id_movietheater) VALUES (:status, :name,:ticketprice,:seats, id_movietheater)";
 
         $parameters['status'] = $cinema->getStatus();
         $parameters['name'] = $cinema->getName();
+        $parameters['ticketprice'] = $cinema->getTicketprice();
+        $parameters['seats'] = $cinema->getSeats();
         $parameters['id_movietheater'] = $cinema->getIdMovieTheater();
 
         try {
@@ -67,9 +69,11 @@ class CinemaRepository extends Singleton
 
     public function edit($cinema) {
       
-        $sql = "UPDATE Cinemas SET status = :status, name = :name WHERE id_cinema = :id_cinema";
+        $sql = "UPDATE Cinemas SET status = :status, name = :name, ticketprice = :ticketprice,seats = :seats WHERE id_cinema = :id_cinema";
         $parameters['status'] = $cinema->getStatus();
         $parameters['name'] = $cinema->getName();
+        $parameters['ticketprice'] = $cinema->getTicketprice();
+        $parameters['seats'] = $cinema->getSeats();
         $parameters['id_cinema'] = $cinema->getId();
 
         try {
@@ -106,6 +110,8 @@ class CinemaRepository extends Singleton
                 $cinema->setId($p['id_cinema']);
                 $cinema->setStatus($p['status']);
                 $cinema->setName($p['name']);
+                $cinema->setTicketPrice($p['ticketprice']);
+                $cinema->setSeats($p['seats']);
                 $cinema->setIdMovieTheater($p['id_movieTheater']);
                 return $cinema;
            }, $value);

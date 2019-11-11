@@ -5,10 +5,11 @@ class Show
     private $id;
     private $date;
     private $time;
-    private $id_cinema;
-    private $id_movie;
     private $seats;
     private $status;
+    private $id_cinema;
+    private $id_movie;
+
     
     public function __construct()
     {

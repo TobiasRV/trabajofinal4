@@ -124,4 +124,11 @@ class ShowRepository extends Singleton
            return count($resp) > 1 ? $resp : $resp['0'];
 
     }
+
+    //funciones extras
+
+    public function getAvaiableSeats($id)
+    {
+         return $this->read($id)->getSeats();
+    }
 }

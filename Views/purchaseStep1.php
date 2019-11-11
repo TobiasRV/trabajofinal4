@@ -34,11 +34,11 @@ if ($userControl->checkSession() != false) {
             }
         ?>
         </select><br><br>
-        <label for="quantityTickets">Cantidad</label><br>
+        <!-- <label for="quantityTickets">Cantidad</label><br>
         <input type="number" style="width:170px" id="quantityTickets" name="quantityTickets" placeholder="Cantidad de Tickets" required min=1 max=6 title="Solo números (máximo 6 tickets por compra)"><br>
-        <label for="date">Fecha</label><br>
+        <label for="date">Fecha</label><br> -->
         <!-- ver como limitar el rango de las fechas -->
-        <input type="date" style="width:170px" id="date" name="date" required min="<?php $date ?>" max="<?php $mod_date ?>" title="La fecha de la función no puede ser mayor a una semana a partir de la fecha actual"><br>
+        <!-- <input type="date" style="width:170px" id="date" name="date" required min="" max="" title="La fecha de la función no puede ser mayor a una semana a partir de la fecha actual"><br> -->
         <br><button name="submit" type="submit">Continuar</button>
     </form>
   </div>

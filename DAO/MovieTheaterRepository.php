@@ -16,12 +16,11 @@ class MovieTheaterRepository extends Singleton
           }
           public function Add($movieTheater) {
 
-			$sql = "INSERT INTO MovieTheaters (status, name, address, ticketPrice) VALUES (:status, :name, :address, :ticketPrice)";
+			$sql = "INSERT INTO MovieTheaters (status, name, address) VALUES (:status, :name, :address)";
 
                $parameters['status'] = $movieTheater->getStatus();
                $parameters['name'] = $movieTheater->getName();
                $parameters['address'] = $movieTheater->getAddress();
-               $parameters['ticketPrice'] = $movieTheater->getTicketPrice();
 
                try {
      			$this->connection = Connection::getInstance();
@@ -73,12 +72,11 @@ class MovieTheaterRepository extends Singleton
 
 
             
-               $sql = "UPDATE MovieTheaters SET status = :status, name = :name, address = :address, ticketPrice = :ticketPrice WHERE id_movietheater = :id_movietheater";
+               $sql = "UPDATE MovieTheaters SET status = :status, name = :name, address = :address WHERE id_movietheater = :id_movietheater";
 
                $parameters['status'] = $movieTheater->getStatus();
                $parameters['name'] = $movieTheater->getName();
                $parameters['address'] = $movieTheater->getAddress();
-               $parameters['ticketPrice'] = $movieTheater->getTicketPrice();
                $parameters['id_movietheater'] = $movieTheater->getId();
 
                try {
@@ -90,7 +88,7 @@ class MovieTheaterRepository extends Singleton
           }
 
   
-              }
+              
               public function delete($name) {
                $sql = "UPDATE  MovieTheaters SET status=:status WHERE name = :name";
                
@@ -117,7 +115,6 @@ class MovieTheaterRepository extends Singleton
                     $movieTheater->setStatus($p['status']);
                     $movieTheater->setName($p['name']);
                     $movieTheater->setAddress($p['address']);
-                    $movieTheater->setTicketPrice($p['ticketPrice']);
                     return $movieTheater;
                }, $value);
 
