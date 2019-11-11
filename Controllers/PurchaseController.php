@@ -4,6 +4,8 @@ use Models\Ticket as Ticket;
 use Models\Purchase as Purchase;
 use DAO\MovieRepository as MovieRepository;
 use DAO\ShowRepository as ShowRepository;
+use Models\Purchase as Purchase;
+use Models\CreditCard as CreditCard;
 use Controllers\UserController as UserController;
 
 class PurchaseController
@@ -26,20 +28,25 @@ class PurchaseController
         require_once(VIEWS_PATH . "purchaseStep2.php");
     }
 
-    public function continuePurchase1($id, $quant, $dt)
+    public function continuePurchase1($idMovie, $quantityTickets, $dt)
     {
-       $idMovie=$id;
-       $quantity=$quant;
-       $date=$dt;
-       $this->purchaseStep2();
+        $purchaseSession = new Purchase();
+        $purchaseSession->setMovieId($idMovie);
+        $purchaseSession->setQuantityTickets($quantityTickets);
+        $_SESSION["purchaseSession"] = $purchaseSession;
+        $date=$dt;
+        $this->purchaseStep2();
     }
 
-    public function continuePurchase2($id, $desc)
+    public function continuePurchase2($idShow, $discount)
     {
         //vista donde se incluye valor total de la compra con/sin descuentos
         //elegir metodo de pago, ingresar datos de la tarjeta, chequear datos del usuario
-        $idShow=$id;
-        $discount=$desc;
+        $purchaseSession = new Purchase();
+        $purchaseSession = $_SESSION["purchaseSession"];
+        $purchaseSession->setShowId($idShow);
+        $purchaseSession->setDiscount($discount);
+        $_SESSION["purchaseSession"] = $purchaseSession;
         $this->purchaseStep3();
         
     }
@@ -51,13 +58,15 @@ class PurchaseController
 
     public function confirmPurchase($method, $nCard, $nameOw, $surnameOw, $dniOw, $expire, $code)
     {
-        $paymentMethod=$method;
-        $cardNumber=$nCard;
-        $firstnameOwner=$nameOw;
-        $lastnameOwner=$surnameOw;
-        $dniOwner=$dniOw;
-        $expireDate=$expire;
-        $safetyCode=$code;
+        $creditCardSession = new CreditCard();
+        $creditCardSession->setCompany($method);
+        $creditCardSession->setNumber($nCard);
+        $creditCardSession->setFirstnameOwner($nameOw);
+        $creditCardSession->setLastnameOwner($surnameOw);
+        $creditCardSession->setDniOwner($dniOw);
+        $creditCardSession->setExpireDate($expire);
+        $creditCardSession->setSecurityCode($code);
+        $_SESSION["creditCardSession"] = $creditCardSession;
         require_once(VIEWS_PATH . "confirmPurchase.php");
     }
 

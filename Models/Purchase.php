@@ -26,6 +26,16 @@ class Purchase
         $this->idPurchase=$idPurchase;
     }
     
+    public function getMovieId()
+    {
+        return $this->movieId;
+    }
+
+    public function setMovieId()
+    {
+        $this->movieId=$movieId;
+    }
+
     public function getPurchaseDate()
     {
         return $this->purchaseDate;

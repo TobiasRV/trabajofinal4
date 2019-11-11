@@ -55,7 +55,7 @@ if ($userControl->checkSession() != false) {
         <?php 
             foreach ($listado as $shows)
             {
-                if($shows->getId_movie()==$idMovie && $shows->getStatus()==true){ //agregar filtrar por date 
+                if($shows->getId_movie()==$_SESSION["purchaseSession"]->getMovieId() && $shows->getStatus()==true){ //agregar filtrar por date 
                 ?>
             <tr>
                 <td><?php echo $shows->getId_cinema(); ?></td>
