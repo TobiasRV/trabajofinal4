@@ -1,73 +1,130 @@
 <body class="home">
 
-<?php 
+<?php
 
-include_once(VIEWS_PATH . "header.php"); 
+use Controllers\UserController as UserController;
 
+$userControl = new UserController();
 
 if ($userControl->checkSession() != false) {
     if ($_SESSION["loggedUser"]->getPermissions() == 2) {
         include_once(VIEWS_PATH . "header.php");
         include_once(VIEWS_PATH . "navClient.php"); ?>
 
-<body>
 
-  <div class="container" align="center">
-    <h2 class="mb-4">Comprar Tickets</h2>
-    <h4 class="mb-4">Paso 3 de 3</h4>
-    <form action="<?php echo FRONT_ROOT ?>Purchase/confirmPurchase" method="POST">
-        <!-- <input type="hidden" id="id" name="id" value=""> -->
+    <html>
+        <br><h5>CONFIRMAR COMPRA</h5>
+    <table class="table table-striped">
+        <tbody>
+                <tr>
+                    <th scope="row">Película</th>
+                    <td><?php echo $_SESSION["loggedUser"]->getFirstname(); ?></td>
+                </tr>
+                <tr>
+                    <th scope="row">Apellido</th>
+                    <td><?php echo $_SESSION["loggedUser"]->getLastname(); ?></td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td><?php echo $_SESSION["loggedUser"]->getEmail(); ?></td>
+                </tr>
+                <tr>
+                    <th scope="row">Usuario</th>
+                    <td><?php echo $_SESSION["loggedUser"]->getUserName(); ?></td>
+                </tr>
+                <tr>
+                    <th scope="row">Contraseña</th>
+                    <td><?php echo $_SESSION["loggedUser"]->getPassword(); ?></td>
+                </tr>
+                <tr>
+                    <th scope="row">DNI</th>
+                    <td><?php echo $_SESSION["loggedUser"]->getDni(); ?></td>
+                </tr>
+        </tbody>
+    </table>
 
-        <label for="cinema_id">Método de Pago</label><br>
-        <select style="width:170px">
-        <option value="Visa">Tarjeta de Crédito Visa</option>
-        <option value="Master">Tarjeta de Crédito Master</option>
-        </select><br>
+    <br>
+    <br>
+                    <div class="modifyUserBTN" align="right">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#userModify<?php echo $_SESSION["loggedUser"]->getUserName(); ?>">Modificar datos</button>                    
+                    </div>
 
-        <label for="cardNumber">Número de Tarjeta</label><br>
-        <input type="number" style="width:170px" id="cardNumber" name="cardNumber" placeholder="Número de Tarjeta" required min=16 max=16 title="Solo números"><br>
-
-        <label for="cardOwner">Titular de la Tarjeta</label><br>
-        <input type="text" style="width:170px" id="cardOwner" name="cardOwner" placeholder="Nombre" required min=16 max=16 title="Solo números"><br>
-        <input type="text" style="width:170px" id="cardOwner" name="cardOwner" placeholder="Apellido" required min=16 max=16 title="Solo números"><br>
+    <?php include_once(VIEWS_PATH . "footer.php"); ?>
 
 
-        <label for="cinema_id">Película</label><br>
-        <select style="width:170px" id="movie" name="movie">
-        <?php 
-            foreach ($listado as $movies)
-            {
-                ?>
-            <option value=<?php echo $movies->getIdMovie(); ?>><?php echo $movies->getTitle(); ?></option>
-                
-                <?php
-            }
-        ?>
-        </select><br><br>
-        <label for="quantityTickets">Cantidad</label><br>
-        <input type="number" style="width:170px" id="quantityTickets" name="quantityTickets" placeholder="Cantidad de Tickets" required min=1 max=6 title="Solo números (máximo 6 tickets por compra)"><br>
-        <label for="date">Fecha</label><br>
-        <!-- ver como limitar el rango de las fechas -->
-        <input type="date" style="width:170px" id="date" name="date" required min="<?php $date ?>" max="<?php $mod_date ?>" title="La fecha de la función no puede ser mayor a una semana a partir de la fecha actual"><br>
-        <br><button name="submit" type="submit">Comprar</button>
-    </form>
-  </div>
-<?php include_once(VIEWS_PATH . "footer.php"); ?>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="userModify<?php echo $_SESSION["loggedUser"]->getUserName(); ?>">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title"><?php echo "Modificar datos "; ?></h4>
+                    <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container fluid">
+                        <div class="row">
+
+                            <form action="<?php echo FRONT_ROOT ?>User/modifyUser" method="post">
+                                <div class="form-group">
+                                    <label for="firstname">
+                                        <h5>Nombre</h5>
+                                    </label>
+                                    <input class="form-control" type="text" id="firstname" name="firstname" placeholder="Nombre" value="<?php echo $_SESSION["loggedUser"]->getFirstname(); ?>" required >
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname">
+                                        <h5>Apellido</h5>
+                                    </label>
+                                    <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Apellido" value="<?php echo $_SESSION["loggedUser"]->getLastname(); ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">
+                                        <h5>Email</h5>
+                                    </label>
+                                    <input id="email" name="email"  type="email" value="<?php echo $_SESSION["loggedUser"]->getEmail(); ?>" class="form-control" readonly >
+                                </div>
+                                <div class="form-group">
+                                    <label for="dni">
+                                        <h5>DNI</h5>
+                                    </label>
+                                    <input id="dni" name="dni"  type="number" value="<?php echo $_SESSION["loggedUser"]->getDni(); ?>" class="form-control" readonly >
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">
+                                        <h5>Usuario</h5>
+                                    </label>
+                                    <input id="username" name="username"  type="text" value="<?php echo $_SESSION["loggedUser"]->getUserName(); ?>" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">
+                                        <h5>Contraseña</h5>
+                                    </label>
+                                    <input id="password" name="password" placeholder="Contraseña" type="text" value="<?php echo $_SESSION["loggedUser"]->getPassword(); ?>" class="form-control" required pattern="[A-Za-z0-9]{4,}" title="Solo letras o números (mínimo 4 caracteres)">
+                                </div>
+                                <div class="form-group">
+                                    <button name="submit" type="submit" class="btn btn-primary btn-success btn-block">Modificar</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     
- <?php 
- } 
-    else 
-    {
-        if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-        {
-            include_once(VIEWS_PATH . "index.php");
-        }
-    }
-} 
-else 
+
+  <?php
+}
+else
 {
     include_once(VIEWS_PATH . "index.php");
 }
 
 
 ?>
+
+
+

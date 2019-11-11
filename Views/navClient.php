@@ -14,7 +14,7 @@
                <a class="nav-link" href="<?php //echo FRONT_ROOT?>Purchase/showCart">Carrito</a>
           </li> -->
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>Purchase/purchase">Comprar tickets</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>Purchase/purchaseStep1">Comprar tickets</a>
           </li>
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT?>User/userProfile">Perfil</a>
