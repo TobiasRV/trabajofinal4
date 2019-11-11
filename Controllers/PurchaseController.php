@@ -54,15 +54,27 @@ class PurchaseController
     {
         $userControl = new UserController();
         $creditCardsRepo = new CreditCardRepository();
-        $listado = $creditCardsRepo->getAll();
+        $listado = $creditCardsRepo->getCreditCards($_SESSION["loggedUser"]->getId());
         require_once(VIEWS_PATH . "purchaseStep3.php");
     }
 
-    public function confirmPurchase($method, $nCard, $qTickets)
+    public function confirmPurchase($id_creditcard, $qTickets)
     {
-        $creditCard = new CreditCard();
-        $creditCard->setCompany($method);
-        $creditCard->setNumber($nCard);
+        var_dump($_POST);
+
+        $ccRepo = new CreditCardRepository();
+        $listadoCC = $ccRepo->getAll();
+        foreach($listadoCC as $ccs)
+        {
+            if($ccs->getId() == $id_creditcard)
+            {
+                $creditCard = new CreditCard();
+                $creditCard->setCompany($ccs->getCompany());
+                $creditCard->setNumber($ccs->getNumber());
+            }
+        }
+        $_SESSION["creditCard"] = $creditCard;
+
         $listado = new CinemaRepository();
         $cinemas = $listado->getAll();
         foreach($cinemas as $cm)
@@ -72,13 +84,15 @@ class PurchaseController
                 $_SESSION["ticketPrice"] = $cm->getTicketPrice();
             }
         }
+
         // $creditCard->setFirstnameOwner($nameOw);
         // $creditCard->setLastnameOwner($surnameOw);
         // $creditCard->setDniOwner($dniOw);
         // $creditCard->setExpireDate($expire);
         // $creditCard->setSecurityCode($code);
-        $_SESSION["creditCard"] = $creditCard;
 
+
+        //se comprueba que haya suficientes asientos libres para realizar la compra
         if($_SESSION["avaiableSeats"] >= $qTickets)
         {
             $purchase = new Purchase();
@@ -92,11 +106,27 @@ class PurchaseController
                 $purchase->setDiscount(0.25);
             }
             $purchase->setTotal($totalAux - ($totalAux * $purchase->getDiscount()));
-            $purchaseRepo = new PurchaseRepository();
-            $purchaseRepo->Add($purchase);
+
+            $_SESSION["purchase"] = $purchase;
+            
+
+            //Se resta de la capacidad de asientos de la funcion la cantidad de tickets comprados
+            $showsRepo = new ShowsRepository();
+            $listadoShows = $showsRepo->getAll();
+            foreach($listadoShows as $shows)
+            {
+                if($shows->getId() == $purchase->getIdShow())
+                {
+                    $shows->setSeats($shows->getSeats() - $purchase->getQuantityTickets());
+                }
+            }
         }
 
-        require_once(VIEWS_PATH . "confirmPurchase.php");
+        $userControl = new UserController();
+        $moviesRepo = new MovieRepository();
+        $listMovies = $moviesRepo->getAll();
+
+        require_once(VIEWS_PATH . "confirmData.php");
 
         
     }
@@ -124,6 +154,26 @@ class PurchaseController
         $newCreditCard->setIdUser($_SESSION["loggedUser"]->getId());
         $creditCardRepo = new CreditCardRepository();
         $creditCardRepo->Add($newCreditCard);
+        $this->purchaseStep3();
+    }
+
+    public function checkButton($value)
+    {
+        if($value == "confirmPurchase")
+        {
+            $purchase=$_SESSION["purchase"];
+            $purchaseRepo = new PurchaseRepository();
+            $purchaseRepo->Add($purchase);
+            ?>
+            <script>
+                alert("La compra se ha realizado con éxito.");
+            </script>
+            <?php
+        }
+        else
+        {
+            include_once(VIEWS_PATH . "index.php");
+        }
     }
 
 }

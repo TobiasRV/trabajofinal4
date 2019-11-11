@@ -386,4 +386,20 @@ class movieRepository{
      }
      }
 
+     public function getMovieTitle($id)
+     {
+          $movieRepo = new MovieRepository();
+          $movieRepo = $this->getAll();
+          $movieTitle="";
+          foreach($movieRepo as $moviesR)
+          {
+               if($moviesR->getIdMovie() == $id)
+               {
+                    $movieTitle = $moviesR->getTitle();
+               }
+          }
+
+          return $movieTitle;
+     }
+
 }

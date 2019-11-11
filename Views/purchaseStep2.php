@@ -80,9 +80,6 @@ if ($userControl->checkSession() != false) {
             }//crear funcion que controle que haya disponibilidad en caso de que no haya que cambie el status a false
         ?>
         </table>
-        <label for="discount">Descuento</label><br>
-        <input id="discount" name="discount" type="number" value="<?php //valor del descuento si es que esta habilitado para la compra ?>" readonly><br>
-        <input id="emailUser" name="emailUser" type="hidden" required value="<?php echo $_SESSION["loggedUser"]->getEmail(); ?>">
         <br><button name="submit" type="submit">Continuar</button>
     </form>
   </div>

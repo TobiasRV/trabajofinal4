@@ -131,4 +131,22 @@ class ShowRepository extends Singleton
     {
          return $this->read($id)->getSeats();
     }
+
+    public function getShowData($id)
+    {
+     $showRepo = new ShowRepository();
+     $showRepo = $this->getAll();
+     $showData="";
+     foreach($showRepo as $shows)
+     {
+          if($shows->getId() == $id)
+          {
+               $showData = $shows->getDate() . " " . $shows->getTime();
+          }
+     }
+
+     return $showData;
+    }
+
+   
 }

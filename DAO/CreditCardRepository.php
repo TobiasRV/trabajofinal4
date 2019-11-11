@@ -118,4 +118,26 @@ class CreditCardRepository extends Singleton
                return count($resp) > 1 ? $resp : $resp['0'];
 
         }
+
+        //funciones extras
+
+        public function getCreditCards($id_user)
+        {
+             $repo = new CreditCardRepository();
+             $repo = $this->getAll();
+             $creditCards = array ();
+             foreach($repo as $cc)
+             {
+                  if($cc->getIdUser() == $id_user)
+                  {
+                       array_push($creditCards, $cc);
+                  }
+             }
+             return $creditCards;
+        }
+
+        public function getCompany($id_creditcard)
+        {
+          return $this->read($id_creditcard)->getCompany();
+        }
 }

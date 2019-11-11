@@ -17,22 +17,18 @@ if ($userControl->checkSession() != false) {
     <h4 class="mb-4">Paso 3 de 3</h4>
     <form action="<?php echo FRONT_ROOT ?>Purchase/confirmPurchase" method="POST">
         <!-- <input type="hidden" id="id" name="id" value=""> -->
-
         <label for="cinema_id">Seleccione una Tarjeta</label><br>
-        <select style="width:170px">
+        <select style="width:170px" id="creditCard" name="creditCard">
         <?php
         foreach($listado as $creditCard)
         {
-            if($creditCard->getIdUser() == $_SESSION["loggedUser"]->getId())
-            {
                 ?>
-                <option value="<?php echo $creditCard->getId(); ?>"><?php echo $creditCard->getCompany() . " " . $creditCard->getNumber();  ?></option>
+                <option value="<?php echo $creditCard->getId(); ?>"><?php echo $creditCard->getCompany() . " - " . $creditCard->getNumber();  ?></option>
+                
                 <?php
-            }
         }
         ?>
         </select><br>
-
         <br><button type="button" data-toggle="modal" data-target="#addCreditCard">Agregar Tarjeta</button><br><br>
 
         <!-- <label for="cinema_id">Método de Pago</label><br>
@@ -101,7 +97,7 @@ else
                                     <label for="company">
                                         <h5>Compañía</h5>
                                     </label>
-                                    <select>
+                                    <select id="company" name="company">
                                     <option value="Visa">Visa</option>
                                     <option value="Master">Master</option>
                                     </select>
@@ -110,7 +106,7 @@ else
                                     <label for="number">
                                         <h5>Número de Tarjeta</h5>
                                     </label>
-                                    <input type="number" style="width:170px" id="cardNumber" name="cardNumber" placeholder="Número de Tarjeta" required min=16 max=16 title="Solo números"><br>
+                                    <input type="number" style="width:170px" id="cardNumber" name="cardNumber" placeholder="Número de Tarjeta" required  title="Solo números"><br>
                                 </div>
                                 <div class="form-group">
                                     <button name="submit" type="submit" class="btn btn-primary btn-success btn-block">Agregar</button>
