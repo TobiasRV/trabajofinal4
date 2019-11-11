@@ -5,15 +5,6 @@ use Models\Genre as Genre;
 
 class movieRepository{
 
-    // private $idMovie;
-	// private $title;
-	// private $originalTitle;
-	// private $adult;
-	// private $overview;
-	// private $releaseDate;
-	// private $posterPath;
-	// private $backdropPath;
-
     private $connection;
 
           function __construct() {
@@ -22,8 +13,9 @@ class movieRepository{
 
           public function Add($movie) {
 
-			$sql = "INSERT INTO Movies (title, originalTitle, adult, overview, releaseDate, posterPath, backdropPath) VALUES (:title, :originalTitle, :adult, :overview, :releaseDate, :posterPath, :backdropPath)";
+			$sql = "INSERT INTO Movies (id_movie,title, originalTitle, adult, overview, releaseDate, posterPath, backdropPath) VALUES (:id_movie,:title, :originalTitle, :adult, :overview, :releaseDate, :posterPath, :backdropPath)";
 
+               $parameters['id_movie'] = $movie->getIdMovie();
                $parameters['title'] = $movie->getTitle();
                $parameters['originalTitle'] = $movie->getOriginalTitle();
                $parameters['adult'] = $movie->getAdult();
@@ -31,7 +23,6 @@ class movieRepository{
                $parameters['releaseDate'] = $movie->getReleaseDate();
                $parameters['posterPath'] = "https://image.tmdb.org/t/p/original" . $movie->getPosterPath();
                $parameters['backdropPath'] = "https://image.tmdb.org/t/p/original" . $movie->getBackdropPath();
-
                try {
      			$this->connection = Connection::getInstance();
 				return $this->connection->ExecuteNonQuery($sql, $parameters);
@@ -59,6 +50,74 @@ class movieRepository{
                else
                     return false;
           }
+
+          /*
+          Funciones de Genre
+          */
+
+          public function AddGenre($genre) {
+
+			$sql = "INSERT INTO Genres (id_genre , genre) VALUES (:id_genre,:genre)";
+
+               $parameters['id_genre'] = $genre->getId();
+               $parameters['genre'] = $genre->getName();
+
+               try {
+     			$this->connection = Connection::getInstance();
+				return $this->connection->ExecuteNonQuery($sql, $parameters);
+			} catch(\PDOException $ex) {
+                   throw $ex;
+              }
+          }
+
+          public function readGenre($id_genre) {
+
+               $sql = "SELECT * FROM Genres where id_genre = :id_genre";
+
+               $parameters['id_genre'] = $id_genre;
+
+               try {
+                    $this->connection = Connection::getInstance();
+                    $resultSet = $this->connection->execute($sql, $parameters);
+               } catch(Exception $ex) {
+                   throw $ex;
+               }
+
+
+               if(!empty($resultSet))
+                    return $this->mapearGenres($resultSet);
+               else
+                    return false;
+          }
+
+          public function addGenre_X_movie($id_genre,$id_movie){
+               $sql = "INSERT INTO genre_x_movie (id_genre,id_movie) VALUES (:id_genre, :id_movie)";
+           
+                   $parameters['id_genre'] = $id_genre;
+                   $parameters['id_movie'] = $id_movie;
+                   try {
+                    $this->connection = Connection::getInstance();
+                    return $this->connection->ExecuteNonQuery($sql, $parameters);
+               } catch(\PDOException $ex) {
+                   throw $ex;
+              }
+               
+           }
+
+           protected function mapearGenres($value) {
+
+			$value = is_array($value) ? $value : [];
+
+			$resp = array_map(function($p){
+				return new Genre($p['id_genre'], $p['genre']);
+			}, $value);
+
+               return count($resp) > 1 ? $resp : $resp['0'];
+
+        }
+          /*
+          Fin Funciones de genre
+          */
 
 
           public function getAll() {
@@ -100,25 +159,7 @@ class movieRepository{
 
   
           public function delete($id_movie) {
-               /*$sql = "DELETE FROM Movies WHERE id_movie = :id_movie";
-
-               $obj_pdo = new Conexion();
-
-               try {
-                    $conexion = $obj_pdo->conectar();
-
-				$sentencia = $conexion->prepare($sql);
-
-                    $sentencia->bindParam(":id_movie", $id_movie);
-
-                    $sentencia->execute();
-
-
-               } catch(PDOException $Exception) {
-
-				throw new MyDatabaseException( $Exception->getMessage( ) , $Exception->getCode( ) );
-
-			}*/
+               echo "La base de datos de peliculas es sagrada y blasfemo el que quiera atentar contra ella.";
           }
 
 
@@ -127,7 +168,7 @@ class movieRepository{
 			$value = is_array($value) ? $value : [];
 
 			$resp = array_map(function($p){
-				return new M_Usuario($p['id_movie'], $p['title'], $p['originalTitle'], $p['adult'], $p['overview'], $p['releaseDate'], $p['posterPath'], $p['backdropPath']);
+				return new Movie($p['id_movie'], $p['title'], $p['originalTitle'], $p['adult'], $p['overview'], $p['releaseDate'], $p['posterPath'], $p['backdropPath']);
 			}, $value);
 
                return count($resp) > 1 ? $resp : $resp['0'];
@@ -259,5 +300,90 @@ class movieRepository{
 
      return $movie;
  }
+
+
+ public function updateDataBase(){ // actualiza la base de datos
+      $this->updateDataBaseGenres();
+      $this->updateDataBaseMovies();
+      $this->updateDataBaseUpcomingMovies();
+ }
+
+ public function updateDataBaseMovies(){ //esta funcion pasa la info de movies a la BD
+     $cont = 0;
+     $moviesJson = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1");
+     $arrayJson = ($moviesJson) ? json_decode($moviesJson, true) : array();
+     $array = $arrayJson['results'];
+ 
+
+     foreach($array as $values){
+
+          if(!$this->read($values['id']))
+          {
+               $newMovie = new Movie();
+               $newMovie->setAdult($values['adult']);
+               $newMovie->setIdGenre($values['genre_ids']);
+               $newMovie->setIdMovie($values['id']);
+               $newMovie->setTitle($values['title']);
+               $newMovie->setOriginalTitle($values['original_title']);
+               $newMovie->setOverview($values['overview']);
+               $newMovie->setPosterPath("https://image.tmdb.org/t/p/original" . $values["poster_path"]);
+               $newMovie->setReleaseDate($values['release_date']);
+               $newMovie->setBackdropPath("https://image.tmdb.org/t/p/original" . $values["backdrop_path"]);
+               $this->add($newMovie);
+               foreach($newMovie->getIdGenre() as $values)
+               {
+                    $this->addGenre_X_movie($values,$newMovie->getIdMovie());
+
+               }
+          }
+     }
+ }
+
+ public function updateDataBaseUpcomingMovies(){ //esta funcion pasa la info de movies a la BD
+     $cont = 0;
+     $moviesJson = file_get_contents("https://api.themoviedb.org/3/movie/upcoming?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1");
+     $arrayJson = ($moviesJson) ? json_decode($moviesJson, true) : array();
+     $array = $arrayJson['results'];
+ 
+
+     foreach($array as $values){
+
+          if(!$this->read($values['id']))
+          {
+               $newMovie = new Movie();
+               $newMovie->setAdult($values['adult']);
+               $newMovie->setIdGenre($values['genre_ids']);
+               $newMovie->setIdMovie($values['id']);
+               $newMovie->setTitle($values['title']);
+               $newMovie->setOriginalTitle($values['original_title']);
+               $newMovie->setOverview($values['overview']);
+               $newMovie->setPosterPath("https://image.tmdb.org/t/p/original" . $values["poster_path"]);
+               $newMovie->setReleaseDate($values['release_date']);
+               $newMovie->setBackdropPath("https://image.tmdb.org/t/p/original" . $values["backdrop_path"]);
+               $this->add($newMovie);
+               foreach($newMovie->getIdGenre() as $values)
+               {
+                    $this->addGenre_X_movie($values,$newMovie->getIdMovie());
+
+               }
+          }
+     }
+ }
+
+ public function updateDataBaseGenres(){ //esta funcion pasa la info de genres a la BD
+     $cont = 0;
+     $genresJson = file_get_contents('https://api.themoviedb.org/3/genre/movie/list?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX');
+     $arrayJson = ($genresJson) ? json_decode($genresJson, true) : array();
+     $array = $arrayJson['genres'];
+     foreach($array as $values){
+          if(!$this->readGenre($values['id']))
+          {
+               $newGenre = new Genre();
+               $newGenre->setName($values['name']);
+               $newGenre->setId($values['id']);
+               $this->addGenre($newGenre);
+          }
+     }
+     }
 
 }

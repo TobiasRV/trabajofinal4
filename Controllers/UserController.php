@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use DAO\UserRepository as UserRepository;
+use DAO\MovieRepository as MovieRepository;
 use Models\User as User;
 
 class UserController
@@ -83,6 +84,8 @@ class UserController
                 $loggedUser->setPermissions($values->getPermissions());
                 $loggedUser->setDni($values->getDni());
                 $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
+                $movieRepo = new MovieRepository();
+                $movieRepo->updateDataBase();
                 require_once(VIEWS_PATH . "index.php");
            }
         }

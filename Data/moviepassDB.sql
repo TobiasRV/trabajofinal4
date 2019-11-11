@@ -26,7 +26,7 @@ constraint fk_id_movietheater foreign key(id_movietheater) references MovieTheat
 );
 
 create table Movies(
-id_movie int,
+id_movie int UNIQUE,
 title varchar(50),
 originalTitle varchar(50),
 adult boolean,
