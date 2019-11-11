@@ -2,14 +2,11 @@
 
 <?php 
 
+//Paso 2 de la compra de tickets
+
 include_once(VIEWS_PATH . "header.php"); 
 
-use Controllers\UserController as UserController;
-use DAO\MovieRepository as MovieRepository;
-use DAO\ShowRepository as ShowRepository;
 
-$showRepo = new ShowRepository();
-$listado = $showRepo->getAll();
 
 if ($userControl->checkSession() != false) {
     if ($_SESSION["loggedUser"]->getPermissions() == 2) {
@@ -18,15 +15,10 @@ if ($userControl->checkSession() != false) {
         <body>
 
     <div class="container" align="center">
-    <h2 class="mb-4">Carrito</h2>
-    <form action="<?php echo FRONT_ROOT ?>Ticket/cartPurchase" method="post">
+    <h2 class="mb-4">Comprar Tickets</h2>
+    <h4 class="mb-4">Paso 2 de 3</h4>
+    <form action="<?php echo FRONT_ROOT ?>Purchase/cartPurchase" method="POST">
         <!-- <input type="hidden" id="id" name="id" value=""> -->
-        <!-- <label for="cinema_id">Método de Pago</label><br>
-        <select style="width:170px">
-        <option value="Visa">Tarjeta de Crédito Visa</option>
-        <option value="Master">Tarjeta de Crédito Master</option>
-        </select><br> -->
-
 
         <script>
                 function myFunction() {
@@ -56,18 +48,22 @@ if ($userControl->checkSession() != false) {
         <label for="quantityTickets">Funciones</label><br>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por cine..">
         <table id="myTable">
+            <tr class="header">
+                <th style="width:60%;">Cine</th>
+                <th style="width:40%;">Función</th>
+            </tr>
         <?php 
             foreach ($listado as $shows)
             {
-                if($shows->getId_movie()==$idMovie){
+                if($shows->getId_movie()==$idMovie && $shows->getStatus()==true){
                 ?>
-            <tr class="header">
-                <th style="width:60%;"><?php echo $shows->getId_cinema(); ?></th>
-                <th style="width:40%;"><?php echo $shows->getDate() . $shows->getTime(); ?></th>
+            <tr>
+                <td><?php echo $shows->getId_cinema(); ?></td>
+                <td><?php echo $shows->getDate() . $shows->getTime(); ?></td>
             </tr>
             <?php
                 }
-            }
+            }//crear funcion que controle que haya disponibilidad en caso de que no haya que cambie el status a false
         ?>
         </table>
         <label for="discount">Descuento</label><br>

@@ -4,7 +4,7 @@ namespace DAO;
 use Models\Show as Show;
 use Models\Movie as Movie;
 
-class CinemaRepository extends Singleton
+class ShowRepository extends Singleton
 {
     private $connection;
     function __construct() {

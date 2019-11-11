@@ -46,10 +46,10 @@ if($userControl->checkSession()!=false)
                     <th scope="row">Contraseña</th>
                     <td><?php echo $_SESSION["loggedUser"]->getPassword(); ?></td>
                 </tr>
-                <!-- <tr>
+                <tr>
                     <th scope="row">DNI</th>
-                    <td><?php //echo $_SESSION["loggedUser"]->getDni(); ?></td>
-                </tr> -->
+                    <td><?php echo $_SESSION["loggedUser"]->getDni(); ?></td>
+                </tr>
         </tbody>
     </table>
 
@@ -94,6 +94,12 @@ if($userControl->checkSession()!=false)
                                         <h5>Email</h5>
                                     </label>
                                     <input id="email" name="email"  type="email" value="<?php echo $_SESSION["loggedUser"]->getEmail(); ?>" class="form-control" readonly >
+                                </div>
+                                <div class="form-group">
+                                    <label for="dni">
+                                        <h5>DNI</h5>
+                                    </label>
+                                    <input id="dni" name="dni"  type="number" value="<?php echo $_SESSION["loggedUser"]->getDni(); ?>" class="form-control" readonly >
                                 </div>
                                 <div class="form-group">
                                     <label for="username">

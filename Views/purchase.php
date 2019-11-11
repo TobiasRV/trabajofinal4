@@ -2,19 +2,14 @@
 
 <?php 
 
+//Paso 1 de la compra de tickets
+
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 $date= date('d/m/Y');
 $mod_date = strtotime($date."+ 6 days");
 
 include_once(VIEWS_PATH . "header.php"); 
 
-use Controllers\UserController as UserController;
-use DAO\MovieRepository as MovieRepository;
-
-$userControl = new UserController();
-
-$movieRepo = new MovieRepository();
-$listado=$movieRepo->getNowPlayingMovies();
 
 if ($userControl->checkSession() != false) {
     if ($_SESSION["loggedUser"]->getPermissions() == 2) {
@@ -24,6 +19,7 @@ if ($userControl->checkSession() != false) {
 
   <div class="container" align="center">
     <h2 class="mb-4">Comprar Tickets</h2>
+    <h4 class="mb-4">Paso 1 de 3</h4>
     <form action="<?php echo FRONT_ROOT ?>Purchase/ticketPurchase" method="POST">
         <!-- <input type="hidden" id="id" name="id" value=""> -->
         <label for="cinema_id">Película</label><br>

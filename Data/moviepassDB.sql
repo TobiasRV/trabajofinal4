@@ -112,6 +112,10 @@ CONSTRAINT fk_id_purchase foreign key (id_purchase) references purchase (id_purc
 );
 
 
+
+
+
+
 -------------------------------------------------------------------------------
 --                         STORE PROCEDURES
 -------------------------------------------------------------------------------
@@ -138,5 +142,31 @@ END//
 call cargarU ('juanludu', 'Juan', 'Luduenia', 'juan@gmail.com', 41306521, 1, '1234');
 call cargarU ('bpilegi98', 'Bianca', 'Pilegi', 'bianca@gmail.com', 41307541, 2, '4321');
 call cargarU('asd', 'asd', 'asd', 'asd@gmail.com', 41306988, 2, 'asd123');
+
+
+DELIMITER //
+CREATE PROCEDURE listarMovieTheaters ()
+BEGIN
+select * from MovieTheaters;
+END//
+
+DELIMITER //
+CREATE PROCEDURE listarCinemas (IN id_movietheater int)
+BEGIN
+select c.name
+from MovieTheaters mt
+left join Cinemas c 
+on mt.id_movietheater=c.id_movietheater;
+END//
+
+DELIMITER //
+CREATE PROCEDURE listarShows (IN id_cinema int)
+BEGIN
+select s.show_date, s.show_time, s.id_movie
+from Shows s 
+join Cinemas c
+on s.id_cinema=c.id_cinema;
+END//
+
 
 
