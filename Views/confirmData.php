@@ -27,7 +27,7 @@ if ($userControl->checkSession() != false) {
                 </tr>
                 <tr>
                     <th scope="row">Película</th>
-                    <td><?php  echo $nameMovie;  ?></td>
+                    <td><?php echo $nameMovie; ?></td>
                 </tr>
                 <tr>
                     <th scope="row">Cine</th>
@@ -35,7 +35,7 @@ if ($userControl->checkSession() != false) {
                 </tr>
                 <tr>
                     <th scope="row">Función</th>
-                    <td><?php echo $listadoShows->getShowData($_SESSION["purchase"]->getIdShow()); ?></td>
+                    <td><?php echo $showData; ?></td>
                 </tr>
                 <tr>
                     <th scope="row">Compañía de la Tarjeta</th>
@@ -59,10 +59,10 @@ if ($userControl->checkSession() != false) {
     <br>
     <br>
                 <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton">
-                <input type="submit" value="confirmPurchase" />CONFIRMAR
+                <input type="submit" value="CONFIRMAR"/>
                 </form>
                 <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton">
-                <input type="submit" value="cancelPurchase" />CANCELAR
+                <input type="submit" value="CANCELAR"/>
                 </form>
 
 </html>

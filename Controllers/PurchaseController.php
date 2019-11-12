@@ -137,6 +137,7 @@ class PurchaseController
             }
         }
 
+        $showData = $showsRepo->getShowData($_SESSION["purchase"]->getIdShow());
         
         require_once(VIEWS_PATH . "confirmData.php");
 
@@ -171,7 +172,7 @@ class PurchaseController
 
     public function checkButton($value)
     {
-        if($value == "confirmPurchase")
+        if($value == "CONFIRMAR")
         {
             $purchase=$_SESSION["purchase"];
             $purchaseRepo = new PurchaseRepository();
