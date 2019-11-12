@@ -140,4 +140,19 @@ class CreditCardRepository extends Singleton
         {
           return $this->read($id_creditcard)->getCompany();
         }
+
+        public function getId($creditCard)
+        {
+          $repo = new CreditCardRepository();
+          $repo = $this->getAll();
+          foreach($repo as $cc)
+          {
+               if($cc->getNumber() == $creditCard->getNumber())
+               {
+                    $creditCard->setId($cc->getId());
+               }
+          }
+
+          return $creditCard;
+        }
 }

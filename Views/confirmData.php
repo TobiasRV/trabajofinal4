@@ -31,7 +31,7 @@ if ($userControl->checkSession() != false) {
                 </tr>
                 <tr>
                     <th scope="row">Cine</th>
-                    <td><?php echo "No se como ponerlo :c"; ?></td>
+                    <td><?php echo $_SESSION["nameMovieTheater"]; ?></td>
                 </tr>
                 <tr>
                     <th scope="row">Función</th>

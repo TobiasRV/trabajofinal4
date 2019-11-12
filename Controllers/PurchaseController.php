@@ -49,6 +49,31 @@ class PurchaseController
         $shRepo = new ShowRepository();
         $repoShows = $shRepo->getAvaiableSeats($idShow);
         $_SESSION["avaiableSeats"]=$repoShows;
+        //setear nombre de cine en session
+        $cinemas = new CinemaRepository();
+        $cinemasRepo = $cinemas->getAll();
+        $idMovieTheater=0;
+        foreach($cinemasRepo as $cinemas)
+        {
+            if($cinemas->getId() == $_SESSION["idCinema"])
+            {
+                $idMovieTheater = $cinemas->getIdMovieTheater();
+            }
+        }
+
+        $movieTheaters = new MovieTheaterRepository();
+        $movieTheatersRepo = $movieTheaters->getAll();
+        $nameMovieTheater="";
+        foreach($movieTheatersRepo as $movieTheaters)
+        {
+            if($movieTheaters->getId() == $idMovieTheater)
+            {
+                $nameMovieTheater = $movieTheaters->getName();
+            }
+        }
+        $_SESSION["nameMovieTheater"] = $nameMovieTheater;
+
+
         $this->purchaseStep3();
         
     }
@@ -70,11 +95,14 @@ class PurchaseController
         {
             if($ccs->getId() == $id_creditcard)
             {
+                
                 $creditCard = new CreditCard();
                 $creditCard->setCompany($ccs->getCompany());
                 $creditCard->setNumber($ccs->getNumber());
+                $creditCard->setIdUser($ccs->getIdUser($_SESSION["loggedUser"]->getId()));
             }
         }
+        $creditCard = $ccRepo->getId($creditCard);
         $_SESSION["creditCard"] = $creditCard;
 
         $listado = new CinemaRepository();
@@ -109,10 +137,10 @@ class PurchaseController
                 $purchase->setDiscount(0.25);
             }
             $purchase->setTotal($totalAux - ($totalAux * $purchase->getDiscount()));
+            $purchase->setIdCreditCard($_SESSION["creditCard"]->getId());
 
             $_SESSION["purchase"] = $purchase;
             
-            //var_dump($_SESSION["purchase"]);
 
             //Se resta de la capacidad de asientos de la funcion la cantidad de tickets comprados
             $showsRepo = new ShowRepository();
@@ -222,6 +250,8 @@ class PurchaseController
         unset($_SESSION["avaiableSeats"]);
         unset($_SESSION["creditCard"]);
         unset($_SESSION["ticketPrice"]);
+        unset($_SESSION["idPurchase"]);
+        unset($_SESSION["nameMovieTheater"]);
     }
 
     
