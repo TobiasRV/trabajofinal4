@@ -39,13 +39,15 @@ class PurchaseController
         $this->purchaseStep2();
     }
 
-    public function continuePurchase2($idShow, $idCinema, $avaiableSeats)
+    public function continuePurchase2($idShow, $idCinema)
     {
         $purchase = new Purchase();
         $purchase->setIdShow($idShow);
         $_SESSION["purchase"] = $purchase;
         $_SESSION["idCinema"]=$idCinema;
-        $_SESSION["avaiableSeats"]=$avaiableSeats;
+        $shRepo = new ShowRepository();
+        $repoShows = $shRepo->getAvaiableSeats($idShow);
+        $_SESSION["avaiableSeats"]=$repoShows;
         $this->purchaseStep3();
         
     }
@@ -90,7 +92,7 @@ class PurchaseController
         // $creditCard->setExpireDate($expire);
         // $creditCard->setSecurityCode($code);
 
-
+       
         //se comprueba que haya suficientes asientos libres para realizar la compra
         if($_SESSION["avaiableSeats"] >= $qTickets)
         {
@@ -98,8 +100,8 @@ class PurchaseController
             $purchase=$_SESSION["purchase"];
             $purchase->setPurchaseDate(date('Y-m-d'));
             $purchase->setQuantityTickets($qTickets);
-            $purchase->setTicketPrice($_SESSION["ticketPrice"]);
-            $totalAux=$purchase->getQuantityTickets() * $purchase->getTicketPrice();
+            //$purchase->setTicketPrice($_SESSION["ticketPrice"]);
+            $totalAux=$purchase->getQuantityTickets() * $_SESSION["ticketPrice"];
             if($this->checkDiscount()==true)
             {
                 $purchase->setDiscount(0.25);
@@ -108,9 +110,10 @@ class PurchaseController
 
             $_SESSION["purchase"] = $purchase;
             
+            //var_dump($_SESSION["purchase"]);
 
             //Se resta de la capacidad de asientos de la funcion la cantidad de tickets comprados
-            $showsRepo = new ShowsRepository();
+            $showsRepo = new ShowRepository();
             $listadoShows = $showsRepo->getAll();
             foreach($listadoShows as $shows)
             {
@@ -168,11 +171,39 @@ class PurchaseController
                 alert("La compra se ha realizado con éxito.");
             </script>
             <?php
+            $this->generateTickets();
+            $this->clearSessionVariables();
+            include_once(VIEWS_PATH . "index.php");
         }
         else
         {
+            $this->clearSessionVariables();
             include_once(VIEWS_PATH . "index.php");
         }
     }
+
+    public function generateTickets()
+    {
+        $q_Tickets = $_SESSION["purchase"]->getQuantityTickets();
+        for($i=0;$i<$q_Tickets;$i++)
+        {
+            $ticket = new Ticket();
+            $ticket->setIdPurchase();
+            $ticketsRepo = new TicketRepository();
+            $ticketsRepo->Add($ticket);
+        }
+    }
+
+    public function clearSessionVariables()
+    {
+        unset($_SESSION["purchase"]);
+        unset($_SESSION["idMovieSearch"]);
+        unset($_SESSION["idCinema"]);
+        unset($_SESSION["avaiableSeats"]);
+        unset($_SESSION["creditCard"]);
+        unset($_SESSION["ticketPrice"]);
+    }
+
+    
 
 }

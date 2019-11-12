@@ -71,13 +71,13 @@ if ($userControl->checkSession() != false) {
                 <td><?php echo $shows->getDate() . " " . $shows->getTime(); ?></td>
                 <td> <input type="radio" name="idShow" id = "idShow" value="<?php echo  $shows->getId(); ?>"><br></td>
                 <td><input type="hidden" value="<?php $shows->getId_cinema(); ?>" name="idCinema"></td>
-                <td><input type="hidden" value="<?php $shows->getSeats(); ?>" name="avaiableSeats"></td>
+
 
                 
             </tr>
             <?php
                 }
-            }//crear funcion que controle que haya disponibilidad en caso de que no haya que cambie el status a false
+            }
         ?>
         </table>
         <br><button name="submit" type="submit">Continuar</button>
