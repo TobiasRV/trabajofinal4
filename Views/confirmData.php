@@ -47,24 +47,33 @@ if ($userControl->checkSession() != false) {
                 </tr>
                 <tr>
                     <th scope="row">Descuento</th>
-                    <td><?php echo $_SESSION["purchase"]->getDiscount(); ?></td>
+                    <td><?php if($_SESSION["purchase"]->getDiscount()==null)
+                    {
+                        echo "-";
+                    }
+                    else
+                    {
+                        echo "25%";
+                    } 
+                    ?></td>
                 </tr>
                 <tr>
                     <th scope="row">Total de la Compra</th>
-                    <td><?php echo $_SESSION["purchase"]->getTotal(); ?></td>
+                    <td><?php echo "$" . $_SESSION["purchase"]->getTotal(); ?></td>
                 </tr>
         </tbody>
     </table>
 
     <br>
     <br>
+    <div class="buttons" align="center">
                 <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton" method="POST">
                 <input type="submit" name="confirmPurchase" id="button" value="CONFIRMAR"/>
                 </form>
                 <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton" method="POST">
                 <input type="submit" name="cancelPurchase" id="button" value="CANCELAR"/>
                 </form>
-
+    </div>
 </html>
 
 <?php 

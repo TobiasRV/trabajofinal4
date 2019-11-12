@@ -130,7 +130,7 @@ class PurchaseController
             $purchase=$_SESSION["purchase"];
             $purchase->setPurchaseDate(date('Y-m-d'));
             $purchase->setQuantityTickets($qTickets);
-            //$purchase->setTicketPrice($_SESSION["ticketPrice"]);
+            
             $totalAux=$purchase->getQuantityTickets() * $_SESSION["ticketPrice"];
             if($this->checkDiscount()==true)
             {
