@@ -141,6 +141,12 @@ class PurchaseController
         
         require_once(VIEWS_PATH . "confirmData.php");
 
+        ?>
+            <script>
+                alert("Corrobore que los datos sean correctos y confirme su compra.");
+            </script>
+            <?php
+
         
     }
 
@@ -177,6 +183,7 @@ class PurchaseController
             $purchase=$_SESSION["purchase"];
             $purchaseRepo = new PurchaseRepository();
             $purchaseRepo->Add($purchase);
+            echo $purchaseRepo->getLastPurchase();
             ?>
             <script>
                 alert("La compra se ha realizado con éxito.");
@@ -203,6 +210,7 @@ class PurchaseController
             $ticketsRepo = new TicketRepository();
             $ticketsRepo->Add($ticket);
         }
+        $this->clearSessionVariables();
     }
 
     public function clearSessionVariables()

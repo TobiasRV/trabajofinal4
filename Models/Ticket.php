@@ -15,7 +15,7 @@ class Ticket{
 	}
 
 	public function setIdTicket($idTicket){
-		$this->idTic$idTicket = $idTicket;
+		$this->idTicket = $idTicket;
 	}
 
 	public function getIdPurchase(){

@@ -14,14 +14,14 @@ class PurchaseRepository extends Singleton
           }
           public function Add($purchase) {
 
-			$sql = "INSERT INTO Purchase (purchase_day,quantity_tickets,total,discount,id_show, id_creditcard) VALUES (:purchase_day,:quantity_tickets,:total,:discount,:id_show, :id_creditcard)";
+			$sql = "INSERT INTO Purchases (purchase_day,quantity_tickets,total,discount,id_show, id_creditcard) VALUES (:purchase_day,:quantity_tickets,:total,:discount,:id_show, :id_creditcard)";
 
-               $parameters['purchase_day'] = $purchase->getCompany();
+               $parameters['purchase_day'] = $purchase->getPurchaseDate();
                $parameters['quantity_tickets'] = $purchase->getQuantityTickets();
                $parameters['total'] = $purchase->getTotal();
                $parameters['discount'] = $purchase->getDiscount();
                $parameters['id_show'] = $purchase->getIdShow();
-               $parameters['id_creditcard'] = $purchase->getCreditCard();
+               $parameters['id_creditcard'] = $purchase->getIdCreditCard();
 
 
                try {
@@ -111,5 +111,28 @@ class PurchaseRepository extends Singleton
 
                return count($resp) > 1 ? $resp : $resp['0'];
 
+        }
+
+        public function getLastPurchase()
+        {
+             $sql = "SELECT id_purchase FROM Purchases  ORDER BY id_purchase DESC LIMIT 1";
+          
+             $id = $parameters['id_purchase'];
+               //aca borre los otros datos a ver si podia devolver solo la id :c
+             try {
+               $this->connection = Connection::getInstance();
+               $resultSet = $this->connection->execute($sql, $parameters);
+          } catch(Exception $ex) {
+              throw $ex;
+          }
+
+          if(!empty($resultSet))
+          {
+               return $this->mapear($resultSet);
+          }
+          else
+          {
+               return false;
+          }
         }
 }

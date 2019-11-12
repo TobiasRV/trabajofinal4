@@ -58,11 +58,11 @@ if ($userControl->checkSession() != false) {
 
     <br>
     <br>
-                <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton">
-                <input type="submit" value="CONFIRMAR"/>
+                <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton" method="POST">
+                <input type="submit" name="confirmPurchase" id="button" value="CONFIRMAR"/>
                 </form>
-                <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton">
-                <input type="submit" value="CANCELAR"/>
+                <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton" method="POST">
+                <input type="submit" name="cancelPurchase" id="button" value="CANCELAR"/>
                 </form>
 
 </html>
