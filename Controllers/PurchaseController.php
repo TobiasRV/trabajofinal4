@@ -207,7 +207,7 @@ class PurchaseController
         for($i=0;$i<$q_Tickets;$i++)
         {
             $ticket = new Ticket();
-            $ticket->setIdPurchase($_SESSION["idPurchase"]);
+            $ticket->setIdPurchase($_SESSION["idPurchase"]->getIdPurchase());
             $ticketsRepo = new TicketRepository();
             $ticketsRepo->Add($ticket);
         }

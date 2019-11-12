@@ -17,7 +17,7 @@ class Purchase
 
     public function getIdPurchase()
     {
-        return $this->id;
+        return $this->idPurchase;
     }
 
     public function setIdPurchase($idPurchase)
