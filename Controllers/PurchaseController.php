@@ -10,6 +10,7 @@ use DAO\MovieTheaterRepository as MovieTheaterRepository;
 use DAO\CinemaRepository as CinemaRepository;
 use DAO\PurchaseRepository as PurchaseRepository;
 use DAO\CreditCardRepository as CreditCardRepository;
+use DAO\TicketRepository as TicketRepository;
 
 class PurchaseController
 {
@@ -183,7 +184,7 @@ class PurchaseController
             $purchase=$_SESSION["purchase"];
             $purchaseRepo = new PurchaseRepository();
             $purchaseRepo->Add($purchase);
-            echo $purchaseRepo->getLastPurchase();
+            $_SESSION["idPurchase"] = $purchaseRepo->getLastPurchase();
             ?>
             <script>
                 alert("La compra se ha realizado con éxito.");
@@ -206,7 +207,7 @@ class PurchaseController
         for($i=0;$i<$q_Tickets;$i++)
         {
             $ticket = new Ticket();
-            $ticket->setIdPurchase();
+            $ticket->setIdPurchase($_SESSION["idPurchase"]);
             $ticketsRepo = new TicketRepository();
             $ticketsRepo->Add($ticket);
         }

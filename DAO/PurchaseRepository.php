@@ -115,24 +115,18 @@ class PurchaseRepository extends Singleton
 
         public function getLastPurchase()
         {
-             $sql = "SELECT id_purchase FROM Purchases  ORDER BY id_purchase DESC LIMIT 1";
+             $sql = "SELECT * FROM Purchases  ORDER BY id_purchase DESC LIMIT 1";
           
-             $id = $parameters['id_purchase'];
-               //aca borre los otros datos a ver si podia devolver solo la id :c
              try {
                $this->connection = Connection::getInstance();
-               $resultSet = $this->connection->execute($sql, $parameters);
+               $resultSet = $this->connection->execute($sql);
           } catch(Exception $ex) {
               throw $ex;
           }
 
           if(!empty($resultSet))
-          {
                return $this->mapear($resultSet);
-          }
           else
-          {
                return false;
-          }
         }
 }

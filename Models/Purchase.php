@@ -20,7 +20,7 @@ class Purchase
         return $this->id;
     }
 
-    public function setIdPurchase()
+    public function setIdPurchase($idPurchase)
     {
         $this->idPurchase=$idPurchase;
     }
