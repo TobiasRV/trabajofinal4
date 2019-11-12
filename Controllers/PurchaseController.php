@@ -78,14 +78,18 @@ class PurchaseController
 
         $listado = new CinemaRepository();
         $cinemas = $listado->getAll();
+        var_dump($cinemas);
+        
         foreach($cinemas as $cm)
         {
+           
             if($cm->getId() == $_SESSION["idCinema"])
             {
                 $_SESSION["ticketPrice"] = $cm->getTicketPrice();
+                
             }
         }
-
+        
         // $creditCard->setFirstnameOwner($nameOw);
         // $creditCard->setLastnameOwner($surnameOw);
         // $creditCard->setDniOwner($dniOw);
@@ -128,6 +132,7 @@ class PurchaseController
         $moviesRepo = new MovieRepository();
         $listMovies = $moviesRepo->getAll();
 
+        
         require_once(VIEWS_PATH . "confirmData.php");
 
         

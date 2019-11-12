@@ -110,9 +110,9 @@ class CinemaRepository extends Singleton
                 $cinema->setId($p['id_cinema']);
                 $cinema->setStatus($p['status']);
                 $cinema->setName($p['name']);
-                $cinema->setTicketPrice($p['ticketprice']);
+                $cinema->setTicketPrice($p['ticketPrice']);
                 $cinema->setSeats($p['seats']);
-                $cinema->setIdMovieTheater($p['id_movieTheater']);
+                $cinema->setIdMovieTheater($p['id_movietheater']);
                 return $cinema;
            }, $value);
 

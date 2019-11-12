@@ -18,11 +18,11 @@ if ($userControl->checkSession() != false) {
     <table class="table table-striped">
         <tbody>
                 <tr>
-                    <th scope="row">Fecha de la compra</th>
+                    <th scope="row">Fecha</th>
                     <td><?php echo $_SESSION["purchase"]->getPurchaseDate(); ?></td>
                 </tr>
                 <tr>
-                    <th scope="row">Cantidad de tickets</th>
+                    <th scope="row">Tickets</th>
                     <td><?php echo $_SESSION["purchase"]->getQuantityTickets(); ?></td>
                 </tr>
                 <tr>

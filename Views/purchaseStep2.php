@@ -70,7 +70,7 @@ if ($userControl->checkSession() != false) {
                 }?></td>
                 <td><?php echo $shows->getDate() . " " . $shows->getTime(); ?></td>
                 <td> <input type="radio" name="idShow" id = "idShow" value="<?php echo  $shows->getId(); ?>"><br></td>
-                <td><input type="hidden" value="<?php $shows->getId_cinema(); ?>" name="idCinema"></td>
+                <td><input type="hidden" value="<?php echo $shows->getId_cinema(); ?>" name="idCinema"></td>
 
 
                 
