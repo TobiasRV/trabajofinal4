@@ -79,10 +79,10 @@ class PurchaseController
         $listado = new CinemaRepository();
         $cinemas = $listado->getAll();
         var_dump($cinemas);
-        
+        echo "<br>".$_SESSION["idCinema"]."<br>";
         foreach($cinemas as $cm)
         {
-           
+           echo "<br>".$cm->getId()."<br>";
             if($cm->getId() == $_SESSION["idCinema"])
             {
                 $_SESSION["ticketPrice"] = $cm->getTicketPrice();

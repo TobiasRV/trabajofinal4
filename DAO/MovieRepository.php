@@ -168,7 +168,16 @@ class movieRepository{
 			$value = is_array($value) ? $value : [];
 
 			$resp = array_map(function($p){
-				return new Movie($p['id_movie'], $p['title'], $p['originalTitle'], $p['adult'], $p['overview'], $p['releaseDate'], $p['posterPath'], $p['backdropPath']);
+                    $movie= new Movie();
+                    $movie->setIdMovie($p['id_movie']);
+                    $movie->setTitle($p['title']);
+                    $movie->setOriginalTitle($p['originalTitle']);
+                    $movie->setAdult($p['adult']);
+                    $movie->setOverview($p['overview']);
+                    $movie->setReleaseDate($p['releaseDate']);
+                    $movie->setPosterPath($p['posterPath']);
+                    $movie->setBackdropPath($p['backdropPath']); 
+                    return $movie;
 			}, $value);
 
                return count($resp) > 1 ? $resp : $resp['0'];
