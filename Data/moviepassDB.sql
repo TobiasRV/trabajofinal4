@@ -86,7 +86,7 @@ CONSTRAINT unq_email UNIQUE (email)
 create table creditcards (
 id_creditcard int auto_increment,
 company varchar(50),
-number int,
+number bigint,
 id_user int,
 constraint pk_id_creditcard primary key (id_creditcard),
 CONSTRAINT fk_id_user FOREIGN KEY (id_user) references Users(id_user)
