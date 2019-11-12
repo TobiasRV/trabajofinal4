@@ -27,15 +27,7 @@ if ($userControl->checkSession() != false) {
                 </tr>
                 <tr>
                     <th scope="row">Película</th>
-                    <td><?php 
-                            foreach($listMovies as $lm)
-                            {
-                                if($lm->getIdMovie() == $_SESSION["idMovieSearch"])
-                                {
-                                    echo $lm->getMovieTitle($_SESSION["idMovieSearch"]);
-                                }
-                            }
-                        ?></td>
+                    <td><?php  echo $nameMovie;  ?></td>
                 </tr>
                 <tr>
                     <th scope="row">Cine</th>

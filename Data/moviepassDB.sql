@@ -172,6 +172,7 @@ call cargarU('asd', 'asd', 'asd', 'asd@gmail.com', 41306988, 2, 'asd123');
 
 select *from movies
 insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala1",200,100,1);
+insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala2",150,80,1);
 --año-mes-dia
 insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-25","12:05:06",100,true,1,330457);
 insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-24","15:05:06",120,true,1,290859);
