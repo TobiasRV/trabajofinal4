@@ -25,14 +25,11 @@ class UserController
         $add = true;
 
         $userRepo = new UserRepository();
-            foreach($userRepo->getAll() as $values)
-            {
-                if($values->getEmail() == $email|| $values->getUserName() == $username)
-                {
-                    $add=false;
-                }
-            } 
-
+       foreach($userRepo->getAll() as $values){
+           if($values->getEmail() == $email|| $values->getUserName() == $username){
+               $add=false;
+           }
+        } 
         if($add){
             $user = new User(); //crea el nuevo usuario y setea los datos
             $user->setUserName($username);
@@ -69,31 +66,29 @@ class UserController
         $userList=$userRepo->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
         $view = null;
         $i = 0;
-        if($userlist != null)
+        foreach ($userList as $values)
         {
 
+            if (($values->getUserName() == $user) && ($values->getPassword() == $password)) 
+            {   
 
-                if (($values->getUserName() == $user) && ($values->getPassword() == $password)) 
-                {   
 
-
-                    $login = true;
-                    $loggedUser = new User();
-                    $loggedUser->setId($values->getId());
-                    $loggedUser->setUserName($user);
-                    $loggedUser->setPassword($password);
-                    $loggedUser->setFirstname($values->getFirstName());
-                    $loggedUser->setLastname($values->getLastName());
-                    $loggedUser->setEmail($values->getEmail());
-                    $loggedUser->setPermissions($values->getPermissions());
-                    $loggedUser->setDni($values->getDni());
-                    $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
-                    $movieRepo = new MovieRepository();
-                    $movieRepo->updateDataBase();
-                    require_once(VIEWS_PATH . "index.php");
-                }
-            }
-   
+                $login = true;
+                $loggedUser = new User();
+                $loggedUser->setId($values->getId());
+                $loggedUser->setUserName($user);
+                $loggedUser->setPassword($password);
+                $loggedUser->setFirstname($values->getFirstName());
+                $loggedUser->setLastname($values->getLastName());
+                $loggedUser->setEmail($values->getEmail());
+                $loggedUser->setPermissions($values->getPermissions());
+                $loggedUser->setDni($values->getDni());
+                $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
+                $movieRepo = new MovieRepository();
+                $movieRepo->updateDataBase();
+                require_once(VIEWS_PATH . "index.php");
+           }
+        }
         
         if($login == false){
             $this->logInForm(); //al estar incorrectos los datos se redirecciona al formulario para volverlos a ingresar
