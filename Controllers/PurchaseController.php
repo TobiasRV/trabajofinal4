@@ -153,8 +153,10 @@ class PurchaseController
                 if($shows->getId() == $purchase->getIdShow())
                 {
                     $shows->setSeats($shows->getSeats() - $purchase->getQuantityTickets());
+                    $_SESSION["show"]=$shows;
                 }
             }
+            $showsRepo->edit($_SESSION["show"]);
         }
 
         $userControl = new UserController();
@@ -255,6 +257,7 @@ class PurchaseController
         unset($_SESSION["ticketPrice"]);
         unset($_SESSION["idPurchase"]);
         unset($_SESSION["nameMovieTheater"]);
+        unset($_SESSION["show"]);
     }
 
     

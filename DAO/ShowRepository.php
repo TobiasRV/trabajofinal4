@@ -70,7 +70,7 @@ class ShowRepository extends Singleton
 
     public function edit($show) {
       
-        $sql = "UPDATE Show SET show_date = :show_date, show_time = :show_time, seats = :seats, status = :status WHERE id_show= :id_show";
+        $sql = "UPDATE Shows SET show_date = :show_date, show_time = :show_time, seats = :seats, status = :status WHERE id_show= :id_show";
 
 
         $parameters['show_date'] = $show->getDate();
