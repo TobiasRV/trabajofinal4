@@ -72,7 +72,7 @@ if ($userControl->checkSession() != false) {
                         if($cinemas->getIdMovieTheater() == $mt->getId())
                         {
     
-                            if($shows->getId_cinema() == $cinemas->getId())
+                            if($shows->getIdCinema() == $cinemas->getId())
                             {
                                 echo $mt->getName(); 
                             }

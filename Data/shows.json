@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "date": "2019-11-16",
+        "time": "20:30",
+        "id_cinema": "1",
+        "id_movie": "475557",
+        "status": true
+    },
+    {
+        "id": 2,
+        "date": "2019-11-22",
+        "time": "10:00",
+        "id_cinema": "2",
+        "id_movie": "330457",
+        "status": true
+    },
+    {
+        "id": 3,
+        "date": "2019-11-17",
+        "time": "13:30",
+        "id_cinema": "1",
+        "id_movie": "420809",
+        "status": true
+    },
+    {
+        "id": 4,
+        "date": "2019-11-19",
+        "time": "17:00",
+        "id_cinema": "7",
+        "id_movie": "454640",
+        "status": true
+    },
+    {
+        "id": 5,
+        "date": "2019-11-16",
+        "time": "13:30",
+        "id_cinema": "1",
+        "id_movie": "499701",
+        "status": true
+    }
+]

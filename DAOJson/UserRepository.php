@@ -19,6 +19,26 @@ class UserRepository implements IRepository
 
         $this->saveData();
     }
+        public function read($email)
+        {
+            $this->retrieveData();
+            $flag=false;
+            $userReturn = new User();
+            foreach($this->userList as $u)
+            {
+                if(!$flag){
+
+                    if($email==$u->getEmail()){
+                        $flag=true;
+                        $userReturn=$u;
+                    }
+
+                }
+
+            }
+            return $userReturn;
+
+        }
 
     public function getAll(){
 
@@ -203,5 +223,6 @@ class UserRepository implements IRepository
     // private $lastname;
     // private $permissions;
     // private $tickets = array();
+
 
 }

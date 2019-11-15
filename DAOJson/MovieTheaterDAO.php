@@ -10,7 +10,12 @@ class MovieTheaterDAO implements IRepository
 
     private $movieTheaterList = array();
 
-    function Add(MovieTheater $movieTheater)
+    public function saveList($newList){
+        $this->movieTheaterList = $newList;
+        $this->saveData();
+    }
+
+    public function Add($movieTheater)
     {
         $this->RetrieveData();
 
@@ -19,14 +24,26 @@ class MovieTheaterDAO implements IRepository
         $this->Savedata();
     }
 
-    function getAll()
+    public function getById($id)
+    {
+        $this->RetrieveData();
+        foreach ($this->movieTheaterList as $movieTheater) {
+            if ($id == $movieTheater->getId()) {
+                $result = $movieTheater;
+                break;
+            }
+        }
+        return $result;
+    }
+
+    public function getAll()
     {
         $this->RetrieveData();
 
         return $this->movieTheaterList;
     }
 
-    function saveData()
+    public function saveData()
     {
 
         $arrayToEncode = array();
@@ -39,7 +56,6 @@ class MovieTheaterDAO implements IRepository
             $valuesArray['status'] = $movieTheater->getStatus();
             $valuesArray['name'] = $movieTheater->getName();
             $valuesArray['address'] = $movieTheater->getAddress();
-            $valuesArray['ticketPrice'] = $movieTheater->getTicketPrice();
             $valuesArray['cinemas'] = $movieTheater->getCinemas();
             $valuesArray['billBoard'] = $movieTheater->getBillBoard();
 
@@ -50,23 +66,22 @@ class MovieTheaterDAO implements IRepository
         file_put_contents('Data/movietheaters.json', $jsonContent);
     }
 
-    function retrieveData()
+    public function retrieveData()
     {
         $this->movieTheaterList = array();
 
         if (file_exists('Data/movietheaters.json')) {
             $jsonContent = file_get_contents('Data/movietheaters.json');
             $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
-            
+
             foreach ($arrayToDecode as $valuesArray) {
-                
+
                 $movieTheater = new MovieTheater();
-                
+
                 $movieTheater->setId($valuesArray['id']);
                 $movieTheater->setStatus($valuesArray['status']);
                 $movieTheater->setName($valuesArray['name']);
                 $movieTheater->setAddress($valuesArray['address']);
-                $movieTheater->setTicketPrice($valuesArray['ticketPrice']);
                 $movieTheater->setCinemas($valuesArray['cinemas']);
                 $movieTheater->setBillBoard($valuesArray['billBoard']);
 

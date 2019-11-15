@@ -1,615 +1,1722 @@
 [
     {
         "id": 1,
-        "status": "on",
-        "name": "Ambassador",
-        "address": "Cordoba 1673",
-        "billBoard": [
-            {
-                "adult": false,
-                "idMovie": 475557,
-                "idGenre": [
-                    80,
-                    18,
-                    53
-                ],
-                "originalTitle": "Joker",
-                "title": "Guasón",
-                "overview": "Arthur Fleck (Phoenix) es un hombre ignorado por la sociedad, cuya motivación en la vida es hacer reír. Pero una serie de trágicos acontecimientos le llevarán a ver el mundo de otra forma. Película basada en el popular personaje de DC Comics Joker, conocido como archivillano de Batman, pero que en este film tomará un cariz más realista y oscuro.",
-                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/v0eQLbzT6sWelfApuYsEkYpzufl.jpg",
-                "releaseDate": "2019-10-04",
-                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg"
-            },
-            {
-                "adult": false,
-                "idMovie": 511987,
-                "idGenre": [
-                    28,
-                    18,
-                    27,
-                    53
-                ],
-                "originalTitle": "Crawl",
-                "title": "Infierno en la tormenta",
-                "overview": "Cuando un enorme huracán llega a su pueblo en Florida, Haley ignora las órdenes de evacuación para buscar a su padre. Tras encontrarle gravemente herido, ambos quedan atrapados por la inundación. Prácticamente sin tiempo para escapar de la tormenta que arrecia, Haley y su padre descubren que la subida del nivel del agua es el menor de sus problemas.",
-                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/vPCQHc1LqLEC2ozuFQngqvc2SIO.jpg",
-                "releaseDate": "2019-07-11",
-                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/lm4xH0YwFbVvTgdtau1thNK5S6J.jpg"
-            }
-        ],
+        "status": true,
+        "name": "Sala 1",
+        "ticketPrice": "200",
+        "idMovieTheater": 1,
         "seats": [
             {
                 "number": 1,
-                "status": false
+                "status": true
             },
             {
                 "number": 2,
-                "status": false
+                "status": true
             },
             {
                 "number": 3,
-                "status": false
+                "status": true
             },
             {
                 "number": 4,
-                "status": false
+                "status": true
             },
             {
                 "number": 5,
-                "status": false
+                "status": true
             },
             {
                 "number": 6,
-                "status": false
+                "status": true
             },
             {
                 "number": 7,
-                "status": false
+                "status": true
             },
             {
                 "number": 8,
-                "status": false
+                "status": true
             },
             {
                 "number": 9,
-                "status": false
+                "status": true
             },
             {
                 "number": 10,
-                "status": false
+                "status": true
             },
             {
                 "number": 11,
-                "status": false
+                "status": true
             },
             {
                 "number": 12,
-                "status": false
+                "status": true
             },
             {
                 "number": 13,
-                "status": false
+                "status": true
             },
             {
                 "number": 14,
-                "status": false
+                "status": true
             },
             {
                 "number": 15,
-                "status": false
+                "status": true
             },
             {
                 "number": 16,
-                "status": false
+                "status": true
             },
             {
                 "number": 17,
-                "status": false
+                "status": true
             },
             {
                 "number": 18,
-                "status": false
+                "status": true
             },
             {
                 "number": 19,
-                "status": false
+                "status": true
             },
             {
                 "number": 20,
-                "status": false
+                "status": true
             },
             {
                 "number": 21,
-                "status": false
+                "status": true
             },
             {
                 "number": 22,
-                "status": false
+                "status": true
             },
             {
                 "number": 23,
-                "status": false
+                "status": true
             },
             {
                 "number": 24,
-                "status": false
+                "status": true
             },
             {
                 "number": 25,
-                "status": false
+                "status": true
             },
             {
                 "number": 26,
-                "status": false
+                "status": true
             },
             {
                 "number": 27,
-                "status": false
+                "status": true
             },
             {
                 "number": 28,
-                "status": false
+                "status": true
             },
             {
                 "number": 29,
-                "status": false
+                "status": true
             },
             {
                 "number": 30,
-                "status": false
-            }
-        ],
-        "ticketPrice": "150"
-    },
-    {
-        "id": 2,
-        "status": "on",
-        "name": "Del Paseo",
-        "address": "Pueyrredon 3050",
-        "billBoard": [
-            {
-                "adult": false,
-                "idMovie": 417384,
-                "idGenre": [
-                    27,
-                    53
-                ],
-                "originalTitle": "Scary Stories to Tell in the Dark",
-                "title": "Historias de miedo para contar en la oscuridad",
-                "overview": "Mill Valley, Pennsylvania, noche de Halloween, 1968. Después de gastar una broma a un matón de la escuela, Sarah y sus amigos deciden colarse en una casa supuestamente embrujada que una vez perteneció a la poderosa familia Bellows, desatando fuerzas oscuras que no podrán controlar.",
-                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/lfmxj0BZuTlwahHB3AEMqvjygef.jpg",
-                "releaseDate": "2019-08-08",
-                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/qBI3Spq93lNxGzecdGpbwV5lOvU.jpg"
-            },
-            {
-                "adult": false,
-                "idMovie": 568012,
-                "idGenre": [
-                    28,
-                    12,
-                    16
-                ],
-                "originalTitle": "ワンピーススタンピード",
-                "title": "One Piece: Stampede",
-                "overview": "Sé testigo de una batalla campal entre piratas, marines, los Siete Señores de la Guerra y el Ejército Revolucionario con motivo del Festival de los Piratas.",
-                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/suPfemWGPk8xOePePITOhg1C5EP.jpg",
-                "releaseDate": "2019-08-09",
-                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/iGnCzXEx0cFlUbpyAMeHwHWhPhx.jpg"
-            }
-        ],
-        "seats": [
-            {
-                "number": 1,
-                "status": false
-            },
-            {
-                "number": 2,
-                "status": false
-            },
-            {
-                "number": 3,
-                "status": false
-            },
-            {
-                "number": 4,
-                "status": false
-            },
-            {
-                "number": 5,
-                "status": false
-            },
-            {
-                "number": 6,
-                "status": false
-            },
-            {
-                "number": 7,
-                "status": false
-            },
-            {
-                "number": 8,
-                "status": false
-            },
-            {
-                "number": 9,
-                "status": false
-            },
-            {
-                "number": 10,
-                "status": false
-            },
-            {
-                "number": 11,
-                "status": false
-            },
-            {
-                "number": 12,
-                "status": false
-            },
-            {
-                "number": 13,
-                "status": false
-            },
-            {
-                "number": 14,
-                "status": false
-            },
-            {
-                "number": 15,
-                "status": false
-            },
-            {
-                "number": 16,
-                "status": false
-            },
-            {
-                "number": 17,
-                "status": false
-            },
-            {
-                "number": 18,
-                "status": false
-            },
-            {
-                "number": 19,
-                "status": false
-            },
-            {
-                "number": 20,
-                "status": false
-            },
-            {
-                "number": 21,
-                "status": false
-            },
-            {
-                "number": 22,
-                "status": false
-            },
-            {
-                "number": 23,
-                "status": false
-            },
-            {
-                "number": 24,
-                "status": false
-            },
-            {
-                "number": 25,
-                "status": false
-            },
-            {
-                "number": 26,
-                "status": false
-            },
-            {
-                "number": 27,
-                "status": false
-            },
-            {
-                "number": 28,
-                "status": false
-            },
-            {
-                "number": 29,
-                "status": false
-            },
-            {
-                "number": 30,
-                "status": false
+                "status": true
             },
             {
                 "number": 31,
-                "status": false
+                "status": true
             },
             {
                 "number": 32,
-                "status": false
+                "status": true
             },
             {
                 "number": 33,
-                "status": false
+                "status": true
             },
             {
                 "number": 34,
-                "status": false
+                "status": true
             },
             {
                 "number": 35,
-                "status": false
+                "status": true
             },
             {
                 "number": 36,
-                "status": false
+                "status": true
             },
             {
                 "number": 37,
-                "status": false
+                "status": true
             },
             {
                 "number": 38,
-                "status": false
+                "status": true
             },
             {
                 "number": 39,
-                "status": false
+                "status": true
             },
             {
                 "number": 40,
-                "status": false
-            }
-        ],
-        "ticketPrice": "200"
-    },
-    {
-        "id": 3,
-        "status": "on",
-        "name": "Cine Falso ",
-        "address": "Calle Falsa 123",
-        "billBoard": [
-            {
-                "adult": false,
-                "idMovie": 454640,
-                "idGenre": [
-                    28,
-                    12,
-                    16,
-                    35,
-                    10751
-                ],
-                "originalTitle": "The Angry Birds Movie 2",
-                "title": "Angry Birds 2",
-                "overview": "En esta nueva aventura, tanto los cerdos como los pájaros tendrán que aunar sus fuerzas para hacer frente a Zeta, la villana interpretada por Leslie Jones. Zeta ha venido desde su isla helada en busca de un lugar más cómodo para vivir, pero su llegada está a punto de poner la vida de Red (Jason Sudeikis), Chuck (Josh Gad), Bomb (Danny McBride), Leonard (Bill Hader) y compañía patas arriba. Secuela de la película 'Angry Birds'.",
-                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/xfgMVop9eZ3sP1Qpx9nW5jLKUrJ.jpg",
-                "releaseDate": "2019-08-02",
-                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/k7sE3loFwuU2mqf7FbZBeE3rjBa.jpg"
-            },
-            {
-                "adult": false,
-                "idMovie": 449924,
-                "idGenre": [
-                    28,
-                    18,
-                    36
-                ],
-                "originalTitle": "葉問4",
-                "title": "Ip Man 4",
-                "overview": "Ip Man llega a San Francisco, Estados Unidos, donde su estudiante, Bruce Lee , ha molestado a la comunidad local de artes marciales al abrir una escuela de Wing Chun",
-                "posterPath": "https:\/\/image.tmdb.org\/t\/p\/original\/mAWBfTDAmfpvQGMVFuzuVl49N1P.jpg",
-                "releaseDate": "2019-10-18",
-                "backdropPath": "https:\/\/image.tmdb.org\/t\/p\/original\/ekP6EVxL81lZ4ivcqPsoZ72rY0h.jpg"
-            }
-        ],
-        "seats": [
-            {
-                "number": 1,
-                "status": false
-            },
-            {
-                "number": 2,
-                "status": false
-            },
-            {
-                "number": 3,
-                "status": false
-            },
-            {
-                "number": 4,
-                "status": false
-            },
-            {
-                "number": 5,
-                "status": false
-            },
-            {
-                "number": 6,
-                "status": false
-            },
-            {
-                "number": 7,
-                "status": false
-            },
-            {
-                "number": 8,
-                "status": false
-            },
-            {
-                "number": 9,
-                "status": false
-            },
-            {
-                "number": 10,
-                "status": false
-            },
-            {
-                "number": 11,
-                "status": false
-            },
-            {
-                "number": 12,
-                "status": false
-            },
-            {
-                "number": 13,
-                "status": false
-            },
-            {
-                "number": 14,
-                "status": false
-            },
-            {
-                "number": 15,
-                "status": false
-            },
-            {
-                "number": 16,
-                "status": false
-            },
-            {
-                "number": 17,
-                "status": false
-            },
-            {
-                "number": 18,
-                "status": false
-            },
-            {
-                "number": 19,
-                "status": false
-            },
-            {
-                "number": 20,
-                "status": false
-            },
-            {
-                "number": 21,
-                "status": false
-            },
-            {
-                "number": 22,
-                "status": false
-            },
-            {
-                "number": 23,
-                "status": false
-            },
-            {
-                "number": 24,
-                "status": false
-            },
-            {
-                "number": 25,
-                "status": false
-            },
-            {
-                "number": 26,
-                "status": false
-            },
-            {
-                "number": 27,
-                "status": false
-            },
-            {
-                "number": 28,
-                "status": false
-            },
-            {
-                "number": 29,
-                "status": false
-            },
-            {
-                "number": 30,
-                "status": false
-            },
-            {
-                "number": 31,
-                "status": false
-            },
-            {
-                "number": 32,
-                "status": false
-            },
-            {
-                "number": 33,
-                "status": false
-            },
-            {
-                "number": 34,
-                "status": false
-            },
-            {
-                "number": 35,
-                "status": false
-            },
-            {
-                "number": 36,
-                "status": false
-            },
-            {
-                "number": 37,
-                "status": false
-            },
-            {
-                "number": 38,
-                "status": false
-            },
-            {
-                "number": 39,
-                "status": false
-            },
-            {
-                "number": 40,
-                "status": false
+                "status": true
             },
             {
                 "number": 41,
-                "status": false
+                "status": true
             },
             {
                 "number": 42,
-                "status": false
+                "status": true
             },
             {
                 "number": 43,
-                "status": false
+                "status": true
             },
             {
                 "number": 44,
-                "status": false
+                "status": true
             },
             {
                 "number": 45,
-                "status": false
+                "status": true
             },
             {
                 "number": 46,
-                "status": false
+                "status": true
             },
             {
                 "number": 47,
-                "status": false
+                "status": true
             },
             {
                 "number": 48,
-                "status": false
+                "status": true
             },
             {
                 "number": 49,
-                "status": false
+                "status": true
             },
             {
                 "number": 50,
-                "status": false
+                "status": true
             }
-        ],
-        "ticketPrice": "300"
+        ]
+    },
+    {
+        "id": 2,
+        "status": true,
+        "name": "Sala 2",
+        "ticketPrice": "300",
+        "idMovieTheater": 1,
+        "seats": [
+            {
+                "number": 1,
+                "status": true
+            },
+            {
+                "number": 2,
+                "status": true
+            },
+            {
+                "number": 3,
+                "status": true
+            },
+            {
+                "number": 4,
+                "status": true
+            },
+            {
+                "number": 5,
+                "status": true
+            },
+            {
+                "number": 6,
+                "status": true
+            },
+            {
+                "number": 7,
+                "status": true
+            },
+            {
+                "number": 8,
+                "status": true
+            },
+            {
+                "number": 9,
+                "status": true
+            },
+            {
+                "number": 10,
+                "status": true
+            },
+            {
+                "number": 11,
+                "status": true
+            },
+            {
+                "number": 12,
+                "status": true
+            },
+            {
+                "number": 13,
+                "status": true
+            },
+            {
+                "number": 14,
+                "status": true
+            },
+            {
+                "number": 15,
+                "status": true
+            },
+            {
+                "number": 16,
+                "status": true
+            },
+            {
+                "number": 17,
+                "status": true
+            },
+            {
+                "number": 18,
+                "status": true
+            },
+            {
+                "number": 19,
+                "status": true
+            },
+            {
+                "number": 20,
+                "status": true
+            },
+            {
+                "number": 21,
+                "status": true
+            },
+            {
+                "number": 22,
+                "status": true
+            },
+            {
+                "number": 23,
+                "status": true
+            },
+            {
+                "number": 24,
+                "status": true
+            },
+            {
+                "number": 25,
+                "status": true
+            },
+            {
+                "number": 26,
+                "status": true
+            },
+            {
+                "number": 27,
+                "status": true
+            },
+            {
+                "number": 28,
+                "status": true
+            },
+            {
+                "number": 29,
+                "status": true
+            },
+            {
+                "number": 30,
+                "status": true
+            },
+            {
+                "number": 31,
+                "status": true
+            },
+            {
+                "number": 32,
+                "status": true
+            },
+            {
+                "number": 33,
+                "status": true
+            },
+            {
+                "number": 34,
+                "status": true
+            },
+            {
+                "number": 35,
+                "status": true
+            },
+            {
+                "number": 36,
+                "status": true
+            },
+            {
+                "number": 37,
+                "status": true
+            },
+            {
+                "number": 38,
+                "status": true
+            },
+            {
+                "number": 39,
+                "status": true
+            },
+            {
+                "number": 40,
+                "status": true
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "status": true,
+        "name": "Sala 3",
+        "ticketPrice": "350",
+        "idMovieTheater": 1,
+        "seats": [
+            {
+                "number": 1,
+                "status": true
+            },
+            {
+                "number": 2,
+                "status": true
+            },
+            {
+                "number": 3,
+                "status": true
+            },
+            {
+                "number": 4,
+                "status": true
+            },
+            {
+                "number": 5,
+                "status": true
+            },
+            {
+                "number": 6,
+                "status": true
+            },
+            {
+                "number": 7,
+                "status": true
+            },
+            {
+                "number": 8,
+                "status": true
+            },
+            {
+                "number": 9,
+                "status": true
+            },
+            {
+                "number": 10,
+                "status": true
+            },
+            {
+                "number": 11,
+                "status": true
+            },
+            {
+                "number": 12,
+                "status": true
+            },
+            {
+                "number": 13,
+                "status": true
+            },
+            {
+                "number": 14,
+                "status": true
+            },
+            {
+                "number": 15,
+                "status": true
+            },
+            {
+                "number": 16,
+                "status": true
+            },
+            {
+                "number": 17,
+                "status": true
+            },
+            {
+                "number": 18,
+                "status": true
+            },
+            {
+                "number": 19,
+                "status": true
+            },
+            {
+                "number": 20,
+                "status": true
+            },
+            {
+                "number": 21,
+                "status": true
+            },
+            {
+                "number": 22,
+                "status": true
+            },
+            {
+                "number": 23,
+                "status": true
+            },
+            {
+                "number": 24,
+                "status": true
+            },
+            {
+                "number": 25,
+                "status": true
+            },
+            {
+                "number": 26,
+                "status": true
+            },
+            {
+                "number": 27,
+                "status": true
+            },
+            {
+                "number": 28,
+                "status": true
+            },
+            {
+                "number": 29,
+                "status": true
+            },
+            {
+                "number": 30,
+                "status": true
+            },
+            {
+                "number": 31,
+                "status": true
+            },
+            {
+                "number": 32,
+                "status": true
+            },
+            {
+                "number": 33,
+                "status": true
+            },
+            {
+                "number": 34,
+                "status": true
+            },
+            {
+                "number": 35,
+                "status": true
+            },
+            {
+                "number": 36,
+                "status": true
+            },
+            {
+                "number": 37,
+                "status": true
+            },
+            {
+                "number": 38,
+                "status": true
+            },
+            {
+                "number": 39,
+                "status": true
+            },
+            {
+                "number": 40,
+                "status": true
+            }
+        ]
     },
     {
         "id": 4,
-        "status": "on",
-        "name": "Cinemacenter",
-        "address": "Acevedo 1256",
-        "billBoard": "No hay peliculas cargadas",
+        "status": true,
+        "name": "General 2D",
+        "ticketPrice": "200",
+        "idMovieTheater": 2,
+        "seats": [
+            {
+                "number": 1,
+                "status": true
+            },
+            {
+                "number": 2,
+                "status": true
+            },
+            {
+                "number": 3,
+                "status": true
+            },
+            {
+                "number": 4,
+                "status": true
+            },
+            {
+                "number": 5,
+                "status": true
+            },
+            {
+                "number": 6,
+                "status": true
+            },
+            {
+                "number": 7,
+                "status": true
+            },
+            {
+                "number": 8,
+                "status": true
+            },
+            {
+                "number": 9,
+                "status": true
+            },
+            {
+                "number": 10,
+                "status": true
+            },
+            {
+                "number": 11,
+                "status": true
+            },
+            {
+                "number": 12,
+                "status": true
+            },
+            {
+                "number": 13,
+                "status": true
+            },
+            {
+                "number": 14,
+                "status": true
+            },
+            {
+                "number": 15,
+                "status": true
+            },
+            {
+                "number": 16,
+                "status": true
+            },
+            {
+                "number": 17,
+                "status": true
+            },
+            {
+                "number": 18,
+                "status": true
+            },
+            {
+                "number": 19,
+                "status": true
+            },
+            {
+                "number": 20,
+                "status": true
+            },
+            {
+                "number": 21,
+                "status": true
+            },
+            {
+                "number": 22,
+                "status": true
+            },
+            {
+                "number": 23,
+                "status": true
+            },
+            {
+                "number": 24,
+                "status": true
+            },
+            {
+                "number": 25,
+                "status": true
+            },
+            {
+                "number": 26,
+                "status": true
+            },
+            {
+                "number": 27,
+                "status": true
+            },
+            {
+                "number": 28,
+                "status": true
+            },
+            {
+                "number": 29,
+                "status": true
+            },
+            {
+                "number": 30,
+                "status": true
+            },
+            {
+                "number": 31,
+                "status": true
+            },
+            {
+                "number": 32,
+                "status": true
+            },
+            {
+                "number": 33,
+                "status": true
+            },
+            {
+                "number": 34,
+                "status": true
+            },
+            {
+                "number": 35,
+                "status": true
+            },
+            {
+                "number": 36,
+                "status": true
+            },
+            {
+                "number": 37,
+                "status": true
+            },
+            {
+                "number": 38,
+                "status": true
+            },
+            {
+                "number": 39,
+                "status": true
+            },
+            {
+                "number": 40,
+                "status": true
+            },
+            {
+                "number": 41,
+                "status": true
+            },
+            {
+                "number": 42,
+                "status": true
+            },
+            {
+                "number": 43,
+                "status": true
+            },
+            {
+                "number": 44,
+                "status": true
+            },
+            {
+                "number": 45,
+                "status": true
+            },
+            {
+                "number": 46,
+                "status": true
+            },
+            {
+                "number": 47,
+                "status": true
+            },
+            {
+                "number": 48,
+                "status": true
+            },
+            {
+                "number": 49,
+                "status": true
+            },
+            {
+                "number": 50,
+                "status": true
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "status": true,
+        "name": "Dolby Atmos",
+        "ticketPrice": "400",
+        "idMovieTheater": 2,
+        "seats": [
+            {
+                "number": 1,
+                "status": true
+            },
+            {
+                "number": 2,
+                "status": true
+            },
+            {
+                "number": 3,
+                "status": true
+            },
+            {
+                "number": 4,
+                "status": true
+            },
+            {
+                "number": 5,
+                "status": true
+            },
+            {
+                "number": 6,
+                "status": true
+            },
+            {
+                "number": 7,
+                "status": true
+            },
+            {
+                "number": 8,
+                "status": true
+            },
+            {
+                "number": 9,
+                "status": true
+            },
+            {
+                "number": 10,
+                "status": true
+            },
+            {
+                "number": 11,
+                "status": true
+            },
+            {
+                "number": 12,
+                "status": true
+            },
+            {
+                "number": 13,
+                "status": true
+            },
+            {
+                "number": 14,
+                "status": true
+            },
+            {
+                "number": 15,
+                "status": true
+            },
+            {
+                "number": 16,
+                "status": true
+            },
+            {
+                "number": 17,
+                "status": true
+            },
+            {
+                "number": 18,
+                "status": true
+            },
+            {
+                "number": 19,
+                "status": true
+            },
+            {
+                "number": 20,
+                "status": true
+            },
+            {
+                "number": 21,
+                "status": true
+            },
+            {
+                "number": 22,
+                "status": true
+            },
+            {
+                "number": 23,
+                "status": true
+            },
+            {
+                "number": 24,
+                "status": true
+            },
+            {
+                "number": 25,
+                "status": true
+            },
+            {
+                "number": 26,
+                "status": true
+            },
+            {
+                "number": 27,
+                "status": true
+            },
+            {
+                "number": 28,
+                "status": true
+            },
+            {
+                "number": 29,
+                "status": true
+            },
+            {
+                "number": 30,
+                "status": true
+            },
+            {
+                "number": 31,
+                "status": true
+            },
+            {
+                "number": 32,
+                "status": true
+            },
+            {
+                "number": 33,
+                "status": true
+            },
+            {
+                "number": 34,
+                "status": true
+            },
+            {
+                "number": 35,
+                "status": true
+            },
+            {
+                "number": 36,
+                "status": true
+            },
+            {
+                "number": 37,
+                "status": true
+            },
+            {
+                "number": 38,
+                "status": true
+            },
+            {
+                "number": 39,
+                "status": true
+            },
+            {
+                "number": 40,
+                "status": true
+            },
+            {
+                "number": 41,
+                "status": true
+            },
+            {
+                "number": 42,
+                "status": true
+            },
+            {
+                "number": 43,
+                "status": true
+            },
+            {
+                "number": 44,
+                "status": true
+            },
+            {
+                "number": 45,
+                "status": true
+            },
+            {
+                "number": 46,
+                "status": true
+            },
+            {
+                "number": 47,
+                "status": true
+            },
+            {
+                "number": 48,
+                "status": true
+            },
+            {
+                "number": 49,
+                "status": true
+            },
+            {
+                "number": 50,
+                "status": true
+            },
+            {
+                "number": 51,
+                "status": true
+            },
+            {
+                "number": 52,
+                "status": true
+            },
+            {
+                "number": 53,
+                "status": true
+            },
+            {
+                "number": 54,
+                "status": true
+            },
+            {
+                "number": 55,
+                "status": true
+            },
+            {
+                "number": 56,
+                "status": true
+            },
+            {
+                "number": 57,
+                "status": true
+            },
+            {
+                "number": 58,
+                "status": true
+            },
+            {
+                "number": 59,
+                "status": true
+            },
+            {
+                "number": 60,
+                "status": true
+            },
+            {
+                "number": 61,
+                "status": true
+            },
+            {
+                "number": 62,
+                "status": true
+            },
+            {
+                "number": 63,
+                "status": true
+            },
+            {
+                "number": 64,
+                "status": true
+            },
+            {
+                "number": 65,
+                "status": true
+            },
+            {
+                "number": 66,
+                "status": true
+            },
+            {
+                "number": 67,
+                "status": true
+            },
+            {
+                "number": 68,
+                "status": true
+            },
+            {
+                "number": 69,
+                "status": true
+            },
+            {
+                "number": 70,
+                "status": true
+            },
+            {
+                "number": 71,
+                "status": true
+            },
+            {
+                "number": 72,
+                "status": true
+            },
+            {
+                "number": 73,
+                "status": true
+            },
+            {
+                "number": 74,
+                "status": true
+            },
+            {
+                "number": 75,
+                "status": true
+            },
+            {
+                "number": 76,
+                "status": true
+            },
+            {
+                "number": 77,
+                "status": true
+            },
+            {
+                "number": 78,
+                "status": true
+            },
+            {
+                "number": 79,
+                "status": true
+            },
+            {
+                "number": 80,
+                "status": true
+            },
+            {
+                "number": 81,
+                "status": true
+            },
+            {
+                "number": 82,
+                "status": true
+            },
+            {
+                "number": 83,
+                "status": true
+            },
+            {
+                "number": 84,
+                "status": true
+            },
+            {
+                "number": 85,
+                "status": true
+            },
+            {
+                "number": 86,
+                "status": true
+            },
+            {
+                "number": 87,
+                "status": true
+            },
+            {
+                "number": 88,
+                "status": true
+            },
+            {
+                "number": 89,
+                "status": true
+            },
+            {
+                "number": 90,
+                "status": true
+            },
+            {
+                "number": 91,
+                "status": true
+            },
+            {
+                "number": 92,
+                "status": true
+            },
+            {
+                "number": 93,
+                "status": true
+            },
+            {
+                "number": 94,
+                "status": true
+            },
+            {
+                "number": 95,
+                "status": true
+            },
+            {
+                "number": 96,
+                "status": true
+            },
+            {
+                "number": 97,
+                "status": true
+            },
+            {
+                "number": 98,
+                "status": true
+            },
+            {
+                "number": 99,
+                "status": true
+            },
+            {
+                "number": 100,
+                "status": true
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "status": true,
+        "name": "Sala 2D",
+        "ticketPrice": "200",
+        "idMovieTheater": 3,
+        "seats": [
+            {
+                "number": 1,
+                "status": true
+            },
+            {
+                "number": 2,
+                "status": true
+            },
+            {
+                "number": 3,
+                "status": true
+            },
+            {
+                "number": 4,
+                "status": true
+            },
+            {
+                "number": 5,
+                "status": true
+            },
+            {
+                "number": 6,
+                "status": true
+            },
+            {
+                "number": 7,
+                "status": true
+            },
+            {
+                "number": 8,
+                "status": true
+            },
+            {
+                "number": 9,
+                "status": true
+            },
+            {
+                "number": 10,
+                "status": true
+            },
+            {
+                "number": 11,
+                "status": true
+            },
+            {
+                "number": 12,
+                "status": true
+            },
+            {
+                "number": 13,
+                "status": true
+            },
+            {
+                "number": 14,
+                "status": true
+            },
+            {
+                "number": 15,
+                "status": true
+            },
+            {
+                "number": 16,
+                "status": true
+            },
+            {
+                "number": 17,
+                "status": true
+            },
+            {
+                "number": 18,
+                "status": true
+            },
+            {
+                "number": 19,
+                "status": true
+            },
+            {
+                "number": 20,
+                "status": true
+            },
+            {
+                "number": 21,
+                "status": true
+            },
+            {
+                "number": 22,
+                "status": true
+            },
+            {
+                "number": 23,
+                "status": true
+            },
+            {
+                "number": 24,
+                "status": true
+            },
+            {
+                "number": 25,
+                "status": true
+            },
+            {
+                "number": 26,
+                "status": true
+            },
+            {
+                "number": 27,
+                "status": true
+            },
+            {
+                "number": 28,
+                "status": true
+            },
+            {
+                "number": 29,
+                "status": true
+            },
+            {
+                "number": 30,
+                "status": true
+            },
+            {
+                "number": 31,
+                "status": true
+            },
+            {
+                "number": 32,
+                "status": true
+            },
+            {
+                "number": 33,
+                "status": true
+            },
+            {
+                "number": 34,
+                "status": true
+            },
+            {
+                "number": 35,
+                "status": true
+            },
+            {
+                "number": 36,
+                "status": true
+            },
+            {
+                "number": 37,
+                "status": true
+            },
+            {
+                "number": 38,
+                "status": true
+            },
+            {
+                "number": 39,
+                "status": true
+            },
+            {
+                "number": 40,
+                "status": true
+            },
+            {
+                "number": 41,
+                "status": true
+            },
+            {
+                "number": 42,
+                "status": true
+            },
+            {
+                "number": 43,
+                "status": true
+            },
+            {
+                "number": 44,
+                "status": true
+            },
+            {
+                "number": 45,
+                "status": true
+            },
+            {
+                "number": 46,
+                "status": true
+            },
+            {
+                "number": 47,
+                "status": true
+            },
+            {
+                "number": 48,
+                "status": true
+            },
+            {
+                "number": 49,
+                "status": true
+            },
+            {
+                "number": 50,
+                "status": true
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "status": true,
+        "name": "Sala 3D ",
+        "ticketPrice": "300",
+        "idMovieTheater": 3,
+        "seats": [
+            {
+                "number": 1,
+                "status": true
+            },
+            {
+                "number": 2,
+                "status": true
+            },
+            {
+                "number": 3,
+                "status": true
+            },
+            {
+                "number": 4,
+                "status": true
+            },
+            {
+                "number": 5,
+                "status": true
+            },
+            {
+                "number": 6,
+                "status": true
+            },
+            {
+                "number": 7,
+                "status": true
+            },
+            {
+                "number": 8,
+                "status": true
+            },
+            {
+                "number": 9,
+                "status": true
+            },
+            {
+                "number": 10,
+                "status": true
+            },
+            {
+                "number": 11,
+                "status": true
+            },
+            {
+                "number": 12,
+                "status": true
+            },
+            {
+                "number": 13,
+                "status": true
+            },
+            {
+                "number": 14,
+                "status": true
+            },
+            {
+                "number": 15,
+                "status": true
+            },
+            {
+                "number": 16,
+                "status": true
+            },
+            {
+                "number": 17,
+                "status": true
+            },
+            {
+                "number": 18,
+                "status": true
+            },
+            {
+                "number": 19,
+                "status": true
+            },
+            {
+                "number": 20,
+                "status": true
+            },
+            {
+                "number": 21,
+                "status": true
+            },
+            {
+                "number": 22,
+                "status": true
+            },
+            {
+                "number": 23,
+                "status": true
+            },
+            {
+                "number": 24,
+                "status": true
+            },
+            {
+                "number": 25,
+                "status": true
+            },
+            {
+                "number": 26,
+                "status": true
+            },
+            {
+                "number": 27,
+                "status": true
+            },
+            {
+                "number": 28,
+                "status": true
+            },
+            {
+                "number": 29,
+                "status": true
+            },
+            {
+                "number": 30,
+                "status": true
+            },
+            {
+                "number": 31,
+                "status": true
+            },
+            {
+                "number": 32,
+                "status": true
+            },
+            {
+                "number": 33,
+                "status": true
+            },
+            {
+                "number": 34,
+                "status": true
+            },
+            {
+                "number": 35,
+                "status": true
+            },
+            {
+                "number": 36,
+                "status": true
+            },
+            {
+                "number": 37,
+                "status": true
+            },
+            {
+                "number": 38,
+                "status": true
+            },
+            {
+                "number": 39,
+                "status": true
+            },
+            {
+                "number": 40,
+                "status": true
+            },
+            {
+                "number": 41,
+                "status": true
+            },
+            {
+                "number": 42,
+                "status": true
+            },
+            {
+                "number": 43,
+                "status": true
+            },
+            {
+                "number": 44,
+                "status": true
+            },
+            {
+                "number": 45,
+                "status": true
+            },
+            {
+                "number": 46,
+                "status": true
+            },
+            {
+                "number": 47,
+                "status": true
+            },
+            {
+                "number": 48,
+                "status": true
+            },
+            {
+                "number": 49,
+                "status": true
+            },
+            {
+                "number": 50,
+                "status": true
+            },
+            {
+                "number": 51,
+                "status": true
+            },
+            {
+                "number": 52,
+                "status": true
+            },
+            {
+                "number": 53,
+                "status": true
+            },
+            {
+                "number": 54,
+                "status": true
+            },
+            {
+                "number": 55,
+                "status": true
+            },
+            {
+                "number": 56,
+                "status": true
+            },
+            {
+                "number": 57,
+                "status": true
+            },
+            {
+                "number": 58,
+                "status": true
+            },
+            {
+                "number": 59,
+                "status": true
+            },
+            {
+                "number": 60,
+                "status": true
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "status": true,
+        "name": "Laboratorio 6",
+        "ticketPrice": "2100",
+        "idMovieTheater": 4,
+        "seats": [
+            {
+                "number": 1,
+                "status": false
+            },
+            {
+                "number": 2,
+                "status": false
+            },
+            {
+                "number": 3,
+                "status": false
+            },
+            {
+                "number": 4,
+                "status": false
+            },
+            {
+                "number": 5,
+                "status": false
+            },
+            {
+                "number": 6,
+                "status": false
+            },
+            {
+                "number": 7,
+                "status": false
+            },
+            {
+                "number": 8,
+                "status": false
+            },
+            {
+                "number": 9,
+                "status": false
+            },
+            {
+                "number": 10,
+                "status": false
+            },
+            {
+                "number": 11,
+                "status": false
+            },
+            {
+                "number": 12,
+                "status": false
+            },
+            {
+                "number": 13,
+                "status": false
+            },
+            {
+                "number": 14,
+                "status": false
+            },
+            {
+                "number": 15,
+                "status": false
+            },
+            {
+                "number": 16,
+                "status": false
+            },
+            {
+                "number": 17,
+                "status": false
+            },
+            {
+                "number": 18,
+                "status": false
+            },
+            {
+                "number": 19,
+                "status": false
+            },
+            {
+                "number": 20,
+                "status": false
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "status": true,
+        "name": "Laboratorio 5",
+        "ticketPrice": "5900",
+        "idMovieTheater": 5,
         "seats": [
             {
                 "number": 1,
@@ -714,16 +1821,7 @@
             {
                 "number": 26,
                 "status": false
-            },
-            {
-                "number": 27,
-                "status": false
-            },
-            {
-                "number": 28,
-                "status": false
             }
-        ],
-        "ticketPrice": "299"
+        ]
     }
 ]

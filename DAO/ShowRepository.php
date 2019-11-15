@@ -20,8 +20,8 @@ class ShowRepository extends Singleton
         $parameters['show_time'] = $show->getTime();
         $parameters['seats'] = $show->getSeats();
         $parameters['status'] = $show->getStatus();
-        $parameters['id_cinema'] = $show->getId_cinema();
-        $parameters['id_movie'] = $show->getId_movie();
+        $parameters['id_cinema'] = $show->getIdCinema();
+        $parameters['id_movie'] = $show->getIdMovie();
 
         try {
           $this->connection = Connection::getInstance();
@@ -116,8 +116,8 @@ class ShowRepository extends Singleton
                 $show->setTime($p['show_time']);
                 $show->setSeats($p['seats']);
                 $show->setStatus($p['status']);
-                $show->setId_Cinema($p['id_cinema']);
-                $show->setId_Movie($p['id_movie']);
+                $show->setIdCinema($p['id_cinema']);
+                $show->setIdMovie($p['id_movie']);
                 return $show;
            }, $value);
 

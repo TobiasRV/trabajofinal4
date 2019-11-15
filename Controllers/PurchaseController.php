@@ -50,7 +50,7 @@ class PurchaseController
         $showRepo = new ShowRepository();
         $showObj = $showRepo->read($idShow); 
         $_SESSION["purchase"] = $purchase;
-        $_SESSION["idCinema"]=$showObj->getId_cinema();
+        $_SESSION["idCinema"]=$showObj->get();
         $_SESSION["avaiableSeats"]=$showObj->getSeats();
         //setear nombre de cine en session
         $cinemas = new CinemaRepository();

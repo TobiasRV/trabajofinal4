@@ -1,15 +1,11 @@
 <body class="home">
 
-<?php include_once(VIEWS_PATH . "header.php"); 
+<?php 
 
-use Controllers\UserController as UserController;
+require_once(VIEWS_PATH . "header.php");
+require_once(VIEWS_PATH . "navAdmin.php");
 
-$userControl = new UserController();
-
-if ($userControl->checkSession() != false) {
-    if ($_SESSION["loggedUser"]->getPermissions() == 1) {
-        include_once(VIEWS_PATH . "header.php");
-        include_once(VIEWS_PATH . "navAdmin.php"); ?>
+?>
         <body>
 
   <div class="container">

@@ -15,7 +15,7 @@ class ShowDAO implements IRepository
         $this->saveData();
     }
 
-    public function Add(Show $show)
+    public function Add($show)
     {
         $this->RetrieveData();
 

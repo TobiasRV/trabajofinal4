@@ -7,8 +7,8 @@ class Show
     private $time;
     private $seats;
     private $status;
-    private $id_cinema;
-    private $id_movie;
+    private $idCinema;
+    private $idMovie;
 
     
     public function __construct()
@@ -65,23 +65,23 @@ class Show
         $this->date=$date;
     }
 
-    public function getId_cinema()
+    public function getIdCinema()
     {
-        return $this->id_cinema;
+        return $this->idCinema;
     }
 
-    public function setId_cinema($id_cinema)
+    public function setIdCinema($idCinema)
     {
-        $this->id_cinema=$id_cinema;
+        $this->idCinema=$idCinema;
     }
 
-    public function getId_movie()
+    public function getIdMovie()
     {
-        return $this->id_movie;
+        return $this->idMovie;
     }
 
-    public function setId_movie($id_movie)
+    public function setIdMovie($idMovie)
     {
-        $this->id_movie=$id_movie;
+        $this->idMovie=$idMovie;
     }
 }

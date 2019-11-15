@@ -1,184 +1,127 @@
+<?php
+require_once(VIEWS_PATH . "header.php");
+require_once(VIEWS_PATH . "nav.php");
+
+?>
+
 <body class="home">
+    <h1>Listado de Cines</h1>
 
-<?php include_once(VIEWS_PATH . "header.php"); ?>
+    <table class="table table-hover table-condensed table-bordered table-dark">
+        <tr>
+            <td>Nombre</td>
+            <td>Direccion</td>
+            <td>Cartelera</td>
+            <td>Salas</td>
+            <td>Modificar</td>
+        </tr>
 
-<body>
-
-    <?php
-    include_once(VIEWS_PATH . "navAdmin.php");
-
-    use DAO\CinemaRepository as CinemaRepository;
-    use Controllers\MovieController as MovieController;
-
-    $repo = new CinemaRepository();
-
-    $movieController = new MovieController();
-    $nowPlaying = $movieController->getNowPlaying();
-    $arrayGeneros = $movieController->getGenres();
-
-    $listado = $repo->getAll();
-    ?>
-
-    <table class="table table-striped">
-        <thead>
+        <?php foreach ($movieTheaterList as $movieTheater) { ?>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Dirección</th>
-                <th scope="col">Asientos</th>
-                <th scope="col">Cartelera</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Modificar</th>
-
+                <td><?php echo $movieTheater->getName(); ?></td>
+                <td><?php echo $movieTheater->getAddress(); ?></td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCartelera<?php echo $movieTheater->getId(); ?>">Cartelera</button>
+                </td>
+                <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSalas<?php echo $movieTheater->getId(); ?>">Salas</button>
+                </td>
+                <td>MODIFICAR</td>
             </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($listado as $cine) { ?>
-                <tr>
-                    <th scope="row"><?php echo $cine->getId(); ?></th>
-                    <td><?php echo $cine->getName(); ?></td>
-                    <td><?php echo $cine->getAddress(); ?></td>
-                    <td><?php echo $cine->getSeatsNumer(); ?></td>
-                    <td><?php
-                            $arrayPelicula = $cine->getBillBoard();
-                            $i = 1;
-                            foreach ($arrayPelicula as $pelicula) {
-                                echo $i . ") " . $pelicula->getTitle() . "<br>";
-                                $i++;
-                            }
-                            ?>
-                    </td>
-                    <td><?php echo "$" . $cine->getTicketPrice(); ?></td>
-                    <td><?php
-                            if ($cine->getStatus()) {
-                                ?>
-                            <p class="text-success">Activo</p>
-                        <?php } else {
-                                ?><p class="text-danger">Inactivo</p>
-                        <?php }
-                            ?>
-                    </td>
-                    <td> <a href="#cinemaModify<?php echo $cine->getId(); ?>" class="btn btn-info" data-toggle="modal">Modificar</a></td>
-                </tr>
-            <?php } ?>
-        </tbody>
+        <?php } ?>
     </table>
 
-    <?php
-    foreach ($listado as $cine) { ?>
+    <!-- MODAL CARTELERA -->
 
-        <!-- MODAL -->
-        <div class="modal fade" id="cinemaModify<?php echo $cine->getId(); ?>">
-            <div class="modal-dialog">
+    <?php foreach ($movieTheaterList as $movieTheater) { ?>
+        <div class="modal fade" id="modalCartelera<?php echo $movieTheater->getId(); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
-
-                    <!-- HEADER DE LA VENTANA -->
                     <div class="modal-header">
-                        <h2 class="modal-title"><?php echo "Modificar Cine: " . $cine->getName(); ?></h2>
+                        <h5 class="modal-title" id="exampleModalLabel">Cartelera del Cine: <?php echo $movieTheater->getName(); ?></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-
-                    <!-- CONTENIDO DE LA VENTANA -->
                     <div class="modal-body">
+                        <table class="table table-hover table-condensed table-bordered">
+                            <tr>
+                                <td>ID</td>
+                                <td>Nombre</td>
+                                <td>Generos</td>
+                            </tr>
 
-                        <form action="<?php echo FRONT_ROOT ?>Cinema/modifyCinema" method="post">
-                            <div class="form-group">
-                                <label for="id">ID</label>
-                                <input class="form-control" type="text" id="id" name="id" value="<?php echo $cine->getId(); ?>" readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="name">Nombre</label>
-                                <input class="form-control" type="text" id="name" name="name" placeholder="Nombre del Cine" value="<?php echo $cine->getName(); ?>" required pattern="[A-Za-z0-9 ]{1,40}" title="Solo letras o números (máximo 40 caracteres)">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="address">Dirección</label>
-                                <input class="form-control" type="text" id="address" name="address" placeholder="Direccion del Cine" value="<?php echo $cine->getAddress(); ?>" required pattern="[A-Za-z0-9 ]{1,40}" title="Solo letras o números (máximo 40 caracteres)">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="seats">Nº Asientos</label>
-                                <input id="seats" name="seats" placeholder="Cantidad de Asientos" type="number" required="required" value="<?php echo count($cine->getSeats()); ?>" class="form-control" min=1 max=50 title="Solo números entre 1 y 50">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="price">Precio</label>
-                                <input id="price" name="price" placeholder="Valor de la Entrada" type="number" required="required" value="<?php echo $cine->getTicketPrice(); ?>" class="form-control" min=1 max=3000 title="Solo números entre 1 y 3000">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="status">Estado</label><br>
-                                <input type="checkbox" name="status" data-toggle="toggle" data-on="Activo" data-off="Inactivo" data-onstyle="success" data-offstyle="danger" data-width="100" <?php if ($cine->getStatus() == true) echo "checked"; ?>>
-                            </div>
-
-                            <div class="form-group">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th scope="col">Id</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Generos</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <?php $arrayPeliculas = $cine->getBillBoard();
-                                            foreach ($nowPlaying as $val) {  ?>
-                                            <tr>
-                                                <?php
-                                                        $validacion = false;
-
-                                                        foreach ($arrayPeliculas as $pelicula) {
-                                                            if ($val->getTitle() == $pelicula->getTitle()) {
-                                                                $validacion = true;
-                                                                break;
-                                                            }
+                            <?php $movieTheaterBillBoard = $this->movieController->getMovieListByIdList($movieTheater->getBillBoard());
+                                foreach ($movieTheaterBillBoard as $movie) { ?>
+                                <tr>
+                                    <td><?php echo $movie->getIdMovie(); ?></td>
+                                    <td><?php echo $movie->getTitle(); ?></td>
+                                    <td><?php foreach ($movie->getIdGenre() as $genre) {
+                                                    foreach ($arrayGeneros as $gen) {
+                                                        if ($gen->getId() == $genre) {
+                                                            echo $gen->getName() . "<br>";
                                                         }
-                                                        ?>
-                                                <th scope="col"><input type="checkbox" name="moviechecked[]" value="<?php echo $val->getTitle(); ?>" <?php if ($validacion) echo "checked"; ?> /></th>
-
-                                                <th scope="row"><?php echo $val->getIdMovie(); ?></th>
-                                                <td><?php echo $val->getTitle(); ?></td>
-                                                <td><?php
-                                                            $generosPelicula = $val->getIdGenre();
-                                                            foreach ($generosPelicula as $genero) {
-                                                                foreach ($arrayGeneros as $gen) {
-                                                                    if ($gen->getId() == $genero) {
-                                                                        echo $gen->getName() . "<br>";
-                                                                    }
-                                                                }
-                                                            }
-                                                            ?>
-                                                </td>
-                                            </tr>
-                                    </tbody>
-                                <?php }  ?>
-                                </table>
-                            </div>
+                                                    }
+                                                } ?></td>
+                                </tr>
+                            <?php } ?>
+                        </table>
                     </div>
 
-                    <!-- FOOTER DE LA VENTANA -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button name="submit" type="submit" class="btn btn-primary btn-success btn-block">Guardar Cambios</button>
-                    </div>
-                    </form>
                 </div>
             </div>
         </div>
-    <?php
-    }
+    <?php } ?>
+
+    <!-- MODAL SALAS -->
+
+    <?php foreach ($movieTheaterList as $movieTheater) { ?>
+        <div class="modal fade" id="modalSalas<?php echo $movieTheater->getId(); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Salas del Cine: <?php echo $movieTheater->getName(); ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <?php $cinemaList = $this->cinemaController->getCinemaList($movieTheater->getId());
+                            $movieTheaterBillBoard = $this->movieController->getMovieListByIdList($movieTheater->getBillBoard());
+                            foreach ($cinemaList as $cinema) { ?>
+                            <h3><?php echo $cinema->getName() . " | Asientos: " . $cinema->countSeats(); ?></h3>
+                            <form action="<?php echo FRONT_ROOT; ?>Show/addShowOne" method="post">
+                                <input id="movieTheaterName" name="movieTheaterName" type="hidden" value="<?php echo $movieTheater->getName(); ?>">
+                                <input id="cinemaName" name="cinemaName" type="hidden" value="<?php echo $cinema->getName(); ?>">
+                                <button name="summit" type="summit" class="btn btn-primary"><span class="fas fa-plus"></span> Cargar Función</button>
+                            </form>
+                            <br>
+                            <table class="table table-hover table-condensed table-bordered">
+                                <tr>
+                                    <td>Fecha</td>
+                                    <td>Hora</td>
+                                    <td>Pelicula</td>
+                                    <td>Borrar</td>
+                                </tr>
+                                <?php $showList = $this->showController->getShowListByCinema($cinema->getId());
+                                        foreach ($showList as $show) { ?>
+                                    <tr>
+                                        <td><?php echo $show->getDate(); ?></td>
+                                        <td><?php echo $show->getTime(); ?></td>
+                                        <td><?php foreach ($movieTheaterBillBoard as $movie) {
+                                                            if ($movie->getIdMovie() == $show->getIdMovie())
+                                                                echo $movie->getTitle();
+                                                        } ?></td>
+                                        <td>BOTON</td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        <?php } ?>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <?php } ?>
 
 
-
-
-
-    include_once(VIEWS_PATH . "footer.php"); ?>
+    <?php require_once(VIEWS_PATH . "footer.php"); ?>

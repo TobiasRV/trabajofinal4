@@ -4,12 +4,13 @@ namespace DAOJson;
 
 use DAO\IRepository as IRepository;
 use Models\Cinema as Cinema;
+use Models\Seat as Seat;
 
 class CinemaDAO implements IRepository
 {
     private $cinemaList = array();
 
-    function Add(Cinema $cinema)
+    function Add($cinema)
     {
         $this->RetrieveData();
 
@@ -25,6 +26,12 @@ class CinemaDAO implements IRepository
         return $this->cinemaList;
     }
 
+    public function saveNewList($cinemaList)
+    {
+        $this->cinemaList = $cinemaList;
+        $this->saveData();
+    }
+
     function saveData()
     {
         $arrayToEncode = array();
@@ -37,6 +44,7 @@ class CinemaDAO implements IRepository
             $valuesArray['id'] = $cinema->getId();
             $valuesArray['status'] = $cinema->getStatus();
             $valuesArray['name'] = $cinema->getName();
+            $valuesArray['ticketPrice'] = $cinema->getTicketPrice();
             $valuesArray['idMovieTheater'] = $cinema->getIdMovieTheater();
 
             foreach ($seatsArray as $seat) {
@@ -66,6 +74,7 @@ class CinemaDAO implements IRepository
                 $cinema->setId($valuesArray['id']);
                 $cinema->setStatus($valuesArray['status']);
                 $cinema->setName($valuesArray['name']);
+                $cinema->setTicketPrice($valuesArray['ticketPrice']);
                 $cinema->setIdMovieTheater($valuesArray['idMovieTheater']);
 
                 $seatsValuesArray = $valuesArray['seats'];

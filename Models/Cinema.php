@@ -10,7 +10,7 @@ class Cinema
 	private $status;
 	private $name;
 	private $ticketPrice;
-	private $seats;
+	private $seats=array();
 	private $idMovieTheater;
 
 	public function __construct()
@@ -18,15 +18,7 @@ class Cinema
 		$this->status = true;
 	}
 
-	// public function createSeats($seatsNumber)
-	// {
-	// 	$this->seats = array();
-		
-	// 	for ($i = 1; $i <= $seatsNumber; $i++) {
-	// 		$seat = new Seat($i, false);
-	// 		array_push($this->seats, $seat);
-	// 	}
-	// }
+
 
 	public function getIdMovieTheater(){
 		return $this->idMovieTheater;
@@ -63,13 +55,6 @@ class Cinema
 		$this->name = $name;
 	}
 
-	public function getSeats(){
-		return $this->seats;
-	}
-	public function setSeats($seats){
-		$this->seats = $seats;
-	}
-
 	public function getTicketPrice()
 	{
 		return $this->ticketPrice;
@@ -78,5 +63,26 @@ class Cinema
 	public function setTicketPrice($ticketPrice)
 	{
 		$this->ticketPrice = $ticketPrice;
-    }
+	}
+	
+	public function getSeats(){
+		return $this->seats;
+	}
+	public function setSeats($seats){
+		$this->seats = $seats;
+	}
+
+	public function createSeats($seatsNumber)
+	{
+		$this->seats = array();
+		
+		for ($i = 1; $i <= $seatsNumber; $i++) {
+			$seat = new Seat($i, false);
+			array_push($this->seats, $seat);
+		}
+	}
+
+	public function countSeats(){
+		return count($this->seats);
+	}
 }

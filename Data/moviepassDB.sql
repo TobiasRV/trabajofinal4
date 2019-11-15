@@ -185,11 +185,9 @@ insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("
 insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-24","15:05:06",120,true,1,290859); -- Cine Paseo
 insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-18","20:00:00",500,true,5,330457); -- Paseo Aldrey
 insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-15","10:00:00",150,true,4,330457); -- Cine Paseo
-insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-19","15:00:00",200,true,6,330457); -- Paseo Aldrey
 
 insert into Users (username,firstname,lastname,email,dni,permissions,password) values ("juan","firstname","lastname","juan@prueba",123,2,"1234"); 
  
 insert into creditcards (company, number, id_user) values ("Visa", 456879215 , 2);
 insert into creditcards (company, number, id_user) values ("Master", 456879218 , 2);
 insert into creditcards (company, number, id_user) values ("Visa", 456879888 , 2);
-

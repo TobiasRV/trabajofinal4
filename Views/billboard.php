@@ -23,29 +23,35 @@ if ($userControl->checkSession() != false) {
     include_once(VIEWS_PATH . "nav.php");
 }
 
-
-
 ?>
 <div class="container fluid p-0">
     <div class="row mt-3">
 
         <form class="form-inline" action="<?php echo FRONT_ROOT ?>Movie/showMovies" method="post">
             <div class="form-group mr-3">
-                <label for="selectTime">Fecha:</label>
-                <select class="form-control" name="selectTime">
-                    <option value="nowPlaying">En Cartelera</option>
-                    <option value="upcoming">Proximamente</option>
-                </select>
+                    <label for="genre">Cine:</label>
+                    <select class="form-control" name="selectMovieTheater">
+                        <option value="">--Sin Filtro--</option>
+                        <?php foreach ($movieTheatherList as $movieTheather) { ?>
+                            <option value=<?php echo $movieTheather->getId(); ?>><?php echo $movieTheather->getName(); ?></option>
+                        <?php } ?>
+                    </select>
             </div>
+            <div class="form-group mr-3">
+                <label for="selectDate">Fecha:</label>
+                <input type="date" name="selectDate" id="selectDate" value="">
+            </div>
+            
             <div class="form-group mr-3">
                 <label for="genre">Genero:</label>
                 <select class="form-control" name="selectGenre">
-                    <option value="null">Sin Genero</option>
+                    <option value="">Sin Genero</option>
                     <?php foreach ($genres as $genre) { ?>
                         <option value=<?php echo $genre->getId(); ?>><?php echo $genre->getName(); ?></option>
                     <?php } ?>
                 </select>
             </div>
+            
             <button class="btn btn-seondary" type="submit">Buscar</button>
         </form>
     </div>
@@ -94,18 +100,6 @@ if ($userControl->checkSession() != false) {
                                 </div>
                             </div>
                             <div class="modal-footer-left">
-                                <ul class="list-group">Cine:
-                                    <?php
-                                        foreach ($cinemaList as $cinema) {
-                                            $arrayCartelera = $cinema->getBillBoard();
-                                            foreach ($arrayCartelera as $peli) {
-                                                if ($value->getTitle() == $peli->getTitle()) { ?>
-                                                <li class="list-group-item"><?php echo $cinema->getName(); ?></li>
-                                    <?php }
-                                            }
-                                        } ?>
-
-                                </ul>
                             </div>
                         </div>
                     </div>

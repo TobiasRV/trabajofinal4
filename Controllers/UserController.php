@@ -2,8 +2,10 @@
 
 namespace Controllers;
 
-use DAO\UserRepository as UserRepository;
-use DAO\MovieRepository as MovieRepository;
+use DAOJson\UserRepository as UserRepository;
+use DAOJson\MovieDAO as MovieRepository;
+// use DAO\UserRepository as UserRepository;
+// use DAO\MovieRepository as MovieRepository;
 use Models\User as User;
 
 class UserController
@@ -46,7 +48,7 @@ class UserController
         }
         else
         {   
-            echo "No se ha podido registrar el usuario. Inténtelo de nuevo." . "<br>";
+            echo "No se ha podido registrar el usuario. Inténtelo de nuevo." . "<br>";//manejar mensajes con excepciones
             $this->signUpForm(); //si no se pudo registrar el usuario se redirecciona al formulario para volver a ingresar datos
         }
     }

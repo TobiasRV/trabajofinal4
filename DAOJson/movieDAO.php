@@ -133,4 +133,9 @@ class movieDAO{
         return $movie;
     }
 
+    public function updateDataBase()
+    {
+    }
+
+
 }

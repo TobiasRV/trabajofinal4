@@ -1,0 +1,86 @@
+[
+    {
+        "id": 1,
+        "status": true,
+        "name": "Ambassador",
+        "address": "Cordoba 1673",
+        "cinemas": [
+            1,
+            2,
+            3
+        ],
+        "billBoard": [
+            "475557",
+            "290859",
+            "420809",
+            "330457",
+            "501170",
+            "499701"
+        ]
+    },
+    {
+        "id": 2,
+        "status": true,
+        "name": "Paseo Aldrey",
+        "address": "Rawson 1456",
+        "cinemas": [
+            4,
+            5
+        ],
+        "billBoard": [
+            "521777",
+            "295151",
+            "458156",
+            "423204",
+            "504949",
+            "454640"
+        ]
+    },
+    {
+        "id": 3,
+        "status": true,
+        "name": "Shopping Los Gallegos",
+        "address": "Rivadavia 3050",
+        "cinemas": [
+            6,
+            7
+        ],
+        "billBoard": [
+            "475557",
+            "290859",
+            "420809",
+            "330457",
+            "423204",
+            "504949",
+            "454640"
+        ]
+    },
+    {
+        "id": 4,
+        "status": true,
+        "name": "Utn",
+        "address": "Puerto",
+        "cinemas": [
+            8
+        ],
+        "billBoard": [
+            "568012",
+            "521777",
+            "458156"
+        ]
+    },
+    {
+        "id": 5,
+        "status": true,
+        "name": "Utn2",
+        "address": "Puerto",
+        "cinemas": [
+            9
+        ],
+        "billBoard": [
+            "499701",
+            "359724",
+            "496243"
+        ]
+    }
+]
