@@ -161,27 +161,35 @@ on s.id_cinema=c.id_cinema;
 END//
 
 
+-------------------------------------------------------------------------------
+--                             INSERTS
+-------------------------------------------------------------------------------
+
 call cargarMT ('Cine Paseo', 'Cordoba 2555', true);
 call cargarMT ('Cinemacenter', 'Salta 456', false);
 call cargarMT ('Cine Gallegos', 'Mendoza 6589', true);
+call cargarMT ('Paseo Aldrey', 'Sarmiento 3850', true);
+call cargarMT ('Ambassador', 'Cordoba 1520', true);
 
 call cargarU ('juanludu', 'Juan', 'Luduenia', 'juan@gmail.com', 41306521, 1, '1234');
 call cargarU ('bpilegi98', 'Bianca', 'Pilegi', 'bianca@gmail.com', 41307541, 2, '4321');
 call cargarU('asd', 'asd', 'asd', 'asd@gmail.com', 41306988, 2, 'asd123');
 
+insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala1",200,100,1); -- Cine Paseo
+insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala2",150,80,1); -- Cine Paseo
+insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala1",500,80,4); -- Paseo Aldrey 
+insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala2",200,50,4); -- Paseo Aldrey
+insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala1",100,20,3); -- Cine Gallegos
 
-select *from movies
-insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala1",200,100,1);
-insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala2",150,80,1);
---año-mes-dia
-insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-25","12:05:06",100,true,1,330457);
-insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-24","15:05:06",120,true,1,290859);
+insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-25","12:05:06",100,true,1,330457); -- Cine Paseo
+insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-24","15:05:06",120,true,1,290859); -- Cine Paseo
+insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-18","20:00:00",500,true,5,330457); -- Paseo Aldrey
+insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-15","10:00:00",150,true,4,330457); -- Cine Paseo
+insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-19","15:00:00",200,true,6,330457); -- Paseo Aldrey
 
 insert into Users (username,firstname,lastname,email,dni,permissions,password) values ("juan","firstname","lastname","juan@prueba",123,2,"1234"); 
-
-select * from purchase
-select *from shows
-select * from tickets
-
-insert into creditcards (company, id_user) values ("Visa", 2);
+ 
+insert into creditcards (company, number, id_user) values ("Visa", 456879215 , 2);
+insert into creditcards (company, number, id_user) values ("Master", 456879218 , 2);
+insert into creditcards (company, number, id_user) values ("Visa", 456879888 , 2);
 

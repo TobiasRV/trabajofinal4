@@ -145,22 +145,12 @@ class PurchaseController
             $_SESSION["purchase"] = $purchase;
             
 
-            //Se resta de la capacidad de asientos de la funcion la cantidad de tickets comprados
-            $showsRepo = new ShowRepository();
-            $listadoShows = $showsRepo->getAll();
-            foreach($listadoShows as $shows)
-            {
-                if($shows->getId() == $purchase->getIdShow())
-                {
-                    $shows->setSeats($shows->getSeats() - $purchase->getQuantityTickets());
-                    $_SESSION["show"]=$shows;
-                }
-            }
-            $showsRepo->edit($_SESSION["show"]);
+            
         }
 
         $userControl = new UserController();
         $moviesRepo = new MovieRepository();
+        $showsRepo = new ShowRepository();
         $listMovies = $moviesRepo->getAll();
         $nameMovie="";
         foreach($listMovies as $lm)
@@ -224,6 +214,7 @@ class PurchaseController
             </script>
             <?php
             $this->generateTickets();
+
             $this->clearSessionVariables();
             include_once(VIEWS_PATH . "index.php");
         }
@@ -244,6 +235,21 @@ class PurchaseController
             $ticketsRepo = new TicketRepository();
             $ticketsRepo->Add($ticket);
         }
+
+        //Se resta de la capacidad de asientos de la funcion la cantidad de tickets comprados
+        $purchase = $_SESSION["purchase"];
+        $showsRepo = new ShowRepository();
+        $listadoShows = $showsRepo->getAll();
+        foreach($listadoShows as $shows)
+        {
+            if($shows->getId() == $purchase->getIdShow())
+            {
+                $shows->setSeats($shows->getSeats() - $purchase->getQuantityTickets());
+                $_SESSION["show"]=$shows;
+            }
+        }
+        $showsRepo->edit($_SESSION["show"]);
+
         $this->clearSessionVariables();
     }
 
