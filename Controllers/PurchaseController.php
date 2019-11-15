@@ -31,6 +31,9 @@ class PurchaseController
         $listado = $showRepo->getAll();
         $listadoMT = new MovieTheaterRepository();
         $movieTheaters = $listadoMT->getAll();
+        $cinemasRepo = new CinemaRepository();
+        $listadoCinemas = $cinemasRepo->getAll();
+                
         require_once(VIEWS_PATH . "purchaseStep2.php");
     }
 

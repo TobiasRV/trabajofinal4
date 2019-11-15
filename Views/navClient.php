@@ -20,7 +20,10 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT?>User/userProfile">Perfil</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/logOut">Logout</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>Ticket/showTickets">Mis Tickets</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/logOut">Cerrar Sesión</a>
           </li>
      </ul>
 </nav>

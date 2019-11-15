@@ -9,10 +9,10 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT?>Movie/showMovies">Cartelera</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/signUpForm">Sign up</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/signUpForm">Registrarse</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/logInForm">Login</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/logInForm">Ingresar</a>
           </li>
      </ul>
 </nav>

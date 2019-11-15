@@ -57,15 +57,21 @@ if ($userControl->checkSession() != false) {
         <?php 
             foreach ($listado as $shows)
             {
-                if($shows->getId_movie()==$_SESSION["idMovieSearch"] && $shows->getStatus()==true){ //agregar filtrar por date 
+                if($shows->getId_movie()==$_SESSION["idMovieSearch"] && $shows->getStatus()==true){  
                 ?>
             <tr>
                 
                 <td><?php foreach($movieTheaters as $mt)
                 {
-                    if($shows->getId_cinema() == $mt->getId())
+                    foreach($listadoCinemas as $cinemas)
                     {
-                        echo $mt->getName(); 
+                        if($cinemas->getIdMovieTheater() == $mt->getId())
+                        {
+                            if($shows->getId_cinema() == $cinemas->getId())
+                            {
+                                echo $mt->getName(); 
+                            }
+                        }
                     }
                 }?></td>
                 <td><?php echo $shows->getDate() . " " . $shows->getTime(); ?></td>
