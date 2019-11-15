@@ -126,12 +126,15 @@ class CreditCardRepository extends Singleton
              $repo = new CreditCardRepository();
              $repo = $this->getAll();
              $creditCards = array ();
-             foreach($repo as $cc)
+             if($repo != null)
              {
-                  if($cc->getIdUser() == $id_user)
-                  {
-                       array_push($creditCards, $cc);
-                  }
+               foreach($repo as $cc)
+               {
+                    if($cc->getIdUser() == $id_user)
+                    {
+                         array_push($creditCards, $cc);
+                    }
+               }
              }
              return $creditCards;
         }

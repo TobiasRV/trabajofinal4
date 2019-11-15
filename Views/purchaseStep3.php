@@ -20,12 +20,14 @@ if ($userControl->checkSession() != false) {
         <label for="cinema_id">Seleccione una Tarjeta</label><br>
         <select style="width:170px" id="creditCard" name="creditCard">
         <?php
+        if($listado != null){
         foreach($listado as $creditCard)
         {
                 ?>
                 <option value="<?php echo $creditCard->getId(); ?>"><?php echo $creditCard->getCompany() . " - " . $creditCard->getNumber();  ?></option>
                 
                 <?php
+        }
         }
         ?>
         </select><br>

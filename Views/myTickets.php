@@ -28,31 +28,40 @@ if ($userControl->checkSession() != false)
                     <th scope="row">Ticket N°</th>
                 </tr>
                 <?php 
+                if($listadoCC != null)
+                {
                     foreach($listadoCC as $cc)
                     {
                         if($cc->getIdUser() == $_SESSION["loggedUser"]->getId())
                         {
-                            foreach($listadoP as $p)
+                            if($listadoP != null)
                             {
-                                if($p->getIdCreditCard() == $cc->getId())
+                                foreach($listadoP as $p)
                                 {
-                                    foreach($listadoT as $t)
+                                    if($p->getIdCreditCard() == $cc->getId())
                                     {
-                                        if($p->getIdPurchase() == $t->getIdPurchase())
+                                        if($listadoT != null)
                                         {
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $p->getIdPurchase(); ?></td>
-                                                <td><?php echo $p->getPurchaseDate(); ?></td>
-                                                <td><?php echo $t->getIdTicket(); ?></td>
-                                            </tr>
-                                            <?php
+                                            foreach($listadoT as $t)
+                                            {
+                                                if($p->getIdPurchase() == $t->getIdPurchase())
+                                                {
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $p->getIdPurchase(); ?></td>
+                                                        <td><?php echo $p->getPurchaseDate(); ?></td>
+                                                        <td><?php echo $t->getIdTicket(); ?></td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                }
 
                 ?>
         </tbody>
