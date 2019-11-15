@@ -25,8 +25,6 @@ class UserController
         $add = true;
 
         $userRepo = new UserRepository();
-        if($userRepo != null)
-        {
             foreach($userRepo->getAll() as $values)
             {
                 if($values->getEmail() == $email|| $values->getUserName() == $username)
@@ -34,8 +32,7 @@ class UserController
                     $add=false;
                 }
             } 
-        }
-        
+
         if($add){
             $user = new User(); //crea el nuevo usuario y setea los datos
             $user->setUserName($username);
@@ -74,8 +71,7 @@ class UserController
         $i = 0;
         if($userlist != null)
         {
-            foreach ($userList as $values)
-            {
+
 
                 if (($values->getUserName() == $user) && ($values->getPassword() == $password)) 
                 {   
@@ -97,7 +93,7 @@ class UserController
                     require_once(VIEWS_PATH . "index.php");
                 }
             }
-        }    
+   
         
         if($login == false){
             $this->logInForm(); //al estar incorrectos los datos se redirecciona al formulario para volverlos a ingresar
