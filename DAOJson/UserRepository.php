@@ -19,26 +19,25 @@ class UserRepository implements IRepository
 
         $this->saveData();
     }
-        public function read($email)
+
+    public function read($email)
+    {
+        $this->retrieveData();
+        $flag=false;
+        $userReturn = new User();
+        foreach($this->userList as $u)
         {
-            $this->retrieveData();
-            $flag=false;
-            $userReturn = new User();
-            foreach($this->userList as $u)
+            if(!$flag)
             {
-                if(!$flag){
-
-                    if($email==$u->getEmail()){
-                        $flag=true;
-                        $userReturn=$u;
-                    }
-
+                if($email==$u->getEmail())
+                {
+                    $flag=true;
+                    $userReturn=$u;
                 }
-
             }
-            return $userReturn;
-
         }
+        return $userReturn;
+    }
 
     public function getAll(){
 
@@ -53,6 +52,7 @@ class UserRepository implements IRepository
 
         foreach($this->userList as $user){
 
+            //id?
             $valuesArray["userName"] = $user->getUserName();
             $valuesArray["password"] = $user->getPassword();
             $valuesArray["email"] = $user->getEmail();
@@ -60,6 +60,8 @@ class UserRepository implements IRepository
             $valuesArray["lastname"] = $user->getLastname();
             $valuesArray["permissions"] = $user->getPermissions();
             $valuesArray["tickets"] = $user->getTickets();
+            $valuesArray["dni"] = $user->getDni();
+            $valuesArray["creditCards"] = $user->getCreditCards();
            
 
             array_push($arrayToJson, $valuesArray);
@@ -85,6 +87,7 @@ class UserRepository implements IRepository
 
                 $user = new User();
                 
+                //id?
                 $user->setUserName($valuesArray["userName"]);
                 $user->setPassword($valuesArray["password"]);
                 $user->setEmail($valuesArray["email"]);
@@ -92,6 +95,8 @@ class UserRepository implements IRepository
                 $user->setLastname($valuesArray["lastname"]);
                 $user->setPermissions($valuesArray["permissions"]);
                 $user->setTickets($valuesArray["tickets"]);
+                $user->setDni($valuesArray["dni"]);
+                $user->setCreditCards($valuesArray["creditCards"]);
               
 
                 //$user->toString();
@@ -123,20 +128,20 @@ class UserRepository implements IRepository
         }
         
 
-    public function toString(){
+    // public function toString(){
 
-        $i=0;
-        for($i=0;$i<sizeof($this->userList);$i++){
+    //     $i=0;
+    //     for($i=0;$i<sizeof($this->userList);$i++){
 
-        echo $this->userList[$i]->getUserName();          
+    //     echo $this->userList[$i]->getUserName();          
 
-        }
+    //     }
 
-    }
+    // }
 
-    public function getUserAt($i){
-        return $this->userList[$i];
-    }
+    // public function getUserAt($i){
+    //     return $this->userList[$i];
+    // }
 
     public function userExists($username)
     {   
@@ -150,7 +155,9 @@ class UserRepository implements IRepository
         }
         return $flag;
     }
+
     //tiene que si o si existir el usuario
+
     public function searchUser($userName){ 
         $this->userList = $this->getAll();
         $flag=false;
@@ -166,63 +173,55 @@ class UserRepository implements IRepository
     }
 
 
-    public function userNameAt($i)
-    {
+    // public function userNameAt($i)
+    // {
 
-        return $this->userList[$i]->getUserName();
+    //     return $this->userList[$i]->getUserName();
 
-    }
+    // }
 
-    public function passwordAt($i)
-    {
-        return $this->userList[$i]->getPassword();
+    // public function passwordAt($i)
+    // {
+    //     return $this->userList[$i]->getPassword();
 
-    }
+    // }
 
-    public function emailAt($i)
-    {
-        return $this->userList[$i]->getEmail();
+    // public function emailAt($i)
+    // {
+    //     return $this->userList[$i]->getEmail();
 
-    }
+    // }
 
-    public function firstNameAt($i)
-    {
-        return $this->userList[$i]->getFirstname();
+    // public function firstNameAt($i)
+    // {
+    //     return $this->userList[$i]->getFirstname();
 
-    }
-
-
-    public function lastNameAt($i)
-    {
-        return $this->userList[$i]->getLastname();
-
-    }
+    // }
 
 
-    public function getArray(){
-        return $this->userList;
-    }
+    // public function lastNameAt($i)
+    // {
+    //     return $this->userList[$i]->getLastname();
 
-    public function permissionsAt($i)
-    {
-        return $this->userList[$i]->getPermissions();
+    // }
 
-    }
 
-    public function dniAt($i)
-    {
+    // public function getArray(){
+    //     return $this->userList;
+    // }
 
-        return $this->userList[$i]->getDni();
+    // public function permissionsAt($i)
+    // {
+    //     return $this->userList[$i]->getPermissions();
 
-    }
+    // }
 
-    // private $userName;
-    // private $password;
-    // private $email;
-    // private $firstname;
-    // private $lastname;
-    // private $permissions;
-    // private $tickets = array();
+    // public function dniAt($i)
+    // {
+
+    //     return $this->userList[$i]->getDni();
+
+    // }
 
 
 }
