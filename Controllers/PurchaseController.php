@@ -43,15 +43,15 @@ class PurchaseController
         $this->purchaseStep2();
     }
 
-    public function continuePurchase2($idShow, $idCinema)
+    public function continuePurchase2($idShow)
     {
         $purchase = new Purchase();
         $purchase->setIdShow($idShow);
+        $showRepo = new ShowRepository();
+        $showObj = $showRepo->read($idShow); 
         $_SESSION["purchase"] = $purchase;
-        $_SESSION["idCinema"]=$idCinema;
-        $shRepo = new ShowRepository();
-        $repoShows = $shRepo->getAvaiableSeats($idShow);
-        $_SESSION["avaiableSeats"]=$repoShows;
+        $_SESSION["idCinema"]=$showObj->getId_cinema();
+        $_SESSION["avaiableSeats"]=$showObj->getSeats();
         //setear nombre de cine en session
         $cinemas = new CinemaRepository();
         $cinemasRepo = $cinemas->getAll();
@@ -86,7 +86,8 @@ class PurchaseController
         $userControl = new UserController();
         $creditCardsRepo = new CreditCardRepository();
         $listado = $creditCardsRepo->getCreditCards($_SESSION["loggedUser"]->getId());
-        require_once(VIEWS_PATH . "purchaseStep3.php");
+
+       require_once(VIEWS_PATH . "purchaseStep3.php");
     }
 
     public function confirmPurchase($id_creditcard, $qTickets)

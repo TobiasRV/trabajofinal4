@@ -59,27 +59,29 @@ if ($userControl->checkSession() != false) {
             {
                 if($shows->getId_movie()==$_SESSION["idMovieSearch"] && $shows->getStatus()==true){  
                 ?>
-            <tr>
+            <tr>    
                 
-                <td><?php foreach($movieTheaters as $mt)
+                <td><?php
+
+                foreach($movieTheaters as $mt)
                 {
+
                     foreach($listadoCinemas as $cinemas)
                     {
+    
                         if($cinemas->getIdMovieTheater() == $mt->getId())
                         {
+    
                             if($shows->getId_cinema() == $cinemas->getId())
                             {
                                 echo $mt->getName(); 
                             }
                         }
-                    }
+                   
+                     }
                 }?></td>
                 <td><?php echo $shows->getDate() . " " . $shows->getTime(); ?></td>
-                <td> <input type="radio" name="idShow" id = "idShow" value="<?php echo  $shows->getId(); ?>"><br></td>
-                <td><input type="hidden" value="<?php echo $shows->getId_cinema(); ?>" name="idCinema"></td>
-
-
-                
+                <td> <input type="radio" name="idShow" id = "idShow" value="<?php echo  $shows->getId(); ?>"><br></td>          
             </tr>
             <?php
                 }
