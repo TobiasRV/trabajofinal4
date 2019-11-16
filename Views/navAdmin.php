@@ -17,10 +17,21 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT?>MovieTheater/listCinemas">Listar Cines</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/userProfile">Perfil</a>
+          <a class="nav-link" href="<?php echo FRONT_ROOT?>User/userProfile">Perfil (<?php echo $_SESSION["loggedUser"]->getUserName() ?>)</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/logOut">Cerrar Sesión</a>
+          <a class="nav-link" href="<?php echo FRONT_ROOT?>User/logOut" onclick="return confirm('¿Está seguro que desea cerrar sesión?');">Cerrar Sesión</a>
           </li>
      </ul>
 </nav>
+<script>
+     $(function(){
+    $('a#<?php echo FRONT_ROOT?>User/logOut').click(function(){
+        if(confirm('¿Está seguro que desea cerrar sesión?')) {
+            return true;
+        }
+
+        return false;
+    });
+});
+</script>
