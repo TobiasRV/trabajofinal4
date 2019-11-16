@@ -17,7 +17,7 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT?>Purchase/purchaseStep1">Comprar tickets</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/userProfile">Perfil</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>User/userProfile">Perfil (<?php echo $_SESSION["loggedUser"]->getUserName() ?>)</a>
           </li>
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT?>Ticket/showTickets">Mis Tickets</a>

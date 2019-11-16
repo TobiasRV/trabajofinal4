@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo VIEWS_PATH ?>css/shoppingCart.css">
 <body class="home">
 
 
@@ -5,7 +6,7 @@
 
 //Paso 2 de la compra de tickets
 
-include_once(VIEWS_PATH . "header.php"); 
+//include_once(VIEWS_PATH . "header.php"); 
 
 
 
@@ -14,6 +15,7 @@ if ($userControl->checkSession() != false) {
     if ($_SESSION["loggedUser"]->getPermissions() == 2) {
         include_once(VIEWS_PATH . "header.php");
         include_once(VIEWS_PATH . "navClient.php"); ?>
+    
         <body>
 
     <div class="container" align="center">
@@ -57,7 +59,7 @@ if ($userControl->checkSession() != false) {
         <?php 
             foreach ($listado as $shows)
             {
-                if($shows->getId_movie()==$_SESSION["idMovieSearch"] && $shows->getStatus()==true){  
+                if($shows->getIdMovie()==$_SESSION["idMovieSearch"] && $shows->getStatus()==true){  
                 ?>
             <tr>    
                 
