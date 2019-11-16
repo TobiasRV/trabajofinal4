@@ -2,7 +2,7 @@
 
 namespace DAOJson;
 
-use DAO\IRepository as IRepository;
+use DAOJson\IRepository as IRepository;
 use Models\Cinema as Cinema;
 use Models\Seat as Seat;
 

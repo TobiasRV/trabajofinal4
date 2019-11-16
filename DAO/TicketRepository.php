@@ -3,8 +3,10 @@
 namespace DAO;
 
 use Models\Ticket as Ticket;
+use DAO\IRepository as IRepository;
 
-class TicketRepository extends Singleton
+
+class TicketRepository extends Singleton implements Irepository
 {
 
     private $connection;

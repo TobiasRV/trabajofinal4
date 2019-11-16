@@ -1,9 +1,10 @@
 <?php namespace DAOJson; 
 
+use DAOJson\IRepository as IRepository;
 use Models\Movie as Movie;
 use Models\Genre as Genre;
 
-class movieDAO{
+class movieDAO implements Irepository{
 
     public function __construct()
     {

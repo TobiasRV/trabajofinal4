@@ -2,9 +2,9 @@
 
 use Models\User as User;
 use DAO\Connection as Connection;
+use DAO\IRepository as IRepository;
 
-
-     class UserRepository extends Singleton
+     class UserRepository extends Singleton implements Irepository
      {
           private $connection;
 

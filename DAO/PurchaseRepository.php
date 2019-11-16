@@ -3,8 +3,10 @@
 namespace DAO;
 
 use Models\Purchase as Purchase;
+use DAO\IRepository as IRepository;
 
-class PurchaseRepository extends Singleton
+
+class PurchaseRepository extends Singleton implements Irepository
 {
 
     private $connection;

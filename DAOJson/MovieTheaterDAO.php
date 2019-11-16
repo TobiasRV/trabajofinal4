@@ -2,7 +2,7 @@
 
 namespace DAOJson;
 
-use DAO\IRepository as IRepository;
+use DAOJson\IRepository as IRepository;
 use Models\MovieTheater as MovieTheater;
 
 class MovieTheaterDAO implements IRepository

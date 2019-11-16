@@ -1,7 +1,7 @@
 <?php namespace DAOJson;
 
 use Models\Ticket as Ticket;
-use DAO\IRepository as IRepository;
+use DAOJson\IRepository as IRepository;
 
 class TicketRepository implements IRepository
 {

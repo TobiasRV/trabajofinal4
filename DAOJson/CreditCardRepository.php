@@ -1,7 +1,7 @@
 <?php namespace DAOJson;
 
 use Models\CreditCard as CreditCard;
-use DAO\IRepository as IRepository;
+use DAOJson\IRepository as IRepository;
 
 class CreditCardRepository implements IRepository
 {

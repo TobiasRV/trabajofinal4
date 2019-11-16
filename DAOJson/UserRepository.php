@@ -1,7 +1,7 @@
 <?php namespace DAOJson;
 
 use Models\User as User;
-use DAO\IRepository as IRepository;
+use DAOJson\IRepository as IRepository;
 
 class UserRepository implements IRepository
 {

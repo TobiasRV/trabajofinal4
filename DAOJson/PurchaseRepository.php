@@ -1,7 +1,7 @@
 <?php namespace DAOJson;
 
 use Models\Purchase as Purchase;
-use DAO\IRepository as IRepository;
+use DAOJson\IRepository as IRepository;
 
 class PurchaseRepository implements IRepository
 {

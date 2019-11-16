@@ -5,8 +5,10 @@ namespace DAO;
 use Models\MovieTheater as MovieTheater;
 use Models\Movie as Movie;
 use Models\Seat as Seat;
+use DAO\IRepository as IRepository;
 
-class MovieTheaterRepository extends Singleton
+
+class MovieTheaterRepository extends Singleton implements Irepository
 {
 
     private $connection;

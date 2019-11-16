@@ -3,8 +3,10 @@
 namespace DAO;
 
 use Models\CreditCard as CreditCard;
+use DAO\IRepository as IRepository;
 
-class CreditCardRepository extends Singleton
+
+class CreditCardRepository extends Singleton implements Irepository
 {
 
     private $connection;

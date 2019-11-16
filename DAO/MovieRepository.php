@@ -2,8 +2,10 @@
 
 use Models\Movie as Movie;
 use Models\Genre as Genre;
+use DAO\IRepository as IRepository;
 
-class MovieRepository{
+
+class MovieRepository extends Singleton implements Irepository{
 
     private $connection;
 

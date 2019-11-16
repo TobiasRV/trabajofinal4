@@ -3,8 +3,10 @@ namespace DAO;
 
 use Models\Cinema as Cinema;
 use Models\Movie as Movie;
+use DAO\IRepository as IRepository;
 
-class CinemaRepository extends Singleton
+
+class CinemaRepository extends Singleton implements Irepository
 {
     private $connection;
     function __construct() {
