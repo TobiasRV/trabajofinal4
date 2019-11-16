@@ -3,7 +3,7 @@
 use Models\Movie as Movie;
 use Models\Genre as Genre;
 
-class movieRepository{
+class MovieRepository{
 
     private $connection;
 

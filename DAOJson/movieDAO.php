@@ -141,4 +141,23 @@ class movieDAO{
         return $this->getNowPlayingMovies();
     }
 
+    public function Add($movie)
+    {
+
+    }
+
+    public function read($id_movie)
+    {
+
+    }
+
+    public function edit($movie)
+    {
+
+    }
+
+    public function delete($id_movie) 
+    {
+
+    }
 }

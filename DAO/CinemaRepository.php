@@ -119,4 +119,10 @@ class CinemaRepository extends Singleton
            return count($resp) > 1 ? $resp : $resp['0'];
 
     }
+
+    public function saveNewList($cinemaList)
+    {
+        $this->cinemaList = $cinemaList;
+        $this->saveData();
+    }
 }

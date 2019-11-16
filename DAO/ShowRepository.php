@@ -134,19 +134,25 @@ class ShowRepository extends Singleton
 
     public function getShowData($id)
     {
-     $showRepo = new ShowRepository();
-     $showRepo = $this->getAll();
-     $showData="";
-     foreach($showRepo as $shows)
-     {
-          if($shows->getId() == $id)
+          $showRepo = new ShowRepository();
+          $showRepo = $this->getAll();
+          $showData="";
+          foreach($showRepo as $shows)
           {
-               $showData = $shows->getDate() . " " . $shows->getTime();
+               if($shows->getId() == $id)
+               {
+                    $showData = $shows->getDate() . " " . $shows->getTime();
+               }
           }
-     }
 
-     return $showData;
+          return $showData;
     }
+
+    public function saveList($listToSave)
+    {
+          $this->showList = $listToSave;
+          $this->saveData();
+     }
 
    
 }

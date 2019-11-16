@@ -89,19 +89,20 @@ class MovieTheaterRepository extends Singleton
 
   
               
-              public function delete($name) {
-               $sql = "UPDATE  MovieTheaters SET status=:status WHERE name = :name";
+              public function delete($name) 
+              {
+                    $sql = "UPDATE  MovieTheaters SET status=:status WHERE name = :name";
+                    
+                    $parameters['status'] = false;
+                    $parameters['name'] = $name;
                
-               $parameters['status'] = false;
-               $parameters['name'] = $name;
-           
-               try {
-                   $this->connection = Connection::getInstance();
-                  return $this->connection->ExecuteNonQuery($sql, $parameters);
-              } catch(\PDOException $ex) {
-                     throw $ex;
-                }
-                }
+                    try {
+                    $this->connection = Connection::getInstance();
+                    return $this->connection->ExecuteNonQuery($sql, $parameters);
+               } catch(\PDOException $ex) {
+                         throw $ex;
+                    }
+               }
 
 
 		protected function mapear($value) {
@@ -120,5 +121,25 @@ class MovieTheaterRepository extends Singleton
 
                return count($resp) > 1 ? $resp : $resp['0'];
 
+        }
+
+        public function getById($id)
+        {
+          $sql = "SELECT * FROM MovieTheaters where id_movieheater = :id_movietheater";
+
+               $parameters['id_movietheater'] = $id;
+
+               try {
+                    $this->connection = Connection::getInstance();
+                    $resultSet = $this->connection->execute($sql, $parameters);
+               } catch(Exception $ex) {
+                   throw $ex;
+               }
+
+
+               if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+               else
+                    return false;
         }
 }
