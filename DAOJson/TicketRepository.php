@@ -13,8 +13,15 @@ class TicketRepository implements IRepository
 
     public function Add($ticket){ 
 
-        $this->getAll();
-
+        $this->retrieveData();
+    
+        if (empty($this->ticketList)) {
+            $newId = 1;
+        } else {
+            $lastElement = end($this->ticketList);
+            $newId = $lastElement->getIdTicket() + 1;
+        }
+        $ticket->setIdTicket($newId);
         array_push($this->ticketList, $ticket);
 
         $this->saveData();
@@ -53,6 +60,7 @@ class TicketRepository implements IRepository
         foreach($this->ticketList as $ticket){
 
             //id?
+            $valuesArray["id"] = $ticket->getIdTicket();
             $valuesArray["idPurchase"] = $ticket->getIdPurchase();
            
 
@@ -79,7 +87,7 @@ class TicketRepository implements IRepository
 
                 $ticket = new Ticket();
                 
-                //id?
+                $ticket->setIdTicket($valuesArray["id"]);
                 $ticket->setIdPurchase($valuesArray["idPurchase"]);
               
                 array_push($this->ticketList, $ticket);

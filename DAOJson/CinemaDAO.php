@@ -90,4 +90,23 @@ class CinemaDAO implements IRepository
             }
         }
     }
+
+    public function read($id)
+    {
+        $this->retrieveData();
+        $flag=false;
+        $cinemaReturn = new Cinema();
+        foreach($this->cinemaList as $t)
+        {
+            if(!$flag)
+            {
+                if($id==$t->getId())
+                {
+                    $flag=true;
+                    $cinemaReturn=$t;
+                }
+            }
+        }
+        return $cinemaReturn;
+    }
 }

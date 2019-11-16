@@ -1,47 +1,26 @@
 [
     {
+        "id": null,
         "userName": "juanludu",
         "password": "1234",
-        "email": "juan@gmail.com",
-        "firstname": "Juanma",
-        "lastname": "Ludue\u00f1a",
+        "email": "juanmluduena1@gmail.com",
+        "firstname": "JUAN",
+        "lastname": "Luduenia",
         "permissions": 1,
-        "tickets": []
+        "tickets": [],
+        "dni": "41306776",
+        "creditCards": []
     },
     {
+        "id": 1,
         "userName": "bpilegi98",
         "password": "1234",
         "email": "bianca@gmail.com",
-        "firstname": "Biancucha",
-        "lastname": "Pileshi",
+        "firstname": "Bianca",
+        "lastname": "Pilegi",
         "permissions": 2,
-        "tickets": [
-            {
-                "price": 120,
-                "id": 0,
-                "cinema": "Ambassador",
-                "seat": 1,
-                "movie": "Terminator 4",
-                "date": "25\/10\/2019"
-            }
-        ]
-    },
-    {
-        "userName": "asd",
-        "password": "asd",
-        "email": "a@a.com",
-        "firstname": "asd",
-        "lastname": "asd",
-        "permissions": 2,
-        "tickets": []
-    },
-    {
-        "userName": "siderjonas",
-        "password": "pastrana",
-        "email": "Soldano",
-        "firstname": "soldanochristian@hotmail.com",
-        "lastname": "Christian",
-        "permissions": 1,
-        "tickets": []
+        "tickets": [],
+        "dni": "41306776",
+        "creditCards": []
     }
 ]

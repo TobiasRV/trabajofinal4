@@ -13,7 +13,16 @@ class UserRepository implements IRepository
 
     public function Add($user){ 
 
-        $this->retrieveData();
+        
+           $this->retrieveData();
+    
+            if (empty($this->userList)) {
+                $newId = 1;
+            } else {
+                $lastElement = end($this->userList);
+                $newId = $lastElement->getId() + 1;
+            }
+            $user->setId($newId);
 
         array_push($this->userList, $user);
 
@@ -52,7 +61,7 @@ class UserRepository implements IRepository
 
         foreach($this->userList as $user){
 
-            //id?
+            $valuesArray["id"] = $user->getId();
             $valuesArray["userName"] = $user->getUserName();
             $valuesArray["password"] = $user->getPassword();
             $valuesArray["email"] = $user->getEmail();
@@ -88,6 +97,7 @@ class UserRepository implements IRepository
                 $user = new User();
                 
                 //id?
+                $user->setId($valuesArray["id"]);
                 $user->setUserName($valuesArray["userName"]);
                 $user->setPassword($valuesArray["password"]);
                 $user->setEmail($valuesArray["email"]);

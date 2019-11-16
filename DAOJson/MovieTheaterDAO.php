@@ -89,4 +89,24 @@ class MovieTheaterDAO implements IRepository
             }
         }
     }
+
+    public function read($id)
+    {
+        $this->retrieveData();
+        $flag=false;
+        $movieTheaterReturn = new MovieTheater();
+        foreach($this->movieTheaterList as $t)
+        {
+            if(!$flag)
+            {
+                if($id==$t->getId())
+                {
+                    $flag=true;
+                    $movieTheaterReturn=$t;
+                }
+            }
+        }
+        return $movieTheaterReturn;
+    }
+
 }

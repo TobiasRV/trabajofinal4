@@ -13,7 +13,15 @@ class CreditCardRepository implements IRepository
 
     public function Add($creditCard){ 
 
-        $this->getAll();
+        $this->retrieveData();
+    
+        if (empty($this->creditCardList)) {
+            $newId = 1;
+        } else {
+            $lastElement = end($this->creditCardList);
+            $newId = $lastElement->getId() + 1;
+        }
+        $creditCard->setId($newId);
 
         array_push($this->creditCardList, $creditCard);
 
@@ -53,6 +61,7 @@ class CreditCardRepository implements IRepository
         foreach($this->creditCardList as $creditCard){
 
             //id?
+            $valuesArray["id"] = $creditCard->getId();
             $valuesArray["company"] = $creditCard->getCompany();
             $valuesArray["number"] = $creditCard->getNumber();
             $valuesArray["idUser"] = $creditCard->getIdUser();
@@ -81,7 +90,7 @@ class CreditCardRepository implements IRepository
 
                 $creditCard = new CreditCard();
                 
-                //id?
+                $creditCard->setId($valuesArray["id"]);
                 $creditCard->setCompany($valuesArray["company"]);
                 $creditCard->setNumber($valuesArray["number"]);
                 $creditCard->setIdUser($valuesArray["idUser"]);
@@ -114,11 +123,13 @@ class CreditCardRepository implements IRepository
         $this->retrieveData();
         $aux = array();
         $flag = false;
-        foreach($this as $values){
 
+        foreach($this->creditCardList as $values)
+        {
             if($id_user == $values->getIdUser()){
                 array_push($aux,$values);   
-            $flag = true;         }
+            $flag = true;         
+        }
         }
 
         if($flag){

@@ -69,6 +69,7 @@ require_once(VIEWS_PATH . "navAdmin.php");
                     <div class="col col-lg-2">
                         <a class="btn btn-danger btn-block" href="<?php echo FRONT_ROOT; ?>/MovieTheater/ListCinemas" role="button">Cancelar</a>
                     </div>
+                    <input type="hidden" name="seats" id="seats" value =<?php echo  $seats; ?>>
                     <div class="col col-lg-4">
                         <button name="submit" type="submit" id="summit" class="btn btn-primary btn-success btn-block" disabled="disabled">Confirmar</button>
                     </div>

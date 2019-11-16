@@ -49,6 +49,10 @@ include_once(VIEWS_PATH . "nav.php");
                             <label for="lastname"><i class="zmdi zmdi-email"></i></label>
                             <input type="text" name="lastname" id="lastname" placeholder="Apellido" required>
                         </div>
+                        <div class="form-group">
+                            <label for="lastname"><i class="zmdi zmdi-email"></i></label>
+                            <input type="number" name="dni" id="dni" placeholder="DNI" required>
+                        </div>
                         <div class="form-group form-button">
                             <input type="submit" name="signup" id="signup" class="form-submit" value="Registrarse" />
                         </div>

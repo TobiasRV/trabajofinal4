@@ -43,6 +43,7 @@ class ShowDAO implements IRepository
             $valuesArray['time'] = $show->getTime();
             $valuesArray['id_cinema'] = $show->getIdCinema();
             $valuesArray['id_movie'] = $show->getIdMovie();
+            $valuesArray['seats'] = $show->getSeats();
             $valuesArray['status'] = $show->getStatus();
 
             array_push($arrayToEncode, $valuesArray);
@@ -68,11 +69,32 @@ class ShowDAO implements IRepository
                 $show->setIdCinema($valuesArray['id_cinema']);
                 $show->setIdMovie($valuesArray['id_movie']);
                 $show->setStatus($valuesArray['status']);
+                $show->setSeats($valuesArray['seats']);
 
                 array_push($this->showList, $show);
             }
         }
     }
+
+    public function read($id)
+    {
+        $this->retrieveData();
+        $flag=false;
+        $showReturn = new Show();
+        foreach($this->showList as $t)
+        {
+            if(!$flag)
+            {
+                if($id==$t->getId())
+                {
+                    $flag=true;
+                    $showReturn=$t;
+                }
+            }
+        }
+        return $showReturn;
+    }
+
 
     public function getAvaiableSeats($id)
     {
@@ -95,5 +117,19 @@ class ShowDAO implements IRepository
      return $showData;
     }
 
+    
+    public function edit($show) {
 
+        $this->retrieveData();
+
+        foreach($this->showList as $values){
+
+            //juan tiene paja de terminar esta parte
+            if($values->getId() == $show->getId()){
+                $values->setSeats($show->getSeats());
+            break;
+            }
+        }
+        $this->saveData();
+    }
 }

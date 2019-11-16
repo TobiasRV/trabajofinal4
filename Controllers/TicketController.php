@@ -1,8 +1,17 @@
 <?php namespace Controllers;
 
-use DAO\PurchaseRepository as PurchaseRepository;
-use DAO\TicketRepository as TicketRepository;
-use DAO\CreditCardRepository as CreditCardRepository;
+//DAO BD
+// use DAO\PurchaseRepository as PurchaseRepository;
+// use DAO\TicketRepository as TicketRepository;
+// use DAO\CreditCardRepository as CreditCardRepository;
+//END DAO BD
+
+//DAO JSON
+use DAOJson\PurchaseRepository as PurchaseRepository;
+use DAOJson\TicketRepository as TicketRepository;
+use DAOJson\CreditCardRepository as CreditCardRepository;
+//END DAO JSON
+
 use Controllers\UserController as UserController;
 
 class TicketController

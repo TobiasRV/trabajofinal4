@@ -5,6 +5,7 @@
         "time": "20:30",
         "id_cinema": "1",
         "id_movie": "475557",
+        "seats": 50,
         "status": true
     },
     {
@@ -13,6 +14,7 @@
         "time": "10:00",
         "id_cinema": "2",
         "id_movie": "330457",
+        "seats": 40,
         "status": true
     },
     {
@@ -21,6 +23,7 @@
         "time": "13:30",
         "id_cinema": "1",
         "id_movie": "420809",
+        "seats": 50,
         "status": true
     },
     {
@@ -29,6 +32,7 @@
         "time": "17:00",
         "id_cinema": "7",
         "id_movie": "454640",
+        "seats": 60,
         "status": true
     },
     {
@@ -37,6 +41,25 @@
         "time": "13:30",
         "id_cinema": "1",
         "id_movie": "499701",
+        "seats": 50,
+        "status": true
+    },
+    {
+        "id": 6,
+        "date": "2019-11-24",
+        "time": "00:00",
+        "id_cinema": "2",
+        "id_movie": "330457",
+        "seats": 34,
+        "status": true
+    },
+    {
+        "id": 7,
+        "date": "2019-12-01",
+        "time": "13:30",
+        "id_cinema": "8",
+        "id_movie": "521777",
+        "seats": "20",
         "status": true
     }
 ]

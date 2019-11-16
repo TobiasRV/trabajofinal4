@@ -4,10 +4,11 @@ namespace Controllers;
 
 use Models\Show as Show;
 use DAOJson\ShowDAO as ShowDAO;
-// use DAO\ShowRepository as ShowDAO;
 use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\CinemaController as CinemaController;
 use Controllers\MovieController as MovieController;
+// use DAO\ShowRepository as ShowDAO;
+
 
 class ShowController
 {
@@ -61,10 +62,10 @@ class ShowController
     }
 
 
-    public function createShow($idCinema, $date, $time, $idMovie)
+    public function createShow($idCinema, $date, $time, $idMovie,$seats)
     {
         $movieTheaterController = new MovieTheaterController();
-
+        
         $show = new Show();
 
         $show->setId($this->getNextId());
@@ -72,6 +73,7 @@ class ShowController
         $show->setDate($date);
         $show->setTime($time);
         $show->setIdMovie($idMovie);
+        $show->setSeats($seats);
 
         $this->showDAO->Add($show);
         
@@ -121,6 +123,7 @@ class ShowController
         $movieController = new MovieController();
         $cinemaController = new CinemaController();
         $idCinema = $cinemaController->getCinemaIdByName($cinemaName);
+        $seats = $cinemaController->getSeats($idCinema);
         $takenIds = $this->getTakenIds($movieTheaterName, $date);
 
         $billBoard = $movieTheaterController->getBillBoardByMovieTheaterName($movieTheaterName);

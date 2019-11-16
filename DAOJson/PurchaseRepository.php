@@ -13,8 +13,16 @@ class PurchaseRepository implements IRepository
 
     public function Add($purchase){ 
 
-        $this->getAll();
-
+        
+        $this->retrieveData();
+    
+        if (empty($this->purchaseList)) {
+            $newId = 1;
+        } else {
+            $lastElement = end($this->purchaseList);
+            $newId = $lastElement->getIdPurchase() + 1;
+        }
+        $purchase->setIdPurchase($newId);
         array_push($this->purchaseList, $purchase);
 
         $this->saveData();
@@ -53,6 +61,7 @@ class PurchaseRepository implements IRepository
         foreach($this->purchaseList as $purchase){
 
             //id?
+            $valuesArray["id"] = $purchase->getIdPurchase();
             $valuesArray["purchaseDate"] = $purchase->getPurchaseDate();
             $valuesArray["quantityTickets"] = $purchase->getQuantityTickets();
             $valuesArray["total"] = $purchase->getTotal();
@@ -84,7 +93,7 @@ class PurchaseRepository implements IRepository
 
                 $purchase = new Purchase();
                 
-                //id?
+                $purchase->setIdPurchase($valuesArray["id"]);
                 $purchase->setPurchaseDate($valuesArray["purchaseDate"]);
                 $purchase->setQuantityTickets($valuesArray["quantityTickets"]);
                 $purchase->setTotal($valuesArray["total"]);
@@ -115,7 +124,7 @@ class PurchaseRepository implements IRepository
     {
 
         $this->retrieveData();
-        return end($this);
+        return end($this->purchaseList)->getIdPurchase();
     }
 
 }

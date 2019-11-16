@@ -22,7 +22,7 @@ class UserController
         require_once(VIEWS_PATH . "profile.php");
     }
 
-    public function signUp($username, $password, $firstname, $lastname, $email, $dni)
+    public function signUp($username, $password, $email, $firstname, $lastname, $dni)
     {
         $add = true;
 
@@ -171,4 +171,6 @@ class UserController
         $this->logOut();
       // require_once(VIEWS_PATH . "profile.php");
     }
+
+
 }

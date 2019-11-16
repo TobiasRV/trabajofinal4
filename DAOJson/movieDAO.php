@@ -136,6 +136,9 @@ class movieDAO{
     public function updateDataBase()
     {
     }
-
+    public function getAll()
+    {
+        return $this->getNowPlayingMovies();
+    }
 
 }

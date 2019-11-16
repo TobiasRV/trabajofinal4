@@ -4,9 +4,11 @@ namespace Controllers;
 
 use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\ShowController as ShowController;
+use Models\Cinema as Cinema;
+
 use DAOJson\CinemaDAO as CinemaDAO;
 //use DAO\CinemaRepository as CinemaDAO;
-use Models\Cinema as Cinema;
+
 
 class CinemaController
 {
@@ -165,5 +167,21 @@ class CinemaController
         $movieTheaterController = new MovieTheaterController();
         $this->deleteCinemaById($id);
         $movieTheaterController->viewCreateMovieTheaterThree($movieTheaterName);
+    }
+
+    public function getSeats($idCinemaName)
+    {
+
+        $cinemaList = $this->cinemaDAO->getAll();
+
+        $result = null;
+
+        foreach ($cinemaList as $cinema) {
+            if ($cinema->getId() == $idCinemaName) {
+                $result = $cinema->countSeats();
+                break;
+            }
+        }
+        return $result;
     }
 }
