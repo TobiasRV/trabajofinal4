@@ -13,7 +13,7 @@ class UserRepository implements IRepository
 
     public function Add($user){ 
 
-        $this->getAll();
+        $this->retrieveData();
 
         array_push($this->userList, $user);
 

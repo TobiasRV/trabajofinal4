@@ -96,6 +96,7 @@ class TicketRepository implements IRepository
 
     public function delete($id) 
     {
+        //en ningun momento nos piden reembolsos asi que queda asi por ahora
         
     }
 

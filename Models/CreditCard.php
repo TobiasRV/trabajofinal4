@@ -5,17 +5,14 @@ class CreditCard{
 private $id;
 private $company;
 private $number;
-// private $expireDate;
-// private $securityCode;
-// private $firstnameOwner;
-// private $lastnameOwner;
-// private $dniOwner;
+private $status;
 private $idUser;
 
 
 public function __construct($id = null,$company = null) {
     $this->id = $id;
     $this->company = $company;
+    $this->status=true;
 }
 
 
@@ -91,5 +88,12 @@ public function setIdUser($idUser){
     $this->idUser = $idUser;
 }
 
+public function getStatus(){
+    return $this->status;
+}
+
+public function setStatus($status){
+    $this->status = $status;
+}
 
 }

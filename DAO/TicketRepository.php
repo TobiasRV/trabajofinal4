@@ -82,20 +82,11 @@ class TicketRepository extends Singleton
 
   
               
-              public function delete($name) {
-            //    $sql = "UPDATE  CreditCard SET status=:status WHERE name = :name";
-               
-            //    $parameters['status'] = false;
-            //    $parameters['name'] = $name;
-           
-            //    try {
-            //        $this->connection = Connection::getInstance();
-            //       return $this->connection->ExecuteNonQuery($sql, $parameters);
-            //   } catch(\PDOException $ex) {
-            //          throw $ex;
-            //     }
-                }
-
+          public function delete($id) 
+          {
+              //en ningun momento nos piden reembolsos asi que queda asi por ahora
+              
+          }
 
 		protected function mapear($value) {
 

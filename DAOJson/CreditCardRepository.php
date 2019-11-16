@@ -95,12 +95,14 @@ class CreditCardRepository implements IRepository
     public function edit($creditCard)
     {
 
-        //se supone que no podes editar una compra
+    //Supongo que en algun momento tendremos que hacer esta
 
     }
 
     public function delete($id) 
-    {
+    {   
+    
+        //no pusimos status en credit card asi que sera fisica cuando la hagamos XD
         
     }
 
@@ -109,17 +111,36 @@ class CreditCardRepository implements IRepository
 
     public function getCreditCards($id_user)
     {
+        $this->retrieveData();
+        $aux = array();
+        $flag = false;
+        foreach($this as $values){
 
-    }
+            if($id_user == $values->getIdUser()){
+                array_push($aux,$values);   
+            $flag = true;         }
+        }
 
-    public function getCompany($id_creditcard)
-    {
-        return $this->read($id_creditcard)->getCompany();
+        if($flag){
+            return $aux;
+        }
+        else{
+            return $flag;
+        }
     }
 
     public function getId($creditCard)
     {
+      $this->retrieveData();
+      foreach($this->creditCardList as $values)
+      {
+           if($values->getNumber() == $creditCard->getNumber())
+           {
+                $creditCard->setId($values->getId());
+           }
+      }
 
+      return $creditCard;
     }
     
 }

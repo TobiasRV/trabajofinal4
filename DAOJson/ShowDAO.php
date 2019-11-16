@@ -73,4 +73,27 @@ class ShowDAO implements IRepository
             }
         }
     }
+
+    public function getAvaiableSeats($id)
+    {
+         return $this->read($id)->getSeats();
+    }
+
+    public function getShowData($id)
+    {
+    
+     $this->retrieveData();
+     $showData="";
+     foreach($this->showList as $shows)
+     {
+          if($shows->getId() == $id)
+          {
+               $showData = $shows->getDate() . " " . $shows->getTime();
+          }
+     }
+
+     return $showData;
+    }
+
+
 }

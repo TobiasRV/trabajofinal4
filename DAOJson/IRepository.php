@@ -6,6 +6,7 @@ interface IRepository{
     function getAll();
     function saveData();
     function retrieveData();
+    function read($id);
   
 }
 

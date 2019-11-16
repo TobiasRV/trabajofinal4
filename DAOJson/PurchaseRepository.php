@@ -99,22 +99,23 @@ class PurchaseRepository implements IRepository
         }
     }
 
-    public function edit($purchase)
-    {
+    public function edit($purchase) {
 
         //se supone que no podes editar una compra
+      }
 
-    }
 
-    public function delete($id) 
-    {
-        
-    }
+          
+        public function delete($name) {
+           //No nos pidieron reembolsos asi que queda asi por ahora
+            }
 
 
     public function getLastPurchase()
     {
 
+        $this->retrieveData();
+        return end($this);
     }
 
 }
