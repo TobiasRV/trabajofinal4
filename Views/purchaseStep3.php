@@ -18,14 +18,14 @@ if ($userControl->checkSession() != false) {
     <form action="<?php echo FRONT_ROOT ?>Purchase/confirmPurchase" method="POST">
         <!-- <input type="hidden" id="id" name="id" value=""> -->
         <label for="cinema_id">Seleccione una Tarjeta</label><br>
-        <select style="width:170px" id="creditCard" name="creditCard">
+        <select style="width:170px" id="creditCard" name="creditCard" class="form-control">
         <?php
         if($listado != null){
         foreach($listado as $creditCard)
         {
             if($creditCard->getStatus()==true){
                 ?>
-                <option value="<?php echo $creditCard->getId(); ?>"><?php echo $creditCard->getCompany() . " - " . $creditCard->getNumber();  ?></option>
+                <option value="<?php echo $creditCard->getId(); ?>"><?php echo $creditCard->getCompany() . " - ********" . substr( $creditCard->getNumber(), -4 );  ?></option>
                 
                 <?php
             }
@@ -33,36 +33,17 @@ if ($userControl->checkSession() != false) {
         }
         ?>
         </select><br>
-        <br><button type="button" data-toggle="modal" data-target="#addCreditCard">Agregar Tarjeta</button><br><br>
-
-        <!-- <label for="cinema_id">Método de Pago</label><br>
-        <select style="width:170px">
-        <option value="Visa">Tarjeta de Crédito Visa</option>
-        <option value="Master">Tarjeta de Crédito Master</option>
-        </select><br>
-
-        <label for="cardNumber">Número de Tarjeta</label><br>
-        <input type="number" style="width:170px" id="cardNumber" name="cardNumber" placeholder="Número de Tarjeta" required min=16 max=16 title="Solo números"><br> -->
+        
+        <br><button type="button" data-toggle="modal" data-target="#addCreditCard" class="btn btn-outline-secondary">Agregar Tarjeta</button><br><br>
 
         <label for="quantityTickets">Cantidad</label><br>
         <input type="number" style="width:170px" id="quantityTickets" name="quantityTickets" placeholder="Cantidad de Tickets" required min=1 max=6 title="Solo números (máximo 6 tickets por compra)"><br>
-<!-- 
-        <label for="cardOwner">Titular de la Tarjeta</label><br>
-        <input type="text" style="width:170px" id="cardOwnerFirstame" name="cardOwner" placeholder="Nombre" required pattern="[A-Za-z]" title="Solo letras"><br><br>
-        <input type="text" style="width:170px" id="cardOwnerLastname" name="cardOwner" placeholder="Apellido" required pattern="[A-Za-z]" title="Solo letras"><br>
-
-        <label for="dniOwner">DNI del Titular</label><br>
-        <input type="number" style="width:170px" id="dniOwner" name="dniOwner" placeholder="DNI del Titular" required  max=8 title="Solo números"><br>
-
-        <label for="cardExpire">Fecha de Vencimiento</label><br>
-        <input type="month" style="width:170px" id="cardExpire" name="cardExpire" placeholder="Fecha de Vencimiento" required><br>
-
-        <label for="cardCode">Código de Seguridad</label><br>
-        <input type="number" style="width:170px" id="cardCode" name="cardCode" placeholder="Código de Seguridad" required min=3 max=3 title="Solo números"><br> -->
 
         <br><button name="submit" type="submit">Comprar</button>
     </form>
   </div>
+
+
 <?php include_once(VIEWS_PATH . "footer.php"); ?>
     
  <?php 

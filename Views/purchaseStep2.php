@@ -49,12 +49,13 @@ if ($userControl->checkSession() != false) {
 
 
         <label for="quantityTickets">Funciones</label><br>
-        <input type="text" id="myInput" onkeyup="filterSearch()" placeholder="Buscar por cine..">
+        <input type="text" id="myInput" class="form-control" onkeyup="filterSearch()" placeholder="Buscar por cine..">
         
-        <table id="myTable">
+        <table id="myTable" class="table table-striped table-dark">
             <tr class="header" >
-                <th style="width:40%;">Cine</th>
-                <th style="width:60%;">Función</th>
+                <th style="width:60%;">Cine</th>
+                <th style="width:40%;">Función</th>
+                <th>Seleccionar</th>
             </tr>
         <?php 
             foreach ($listado as $shows)
@@ -83,16 +84,18 @@ if ($userControl->checkSession() != false) {
                      }
                 }?></td>
                 <td><?php echo $shows->getDate() . " " . $shows->getTime(); ?></td>
-                <td> <input type="radio" name="idShow" id = "idShow" value="<?php echo  $shows->getId(); ?>"><br></td>          
+                <td><input type="radio" name="idShow" id = "idShow" value="<?php echo  $shows->getId(); ?>"><br></td>          
             </tr>
             <?php
                 }
             }
         ?>
         </table>
-        <br><button name="submit" type="submit">Continuar</button>
+        <br><button name="submit" type="submit" class="btn btn-success" style="width:100%;">Continuar</button>
     </form>
   </div>
+
+
   <?php include_once(VIEWS_PATH . "footer.php"); ?>
     
     <?php } else {

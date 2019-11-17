@@ -16,7 +16,7 @@
         <?php foreach ($listadoCC as $cc) { ?>
             <tr>
                 <td><?php echo $cc->getCompany(); ?></td>
-                <td><?php echo $cc->getNumber(); ?></td>
+                <td><?php echo "**** **** **** " . substr( $cc->getNumber(), -4 ); ?></td>
                 <td><?php 
                 if($cc->getStatus()==true)
                 {
@@ -91,7 +91,7 @@
                                     <label for="number">
                                         <h5>Número de Tarjeta</h5>
                                     </label>
-                                    <input type="number" style="width:170px" id="cardNumber" name="cardNumber" placeholder="Número de Tarjeta" required  title="Solo números"><br>
+                                    <input type="number" style="width:170px" id="cardNumber" name="cardNumber" min="15" max="16" placeholder="Número de Tarjeta"  required  title="Solo números"><br>
                                 </div>
                                 <div class="form-group">
                                     <button name="submit" type="submit" class="btn btn-primary btn-success btn-block">Agregar</button>

@@ -26,6 +26,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                          <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>User/userProfile"><i class="fas fa-user"></i> Perfil</a>
                          <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Ticket/showTickets"><i class="fas fa-ticket-alt"></i> Mis Tickets</a>
+                         <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>CreditCard/showCreditCards"><i class="fas fa-credit-card"></i> Mis Tarjetas</a>
                          <div class="dropdown-divider"></div>
                          <div></div>
                          <a class="dropdown-item bg-danger text-white" href="<?php echo FRONT_ROOT ?>User/logOut"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>

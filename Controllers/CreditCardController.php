@@ -8,6 +8,7 @@
 use DAOJson\CreditCardRepository as CreditCardRepository;
 //END DAO JSON
 
+use Models\CreditCard as CreditCard;
 use Controllers\UserController as UserController;
 
 class CreditCardController

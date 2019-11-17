@@ -13,7 +13,26 @@ if ($userControl->checkSession() != false) {
 ?>
 
 
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Confirmar Datos</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Por favor asegúrese que los datos de la compra sean correctos antes de confirmar.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Ok</button>
+        </div>
+        </div>
+    </div>
+    </div>
     <html>
+
         <br><h5>DATOS DE LA COMPRA</h5>
     <table class="table table-striped">
         <tbody>
