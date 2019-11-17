@@ -45,5 +45,16 @@ class CreditCardController
         $this->showCreditCards();
    }
 
+   public function addCreditCard($company, $number)
+    {
+        $newCreditCard = new CreditCard();
+        $newCreditCard->setNumber($number);
+        $newCreditCard->setCompany($company);
+        $newCreditCard->setIdUser($_SESSION["loggedUser"]->getId());
+        $creditCardRepo = new CreditCardRepository();
+        $creditCardRepo->Add($newCreditCard);
+        $this->showCreditCards();
+    }
+
 
 }

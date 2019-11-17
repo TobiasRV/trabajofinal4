@@ -10,7 +10,7 @@
         "id": 2,
         "company": "Master",
         "number": "46451321354",
-        "status": true,
+        "status": false,
         "idUser": 1
     },
     {
@@ -18,6 +18,13 @@
         "company": "Visa",
         "number": "007",
         "status": true,
+        "idUser": 1
+    },
+    {
+        "id": 4,
+        "company": "Visa",
+        "number": "548564561561",
+        "status": false,
         "idUser": 1
     }
 ]
