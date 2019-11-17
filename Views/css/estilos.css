@@ -1,3 +1,12 @@
 .home {
     background-image: url(../img/fondo.png);
 }
+
+@font-face{
+    font-family: 'fuente';
+    src: url(../fonts/DoppioOne-Regular.ttf);
+}
+
+#fuente-nav{
+    font-family: 'fuente';
+}

@@ -18,6 +18,27 @@ if ($userControl->checkSession() != false)
 
 
         <br><h5>MIS TICKETS</h5>
+
+    <div class="container fluid p-0">
+        <div class="row mt-3">
+
+            <form class="form-inline" action="<?php echo FRONT_ROOT ?>Movie/showMovies" method="post">
+                <div class="form-group mr-3">
+                        <label for="genre">Cine:</label>
+                        <select class="form-control" name="selectMovieTheater">
+                            <option value="">--Sin Filtro--</option>
+                            <?php foreach ($movieTheatherList as $movieTheather) { ?>
+                                <option value=<?php echo $movieTheather->getId(); ?>><?php echo $movieTheather->getName(); ?></option>
+                            <?php } ?>
+                        </select>
+                </div>
+                <div class="form-group mr-3">
+                    <label for="selectDate">Fecha:</label>
+                    <input type="date" name="selectDate" id="selectDate" value="">
+                </div>
+                <button class="btn btn-secondary" type="submit">Buscar</button>
+            </form>
+    </div>
     <table class="table table-striped">
         <tbody>
                 <tr>
