@@ -117,41 +117,23 @@ class UserRepository implements IRepository
 
     public function edit($user){
 
-        $this->userList = $this->getAll();
+        $this->retrieveData();
             $flag=false;
             $i=0;
-            while($flag==false && $i<count($this->userList))
-            {
-                
-                if($user->getEmail()==$this->userList[$i]->getEmail()){
-                    $flag=true;
-                   
-                    $this->userList[$i]->setFirstname($user->getFirstname());
-                    $this->userList[$i]->setLastname($user->getLastname());
-                    $this->userList[$i]->setPassword($user->getPassword());
-                    //$this->userList->setDni($user->getDni());
+            foreach($this->userList as $values){
+               
+                if($user->getEmail()==$values->getEmail()){
+                    $values->setFirstname($user->getFirstname());
+                    $values->setLastname($user->getLastname());
+                    $values->setPassword($user->getPassword());
+                break;
                 } 
-                $i++;
             }
+           
            
         $this->saveData();
         }
         
-
-    // public function toString(){
-
-    //     $i=0;
-    //     for($i=0;$i<sizeof($this->userList);$i++){
-
-    //     echo $this->userList[$i]->getUserName();          
-
-    //     }
-
-    // }
-
-    // public function getUserAt($i){
-    //     return $this->userList[$i];
-    // }
 
     public function userExists($username)
     {   
@@ -181,57 +163,4 @@ class UserRepository implements IRepository
             $i++;
         }
     }
-
-
-    // public function userNameAt($i)
-    // {
-
-    //     return $this->userList[$i]->getUserName();
-
-    // }
-
-    // public function passwordAt($i)
-    // {
-    //     return $this->userList[$i]->getPassword();
-
-    // }
-
-    // public function emailAt($i)
-    // {
-    //     return $this->userList[$i]->getEmail();
-
-    // }
-
-    // public function firstNameAt($i)
-    // {
-    //     return $this->userList[$i]->getFirstname();
-
-    // }
-
-
-    // public function lastNameAt($i)
-    // {
-    //     return $this->userList[$i]->getLastname();
-
-    // }
-
-
-    // public function getArray(){
-    //     return $this->userList;
-    // }
-
-    // public function permissionsAt($i)
-    // {
-    //     return $this->userList[$i]->getPermissions();
-
-    // }
-
-    // public function dniAt($i)
-    // {
-
-    //     return $this->userList[$i]->getDni();
-
-    // }
-
-
 }

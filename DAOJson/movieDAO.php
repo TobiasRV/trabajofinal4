@@ -4,7 +4,7 @@ use DAOJson\IRepository as IRepository;
 use Models\Movie as Movie;
 use Models\Genre as Genre;
 
-class movieDAO implements Irepository{
+class movieDAO{
 
     public function __construct()
     {

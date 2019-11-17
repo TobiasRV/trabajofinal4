@@ -112,32 +112,6 @@ class UserController
         require_once(VIEWS_PATH . "index.php"); //vista del home
     }
 
-    // public function checkSession($user=null)
-    // {   
-    //     if($user==null)
-    //     {
-    //         return false;
-    //     }
-    //     else
-    //     {
-    //         $userRepo = new UserRepository();
-    //         $userRepo->getAll();
-
-    //         while($flag==false && $i <count($userRepo))
-    //         { 
-    //             if($user->getUserName()==$userList->userNameAt($i))
-    //             {
-    //                 if($user->getPassword() == $userList->passwordAt($i)){ 
-    //                     return $user;    
-    //                 }
-    //                 $flag=true;
-    //             }
-    //             $i++;         
-    //         }
-
-    //     }
-    //     return false;
-    // }
     public function checkSession()
     {
         if (session_status() == PHP_SESSION_NONE)
@@ -155,21 +129,19 @@ class UserController
         }
     }
 
-    public function modifyUser($firstname, $lastname, $email, $username, $password)
-    {
-       
-        
+    public function modifyUser($firstname, $lastname, $email,$dni, $username, $password)
+    { 
         $newUser = new User();
         $newUser->setId($_SESSION['loggedUser']->getId());
         $newUser->setFirstname($firstname);
         $newUser->setLastname($lastname);
         $newUser->setEmail($email);
+        $newUser->setDni($dni);
         $newUser->setUsername($username);
         $newUser->setPassword($password);
-         $userList = new UserRepository();
+        $userList = new UserRepository();
         $userList->edit($newUser);
         $this->logOut();
-      // require_once(VIEWS_PATH . "profile.php");
     }
 
 
