@@ -108,11 +108,15 @@ class movieDAO{
     }
 
     public function getMovieDetails($idMovie){
-        $json = file_get_contents('https://api.themoviedb.org/3/movie/%27.$idMovie.%27?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX%27');
+        $json = file_get_contents('https://api.themoviedb.org/3/movie/'. $idMovie.'?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX');
         $jsonData = json_decode($json, true);
         $adult = $jsonData["adult"];
+        $genresArray = $jsonData["genres"];
         $idGenre = array();
-        $idGenre = $jsonData["genre_ids"];
+
+        foreach($genresArray as $genres){
+            array_push($idGenre, $genres["id"]);
+        }
         $idMovie = $jsonData["id"];
         $title = $jsonData["title"];
         $originalTitle = $jsonData["original_title"];

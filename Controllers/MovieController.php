@@ -192,6 +192,8 @@ class MovieController
         return $result;
     }
 
+    
+
     public function searchMovie($selectMovieTheather = null, $selectDate = null, $selectGenre = null)
     {
         $showController = new ShowController();
@@ -211,12 +213,12 @@ class MovieController
 
     public function showMovies($selectMovieTheather = null, $selectDate = null, $selectGenre = null)
     {
-        $movieTheatherController = new MovieTheaterController();
+        $movieTheaterController = new MovieTheaterController();
         $movies = array();
-        $movies = $this->searchMovie($movieTheatherController->getNameById($selectMovieTheather), $selectDate, $selectGenre);
+        $movies = $this->searchMovie($selectMovieTheather, $selectDate, $selectGenre);
         $genres = array();
         $genres = $this->getGenres();
-        $movieTheatherList = $movieTheatherController->getMovieTheaterList();
+        $movieTheatherList = $movieTheaterController->getMovieTheaterList();
         require_once(VIEWS_PATH . "billboard.php");
     }
 }

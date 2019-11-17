@@ -137,6 +137,22 @@ class MovieTheaterController
         return $result;
     }
 
+    public function getMovieTheathersOfMovie($movieId){
+
+        $showList = $this->getShowsOfAllMovieTheater();
+
+        $cinemaArray = array();
+
+        foreach($showList as $show){
+            if($movieId == $show->getIdMovie()){
+                array_push($cinemaArray, $show);
+            }
+        }
+
+
+        return $showList;
+    }
+
     public function viewCreateMovieTheaterOne()
     {
         require_once(VIEWS_PATH . "addmovietheaterone.php");

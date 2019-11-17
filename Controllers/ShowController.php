@@ -173,7 +173,7 @@ class ShowController
 
 
     //FUNCION QUE DEVUELVE LAS PELICULAS (OBJETOS MOVIE) QUE ESTAN OCUPADOS EN UN CINE EN UN DIA EN PARTICULAR
-    public function getMoviesForMovieTheaterByDate($movieTheaterName = null, $date = null)
+    public function getMoviesForMovieTheaterByDate($movieTheater = null, $date = null)
     {
 
         $movieTheaterController = new MovieTheaterController();
@@ -181,21 +181,31 @@ class ShowController
 
         $result = array();
         $showList = array();
-        if ($movieTheaterName == null) {
+        
+        if($movieTheater == null){
+            $showList = $movieController->getNowPlaying();
+        }
+        elseif ($movieTheater == "allMovieTheaters") {
             $showList = $movieTheaterController->getShowsOfAllMovieTheater();
         } else {
-            $showList = $movieTheaterController->getShowsByMovieTheater($movieTheaterName);
+            $showList = $movieTheaterController->getShowsByMovieTheater($movieTheaterController->getNameById($movieTheater));
         }
 
         if ($date != null) {
             foreach ($showList as $show) {
                 if ($show->getDate() == $date) {
-                    array_push($result, $movieController->searchMovieById($show->getIdMovie()));
+                    $movie = $movieController->searchMovieById($show->getIdMovie());
+                    if(!in_array($movie, $result)){
+                    array_push($result, $movie);
+                    }
                 }
             }
         } else {
             foreach ($showList as $show) {
-                    array_push($result, $movieController->searchMovieById($show->getIdMovie()));
+                $movie = $movieController->searchMovieById($show->getIdMovie());
+                if(!in_array($movie, $result)){
+                array_push($result, $movie);
+                }
             }
         }
 

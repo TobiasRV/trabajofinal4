@@ -32,6 +32,7 @@ if ($userControl->checkSession() != false) {
                     <label for="genre">Cine:</label>
                     <select class="form-control" name="selectMovieTheater">
                         <option value="">--Sin Filtro--</option>
+                        <option value="allMovieTheaters">Todos los cines</option>
                         <?php foreach ($movieTheatherList as $movieTheather) { ?>
                             <option value=<?php echo $movieTheather->getId(); ?>><?php echo $movieTheather->getName(); ?></option>
                         <?php } ?>
@@ -68,7 +69,7 @@ if ($userControl->checkSession() != false) {
                                                     foreach ($value->getIdGenre() as $genero) {
                                                         foreach ($genres as $gen) {
                                                             if ($gen->getId() == $genero) {
-                                                                echo $gen->getName() . ", ";
+                                                                echo $gen->getName() . "<br> ";
                                                             }
                                                         }
                                                     }
