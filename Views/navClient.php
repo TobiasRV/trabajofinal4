@@ -23,6 +23,9 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT?>Ticket/showTickets">Mis Tickets</a>
           </li>
           <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>CreditCard/showCreditCards">Mis Tarjetas</a>
+          </li>
+          <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT?>User/logOut" onclick="return confirm('¿Está seguro que desea cerrar sesión?');">Cerrar Sesión</a>
           </li>
      </ul>

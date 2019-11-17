@@ -23,10 +23,12 @@ if ($userControl->checkSession() != false) {
         if($listado != null){
         foreach($listado as $creditCard)
         {
+            if($creditCard->getStatus()==true){
                 ?>
                 <option value="<?php echo $creditCard->getId(); ?>"><?php echo $creditCard->getCompany() . " - " . $creditCard->getNumber();  ?></option>
                 
                 <?php
+            }
         }
         }
         ?>

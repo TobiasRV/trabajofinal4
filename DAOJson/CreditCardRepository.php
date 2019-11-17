@@ -1,7 +1,7 @@
 <?php namespace DAOJson;
 
 use Models\CreditCard as CreditCard;
-use DAOJson\IRepository as IRepository;
+use DAO\IRepository as IRepository;
 
 class CreditCardRepository implements IRepository
 {
@@ -22,6 +22,7 @@ class CreditCardRepository implements IRepository
             $newId = $lastElement->getId() + 1;
         }
         $creditCard->setId($newId);
+        $creditCard->setStatus(true);
 
         array_push($this->creditCardList, $creditCard);
 
@@ -64,6 +65,7 @@ class CreditCardRepository implements IRepository
             $valuesArray["id"] = $creditCard->getId();
             $valuesArray["company"] = $creditCard->getCompany();
             $valuesArray["number"] = $creditCard->getNumber();
+            $valuesArray["status"] = $creditCard->getStatus();
             $valuesArray["idUser"] = $creditCard->getIdUser();
            
 
@@ -93,6 +95,7 @@ class CreditCardRepository implements IRepository
                 $creditCard->setId($valuesArray["id"]);
                 $creditCard->setCompany($valuesArray["company"]);
                 $creditCard->setNumber($valuesArray["number"]);
+                $creditCard->setStatus($valuesArray["status"]);
                 $creditCard->setIdUser($valuesArray["idUser"]);
               
 
@@ -104,7 +107,20 @@ class CreditCardRepository implements IRepository
     public function edit($creditCard)
     {
 
-    //Supongo que en algun momento tendremos que hacer esta
+        $this->retrieveData();
+
+        foreach($this->creditCardList as $values){
+
+            if($values->getId() == $creditCard->getId()){
+                $values->setId($creditCard->getId());
+                $values->setCompany($creditCard->getCompany());
+                $values->setNumber($creditCard->getNumber());
+                $values->setStatus($creditCard->getStatus());
+                $values->setIdUser($creditCard->getIdUser());
+            break;
+            }
+        }
+        $this->saveData();
 
     }
 
