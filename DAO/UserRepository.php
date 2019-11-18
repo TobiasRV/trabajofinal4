@@ -129,5 +129,32 @@ use DAO\IRepository as IRepository;
 
                return count($resp) > 1 ? $resp : $resp['0'];
 
-		}
+          }
+          
+
+          //devuelve un arreglo de creditCards que coinciden con el id de usuario en sesión
+          public function getCreditCardsById($listadoCC)
+          {
+               $sql = "SELECT * FROM Users u JOIN CreditCards c ON u.id_user = c.id_user";
+
+               try 
+               {
+                    $this->connection = Connection::getInstance();
+                    $resultSet = $this->connection->execute($sql);
+               } 
+               catch(Exception $ex) 
+               {
+               throw $ex;
+               }
+
+               if(!empty($resultSet))
+               {
+                    return $this->mapear($resultSet);
+               }
+               else
+               {
+                    return false;
+               }
+          }
+
      }

@@ -121,4 +121,29 @@ class PurchaseRepository extends Singleton implements Irepository
           else
                return false;
         }
+
+     //devuelve un arreglo de tickets que coinciden con el id de purchase
+     public function getTicketsById($listadoT, $listadoP)
+     {
+          $sql = "SELECT * FROM Purchases p JOIN Tickets t ON p.id_purchase = t.id_purchase ORDER BY t.id_ticket DESC";
+
+          try 
+          {
+               $this->connection = Connection::getInstance();
+               $resultSet = $this->connection->execute($sql);
+          } 
+          catch(Exception $ex) 
+          {
+              throw $ex;
+          }
+
+          if(!empty($resultSet))
+          {
+               return $this->mapear($resultSet);
+          }
+          else
+          {
+               return false;
+          }
+     }
 }

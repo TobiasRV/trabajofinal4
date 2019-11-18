@@ -15,7 +15,7 @@ use DAOJson\PurchaseRepository as PurchaseRepository;
 use DAOJson\TicketRepository as TicketRepository;
 use DAOJson\CreditCardRepository as CreditCardRepository;
 use DAOJson\MovieDAO as MovieRepository;
-use DAOJson\ShowRepository as ShowRepository;
+use DAOJson\ShowDAO as ShowRepository;
 use DAOJson\UserRepository as UserRepository;
 //END DAO JSON
 
@@ -24,12 +24,14 @@ use Controllers\UserController as UserController;
 class TicketController
 {
 
-   public function showTickets($movie = null, $date = null, $listadoTickets = null)
+   public function showTickets()
    {
         $userControl = new UserController();
 
         $result = array ();
 
+        $moviesRepo = new MovieRepository();
+        $listadoM = $moviesRepo->getAll();
         $usersRepo = new UserRepository();
         $creditCardsRepo = new CreditCardRepository();
         $listadoCC = $creditCardsRepo->getAll();
@@ -38,44 +40,96 @@ class TicketController
         $ticketsRepo = new TicketRepository();
         $listadoT = $ticketsRepo->getAll();
 
-        if($listadoTickets == null)
-        {
-            $result = $usersRepo->getCreditCardsById($listadoCC);
-            $result = $creditCardsRepo->getPurchasesById($listadoP, $result);
-            $result = $purchasesRepo->getTicketsById($listadoT, $result);
+        $result = $usersRepo->getCreditCardsById($listadoCC);
+        $result = $creditCardsRepo->getPurchasesById($listadoP, $result);
+        $result = $purchasesRepo->getTicketsById($listadoT, $result);
 
-            $listadoT = $result;
-        }
-        else
-        {
-            $listadoT = $listadoTickets;
-        }
+        $listadoT = $result;
 
        require_once(VIEWS_PATH . "myTickets.php");
    }
 
-   public function searchTickets($movie = null, $date = null, $listadoT = null)
+   public function searchTickets($movie = null, $date = null)
     {
-        $result = array();
-        $ticketList = array();
+        if($movie != null && $date != null)
+        {
+            $result = array ();
+            $usersRepo = new UserRepository();
+            $creditCardsRepo = new CreditCardRepository();
+            $listadoCC = $creditCardsRepo->getAll();
+            $purchasesRepo = new PurchaseRepository();
+            $listadoP = $purchasesRepo->getAll();
+            $ticketsRepo = new TicketRepository();
+            $listadoT = $ticketsRepo->getAll();
 
-        $ticketList = $this->getTicketsByDate($date);
-        if ($movie != null) 
+            $result = $usersRepo->getCreditCardsById($listadoCC);
+            $result = $creditCardsRepo->getPurchasesById($listadoP, $result);
+            $result = $purchasesRepo->getTicketsById($listadoT, $result);
+
+            $listadoT = $this->getTicketsByMovieAndDate($movie, $date, $result);
+            
+        }
+        else
         {
-            $result = $this->getTicketsByMovie($ticketList, $movie);
-        } 
-        else 
-        {
-            $result = $ticketList;
+            if($movie != null)
+            {
+                $result = array ();
+                $usersRepo = new UserRepository();
+                $creditCardsRepo = new CreditCardRepository();
+                $listadoCC = $creditCardsRepo->getAll();
+                $purchasesRepo = new PurchaseRepository();
+                $listadoP = $purchasesRepo->getAll();
+                $ticketsRepo = new TicketRepository();
+                $listadoT = $ticketsRepo->getAll();
+
+                $result = $usersRepo->getCreditCardsById($listadoCC);
+                $result = $creditCardsRepo->getPurchasesById($listadoP, $result);
+                $result = $purchasesRepo->getTicketsById($listadoT, $result);
+                $listadoT = $this->getTicketsByMovie($movie, $result);
+            }
+            else
+            {
+                if($date != null)
+                {
+                    $result = array ();
+                    $usersRepo = new UserRepository();
+                    $creditCardsRepo = new CreditCardRepository();
+                    $listadoCC = $creditCardsRepo->getAll();
+                    $purchasesRepo = new PurchaseRepository();
+                    $listadoP = $purchasesRepo->getAll();
+                    $ticketsRepo = new TicketRepository();
+                    $listadoT = $ticketsRepo->getAll();
+
+                    $result = $usersRepo->getCreditCardsById($listadoCC);
+                    $result = $creditCardsRepo->getPurchasesById($listadoP, $result);
+                    $result = $purchasesRepo->getTicketsById($listadoT, $result);
+                    $listadoT = $this->getTicketsByDate($date, $result);
+                }
+                else
+                {
+                    $result = array ();
+                    $usersRepo = new UserRepository();
+                    $creditCardsRepo = new CreditCardRepository();
+                    $listadoCC = $creditCardsRepo->getAll();
+                    $purchasesRepo = new PurchaseRepository();
+                    $listadoP = $purchasesRepo->getAll();
+                    $ticketsRepo = new TicketRepository();
+                    $listadoT = $ticketsRepo->getAll();
+
+                    $result = $usersRepo->getCreditCardsById($listadoCC);
+                    $result = $creditCardsRepo->getPurchasesById($listadoP, $result);
+                    $result = $purchasesRepo->getTicketsById($listadoT, $result);
+
+                    $listadoT = $result;
+                }
+            }
         }
 
-        return $result;
+        require_once(VIEWS_PATH . "myTickets.php");
     }
 
-    public function getTicketsByMovie($movie)
+    public function getTicketsByMovie($movie, $listadoT)
     {
-        $ticketsRepo = new TicketRepository();
-        $listadoT = $ticketsRepo->getAll();
         $result = array();
 
         if($listadoT != null)
@@ -86,7 +140,7 @@ class TicketController
                 $listadoP = $purchasesRepo->getAll();
                 $showsRepo = new ShowRepository();
                 $listadoS = $showsRepo->getAll();
-                $moviesRepo = new MoviesRepository();
+                $moviesRepo = new MovieRepository();
                 $listadoM = $moviesRepo->getAll();
 
                 if(is_array($listadoP))
@@ -103,7 +157,7 @@ class TicketController
                                     {
                                         if($ticket->getIdPurchase() == $purchase->getIdPurchase())
                                         {
-                                            if($purchase->getIdShow == $show->getId())
+                                            if($purchase->getIdShow() == $show->getId())
                                             {
                                                 if($show->getIdMovie() == $movie->getIdMovie())
                                                 {
@@ -166,7 +220,75 @@ class TicketController
                 }
                 else
                 {
+                    if(is_array($listadoS))
+                    {
+                        foreach($listadoS as $show)
+                        {
+                            if(is_array($listadoT))
+                            {
+                                foreach($listadoT as $ticket)
+                                {
+                                    if($ticket->getIdPurchase() == $listadoP->getIdPurchase())
+                                    {
+                                        if($listadoP->getIdShow() == $show->getId())
+                                        {
+                                            if($show->getIdMovie() == $movie->getIdMovie())
+                                            {
+                                                array_push($result, $ticket);
+                                            }
+                                        }
+                                    }
+                                }
 
+                            }
+                            else
+                            {
+                                if($listadoT->getIdPurchase() == $listadoP->getIdPurchase())
+                                {
+                                    if($listadoP->getIdShow() == $show->getId())
+                                    {
+                                        if($show->getIdMovie() == $movie->getIdMovie())
+                                        {
+                                            array_push($result, $listadoT);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(is_array($listadoT))
+                        {
+                            foreach($listadoT as $ticket)
+                            {
+                                if($ticket->getIdPurchase() == $listadoP->getIdPurchase())
+                                {
+                                    if($listadoP->getIdShow() == $listadoS->getId())
+                                    {
+                                        if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                        {
+                                            array_push($result, $ticket);
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            if($listadoT->getIdPurchase() == $listadoP->getIdPurchase())
+                            {
+                                if($listadoP->getIdShow() == $listadoS->getId())
+                                {
+                                    if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                    {
+                                        array_push($result, $listadoT);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
             }
@@ -179,7 +301,7 @@ class TicketController
         return $result;
     }
 
-    public function getTicketsByDate($date = null)
+    public function getTicketsByDate($date, $listadoT)
     {
         $ticketsRepo = new TicketRepository();
         $listadoT = $ticketsRepo->getAll();
@@ -251,6 +373,187 @@ class TicketController
             $result = $listadoT;
         }
         
+        return $result;
+    }
+
+    public function getTicketsByMovieAndDate($movie, $date, $listadoT)
+    {
+        $result = array();
+
+        if($listadoT != null)
+        {
+            if($movie != null && $date != null)
+            {
+                $result = array ();
+                $usersRepo = new UserRepository();
+                $creditCardsRepo = new CreditCardRepository();
+                $listadoCC = $creditCardsRepo->getAll();
+                $purchasesRepo = new PurchaseRepository();
+                $listadoP = $purchasesRepo->getAll();
+                $ticketsRepo = new TicketRepository();
+                $listadoT = $ticketsRepo->getAll();
+
+                $result = $usersRepo->getCreditCardsById($listadoCC);
+                $listadoCC = $result;
+                $result = $creditCardsRepo->getPurchasesById($listadoP, $listadoCC);
+                $listadoP = $result;
+                $result = $purchasesRepo->getTicketsById($listadoT, $listadoP);
+                $listadoT = $result;
+
+                if(is_array($listadoP))
+                {
+                    foreach($listadoP as $purchase)
+                    {
+                        if(is_array($listadoS))
+                        {
+                            foreach($listadoS as $show)
+                            {
+                                if(is_array($listadoT))
+                                {
+                                    foreach($listadoT as $ticket)
+                                    {
+                                        if($ticket->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                                        {
+                                            if($purchase->getIdShow() == $show->getId())
+                                            {
+                                                if($show->getIdMovie() == $movie->getIdMovie())
+                                                {
+                                                    array_push($result, $ticket);
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                else
+                                {
+                                    if($listadoT->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                                        {
+                                            if($purchase->getIdShow() == $show->getId())
+                                            {
+                                                if($show->getIdMovie() == $movie->getIdMovie())
+                                                {
+                                                    array_push($result, $listadoT);
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if(is_array($listadoT))
+                                {
+                                    foreach($listadoT as $ticket)
+                                    {
+                                        if($ticket->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                                        {
+                                            if($purchase->getIdShow() == $listadoS->getId())
+                                            {
+                                                if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                                {
+                                                    array_push($result, $ticket);
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                else
+                                {
+                                    if($listadoT->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                                        {
+                                            if($purchase->getIdShow() == $listadoS->getId())
+                                            {
+                                                if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                                {
+                                                    array_push($result, $listadoT);
+                                                }
+                                            }
+                                        }
+                                }
+                        }
+                    }
+                }
+                else
+                {
+                    if(is_array($listadoS))
+                    {
+                        foreach($listadoS as $show)
+                        {
+                            if(is_array($listadoT))
+                            {
+                                foreach($listadoT as $ticket)
+                                {
+                                    if($ticket->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
+                                    {
+                                        if($listadoP->getIdShow() == $show->getId())
+                                        {
+                                            if($show->getIdMovie() == $movie->getIdMovie())
+                                            {
+                                                array_push($result, $ticket);
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                if($listadoT->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
+                                {
+                                    if($listadoP->getIdShow() == $show->getId())
+                                    {
+                                        if($show->getIdMovie() == $movie->getIdMovie())
+                                        {
+                                            array_push($result, $listadoT);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(is_array($listadoT))
+                        {
+                            foreach($listadoT as $ticket)
+                            {
+                                if($ticket->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
+                                {
+                                    if($listadoP->getIdShow() == $listadoS->getId())
+                                    {
+                                        if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                        {
+                                            array_push($result, $ticket);
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            if($listadoT->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
+                            {
+                                if($listadoP->getIdShow() == $listadoS->getId())
+                                {
+                                    if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                    {
+                                        array_push($result, $listadoT);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                $result = $listadoT;
+            }
+        }
+
         return $result;
     }
 }
