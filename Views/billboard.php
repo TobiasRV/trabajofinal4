@@ -57,9 +57,9 @@ if ($userControl->checkSession() != false) {
         </form>
     </div>
     <div class="row mt-3" id="show-billboard">
-        <?php foreach ($movies as $value) { ?>
+        <?php foreach ($movies as $value) { ?> 
+            
             <div class="col-md-3 col-12 mt-3">
-
                 <!-- MOVIES -->
                 <div class="card">
                     <img class="card-img" src=<?php echo $value->getPosterPath(); ?> alt="Card image">
@@ -75,12 +75,12 @@ if ($userControl->checkSession() != false) {
                                                     }
                                                     ?></p>
 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#movieDetails<?php echo $value->getTitle(); ?>">Ver Ficha</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#movieDetails<?php echo $value->getIdMovie(); ?>">Ver Ficha</button>
                     </div>
                 </div>
 
                 <!-- MODALS -->
-                <div class="modal fade" id="movieDetails<?php echo $value->getTitle(); ?>">
+                <div class="modal fade" id="movieDetails<?php echo $value->getIdMovie(); ?>">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -101,6 +101,15 @@ if ($userControl->checkSession() != false) {
                                 </div>
                             </div>
                             <div class="modal-footer-left">
+                                <?php $movieTheatersOfMovie = array();
+                                  $movieTheatersOfMovie = $movieTheaterController->getMovieTheathersNameOfMovie($value->getIdMovie());
+                                  if(!empty($movieTheatersOfMovie)){?>
+                                    <h4>    Cines: </h4>
+                                    <ul class="list-group">
+                                        <?php foreach($movieTheatersOfMovie as $movieTheater){ ?>
+                                            <li class="list-group-item"><?php echo $movieTheater;?></li>
+                                        <?php }} ?>
+                                    </ul>
                             </div>
                         </div>
                     </div>
