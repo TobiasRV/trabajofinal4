@@ -6,8 +6,9 @@ use Controllers\CinemaController as CinemaController;
 use Controllers\ShowController as ShowController;
 use Controllers\MovieController as MovieController;
 use Models\MovieTheater as MovieTheater;
-use DAOJson\MovieTheaterDAO as MovieTheaterDAO;
-//use DAO\MovieTheaterRepository as MovieTheaterDAO;
+
+//use DAOJson\MovieTheaterDAO as MovieTheaterDAO;
+use DAO\MovieTheaterRepository as MovieTheaterDAO;
 
 class MovieTheaterController
 {
@@ -32,10 +33,10 @@ class MovieTheaterController
 
 
 
+    //hacer
     public function createMovieTheater($name, $address, $cinemas = array(), $moviechecked = array())
     {
         $movieTheater = new MovieTheater();
-        $movieTheater->setId($this->getNextId());
         $movieTheater->setName($name);
         $movieTheater->setAddress($address);
         $movieTheater->setCinemas($cinemas);
@@ -44,55 +45,26 @@ class MovieTheaterController
         $this->movieTheaterDAO->Add($movieTheater);
     }
 
-    public function getNextId()
-    {
-        $movieTheaterList = $this->movieTheaterDAO->getAll();
-        $newId = count($movieTheaterList) + 1;
-        return $newId;
-    }
-
+    //hacer
     public function modifyMovieTheater($id, $status = null, $name = null, $address = null, $ticketPrice = null, $cinemas = array(), $billBoard = array())
     {
-        $movieTheaterList = $this->movieTheaterDAO->getAll();
-
-        foreach ($movieTheaterList as $movieTheater) {
-            if ($movieTheater->getId() == $id) {
-
-                if ($status != null)
-                    $movieTheater->setStatus($status);
-
-                if ($name != null)
-                    $movieTheater->setName($name);
-
-                if ($address != null)
-                    $movieTheater->setAddress($address);
-
-                if ($ticketPrice != null)
-                    $movieTheater->setTicketPrice($ticketPrice);
-
-                if (!empty($cinemas))
-                    $movieTheater->setCinemas($cinemas);
-
-                if (!empty($billBoard))
-                    $movieTheater->setBillBoard($billBoard);
-
-                break;
-            }
-        }
-        $this->movieTheaterDAO->saveList($movieTheaterList);
+    //Mande la logica de esta funcion al dao, en BD no puedo borrar todo y reemplazarlo por el tema de los ids
+      $mt = new MovieTheater();
+      $mt->setId($id);
+      $mt->setStatus($status);
+      $mt->setName($name);
+      $mt->setAddress($address);
+      $mt->setCinemas($cinemas);
+      $mt->setBillboard($billBoard);
+      $this->movieTheaterDAO->edit($mt);
     }
 
+    //listo
     public function modifyBillBoard($id, $billBoard = array())
     {
-        $movieTheaterList = $this->movieTheaterDAO->getAll();
-
-        foreach ($movieTheaterList as $movieTheater) {
-            if ($movieTheater->getId() == $id) {
-                $movieTheater->setBillBoard($billBoard);
-                break;
-            }
-        }
+        $this->movieTheaterDAO->editBillBoard($id,$billBoard);
     }
+
 
     public function getShowsOfAllMovieTheater()
     {
@@ -124,18 +96,6 @@ class MovieTheaterController
         return $result;
     }
 
-    public function getIdByName($name)
-    {
-        $movieTheaterList = $this->movieTheaterDAO->getAll();
-        $result = array();
-        foreach ($movieTheaterList as $movieTheater) {
-            if ($movieTheater->getName() == $name) {
-                $result = $movieTheater->getId();
-                break;
-            }
-        }
-        return $result;
-    }
 
     public function getMovieTheathersOfMovie($movieId){
 
@@ -153,29 +113,7 @@ class MovieTheaterController
         return $showList;
     }
 
-    public function viewCreateMovieTheaterOne()
-    {
-        require_once(VIEWS_PATH . "addmovietheaterone.php");
-    }
-
-    public function viewAddBillBoard($movieTheaterName, $moviechecked = array())
-    {
-
-        $nowPlaying = $this->movieController->getNowPlaying();
-        $arrayGeneros = $this->movieController->getGenres();
-
-        $this->modifyMovieTheater($this->getIdByName($movieTheaterName), null, null, null, null, null, $moviechecked);
-
-        $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
-
-        $movieTheaterBillBoard = array();
-
-        foreach ($movieTheater->getBillBoard() as $idMovie) {
-            array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
-        }
-
-        require_once(VIEWS_PATH . "addmovietheatertwo.php");
-    }
+    
     public function checkNameAvailablity($movieTheaterName)
     {
         $movieTheaterList = $this->movieTheaterDAO->getAll();
@@ -203,6 +141,56 @@ class MovieTheaterController
         }
         return $result;
     }
+    
+    public function getIdByName($name)
+    {
+        $movieTheaterList = $this->movieTheaterDAO->getAll();
+        $result = array();
+        if(is_array($movieTheaterList)){  
+            foreach ($movieTheaterList as $movieTheater) {
+                if ($movieTheater->getName() == $name) {
+                    $result = $movieTheater->getId();
+                    break;
+                }
+            }
+        }
+        else{ 
+            if ($movieTheaterList->getName() == $name) 
+            $result = $movieTheaterList->getId();
+         }
+        return $result;
+    }
+
+    public function viewCreateMovieTheaterOne()
+    {
+        require_once(VIEWS_PATH . "addmovietheaterone.php");
+    }
+
+
+
+    public function viewAddBillBoard($movieTheaterName, $moviechecked = array())
+    {
+
+        $nowPlaying = $this->movieController->getNowPlaying();
+        $arrayGeneros = $this->movieController->getGenres();
+
+        $this->modifyMovieTheater($this->getIdByName($movieTheaterName), null, null, null, null, null, $moviechecked);
+
+        $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
+        $movieTheaterBillBoard = array();
+        if(is_array($movieTheater->getBillBoard())){ 
+        foreach ($movieTheater->getBillBoard() as $idMovie) {
+            array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
+        }
+    }
+    else 
+    {
+        array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($movieTheater->getBillBoard()));
+    }
+        require_once(VIEWS_PATH . "addmovietheatertwo.php");
+    }
+
+
 
     public function viewCreateMovieTheaterTwo($name, $address, $arrayMovies = array(), $cinemas = array())
     {
@@ -210,31 +198,24 @@ class MovieTheaterController
 
         $nowPlaying = $this->movieController->getNowPlaying();
         $arrayGeneros = $this->movieController->getGenres();
-
         $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($name));
         $movieTheaterBillBoard = array();
-
+        if($movieTheater!= false){
         foreach ($movieTheater->getBillBoard() as $idMovie) {
             array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
         }
+    }
 
         require_once(VIEWS_PATH . "addmovietheatertwo.php");
     }
 
+
+
+
     public function deleteMovieTheaterById($id)
     {
-        $movieTheaterList = $this->movieTheaterDAO->getAll();
-
-        foreach ($movieTheaterList as $movieTheater) {
-            if ($movieTheater->getId() == $id) {
-                $this->cinemaController->deleteCinemaByMovieTheaterId($this->getIdByName($movieTheater->getName()));
-                $idToDelete = array_search($movieTheater, $movieTheaterList);
-                unset($movieTheaterList[$idToDelete]);
-                break;
-            }
-        }
-
-        $this->movieTheaterDAO->saveList($movieTheaterList);
+        $this->cinemaController->deleteCinemaByMovieTheaterId($id);
+        $this->movieTheaterDAO->deleteFisico($id);
     }
 
     public function backToViewOne($movieTheaterName)
@@ -271,10 +252,15 @@ class MovieTheaterController
         $arrayGeneros = $this->movieController->getGenres();
         $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
         $movieTheaterBillBoard = array();
-
+        if(is_array($movieTheater->getBillBoard())){
         foreach ($movieTheater->getBillBoard() as $idMovie) {
             array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
         }
+    }
+    else {
+        array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($movieTheater->getBillBoard()));
+    }
+
         require_once(VIEWS_PATH . "addmovietheaterthree.php");
     }
 
@@ -288,8 +274,13 @@ class MovieTheaterController
         $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
         $movieTheaterBillBoard = array();
 
-        foreach ($movieTheater->getBillBoard() as $idMovie) {
-            array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
+        if(is_array($movieTheater->getBillBoard())){
+            foreach ($movieTheater->getBillBoard() as $idMovie) {
+                array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
+            }
+        }
+        else {
+            array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($movieTheater->getBillBoard()));
         }
 
         require_once(VIEWS_PATH . "addmovietheaterthree.php");
@@ -303,8 +294,13 @@ class MovieTheaterController
         $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
         $movieTheaterBillBoard = array();
 
-        foreach ($movieTheater->getBillBoard() as $idMovie) {
-            array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
+        if(is_array($movieTheater->getBillBoard())){
+            foreach ($movieTheater->getBillBoard() as $idMovie) {
+                array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
+            }
+        }
+        else {
+            array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($movieTheater->getBillBoard()));
         }
 
         $this->modifyMovieTheater($this->getIdByName($movieTheaterName), null, null, null, null, $this->cinemaController->getListIdCinema($this->getIdByName($movieTheaterName)), null);

@@ -6,8 +6,8 @@ use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\ShowController as ShowController;
 use Models\Cinema as Cinema;
 
-use DAOJson\CinemaDAO as CinemaDAO;
-//use DAO\CinemaRepository as CinemaDAO;
+//use DAOJson\CinemaDAO as CinemaDAO;
+use DAO\CinemaRepository as CinemaDAO;
 
 
 class CinemaController
@@ -57,11 +57,19 @@ class CinemaController
     {
 
         $result = array();
-
-        foreach ($this->cinemaDAO->getAll() as $cinema) {
-            if ($cinema->getIdMovieTheater() == $idMovieTheater)
-                array_push($result, $cinema);
-        }
+        $cinemasArray = $this->cinemaDAO->getAll();
+        if($cinemasArray !=null){
+            if(is_array($cinemasArray)){ 
+                foreach ($cinemasArray as $cinema) {
+                    if ($cinema->getIdMovieTheater() == $idMovieTheater)
+                        array_push($result, $cinema);
+                }       
+            }   
+            else{
+                if ($cinemasArray->getIdMovieTheater() == $idMovieTheater)
+                array_push($result, $cinemasArray);
+             }
+    }
 
         return $result;
     }
@@ -79,46 +87,40 @@ class CinemaController
         return $result;
     }
 
+
+
+
+
+
+
     public function createCinema($name, $seatsNumber, $price, $idMovieTheater)
     {
         $cinema = new Cinema();
-        $cinema->setId($this->getNextId());
         $cinema->setName($name);
         $cinema->createSeats($seatsNumber);
         $cinema->setTicketPrice($price);
         $cinema->setIdMovieTheater($idMovieTheater);
+        $cinema->setStatus(true);
 
         $this->cinemaDAO->Add($cinema);
     }
-
-    public function getNextId()
-    {
-        $cinemaList = $this->cinemaDAO->getAll();
-
-        if (empty($cinemaList)) {
-            $newId = 1;
-        } else {
-            $lastElement = end($cinemaList);
-            $newId = $lastElement->getId() + 1;
-        }
-        return $newId;
-    }
-
     public function modifyCinema($id, $status, $name, $seatsNumber, $idMovieTheater)
     {
         $cinemaList = $this->cinemaDAO->getAll();
-
+        $cinemaAux = new Cinema();
         foreach ($cinemaList as $cinema) {
             if ($cinema->getId() == $id) {
-                $cinema->setStatus($status);
-                $cinema->setName($name);
-                $cinema->createSeats($seatsNumber);
-                $cinema->setIdMovieTheater($idMovieTheater);
+                $cinemaAux->setId($id);
+                $cinemaAux->setStatus($status);
+                $cinemaAux->setName($name);
+                $cinemaAux->createSeats($seatsNumber);
+                $cinemaAux->setIdMovieTheater($idMovieTheater);
                 break;
             }
         }
-        $this->showDAO->saveList($cinemaList);
+        $this->cinemaDao->edit($cinemaAux);
     }
+    
 
     public function deleteAllCinemaById($idCinemaList = array())
     {
@@ -127,38 +129,25 @@ class CinemaController
         }
     }
 
-    public function deleteCinemaByMovieTheaterId($movieTheaterId)
-    {
-
-        $cinemaList = $this->cinemaDAO->getAll();
-
-        foreach ($cinemaList as $cinema) {
-            if ($cinema->getIdMovieTheater() == $movieTheaterId) {
-                $this->showController->deleteAllShowsById($cinema->getId());
-                $idToDelete = array_search($cinema, $cinemaList);
-                unset($cinemaList[$idToDelete]);
-            }
-        }
-
-        $this->cinemaDAO->saveNewList($cinemaList);
-    }
-
     public function deleteCinemaById($id)
     {
+        //aca pongo showdelete
+        $this->showController->deleteAllShowsById($id);
+        $this->cinemaDAO->deleteFisico($id);
+    }
 
+    
+
+    public function deleteCinemaByMovieTheaterId($movieTheaterId)
+    {
         $cinemaList = $this->cinemaDAO->getAll();
-
         foreach ($cinemaList as $cinema) {
-            if ($cinema->getId() == $id) {
-                $this->showController->deleteAllShowsById($id);
-                $idToDelete = array_search($cinema, $cinemaList);
-                unset($cinemaList[$idToDelete]);
-                break;
+            if ($cinema->getIdMovieTheater() == $movieTheaterId) {
+                $this->deleteCinemaById($cinema->getId());
             }
         }
-
-        $this->cinemaDAO->saveNewList($cinemaList);
     }
+
 
 
 

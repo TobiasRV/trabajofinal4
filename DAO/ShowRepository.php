@@ -150,11 +150,20 @@ class ShowRepository extends Singleton implements Irepository
           return $showData;
     }
 
-    public function saveList($listToSave)
+  
+        
+     public function deleteFisico($id)
     {
-          $this->showList = $listToSave;
-          $this->saveData();
-     }
 
+        $sql = "DELETE FROM Shows WHERE id_show=:id_show";
+        $parameters['id_show'] = $id;
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->ExecuteNonQuery($sql, $parameters);
+        }catch(\PDOException $ex) {
+            throw $ex;
+         }
+   }
+ 
    
 }

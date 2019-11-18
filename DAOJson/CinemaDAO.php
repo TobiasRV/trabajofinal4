@@ -13,10 +13,17 @@ class CinemaDAO implements IRepository
     function Add($cinema)
     {
         $this->RetrieveData();
+        if (empty($this->cinemaList)) {
+            $cinema->setId(1);
+        } else {
+            $lastElement = end($this->cinemaList);
+            $cinema->setId($lastElement->getId() + 1);
+        }
+       
 
         array_push($this->cinemaList, $cinema);
 
-        $this->Savedata();
+        $this->savedata();
     }
 
     function getAll()
@@ -109,4 +116,42 @@ class CinemaDAO implements IRepository
         }
         return $cinemaReturn;
     }
+
+    
+    public function edit($cinema){
+
+        $this->retrieveData();
+        foreach ($this->cinemaList as $cine) {
+            if ($cine->getId() == $cinema->getId()) {
+                $cine->setStatus($cinema->getStatus());
+                $cine->setName($cinema->getName());
+                $cine->setTicketPrice($cinema->getTicketPrice());
+                $cine->setSeats($cinema->getSeats());
+                $cine->setIdMovieTheater($cinema->getIdMovieTheater());
+    
+                break;
+            }
+        }
+        $this->saveData();
+    }
+
+    public function deleteFisico($id)
+    {
+
+        
+        $this->retrieveData();
+
+        foreach ($this->cinemaList as $cinema) {
+            if ($cinema->getId() == $id) {
+                $idToDelete = array_search($cinema, $this->cinemaList);
+                unset($this->cinemaList[$idToDelete]);
+                break;
+            }
+        }
+
+        $this->saveData();
+      
+
+    }
+
 }

@@ -106,6 +106,8 @@ class MovieRepository extends Singleton implements Irepository{
                
            }
 
+           
+
            protected function mapearGenres($value) {
 
 			$value = is_array($value) ? $value : [];
@@ -117,6 +119,27 @@ class MovieRepository extends Singleton implements Irepository{
                return count($resp) > 1 ? $resp : $resp['0'];
 
         }
+
+        public function getGenres(){
+        
+          $json = file_get_contents('https://api.themoviedb.org/3/genre/movie/list?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX');
+          $jsonArray = json_decode($json, true);
+          $arrayJsonData = $jsonArray["genres"];
+          $genres = array();
+  
+          for($i=0;$i<count($arrayJsonData); $i++){
+              $jsonData = $arrayJsonData[$i];
+              $id = $jsonData["id"];
+              $name = $jsonData["name"];
+  
+              $genre = new Genre();
+              $genre->setId($id);
+              $genre->setName($name);
+  
+              array_push($genres,$genre);
+          }        
+          return $genres;
+      }
           /*
           Fin Funciones de genre
           */
@@ -262,27 +285,6 @@ class MovieRepository extends Singleton implements Irepository{
          array_push($movies,$movie);
      }    
      return $movies;    
- }
-
- public function getGenres(){
-     
-     $json = file_get_contents('https://api.themoviedb.org/3/genre/movie/list?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX');
-     $jsonArray = json_decode($json, true);
-     $arrayJsonData = $jsonArray["genres"];
-     $genres = array();
-
-     for($i=0;$i<count($arrayJsonData); $i++){
-         $jsonData = $arrayJsonData[$i];
-         $id = $jsonData["id"];
-         $name = $jsonData["name"];
-
-         $genre = new Genre();
-         $genre->setId($id);
-         $genre->setName($name);
-
-         array_push($genres,$genre);
-     }        
-     return $genres;
  }
 
  public function getMovieDetails($idMovie){

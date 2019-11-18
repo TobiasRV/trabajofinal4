@@ -18,10 +18,17 @@ class ShowDAO implements IRepository
     public function Add($show)
     {
         $this->RetrieveData();
+        if (empty($this->showList)) {
+            $show->setId(1);
+        } else {
+            $lastElement = end($this->showList);
+            $show->setId($lastElement->getId() + 1);
+        }
+       
 
         array_push($this->showList, $show);
 
-        $this->Savedata();
+        $this->savedata();
     }
 
     function getAll()
@@ -130,6 +137,20 @@ class ShowDAO implements IRepository
             break;
             }
         }
+        $this->saveData();
+    }
+
+    public function deleteFisico($id){
+        
+        $this->retrieveData();
+        foreach ($this->showList as $show) {
+            if ($show->getId() == $id) {
+                $idToDelete = array_search($show, $this->showList);
+                unset($this->showList[$idToDelete]);
+                break;
+            }
+        }
+
         $this->saveData();
     }
 }

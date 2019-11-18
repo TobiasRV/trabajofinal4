@@ -3,11 +3,12 @@
 namespace Controllers;
 
 use Models\Show as Show;
-use DAOJson\ShowDAO as ShowDAO;
 use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\CinemaController as CinemaController;
 use Controllers\MovieController as MovieController;
-// use DAO\ShowRepository as ShowDAO;
+
+//use DAOJson\ShowDAO as ShowDAO;
+use DAO\ShowRepository as ShowDAO;
 
 
 class ShowController
@@ -17,35 +18,6 @@ class ShowController
     public function __construct()
     {
         $this->showDAO = new ShowDAO();
-    }
-
-
-
-    public function deleteAllShowsById($idCinema)
-    {
-        $showList = $this->showDAO->getAll();
-
-        foreach ($showList as $show) {
-            if ($show->getIdCinema() == $idCinema) {
-                $this->deleteShowById($show->getId());
-            }
-        }
-    }
-
-    public function deleteShowById($id)
-    {
-
-        $showList = $this->showDAO->getAll();
-
-        foreach ($showList as $show) {
-            if ($show->getId() == $id) {
-                $idToDelete = array_search($show, $showList);
-                unset($showList[$idToDelete]);
-                break;
-            }
-        }
-
-        $this->showDAO->saveList($showList);
     }
 
     public function getShowListByCinema($idCinema)
@@ -61,14 +33,11 @@ class ShowController
         return $result;
     }
 
-
     public function createShow($idCinema, $date, $time, $idMovie,$seats)
     {
         $movieTheaterController = new MovieTheaterController();
         
         $show = new Show();
-
-        $show->setId($this->getNextId());
         $show->setIdCinema($idCinema);
         $show->setDate($date);
         $show->setTime($time);
@@ -81,29 +50,56 @@ class ShowController
         
     }
 
-    public function getNextId()
-    {
-        $showList = $this->showDAO->getAll();
-        $newId = count($showList) + 1;
-        return $newId;
-    }
 
     public function modifyShow($id, $date, $time, $idCinema, $idMovie, $status)
     {
         $showList = $this->showDAO->getAll();
-
+        $showAux = new Show();
         foreach ($showList as $show) {
             if ($show->getId() == $id) {
-                $show->setDate($date);
-                $show->setTime($time);
-                $show->setIdCinema($idCinema);
-                $show->setIdMovie($idMovie);
-                $show->setStatus($status);
+                $showAux->setDate($date);
+                $showAux->setTime($time);
+                $showAux->setIdCinema($idCinema);
+                $showAux->setIdMovie($idMovie);
+                $showAux->setStatus($status);
                 break;
             }
         }
-        $this->showDAO->saveList($showList);
+        $this->showDAO->edit($showAux);
     }
+
+
+
+
+    public function deleteAllShowsById($idCinema)
+    {
+        $showList = $this->showDAO->getAll();
+
+        if($showList != false){
+            if(is_array($showList)){
+            foreach ($showList as $show) {
+                if ($show->getIdCinema() == $idCinema) {
+                    $this->deleteShowById($show->getId());
+                }
+            }
+        }
+            else {
+                if ($showList->getIdCinema() == $idCinema) {
+                $this->deleteShowById($showList->getId());
+                }
+            }
+        }
+    }
+
+    public function deleteShowById($id)
+    {
+
+        $showList = $this->showDAO->deleteFisico($id);
+    }
+
+
+
+
 
     public function addShowOne($movieTheaterName = null, $cinemaName = null)
     {

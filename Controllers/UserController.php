@@ -2,10 +2,12 @@
 
 namespace Controllers;
 
-use DAOJson\UserRepository as UserRepository;
-use DAOJson\MovieDAO as MovieRepository;
-// use DAO\UserRepository as UserRepository;
-// use DAO\MovieRepository as MovieRepository;
+// use DAOJson\UserRepository as UserRepository;
+// use DAOJson\MovieDAO as MovieRepository;
+
+use DAO\UserRepository as UserRepository;
+use DAO\MovieRepository as MovieRepository;
+
 use Models\User as User;
 
 class UserController

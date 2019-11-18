@@ -72,7 +72,12 @@ use DAO\IRepository as IRepository;
 
 
           public function edit($user) {
-               $sql = "UPDATE Users SET firstname = :firstname, lastname = :lastname, password = :password WHERE id_user = :id_user";
+               $sql = "UPDATE Users 
+               SET 
+               firstname = :firstname, 
+               lastname = :lastname, 
+               password = :password 
+               WHERE id_user = :id_user";
 
                $parameters['firstname'] = $user->getFirstname();
                $parameters['lastname'] = $user->getLastname();

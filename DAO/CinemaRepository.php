@@ -16,12 +16,12 @@ class CinemaRepository extends Singleton implements Irepository
     public function Add($cinema)
     {
 
-        $sql = "INSERT INTO Cinemas(status, name,ticketprice,seats id_movietheater) VALUES (:status, :name,:ticketprice,:seats, id_movietheater)";
+        $sql = "INSERT INTO Cinemas(status, name,ticketprice,seats,id_movietheater) VALUES (:status,:name,:ticketprice,:seats,:id_movietheater)";
 
         $parameters['status'] = $cinema->getStatus();
         $parameters['name'] = $cinema->getName();
         $parameters['ticketprice'] = $cinema->getTicketprice();
-        $parameters['seats'] = $cinema->getSeats();
+        $parameters['seats'] = $cinema->countSeats();
         $parameters['id_movietheater'] = $cinema->getIdMovieTheater();
 
         try {
@@ -32,7 +32,16 @@ class CinemaRepository extends Singleton implements Irepository
        }
     }
 
-    public function read($name) {
+
+    public function read($name){
+        $cinema = $this->readCinema($name);
+        if($cinema !=null){
+            $cinema->createSeats($cinema->getSeats());
+        }
+        return $cinema;
+    }
+
+    public function readCinema($name) {
 
         $sql = "SELECT * FROM Cinemas where name = :name";
 
@@ -53,7 +62,24 @@ class CinemaRepository extends Singleton implements Irepository
    }
 
 
-   public function getAll() {
+   public function getAll(){
+    $cinemaList = $this->getAllCinemas();
+
+    if($cinemaList != false){
+    if(is_array($cinemaList)){
+        foreach($cinemaList as $cine ){
+            $cine->createSeats($cine->getSeats());//esto funca porque en la bd se guarda como int no array
+        }
+    }
+    else {
+        $cinemaList->createSeats($cinemaList->getSeats());
+    }
+        }
+    return $cinemaList;
+
+   }
+
+   public function getAllCinemas() {
     $sql = "SELECT * FROM Cinemas";
 
     try {
@@ -75,7 +101,7 @@ class CinemaRepository extends Singleton implements Irepository
         $parameters['status'] = $cinema->getStatus();
         $parameters['name'] = $cinema->getName();
         $parameters['ticketprice'] = $cinema->getTicketprice();
-        $parameters['seats'] = $cinema->getSeats();
+        $parameters['seats'] = $cinema->countSeats();
         $parameters['id_cinema'] = $cinema->getId();
 
         try {
@@ -122,9 +148,17 @@ class CinemaRepository extends Singleton implements Irepository
 
     }
 
-    public function saveNewList($cinemaList)
+   
+    public function deleteFisico($id)
     {
-        $this->cinemaList = $cinemaList;
-        $this->saveData();
-    }
+
+        $sql = "DELETE FROM Cinemas WHERE id_cinema=:id_cinema";
+        $parameters['id_cinema'] = $id;
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->ExecuteNonQuery($sql, $parameters);
+        }catch(\PDOException $ex) {
+            throw $ex;
+         }
+   }
 }
