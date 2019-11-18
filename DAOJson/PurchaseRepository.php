@@ -127,4 +127,62 @@ class PurchaseRepository implements IRepository
         return end($this->purchaseList)->getIdPurchase();
     }
 
+    //devuelve un arreglo de tickets que coinciden con el id de purchase
+    public function getTicketsById($listadoT, $listadoP)
+    {
+        $result = array ();
+
+        if($listadoP != null)
+        {
+            if(is_array($listadoP))
+            {
+                foreach($listadoP as $purchase)
+                {
+                    if(is_array($listadoT))
+                    {
+                        foreach($listadoT as $ticket)
+                        {
+                            if($purchase->getIdPurchase() == $ticket->getIdPurchase())
+                            {
+                                array_push($result, $ticket);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if($purchase->getIdPurchase() == $listadoT->getIdPurchase())
+                        {
+                            array_push($result, $listadoT);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if(is_array($listadoT))
+                {
+                    foreach($listadoT as $ticket)
+                    {
+                        if($listadoP->getIdPurchase() == $ticket->getIdPurchase())
+                        {
+                            array_push($result, $ticket);
+                        }
+                    }
+                }
+                else
+                {
+                    if($listadoP->getIdPurchase() == $listadoT->getIdPurchase())
+                    {
+                        array_push($result, $listadoT);
+                    }
+                }
+            }
+        }
+        else
+        {
+            $result = $listadoT;
+        }
+
+        return $result;
+    }
 }

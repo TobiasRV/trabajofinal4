@@ -46,7 +46,7 @@ if ($userControl->checkSession() != false) {
                 </tr>
                 <tr>
                     <th scope="row">Número de la Tarjeta</th>
-                    <td><?php echo $_SESSION["creditCard"]->getNumber(); ?></td>
+                    <td><?php echo "**** **** **** " . substr($_SESSION["creditCard"]->getNumber(), -4); ?></td>
                 </tr>
                 <tr>
                     <th scope="row">Descuento</th>

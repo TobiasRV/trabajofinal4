@@ -1,10 +1,6 @@
-<html>
 <body class="home">
 
 <?php 
-
-include_once(VIEWS_PATH . "header.php"); 
-
 
 if ($userControl->checkSession() != false) 
 {
@@ -17,6 +13,7 @@ if ($userControl->checkSession() != false)
 ?>
 
 
+<html>
 <h2 class="card-header info-color white-text text-center py-4">
     <strong>MIS TICKETS</strong>
 </h2>
@@ -28,7 +25,7 @@ if ($userControl->checkSession() != false)
                 <select style="width:170px" class="form-control selectpicker" data-live-search="true" id="movie" name="movie" >
                             <option value="" disabled selected>Filtrar por película</option>
                             <?php foreach ($listadoM as $movie) { ?>
-                                <option value=<?php echo $movie->getId(); ?> data-tokens="<?php echo $movie->getTitle(); ?>"><?php echo $movie->getTitle(); ?></option>
+                                <option value=<?php echo $movie->getIdMovie(); ?> data-tokens="<?php echo $movie->getTitle(); ?>"><?php echo $movie->getTitle(); ?></option>
                             <?php } ?>
                         </select>
                 </div>
@@ -45,197 +42,35 @@ if ($userControl->checkSession() != false)
         <tbody>
                 <tr>
                     <th scope="row">ID Compra</th>
-
-                    <th scope="row">Fecha de Compra</th>
                 
                     <th scope="row">Ticket N°</th>
                 </tr>
-                <?php 
-    if($listadoCC != null)
-    {
-        if(is_array($listadoCC))
-        { 
-            foreach($listadoCC as $cc)
-            {
-                if($cc->getIdUser() == $_SESSION["loggedUser"]->getId())
-                {
-                    if($listadoP != null)
+                <?php
+                    if($listadoT != null) 
                     {
-                        if(is_array($listadoP))
+                        if(is_array($listadoT))
                         {
-                            foreach($listadoP as $p)
+                            foreach($listadoT as $t)
                             {
-                                if($p->getIdCreditCard() == $cc->getId())
-                                {
-                                    if($listadoT != null)
-                                    {
-                                        if(is_array($listadoT))
-                                        {
-                                            foreach($listadoT as $t)
-                                            {
-                                                if($p->getIdPurchase() == $t->getIdPurchase())
-                                                {
-                                                    ?>
-                                                    <tr>
-                                                        <td><?php echo $p->getIdPurchase(); ?></td>
-                                                        <td><?php echo $p->getPurchaseDate(); ?></td>
-                                                        <td><?php echo $t->getIdTicket(); ?></td>
-                                                    </tr>
-                                                    <?php
-                                                }
-                                            }
-                                        }
-                                        else //fin is_array($listadoT)
-                                        {
-                                            if($p->getIdPurchase() == $listadoT->getIdPurchase())
-                                            {
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $p->getIdPurchase(); ?></td>
-                                                    <td><?php echo $p->getPurchaseDate(); ?></td>
-                                                    <td><?php echo $listadoT->getIdTicket(); ?></td>
-                                                </tr>
-                                                <?php
-                                            }
-                                        }
-                                    }
-                                }
+                        ?>
+                            <tr>
+                                <td><?php echo $t->getIdPurchase(); ?></td>
+                                <td><?php echo $t->getIdTicket(); ?></td>
+                            </tr>
+                        <?php
                             }
                         }
-                        else //fin if(is_array($listadoP))
+                        else
                         {
-                            if($listadoP->getIdCreditCard() == $cc->getId())
-                            {
-                                if($listadoT != null)
-                                {
-                                    if(is_array($listadoT))
-                                    {
-                                        foreach($listadoT as $t)
-                                        {
-                                            if($listadoP->getIdPurchase() == $t->getIdPurchase())
-                                            {
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $listadoP->getIdPurchase(); ?></td>
-                                                    <td><?php echo $listadoP->getPurchaseDate(); ?></td>
-                                                    <td><?php echo $t->getIdTicket(); ?></td>
-                                                </tr>
-                                                <?php
-                                            }
-                                        }
-                                    }
-                                    else //fin is_array($listadoT)
-                                    {
-                                        if($listadoP->getIdPurchase() == $listadoT->getIdPurchase())
-                                        {
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $listadoP->getIdPurchase(); ?></td>
-                                                <td><?php echo $listadoP->getPurchaseDate(); ?></td>
-                                                <td><?php echo $listadoT->getIdTicket(); ?></td>
-                                            </tr>
-                                            <?php
-                                        }
-                                    }
-                                }
-                            }
+                            ?>
+                            <tr>
+                                <td><?php echo $listadoT->getIdPurchase(); ?></td>
+                                <td><?php echo $listadoT->getIdTicket(); ?></td>
+                            </tr>
+                            <?php
                         }
                     }
-                }
-            }
-        } //fin if(is_array($listadoCC))
-        else
-        {
-            if($listadoCC->getIdUser() == $_SESSION["loggedUser"]->getId())
-            {
-                if($listadoP != null)
-                {
-                    if(is_array($listadoP))
-                    {
-                        foreach($listadoP as $p)
-                        {
-                            if($p->getIdCreditCard() == $listadoCC->getId())
-                            {
-                                if($listadoT != null)
-                                {
-                                    if(is_array($listadoT))
-                                    {
-                                        foreach($listadoT as $t)
-                                        {
-                                            if($listadoP->getIdPurchase() == $t->getIdPurchase())
-                                            {
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $listadoP->getIdPurchase(); ?></td>
-                                                    <td><?php echo $listadoP->getPurchaseDate(); ?></td>
-                                                    <td><?php echo $t->getIdTicket(); ?></td>
-                                                </tr>
-                                                <?php
-                                            }
-                                        }
-                                    }
-                                    else //fin is_array($listadoT)
-                                    {
-                                        if($listadoP->getIdPurchase() == $listadoT->getIdPurchase())
-                                        {
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $listadoP->getIdPurchase(); ?></td>
-                                                <td><?php echo $listadoP->getPurchaseDate(); ?></td>
-                                                <td><?php echo $listadoT->getIdTicket(); ?></td>
-                                            </tr>
-                                            <?php
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                    else //fin if(is_array($listadoP))
-                    {
-                        if($listadoP->getIdCreditCard() == $listadoCC->getId())
-                        {
-                            if($listadoT != null)
-                            {
-                                if(is_array($listadoT))
-                                {
-                                    foreach($listadoT as $t)
-                                    {
-                                        if($listadoP->getIdPurchase() == $t->getIdPurchase())
-                                        {
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $listadoP->getIdPurchase(); ?></td>
-                                                <td><?php echo $listadoP->getPurchaseDate(); ?></td>
-                                                <td><?php echo $t->getIdTicket(); ?></td>
-                                            </tr>
-                                            <?php
-                                        }
-                                    }
-                                }
-                                else //fin is_array($listadoT)
-                                {
-                                    if($listadoP->getIdPurchase() == $listadoT->getIdPurchase())
-                                    {
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $listadoP->getIdPurchase(); ?></td>
-                                            <td><?php echo $listadoP->getPurchaseDate(); ?></td>
-                                            <td><?php echo $listadoT->getIdTicket(); ?></td>
-                                        </tr>
-                                        <?php
-                                    }
-                                }
-                            }
-                        }
-                    }
-            }
-        }
-            
-    }
-
-                ?>
+                        ?>
         </tbody>
     </table>
 

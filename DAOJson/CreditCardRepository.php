@@ -170,4 +170,62 @@ class CreditCardRepository implements IRepository
       return $creditCard;
     }
     
+    //devuelve un arreglo de purchases que coinciden con el id de creditCard
+    public function getPurchasesById($listadoP, $listadoCC)
+    {
+        $result = array ();
+
+        if($listadoCC != null)
+        {
+            if(is_array($listadoCC))
+            {
+                foreach($listadoCC as $creditCard)
+                {
+                    if(is_array($listadoP))
+                    {
+                        foreach($listadoP as $purchase)
+                        {
+                            if($creditCard->getId() == $purchase->getIdCreditCard())
+                            {
+                                array_push($result, $purchase);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if($creditCard->getId() == $listadoP->getIdCreditCard())
+                        {
+                            array_push($result, $listadoP);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if(is_array($listadoP))
+                {
+                    foreach($listadoP as $purchase)
+                    {
+                        if($listadoCC->getId() == $purchase->getIdCreditCard())
+                        {
+                            array_push($result, $purchase);
+                        }
+                    }
+                }
+                else
+                {
+                    if($listadoCC->getId() == $listadoP->getIdCreditCard())
+                    {
+                        array_push($result, $listadoP);
+                    }
+                }
+            }
+        }
+        else
+        {
+            $result = $listadoP;
+        }
+
+        return $result;
+    }
 }

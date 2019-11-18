@@ -1,9 +1,11 @@
+<body class="home">
+
 <?php
-    require_once(VIEWS_PATH . "header.php");
-    require_once(VIEWS_PATH . "navClient.php");
+    include_once(VIEWS_PATH . "header.php");
+    include_once(VIEWS_PATH . "navClient.php");
 ?>
 
-<body class="home">
+<html>
     <h1>MIS TARJETAS</h1>
 
     <table class="table table-hover table-condensed table-bordered table-dark">
