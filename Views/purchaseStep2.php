@@ -16,39 +16,20 @@ if ($userControl->checkSession() != false) {
         include_once(VIEWS_PATH . "header.php");
         include_once(VIEWS_PATH . "navClient.php"); ?>
     
-        <body>
+        
+        
+<body>
 
-    <div class="container" align="center">
-    <h2 class="mb-4">Comprar Tickets</h2>
-    <h4 class="mb-4">Paso 2 de 3</h4>
+  <div class="card">
+    <h2 class="card-header info-color white-text text-center py-4">
+        <strong>Paso 2 de 3</strong>
+    </h2>
+    <div class="card-body px-lg-5">
 
-    <script>
-        function filterSearch() {
-                // Declare variables
-                var input, filter, table, tr, td, i;
-                input = document.getElementById("myInput");
-                filter = input.value.toUpperCase();
-                table = document.getElementById("myTable");
-                tr = table.getElementsByTagName("tr");
+        <form class="text-center" style="color: #757575;" action="<?php echo FRONT_ROOT ?>Purchase/continuePurchase2" method="POST">
 
-                // Loop through all table rows, and hide those who don't match the search query
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[0];
-                    if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                    }
-                }
-                }
-    </script>
-    <form action="<?php echo FRONT_ROOT ?>Purchase/continuePurchase2" method="POST">
-        <!-- <input type="hidden" id="id" name="id" value=""> -->
-
-
-        <label for="quantityTickets">Funciones</label><br>
+            <div class="md-form mt-3">
+            <label for="quantityTickets" style="font-size:20px;">Funciones</label><br>
         <input type="text" id="myInput" class="form-control" onkeyup="filterSearch()" placeholder="Buscar por cine..">
         
         <table id="myTable" class="table table-striped table-dark">
@@ -91,9 +72,15 @@ if ($userControl->checkSession() != false) {
             }
         ?>
         </table>
-        <br><button name="submit" type="submit" class="btn btn-success" style="width:100%;">Continuar</button>
-    </form>
-  </div>
+        <br><button style="width:100%" name="submit" type="submit" class="btn btn-lg btn-success">Continuar</button>
+        <br><br><br><div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100" style="width: 66%"></div>
+        </div>
+        </form>
+    </div>
+    </div>
+
+</body>
 
 
   <?php include_once(VIEWS_PATH . "footer.php"); ?>
@@ -107,5 +94,33 @@ if ($userControl->checkSession() != false) {
             include_once(VIEWS_PATH . "index.php");
 }
 
-
 ?>
+
+<script>
+        function filterSearch() {
+                // Declare variables
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                    }
+                }
+                }
+    </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />

@@ -88,6 +88,7 @@ class PurchaseController
         }
         $_SESSION["nameMovieTheater"] = $nameMovieTheater;
 
+        $_SESSION["checkCreditCard"] = false;
 
         $this->purchaseStep3();
         
@@ -102,88 +103,93 @@ class PurchaseController
        require_once(VIEWS_PATH . "purchaseStep3.php");
     }
 
-    public function confirmPurchase($id_creditcard, $qTickets)
+    public function confirmPurchase($id_creditcard,  $creditCardNumber, $qTickets)
     {
-
-        $ccRepo = new CreditCardRepository();
-        $listadoCC = $ccRepo->getAll();
-        foreach($listadoCC as $ccs)
+        $this->checkCreditCardNumber($creditCardNumber);
+        if($_SESSION["checkCreditCard"] == true)
         {
-            if($ccs->getId() == $id_creditcard)
+            $ccRepo = new CreditCardRepository();
+            $listadoCC = $ccRepo->getAll();
+            foreach($listadoCC as $ccs)
             {
-                
-                $creditCard = new CreditCard();
-                $creditCard->setCompany($ccs->getCompany());
-                $creditCard->setNumber($ccs->getNumber());
-                $creditCard->setIdUser($ccs->getIdUser($_SESSION["loggedUser"]->getId()));
+                if($ccs->getId() == $id_creditcard)
+                {
+                    
+                    $creditCard = new CreditCard();
+                    $creditCard->setCompany($ccs->getCompany());
+                    $creditCard->setNumber($ccs->getNumber());
+                    $creditCard->setIdUser($ccs->getIdUser($_SESSION["loggedUser"]->getId()));
+                }
             }
-        }
-        $creditCard = $ccRepo->getId($creditCard);
-        $_SESSION["creditCard"] = $creditCard;
+            $creditCard = $ccRepo->getId($creditCard);
+            $_SESSION["creditCard"] = $creditCard;
 
-        $listado = new CinemaRepository();
-        $cinemas = $listado->getAll();
-        foreach($cinemas as $cm)
-        {
-            if($cm->getId() == $_SESSION["idCinema"])
+            $listado = new CinemaRepository();
+            $cinemas = $listado->getAll();
+            foreach($cinemas as $cm)
             {
-                $_SESSION["ticketPrice"] = $cm->getTicketPrice();
-                
+                if($cm->getId() == $_SESSION["idCinema"])
+                {
+                    $_SESSION["ticketPrice"] = $cm->getTicketPrice();
+                    
+                }
             }
-        }
         
-        // $creditCard->setFirstnameOwner($nameOw);
-        // $creditCard->setLastnameOwner($surnameOw);
-        // $creditCard->setDniOwner($dniOw);
-        // $creditCard->setExpireDate($expire);
-        // $creditCard->setSecurityCode($code);
-
-       
-        //se comprueba que haya suficientes asientos libres para realizar la compra
-        if($_SESSION["avaiableSeats"] >= $qTickets)
-        {
-            $purchase = new Purchase();
-            $purchase=$_SESSION["purchase"];
-            $purchase->setPurchaseDate(date('Y-m-d'));
-            $purchase->setQuantityTickets($qTickets);
-            
-            $totalAux=$purchase->getQuantityTickets() * $_SESSION["ticketPrice"];
-            if($this->checkDiscount()==true)
+            //se comprueba que haya suficientes asientos libres para realizar la compra
+            if($_SESSION["avaiableSeats"] >= $qTickets)
             {
-                $purchase->setDiscount(0.25);
+                $purchase = new Purchase();
+                $purchase=$_SESSION["purchase"];
+                $purchase->setPurchaseDate(date('Y-m-d'));
+                $purchase->setQuantityTickets($qTickets);
+                
+                $totalAux=$purchase->getQuantityTickets() * $_SESSION["ticketPrice"];
+                if($this->checkDiscount()==true)
+                {
+                    $purchase->setDiscount(0.25);
+                }
+                $purchase->setTotal($totalAux - ($totalAux * $purchase->getDiscount()));
+                $purchase->setIdCreditCard($_SESSION["creditCard"]->getId());
+
+                $_SESSION["purchase"] = $purchase;
+                
+
+                
             }
-            $purchase->setTotal($totalAux - ($totalAux * $purchase->getDiscount()));
-            $purchase->setIdCreditCard($_SESSION["creditCard"]->getId());
 
-            $_SESSION["purchase"] = $purchase;
-            
-
-            
-        }
-
-        $userControl = new UserController();
-        $moviesRepo = new MovieRepository();
-        $showsRepo = new ShowRepository();
-        $listMovies = $moviesRepo->getAll();
-        $nameMovie="";
-        foreach($listMovies as $lm)
-        {
-            if($lm->getIdMovie() == $_SESSION["idMovieSearch"])
+            $userControl = new UserController();
+            $moviesRepo = new MovieRepository();
+            $showsRepo = new ShowRepository();
+            $listMovies = $moviesRepo->getAll();
+            $nameMovie="";
+            foreach($listMovies as $lm)
             {
-                $nameMovie=$lm->getTitle();
+                if($lm->getIdMovie() == $_SESSION["idMovieSearch"])
+                {
+                    $nameMovie=$lm->getTitle();
+                }
             }
-        }
 
-        $showData = $showsRepo->getShowData($_SESSION["purchase"]->getIdShow());
+            $showData = $showsRepo->getShowData($_SESSION["purchase"]->getIdShow());
+            
+            require_once(VIEWS_PATH . "confirmData.php");
         
-        require_once(VIEWS_PATH . "confirmData.php");
-
         ?>
             <script>
                 alert("Corrobore que los datos sean correctos y confirme su compra.");
             </script>
             <?php
+        }
+        else
+        {
+            ?>
+            <script>
+                alert("Número de Tarjeta incorrecto, por favor ingrese de nuevo los datos.");
+            </script>
+            <?php
 
+            $this->purchaseStep3();
+        }
         
     }
 
@@ -277,8 +283,22 @@ class PurchaseController
         unset($_SESSION["idPurchase"]);
         unset($_SESSION["nameMovieTheater"]);
         unset($_SESSION["show"]);
+        unset($_SESSION["checkCreditCard"]);
     }
 
-    
+
+    public function checkCreditCardNumber($number)
+    {
+        $creditCardsRepo = new CreditCardRepository();
+        $listadoCC = $creditCardsRepo->getAll();
+
+        foreach($listadoCC as $cc)
+        {
+            if($cc->getNumber() == $number)
+            {
+                $_SESSION["checkCreditCard"] = true;
+            }
+        }
+    }
 
 }

@@ -17,28 +17,48 @@ if ($userControl->checkSession() != false) {
         include_once(VIEWS_PATH . "navClient.php"); ?>
 <body>
 
-  <div class="container" align="center">
-    <h2 class="mb-4">Comprar Tickets</h2>
-    <h4 class="mb-4">Paso 1 de 3</h4>
-    <form action="<?php echo FRONT_ROOT ?>Purchase/continuePurchase1" method="POST">
-        <!-- <input type="hidden" id="id" name="id" value=""> -->
-        <label for="cinema_id">Película</label><br>
-        
-        <select style="width:170px" id="movie" name="movie" class="form-control">
+<div class="card">
+<h2 class="card-header info-color white-text text-center py-4">
+    <strong>Paso 1 de 3</strong>
+</h2>
+<div class="card-body px-lg-5">
+
+    <form class="text-center" style="color: #757575;" action="<?php echo FRONT_ROOT ?>Purchase/continuePurchase1" method="POST">
+
+        <div class="md-form mt-3">
+        <label for="cinema_id" style="font-size:20px;">Películas</label><br>
+        <select style="width:170px" class="form-control selectpicker" data-live-search="true" id="movie" name="movie" >
+        <option value="" disabled selected>Elige una película...</option>
         <?php 
+            if($listado != null){
             foreach ($listado as $movies)
             {
                 ?>
-            <option value=<?php echo $movies->getIdMovie(); ?>><?php echo $movies->getTitle(); ?></option>
+            <option value=<?php echo $movies->getIdMovie(); ?> data-tokens="<?php echo $movies->getTitle(); ?>"><?php echo $movies->getTitle(); ?></option>
                 
                 <?php
             }
+            }
         ?>
         </select><br><br>
+        </div>
+
         
-        <br><button name="submit" type="submit" class="btn btn-success">Continuar</button>
+        <br><button style="width:100%" name="submit" type="submit" class="btn btn-lg btn-success">Continuar</button>
+        <br><br><br><div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%"></div>
+        </div>
     </form>
-  </div>
+</div>
+</div>
+
+  <script>
+    $(function() {
+    $('.selectpicker').selectpicker();
+    });
+  </script>
+  
+</body>
 
 <?php include_once(VIEWS_PATH . "footer.php"); ?>
     
@@ -59,3 +79,9 @@ else
 
 
 ?>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />

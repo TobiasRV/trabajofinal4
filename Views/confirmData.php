@@ -13,28 +13,12 @@ if ($userControl->checkSession() != false) {
 ?>
 
 
-<div class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Confirmar Datos</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>Por favor asegúrese que los datos de la compra sean correctos antes de confirmar.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Ok</button>
-        </div>
-        </div>
-    </div>
-    </div>
     <html>
 
-        <br><h5>DATOS DE LA COMPRA</h5>
-    <table class="table table-striped">
+    <h2 class="card-header info-color white-text text-center py-4">
+        <strong>DATOS DE LA COMPRA</strong>
+    </h2>
+    <table class="table table-striped table-dark">
         <tbody>
                 <tr>
                     <th scope="row">Fecha</th>
@@ -80,19 +64,21 @@ if ($userControl->checkSession() != false) {
                     <th scope="row">Total de la Compra</th>
                     <td><?php echo "$" . $_SESSION["purchase"]->getTotal(); ?></td>
                 </tr>
+                <tr>
+                    <td>
+                        <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton" method="POST">
+                        <input type="submit" style="width:100%" class="btn btn-lg btn-danger" name="cancelPurchase" id="button" value="CANCELAR"/>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton" method="POST">
+                        <input type="submit" style="width:100%" class="btn btn-lg btn-success" name="confirmPurchase" id="button" value="CONFIRMAR"/>
+                        </form>
+                    </td>
+                </tr>
         </tbody>
     </table>
 
-    <br>
-    <br>
-    <div class="buttons" align="center">
-                <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton" method="POST">
-                <input type="submit" name="confirmPurchase" id="button" value="CONFIRMAR"/>
-                </form>
-                <form action="<?php echo FRONT_ROOT ?>Purchase/checkButton" method="POST">
-                <input type="submit" name="cancelPurchase" id="button" value="CANCELAR"/>
-                </form>
-    </div>
 </html>
 
 <?php 

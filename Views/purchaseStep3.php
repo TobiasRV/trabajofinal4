@@ -8,17 +8,24 @@ include_once(VIEWS_PATH . "header.php");
 if ($userControl->checkSession() != false) {
     if ($_SESSION["loggedUser"]->getPermissions() == 2) {
         include_once(VIEWS_PATH . "header.php");
-        include_once(VIEWS_PATH . "navClient.php"); ?>
+        include_once(VIEWS_PATH . "navClient.php"); 
+    ?>
+
 
 <body>
 
-  <div class="container" align="center">
-    <h2 class="mb-4">Comprar Tickets</h2>
-    <h4 class="mb-4">Paso 3 de 3</h4>
-    <form action="<?php echo FRONT_ROOT ?>Purchase/confirmPurchase" method="POST">
-        <!-- <input type="hidden" id="id" name="id" value=""> -->
-        <label for="cinema_id">Seleccione una Tarjeta</label><br>
-        <select style="width:170px" id="creditCard" name="creditCard" class="form-control">
+<div class="card">
+  <h2 class="card-header info-color white-text text-center py-4">
+      <strong>Paso 3 de 3</strong>
+  </h2>
+  <div class="card-body px-lg-5">
+
+      <form class="text-center" style="color: #757575;" action="<?php echo FRONT_ROOT ?>Purchase/confirmPurchase" method="POST">
+
+        <div class="md-form mt-3">
+        <label for="quantityTickets" style="font-size:20px;">Seleccione una Tarjeta</label><br>
+        <select style="width:170px" id="creditCard" name="creditCard" class="form-control selectpicker" data-live-search="true">
+        <option value="" disabled selected>Elige una tarjeta...</option>
         <?php
         if($listado != null){
         foreach($listado as $creditCard)
@@ -33,15 +40,39 @@ if ($userControl->checkSession() != false) {
         }
         ?>
         </select><br>
-        
-        <br><button type="button" data-toggle="modal" data-target="#addCreditCard" class="btn btn-outline-secondary">Agregar Tarjeta</button><br><br>
+        </div>
 
-        <label for="quantityTickets">Cantidad</label><br>
-        <input type="number" style="width:170px" id="quantityTickets" name="quantityTickets" placeholder="Cantidad de Tickets" required min=1 max=6 title="Solo números (máximo 6 tickets por compra)"><br>
+        <br><button name="submit" type="submit" class="btn btn-primary btn-primary btn-block" data-toggle="modal" data-target="#addCreditCard">Agregar Tarjeta</button><br>
+    
+        <div class="md-form mt-3">
+        <label for="creditCardNumber" style="font-size:20px;">Número de Tarjeta (Chequeo de Seguridad)</label><br>
+        <input type="number" class="form-control" style="width:1300px" id="creditCardNumber" name="creditCardNumber" placeholder="Número de la Tarjeta" required title="Por una cuestión de seguridad se requiere ingresar el número de la tarjeta"><br>
+        </div>
+            
+        <div class="md-form mt-3">
+        <label for="quantityTickets" style="font-size:20px;">Cantidad de Tickets</label><br>
+        <input type="number" class="form-control" style="width:1300px" id="quantityTickets" name="quantityTickets" placeholder="Cantidad de Tickets" required min=1 max=6 title="Solo números (máximo 6 tickets por compra)"><br>
+        </div>
 
-        <br><button name="submit" type="submit">Comprar</button>
-    </form>
+        <br><button style="width:100%" name="submit" type="submit" class="btn btn-lg btn-success">Comprar</button>
+  
+        <br><br><br><div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+        </div>
+      </form>
   </div>
+  </div>
+
+  <script>
+    $(function() {
+    $('.selectpicker').selectpicker();
+    });
+  </script>
+
+</body>
+
+
+
 
 
 <?php include_once(VIEWS_PATH . "footer.php"); ?>
@@ -104,4 +135,9 @@ else
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+

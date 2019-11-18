@@ -70,5 +70,14 @@
         "discount": null,
         "idShow": "6",
         "idCreditCard": 3
+    },
+    {
+        "id": 9,
+        "purchaseDate": "2019-11-18",
+        "quantityTickets": "2",
+        "total": 400,
+        "discount": null,
+        "idShow": "1",
+        "idCreditCard": 6
     }
 ]
