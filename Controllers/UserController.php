@@ -4,8 +4,16 @@ namespace Controllers;
 
 use DAOJson\UserRepository as UserRepository;
 use DAOJson\MovieDAO as MovieRepository;
+use DAOJson\TicketRepository as TicketRepository;
+use DAOJson\ShowDAO as ShowRepository;
+use DAOJson\PurchaseRepository as PurchaseRepository;
+use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
 // use DAO\UserRepository as UserRepository;
 // use DAO\MovieRepository as MovieRepository;
+//use DAO\TicketRepository as TicketRepository;
+//use DAO\ShowRepository as ShowRepository;
+//use DAO\PurchaseRepository as PurchaseRepository;
+//use DAO\MovieTheaterDAO as MovieTheaterRepository;
 use Models\User as User;
 
 class UserController
@@ -142,6 +150,71 @@ class UserController
         $userList = new UserRepository();
         $userList->edit($newUser);
         $this->logOut();
+    }
+
+    public function consultData()
+    {
+        $ticketsRepo = new TicketRepository();
+        $listadoT = $ticketsRepo->getAll();
+        $soldTickets = count($listadoT);
+
+        $toSoldTickets = $this->toSoldTickets();
+
+        $earnings = $this->calculateEarnings();
+
+        $usersRepo = new UserRepository();
+        $listadoU = $usersRepo->getAll();
+        $registeredUsers = count($listadoU);
+
+        $moviesRepo = new MovieRepository();
+        $listadoM = $moviesRepo->getAll();
+
+        $movieTheatersRepo = new MovieTheaterRepository();
+        $listadoMT = $movieTheatersRepo->getAll();
+
+        require_once(VIEWS_PATH . "consultData.php");
+    }
+
+    public function toSoldTickets()
+    {
+        $showsRepo = new ShowRepository();
+        $listadoS = $showsRepo->getAll();
+        $quantity = 0;
+
+        if(is_array($listadoS))
+        {
+            foreach($listadoS as $show)
+            {
+                $quantity += $show->getSeats();
+            }
+        }
+        else
+        {
+            $quantity += $listadoS->getSeats();
+        }
+
+        return $quantity;
+    }
+
+    public function calculateEarnings()
+    {
+        $purchasesRepo = new PurchaseRepository();
+        $listadoP = $purchasesRepo->getAll();
+        $quantity = 0;
+
+        if(is_array($listadoP))
+        {
+            foreach($listadoP as $purchase)
+            {
+                $quantity += $purchase->getTotal();
+            }
+        }
+        else
+        {
+            $quantity += $listadoP->getTotal();
+        }
+
+        return $quantity;
     }
 
 

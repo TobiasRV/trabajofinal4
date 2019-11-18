@@ -14,9 +14,8 @@ if ($userControl->checkSession() != false)
 
 
 <html>
-<h2 align="center">
-    <strong>MIS TICKETS</strong>
-</h2>
+<h1 align="center">MIS TICKETS</h1>
+
             <form class="form-inline" action="<?php echo FRONT_ROOT ?>Ticket/searchTickets" method="POST">
                 <label for="movie">Película:  </label>
                 <select style="width:170px" class="form-control selectpicker" data-live-search="true" id="movie" name="movie" >

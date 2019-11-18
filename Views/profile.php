@@ -23,8 +23,9 @@ if($userControl->checkSession()!=false)
     }
   ?>
     <html>
-        <br><h5>DATOS PERSONALES</h5>
-    <table class="table table-striped">
+        <h1 align="center">DATOS PERSONALES</h1>
+
+    <table class="table table-hover table-condensed table-bordered table-dark">
         <tbody>
                 <tr>
                     <th scope="row">Nombre</th>
@@ -44,7 +45,7 @@ if($userControl->checkSession()!=false)
                 </tr>
                 <tr>
                     <th scope="row">Contraseña</th>
-                    <td><?php echo $_SESSION["loggedUser"]->getPassword(); ?></td>
+                    <td><?php echo "**********" ?></td>
                 </tr>
                 <tr>
                     <th scope="row">DNI</th>
@@ -53,10 +54,9 @@ if($userControl->checkSession()!=false)
         </tbody>
     </table>
 
-    <br>
-    <br>
+
                     <div class="modifyUserBTN" align="right">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#userModify<?php echo $_SESSION["loggedUser"]->getUserName(); ?>">Modificar datos</button>                    
+                    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#userModify<?php echo $_SESSION["loggedUser"]->getUserName(); ?>">Modificar datos</button>                    
                     </div>
 
     <?php include_once(VIEWS_PATH . "footer.php"); ?>
