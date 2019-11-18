@@ -137,21 +137,22 @@ class MovieTheaterController
         return $result;
     }
 
-    public function getMovieTheathersOfMovie($movieId){
+    public function getMovieTheathersNameOfMovie($movieId){
 
         $showList = $this->getShowsOfAllMovieTheater();
 
-        $cinemaArray = array();
+        $movieTheaterNameList = array();
 
         foreach($showList as $show){
             if($movieId == $show->getIdMovie()){
-                array_push($cinemaArray, $show);
+                $cinema = $this->cinemaController->getCinemaById($show->getIdCinema());
+                array_push($movieTheaterNameList, $this->getNameById($cinema->getIdMovieTheater()));
             }
         }
 
-
-        return $showList;
+        return $movieTheaterNameList;
     }
+
 
     public function viewCreateMovieTheaterOne()
     {

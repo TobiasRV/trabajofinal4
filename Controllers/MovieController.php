@@ -192,7 +192,6 @@ class MovieController
         return $result;
     }
 
-    
 
     public function searchMovie($selectMovieTheather = null, $selectDate = null, $selectGenre = null)
     {

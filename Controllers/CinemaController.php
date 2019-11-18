@@ -184,4 +184,16 @@ class CinemaController
         }
         return $result;
     }
+
+    public function getCinemaById($id){
+        $cinemaList = $this->cinemaDAO->getAll();
+        $result = null;
+        foreach($cinemaList as $cinema){
+            if($cinema->getId() == $id){
+                $result = $cinema;
+            break;
+            }
+        }
+        return $result;
+    }
 }
