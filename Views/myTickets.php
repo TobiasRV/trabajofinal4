@@ -17,6 +17,8 @@ if ($userControl->checkSession() != false)
 <h1 align="center">MIS TICKETS</h1>
 
             <form class="form-inline" action="<?php echo FRONT_ROOT ?>Ticket/searchTickets" method="POST">
+            <label for="date">Fecha de Compra:  </label>
+                    <input class="form-control" style="width:1349px" id="date" name="date"  placeholder="DD / MM / YYYY" type="text"/>
                 <label for="movie">Película:  </label>
                 <select style="width:170px" class="form-control selectpicker" data-live-search="true" id="movie" name="movie" >
                             <option value="" disabled selected>Filtrar por película</option>
@@ -24,9 +26,6 @@ if ($userControl->checkSession() != false)
                                 <option value=<?php echo $movie->getIdMovie(); ?> data-tokens="<?php echo $movie->getTitle(); ?>"><?php echo $movie->getTitle(); ?></option>
                             <?php } ?>
                         </select>
-              
-                    <label for="date">Fecha de Compra:  </label>
-                    <input class="form-control" style="width:1349px" id="date" name="date" placeholder="DD / MM / YYYY" type="text"/>
 
                 <br><br><button style="width:100%" class="btn btn-lg btn-secondary" type="submit">Filtrar</button>
             </form>

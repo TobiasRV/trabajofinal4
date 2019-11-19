@@ -7,8 +7,8 @@ use Controllers\ShowController as ShowController;
 use Controllers\MovieController as MovieController;
 use Models\MovieTheater as MovieTheater;
 
-//use DAOJson\MovieTheaterDAO as MovieTheaterDAO;
-use DAO\MovieTheaterRepository as MovieTheaterDAO;
+use DAOJson\MovieTheaterDAO as MovieTheaterDAO;
+//use DAO\MovieTheaterRepository as MovieTheaterDAO;
 
 class MovieTheaterController
 {
@@ -113,30 +113,6 @@ class MovieTheaterController
         return $movieTheaterNameList;
     }
 
-
-    public function viewCreateMovieTheaterOne()
-    {
-        require_once(VIEWS_PATH . "addmovietheaterone.php");
-    }
-
-    public function viewAddBillBoard($movieTheaterName, $moviechecked = array())
-    {
-
-        $nowPlaying = $this->movieController->getNowPlaying();
-        $arrayGeneros = $this->movieController->getGenres();
-
-        $this->modifyMovieTheater($this->getIdByName($movieTheaterName), null, null, null, null, null, $moviechecked);
-
-        $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
-
-        $movieTheaterBillBoard = array();
-
-        foreach ($movieTheater->getBillBoard() as $idMovie) {
-            array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
-        }
-
-        require_once(VIEWS_PATH . "addmovietheatertwo.php");
-    }
     public function checkNameAvailablity($movieTheaterName)
     {
         $movieTheaterList = $this->movieTheaterDAO->getAll();
@@ -183,6 +159,8 @@ class MovieTheaterController
          }
         return $result;
     }
+
+
 
     public function viewCreateMovieTheaterOne()
     {

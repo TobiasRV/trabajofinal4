@@ -22,5 +22,17 @@
         "tickets": [],
         "dni": "41306776",
         "creditCards": []
+    },
+    {
+        "id": 2,
+        "userName": "juan123",
+        "password": "1234",
+        "email": "juan_holaa@hotmail.com",
+        "firstname": "Juan Martin",
+        "lastname": "Luduenia",
+        "permissions": 2,
+        "tickets": [],
+        "dni": "41306776",
+        "creditCards": []
     }
 ]

@@ -5,7 +5,7 @@
         "time": "20:30",
         "id_cinema": "1",
         "id_movie": "475557",
-        "seats": 48,
+        "seats": 45,
         "status": true
     },
     {
@@ -60,6 +60,15 @@
         "id_cinema": "8",
         "id_movie": "521777",
         "seats": "20",
+        "status": true
+    },
+    {
+        "id": 8,
+        "date": "2019-11-30",
+        "time": "10:00",
+        "id_cinema": "6",
+        "id_movie": "290859",
+        "seats": 45,
         "status": true
     }
 ]

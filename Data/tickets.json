@@ -110,5 +110,37 @@
     {
         "id": 28,
         "idPurchase": 9
+    },
+    {
+        "id": 29,
+        "idPurchase": 10
+    },
+    {
+        "id": 30,
+        "idPurchase": 10
+    },
+    {
+        "id": 31,
+        "idPurchase": 10
+    },
+    {
+        "id": 32,
+        "idPurchase": 11
+    },
+    {
+        "id": 33,
+        "idPurchase": 11
+    },
+    {
+        "id": 34,
+        "idPurchase": 11
+    },
+    {
+        "id": 35,
+        "idPurchase": 11
+    },
+    {
+        "id": 36,
+        "idPurchase": 11
     }
 ]
