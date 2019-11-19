@@ -70,13 +70,14 @@ class CreditCardRepository extends Singleton implements Irepository
 
           public function edit($creditCard) {
 
-
-            
-               $sql = "UPDATE CreditCard SET company = :company, number = :number WHERE id_creditcard = :id_creditcard";
+               $sql = "UPDATE CreditCards SET company = :company, number = :number, status = :status WHERE id_creditcard = :id_creditcard";
 
                $parameters['company'] = $creditCard->getCompany();
                $parameters['number'] = $creditCard->getNumber();
+               $parameters['status'] = $creditCard->getStatus();
                $parameters['id_creditcard'] = $creditCard->getId();
+              
+               
 
                try {
      			$this->connection = Connection::getInstance();
@@ -113,6 +114,7 @@ class CreditCardRepository extends Singleton implements Irepository
                     $creditCard->setId($p['id_creditcard']);
                     $creditCard->setCompany($p['company']);
                     $creditCard->setNumber($p['number']);
+                    $creditCard->setStatus($p['status']);
                     $creditCard->setIdUser($p['id_user']);
                     return $creditCard;
                }, $value);

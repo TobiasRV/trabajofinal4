@@ -7,8 +7,8 @@ use Controllers\ShowController as ShowController;
 use Controllers\MovieController as MovieController;
 use Models\MovieTheater as MovieTheater;
 
-use DAOJson\MovieTheaterDAO as MovieTheaterDAO;
-//use DAO\MovieTheaterRepository as MovieTheaterDAO;
+//use DAOJson\MovieTheaterDAO as MovieTheaterDAO;
+use DAO\MovieTheaterRepository as MovieTheaterDAO;
 
 class MovieTheaterController
 {
@@ -237,10 +237,17 @@ class MovieTheaterController
 
         $result = null;
 
+        if(is_array($movieTheaterList)){
         foreach ($movieTheaterList as $movieTheater) {
             if ($movieTheater->getName() == $movieTheaterName) {
                 $result = $movieTheater;
                 break;
+            }
+        }
+        }
+        else{
+            if ($movieTheater->getName() == $movieTheaterList) {
+                $result = $movieTheater;
             }
         }
         return $result;

@@ -19,6 +19,13 @@ class CreditCardController
        $creditcardsRepo = new CreditCardRepository();
        $listadoCC = $creditcardsRepo->getAll();
        $userControl = new UserController();
+       if($listadoCC != false){
+       if(! is_array($listadoCC)){
+        $aux = $listadoCC;
+        $listadoCC = array();
+        array_push($listadoCC,$aux);
+    }
+}
        require_once(VIEWS_PATH . "myCreditCards.php");
    }
 
@@ -26,6 +33,12 @@ class CreditCardController
    {
         $creditcardsRepo = new CreditCardRepository();
         $listadoCC = $creditcardsRepo->getAll();
+        if($listadoCC != false){
+        if(! is_array($listadoCC)){
+            $aux = $listadoCC;
+            $listadoCC = array();
+            array_push($listadoCC,$aux);
+        }
         foreach($listadoCC as $cc)
         {
             if($cc->getId() == $id)
@@ -42,7 +55,8 @@ class CreditCardController
                 }
             }
         }
-        //var_dump($_POST);
+    }
+        
         $this->showCreditCards();
    }
 

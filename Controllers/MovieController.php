@@ -5,8 +5,8 @@ namespace Controllers;
 // use DAOJson\movieDAO as MovieDAO;  
 // use DAOJson\CinemaDAO as CinemaDAO;
 
-use DAO\movieRepository as MovieDAO;
-use DAO\CinemaRepository as CinemaDAO;
+ use DAO\movieRepository as MovieDAO;
+ use DAO\CinemaRepository as CinemaDAO;
 
 use Controllers\MovieTheaterController as MovieTheaterController;
 use Models\Movie as Movie;
@@ -59,8 +59,15 @@ class MovieController
     public function getMovieListByIdList($idArray = array())
     {
         $result = array();
-        foreach ($idArray as $id) {
-            array_push($result, $this->searchMovieById($id));
+        if(is_array($idArray)){ 
+            foreach ($idArray as $id) 
+            {
+                array_push($result, $this->searchMovieById($id));
+            }
+        }
+        else
+        {
+        array_push($result, $this->searchMovieById($idArray));
         }
         return $result;
     }

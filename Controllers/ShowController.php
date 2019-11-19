@@ -24,10 +24,20 @@ class ShowController
     {
         $showList = $this->showDAO->getAll();
         $result = array();
-
-        foreach ($showList as $show) {
-            if ($show->getIdCinema() == $idCinema) {
-                array_push($result, $show);
+        if($showList != false){
+            if(is_array($showList))
+            {
+                foreach ($showList as $show) 
+                {
+                    if ($show->getIdCinema() == $idCinema) 
+                    {
+                        array_push($result, $show);
+                    }
+                }
+            }
+            else
+            {
+                array_push($result, $showList);  
             }
         }
         return $result;
@@ -36,7 +46,6 @@ class ShowController
     public function createShow($idCinema, $date, $time, $idMovie,$seats)
     {
         $movieTheaterController = new MovieTheaterController();
-        
         $show = new Show();
         $show->setIdCinema($idCinema);
         $show->setDate($date);
@@ -126,19 +135,32 @@ class ShowController
 
         $freeIds = array();
 
-        foreach ($billBoard as $movieId) {
-            if (!in_array($movieId, $takenIds)) {
-                array_push($freeIds, $movieId);
+        if(is_array($billBoard)){
+            foreach ($billBoard as $movieId) {
+                if (!in_array($movieId, $takenIds)) {
+                    array_push($freeIds, $movieId);
+                }
             }
-        }
+        } 
+        else{
+            if (!in_array($billBoard, $takenIds)) {
+                array_push($freeIds, $billBoard);
+            }
+        }  
 
         $movieTheater = $movieTheaterController->getMovieTheaterByName($movieTheaterName);
 
         $freeMovies = array();
-
-        foreach ($movieTheater->getBillBoard() as $idMovie) {
-            if (in_array($idMovie, $freeIds)) {
-                array_push($freeMovies, $movieController->searchMovieById($idMovie));
+        if(is_array($movieTheater->getBillBoard())){
+            foreach ($movieTheater->getBillBoard() as $idMovie) {
+                if (in_array($idMovie, $freeIds)) {
+                    array_push($freeMovies, $movieController->searchMovieById($idMovie));
+                }
+            }
+        }
+        else{
+            if (in_array($movieTheater->getBillBoard(), $freeIds)) {
+                array_push($freeMovies, $movieController->searchMovieById($movieTheater->getBillBoard()));
             }
         }
 

@@ -28,11 +28,17 @@ class CinemaController
         $cinemaList = $this->cinemaDAO->getAll();
 
         $result = null;
-
-        foreach ($cinemaList as $cinema) {
-            if ($cinema->getName() == $cinemaName) {
-                $result = $cinema->getId();
-                break;
+        if(is_array($cinemaList)){
+            foreach ($cinemaList as $cinema) {
+                if ($cinema->getName() == $cinemaName) {
+                    $result = $cinema->getId();
+                    break;
+                }
+            }
+        }
+        else{
+            if ($cinemaList->getName() == $cinemaName) {
+                $result = $cinemaList->getId();
             }
         }
         return $result;
@@ -42,12 +48,37 @@ class CinemaController
     {
 
         $result = array();
-
-        foreach ($cinemaList as $cinema) {
+        if(is_array($cinemaList)){ 
+        foreach ($cinemaList as $cinema) 
+        {
             $showsList = $this->showController->getShowListByCinema($cinema);
-            foreach ($showsList as $show) {
-                array_push($result, $show);
+            if($showsList != false)
+            {
+                if(is_array($showsList)){
+                    foreach ($showsList as $show) {
+                        array_push($result, $show);
+                    }
+                }
+                else{
+                    array_push($result, $showList);
+                }
             }
+        }
+        }
+        else
+        {
+            $showsList = $this->showController->getShowListByCinema($cinemaList);
+            if($showsList != false)
+            {
+                if(is_array($showsList)){
+                    foreach ($showsList as $show) {
+                        array_push($result, $show);
+                    }
+                }
+                else{
+                    array_push($result, $showList);
+                }
+            }   
         }
 
         return $result;

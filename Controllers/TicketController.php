@@ -1,21 +1,21 @@
 <?php namespace Controllers;
 
 //DAO BD
-// use DAO\PurchaseRepository as PurchaseRepository;
-// use DAO\TicketRepository as TicketRepository;
-// use DAO\CreditCardRepository as CreditCardRepository;
-// use DAO\MovieRepository as MovieRepository;
-// use DAO\ShowRepository as ShowRepository;
-// use DAO\UserRepository as UserRepository;
+use DAO\PurchaseRepository as PurchaseRepository;
+use DAO\TicketRepository as TicketRepository;
+use DAO\CreditCardRepository as CreditCardRepository;
+use DAO\MovieRepository as MovieRepository;
+use DAO\ShowRepository as ShowRepository;
+use DAO\UserRepository as UserRepository;
 //END DAO BD
 
 //DAO JSON
-use DAOJson\PurchaseRepository as PurchaseRepository;
-use DAOJson\TicketRepository as TicketRepository;
-use DAOJson\CreditCardRepository as CreditCardRepository;
-use DAOJson\MovieDAO as MovieRepository;
-use DAOJson\ShowDAO as ShowRepository;
-use DAOJson\UserRepository as UserRepository;
+// use DAOJson\PurchaseRepository as PurchaseRepository;
+// use DAOJson\TicketRepository as TicketRepository;
+// use DAOJson\CreditCardRepository as CreditCardRepository;
+// use DAOJson\MovieDAO as MovieRepository;
+// use DAOJson\ShowDAO as ShowRepository;
+// use DAOJson\UserRepository as UserRepository;
 //END DAO JSON
 
 use Controllers\UserController as UserController;
@@ -317,18 +317,45 @@ class TicketController
         {
             $purchasesRepo = new PurchaseRepository();
             $listadoP = $purchasesRepo->getAll();
-
-            if(is_array($listadoP))
-            {
-                foreach($listadoP as $purchase)
+                if($listadoP != false){
+                if(is_array($listadoP))
+                {
+                    foreach($listadoP as $purchase)
+                    {
+                        if(is_array($listadoT))
+                        {
+                            foreach($listadoT as $ticket)
+                            {
+                                if($ticket->getIdPurchase() == $purchase->getIdPurchase())
+                                {
+                                    if($purchase->getPurchaseDate() == $date)
+                                    {
+                                        array_push($result, $ticket);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if($listadoT->getIdPurchase() == $purchase->getIdPurchase())
+                                {
+                                    if($purchase->getPurchaseDate() == $date)
+                                    {
+                                        array_push($result, $listadoT);
+                                    }
+                                }
+                        }
+                    }
+                }
+                else
                 {
                     if(is_array($listadoT))
                     {
                         foreach($listadoT as $ticket)
                         {
-                            if($ticket->getIdPurchase() == $purchase->getIdPurchase())
+                            if($ticket->getIdPurchase() == $listadoP->getIdPurchase())
                             {
-                                if($purchase->getPurchaseDate() == $date)
+                                if($listadoP->getPurchaseDate() == $date)
                                 {
                                     array_push($result, $ticket);
                                 }
@@ -337,38 +364,12 @@ class TicketController
                     }
                     else
                     {
-                        if($listadoT->getIdPurchase() == $purchase->getIdPurchase())
-                            {
-                                if($purchase->getPurchaseDate() == $date)
-                                {
-                                    array_push($result, $listadoT);
-                                }
-                            }
-                    }
-                }
-            }
-            else
-            {
-                if(is_array($listadoT))
-                {
-                    foreach($listadoT as $ticket)
-                    {
-                        if($ticket->getIdPurchase() == $listadoP->getIdPurchase())
+                        if($listadoT->getIdPurchase() == $listadoP->getIdPurchase())
                         {
                             if($listadoP->getPurchaseDate() == $date)
                             {
-                                array_push($result, $ticket);
+                                array_push($result, $listadoT);
                             }
-                        }
-                    }
-                }
-                else
-                {
-                    if($listadoT->getIdPurchase() == $listadoP->getIdPurchase())
-                    {
-                        if($listadoP->getPurchaseDate() == $date)
-                        {
-                            array_push($result, $listadoT);
                         }
                     }
                 }
@@ -408,9 +409,81 @@ class TicketController
 
         }
 
-        if(is_array($listadoP))
-        {
-            foreach($listadoP as $purchase)
+        if($listadoP != false){
+            if(is_array($listadoP))
+            {
+                foreach($listadoP as $purchase)
+                {
+                    if(is_array($listadoS))
+                    {
+                        foreach($listadoS as $show)
+                        {
+                            if(is_array($listadoT))
+                            {
+                                foreach($listadoT as $ticket)
+                                {
+                                    if($ticket->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                                    {
+                                        if($purchase->getIdShow() == $show->getId())
+                                        {
+                                            if($show->getIdMovie() == $movie)
+                                            {
+                                                array_push($result, $ticket);
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                            else
+                            {
+                                if($listadoT->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                                {
+                                    if($purchase->getIdShow() == $show->getId())
+                                    {
+                                        if($show->getIdMovie() == $movie)
+                                        {
+                                            array_push($result, $listadoT);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(is_array($listadoT))
+                        {
+                            foreach($listadoT as $ticket)
+                            {
+                                if($ticket->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                                {
+                                    if($purchase->getIdShow() == $listadoS->getId())
+                                    {
+                                        if($listadoS->getIdMovie() == $movie)
+                                        {
+                                            array_push($result, $ticket);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if($listadoT->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                            {
+                                if($purchase->getIdShow() == $listadoS->getId())
+                                {
+                                    if($listadoS->getIdMovie() == $movie)
+                                    {
+                                        array_push($result, $listadoT);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
             {
                 if(is_array($listadoS))
                 {
@@ -420,28 +493,28 @@ class TicketController
                         {
                             foreach($listadoT as $ticket)
                             {
-                                if($ticket->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                                if($ticket->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
                                 {
-                                    if($purchase->getIdShow() == $show->getId())
+                                    if($listadoP->getIdShow() == $show->getId())
                                     {
-                                        if($show->getIdMovie() == $movie)
+                                        if($show->getIdMovie() == $movie->getIdMovie())
                                         {
                                             array_push($result, $ticket);
                                         }
                                     }
                                 }
                             }
-                       }
+                        }
                         else
                         {
-                            if($listadoT->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
+                            if($listadoT->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
                             {
-                                if($purchase->getIdShow() == $show->getId())
+                                if($listadoP->getIdShow() == $show->getId())
                                 {
-                                    if($show->getIdMovie() == $movie)
+                                    if($show->getIdMovie() == $movie->getIdMovie())
                                     {
                                         array_push($result, $listadoT);
-                                     }
+                                    }
                                 }
                             }
                         }
@@ -453,49 +526,11 @@ class TicketController
                     {
                         foreach($listadoT as $ticket)
                         {
-                            if($ticket->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
-                            {
-                                if($purchase->getIdShow() == $listadoS->getId())
-                                {
-                                    if($listadoS->getIdMovie() == $movie)
-                                    {
-                                        array_push($result, $ticket);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if($listadoT->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
-                        {
-                            if($purchase->getIdShow() == $listadoS->getId())
-                            {
-                                if($listadoS->getIdMovie() == $movie)
-                                {
-                                     array_push($result, $listadoT);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            if(is_array($listadoS))
-            {
-                foreach($listadoS as $show)
-                {
-                    if(is_array($listadoT))
-                    {
-                        foreach($listadoT as $ticket)
-                        {
                             if($ticket->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
                             {
-                                if($listadoP->getIdShow() == $show->getId())
+                                if($listadoP->getIdShow() == $listadoS->getId())
                                 {
-                                    if($show->getIdMovie() == $movie->getIdMovie())
+                                    if($listadoS->getIdMovie() == $movie->getIdMovie())
                                     {
                                         array_push($result, $ticket);
                                     }
@@ -507,44 +542,12 @@ class TicketController
                     {
                         if($listadoT->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
                         {
-                            if($listadoP->getIdShow() == $show->getId())
-                            {
-                                if($show->getIdMovie() == $movie->getIdMovie())
-                                {
-                                    array_push($result, $listadoT);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if(is_array($listadoT))
-                {
-                    foreach($listadoT as $ticket)
-                    {
-                        if($ticket->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
-                        {
                             if($listadoP->getIdShow() == $listadoS->getId())
                             {
                                 if($listadoS->getIdMovie() == $movie->getIdMovie())
                                 {
-                                    array_push($result, $ticket);
+                                    array_push($result, $listadoT);
                                 }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if($listadoT->getIdPurchase() == $listadoP->getIdPurchase() && $listadoP->getPurchaseDate() == $date)
-                    {
-                        if($listadoP->getIdShow() == $listadoS->getId())
-                        {
-                            if($listadoS->getIdMovie() == $movie->getIdMovie())
-                            {
-                                array_push($result, $listadoT);
                             }
                         }
                     }

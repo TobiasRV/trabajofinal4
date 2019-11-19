@@ -25,7 +25,9 @@ if ($userControl->checkSession() != false) {
         <strong>Paso 2 de 3</strong>
     </h2>
     <div class="card-body px-lg-5">
-
+    <?php
+    if($listado != null){
+    ?>
         <form class="text-center" style="color: #757575;" action="<?php echo FRONT_ROOT ?>Purchase/continuePurchase2" method="POST">
 
             <div class="md-form mt-3">
@@ -77,6 +79,16 @@ if ($userControl->checkSession() != false) {
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100" style="width: 66%"></div>
         </div>
         </form>
+
+        <?php 
+    }
+    else{
+        ?>
+        <script> alert("No hay funciones para esa pelicula, intente eligiendo otra. ")</script>
+        
+        <?php
+    }
+        ?>
     </div>
     </div>
 

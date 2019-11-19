@@ -111,18 +111,28 @@ class MovieTheaterRepository extends Singleton implements Irepository
           //y de ids de salas
           public function getAll() {
               $MTlist = $this->getMTs();
-              if(is_array($MTlist)){
-                    foreach($MTlist as $mt){
-                         $mt->setBillBoard($this->getBillBoards($mt->getId()));
-                         $mt->setCinemas($this->getCinemas($mt->getId()));
+              if( $MTlist != false)
+              {
+                    if(is_array($MTlist))
+                    {
+                         foreach($MTlist as $mt)
+                         {
+                              $mt->setBillBoard($this->getBillBoards($mt->getId()));
+                              $mt->setCinemas($this->getCinemas($mt->getId()));
+                         }
                     }
-               }
-               else {
-                    $MTlist->setBillBoard($this->getBillBoards($MTlist->getId()));
-                    $MTlist->setCinemas($this->getCinemas($MTlist->getId()));
+                    else 
+                    {
+                         $MTlist->setBillBoard($this->getBillBoards($MTlist->getId()));
+                         $MTlist->setCinemas($this->getCinemas($MTlist->getId()));
+                         $mt = $MTlist;
+                         $MTlist = array();
+                         array_push($MTlist,$mt);
+                    }
                }
                return $MTlist;
           }
+
 
           public function getMTs() {
                $sql = "SELECT * FROM MovieTheaters";
