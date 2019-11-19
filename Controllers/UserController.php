@@ -9,13 +9,17 @@ use DAOJson\ShowDAO as ShowRepository;
 use DAOJson\PurchaseRepository as PurchaseRepository;
 use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
 use DAOJson\CinemaDAO as CinemaRepository;
+
+
+
+
 // use DAO\UserRepository as UserRepository;
 // use DAO\MovieRepository as MovieRepository;
-//use DAO\TicketRepository as TicketRepository;
-//use DAO\ShowRepository as ShowRepository;
-//use DAO\PurchaseRepository as PurchaseRepository;
-//use DAO\MovieTheaterDAO as MovieTheaterRepository;
-//use DAO\CinemaDAO as CinemaRepository;
+// use DAO\TicketRepository as TicketRepository;
+// use DAO\ShowRepository as ShowRepository;
+// use DAO\PurchaseRepository as PurchaseRepository;
+// use DAO\MovieTheaterDAO as MovieTheaterRepository;
+// use DAO\CinemaDAO as CinemaRepository;
 
 use Models\User as User;
 
@@ -180,7 +184,7 @@ class UserController
 
     public function toSoldTickets($listadoS = null)
     {
-        if($listadoS != null)
+        if($listadoS == null)
         {
             $showsRepo = new ShowRepository();
             $listadoS = $showsRepo->getAll();
@@ -198,7 +202,7 @@ class UserController
                 $quantity += $listadoS->getSeats();
             }
         }
-        else
+        else 
         {
             $quantity = 0;
 
@@ -220,7 +224,7 @@ class UserController
 
     public function calculateEarnings($listadoP = null)
     {
-        if($listadoP != null)
+        if($listadoP == null)
         {
             $purchasesRepo = new PurchaseRepository();
             $listadoP = $purchasesRepo->getAll();

@@ -1,21 +1,21 @@
 <?php namespace Controllers;
 
 //DAO BD
-use DAO\PurchaseRepository as PurchaseRepository;
-use DAO\TicketRepository as TicketRepository;
-use DAO\CreditCardRepository as CreditCardRepository;
-use DAO\MovieRepository as MovieRepository;
-use DAO\ShowRepository as ShowRepository;
-use DAO\UserRepository as UserRepository;
+// use DAO\PurchaseRepository as PurchaseRepository;
+// use DAO\TicketRepository as TicketRepository;
+// use DAO\CreditCardRepository as CreditCardRepository;
+// use DAO\MovieRepository as MovieRepository;
+// use DAO\ShowRepository as ShowRepository;
+// use DAO\UserRepository as UserRepository;
 //END DAO BD
 
 //DAO JSON
-// use DAOJson\PurchaseRepository as PurchaseRepository;
-// use DAOJson\TicketRepository as TicketRepository;
-// use DAOJson\CreditCardRepository as CreditCardRepository;
-// use DAOJson\MovieDAO as MovieRepository;
-// use DAOJson\ShowRepository as ShowRepository;
-// use DAOJson\UserRepository as UserRepository;
+use DAOJson\PurchaseRepository as PurchaseRepository;
+use DAOJson\TicketRepository as TicketRepository;
+use DAOJson\CreditCardRepository as CreditCardRepository;
+use DAOJson\MovieDAO as MovieRepository;
+use DAOJson\ShowDAO as ShowRepository;
+use DAOJson\UserRepository as UserRepository;
 //END DAO JSON
 
 use Controllers\UserController as UserController;
@@ -158,7 +158,7 @@ class TicketController
                                         {
                                             if($purchase->getIdShow() == $show->getId())
                                             {
-                                                if($show->getIdMovie() == $movie->getIdMovie())
+                                                if($show->getIdMovie() == $movie)
                                                 {
                                                     array_push($result, $ticket);
                                                 }
@@ -173,7 +173,7 @@ class TicketController
                                         {
                                             if($purchase->getIdShow == $show->getId())
                                             {
-                                                if($show->getIdMovie() == $movie->getIdMovie())
+                                                if($show->getIdMovie() == $movie)
                                                 {
                                                     array_push($result, $listadoT);
                                                 }
@@ -192,7 +192,7 @@ class TicketController
                                         {
                                             if($purchase->getIdShow == $listadoS->getId())
                                             {
-                                                if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                                if($listadoS->getIdMovie() == $movie)
                                                 {
                                                     array_push($result, $ticket);
                                                 }
@@ -207,7 +207,7 @@ class TicketController
                                         {
                                             if($purchase->getIdShow == $listadoS->getId())
                                             {
-                                                if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                                if($listadoS->getIdMovie() == $movie)
                                                 {
                                                     array_push($result, $listadoT);
                                                 }
@@ -231,7 +231,7 @@ class TicketController
                                     {
                                         if($listadoP->getIdShow() == $show->getId())
                                         {
-                                            if($show->getIdMovie() == $movie->getIdMovie())
+                                            if($show->getIdMovie() == $movie)
                                             {
                                                 array_push($result, $ticket);
                                             }
@@ -246,7 +246,7 @@ class TicketController
                                 {
                                     if($listadoP->getIdShow() == $show->getId())
                                     {
-                                        if($show->getIdMovie() == $movie->getIdMovie())
+                                        if($show->getIdMovie() == $movie)
                                         {
                                             array_push($result, $listadoT);
                                         }
@@ -265,7 +265,7 @@ class TicketController
                                 {
                                     if($listadoP->getIdShow() == $listadoS->getId())
                                     {
-                                        if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                        if($listadoS->getIdMovie() == $movie)
                                         {
                                             array_push($result, $ticket);
                                         }
@@ -280,7 +280,7 @@ class TicketController
                             {
                                 if($listadoP->getIdShow() == $listadoS->getId())
                                 {
-                                    if($listadoS->getIdMovie() == $movie->getIdMovie())
+                                    if($listadoS->getIdMovie() == $movie)
                                     {
                                         array_push($result, $listadoT);
                                     }
