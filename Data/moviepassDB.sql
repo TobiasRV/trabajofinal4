@@ -2,6 +2,7 @@ create database MoviePass;
 use MoviePass;
 
 
+
 -------------------------------------------------------------------------------
 --                               TABLES
 -------------------------------------------------------------------------------
@@ -38,6 +39,14 @@ overview varchar(2000),
 CONSTRAINT pk_id_movie primary key (id_movie)
 );
 
+create table movietheater_x_movie(
+id_movietheater int,
+id_movie int,
+CONSTRAINT pk_genre_x_moviemovietheater_x_movie PRIMARY KEY (id_movietheater,id_movie),
+CONSTRAINT fk_movietheater_x_movie_id_movietheater FOREIGN KEY (id_movietheater) references movietheaters(id_movietheater),
+CONSTRAINT fk_movietheater_x_movie_id_movie FOREIGN KEY (id_movie) references Movies(id_movie)
+);
+
 create table shows(
 id_show int auto_increment,
 show_date date,
@@ -50,6 +59,8 @@ CONSTRAINT pks_shows primary key (id_show),
 CONSTRAINT fk_shows_id_cinema foreign key (id_cinema) references Cinemas(id_cinema),
 CONSTRAINT fk_shows_id_movie foreign key (id_movie) references Movies(id_movie)
 );
+
+
 
 
 
@@ -87,7 +98,6 @@ create table creditcards (
 id_creditcard int auto_increment,
 company varchar(50),
 number bigint,
-status boolean,
 id_user int,
 constraint pk_id_creditcard primary key (id_creditcard),
 CONSTRAINT fk_id_user FOREIGN KEY (id_user) references Users(id_user)
@@ -125,12 +135,6 @@ CONSTRAINT fk_id_purchases foreign key (id_purchase) references purchases (id_pu
 -------------------------------------------------------------------------------
 
 DELIMITER //
-CREATE PROCEDURE cargarMT (IN nameMT varchar(20), IN addressMT varchar(20), IN statusMT boolean)
-BEGIN
-insert into MovieTheaters(name, address, status)
-values(nameMT, addressMT, statusMT);
-END//
-DELIMITER //
 CREATE PROCEDURE cargarU (IN userNameU varchar(20), IN firstnameU varchar(50), IN lastnameU varchar(50), IN emailU varchar(50), IN dniU int, IN permissionsU int, IN passwordU varchar(50))
 BEGIN
 insert into Users(userName, firstname, lastname, email, dni, permissions, password)
@@ -166,29 +170,81 @@ END//
 --                             INSERTS
 -------------------------------------------------------------------------------
 
-call cargarMT ('Cine Paseo', 'Cordoba 2555', true);
-call cargarMT ('Cinemacenter', 'Salta 456', false);
-call cargarMT ('Cine Gallegos', 'Mendoza 6589', true);
-call cargarMT ('Paseo Aldrey', 'Sarmiento 3850', true);
-call cargarMT ('Ambassador', 'Cordoba 1520', true);
 
 call cargarU ('juanludu', 'Juan', 'Luduenia', 'juan@gmail.com', 41306521, 1, '1234');
 call cargarU ('bpilegi98', 'Bianca', 'Pilegi', 'bianca@gmail.com', 41307541, 2, '4321');
 call cargarU('asd', 'asd', 'asd', 'asd@gmail.com', 41306988, 2, 'asd123');
-
-insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala1",200,100,1); -- Cine Paseo
-insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala2",150,80,1); -- Cine Paseo
-insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala1",500,80,4); -- Paseo Aldrey 
-insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala2",200,50,4); -- Paseo Aldrey
-insert into Cinemas(status,name,ticketprice,seats,id_movietheater) values (true,"sala1",100,20,3); -- Cine Gallegos
-
-insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-25","12:05:06",100,true,1,330457); -- Cine Paseo
-insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-24","15:05:06",120,true,1,290859); -- Cine Paseo
-insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-18","20:00:00",500,true,5,330457); -- Paseo Aldrey
-insert into Shows(show_date,show_time,seats,status,id_cinema,id_movie) values ("2019-11-15","10:00:00",150,true,4,330457); -- Cine Paseo
-
-insert into Users (username,firstname,lastname,email,dni,permissions,password) values ("juan","firstname","lastname","juan@prueba",123,2,"1234"); 
  
 insert into creditcards (company, number, id_user) values ("Visa", 456879215 , 2);
 insert into creditcards (company, number, id_user) values ("Master", 456879218 , 2);
 insert into creditcards (company, number, id_user) values ("Visa", 456879888 , 2);
+
+
+
+
+-------------------------------------------------------------------------------
+--                            FUNCIONES RANDOMS
+-------------------------------------------------------------------------------
+
+
+
+#print bonito de shows
+select mt.name, c.name,c.ticketprice,c.id_cinema, s.id_show, s.seats, m.title
+from shows s
+join cinemas c
+on c.id_cinema = s.id_cinema
+join movietheaters mt
+on c.id_movietheater = mt.id_movietheater
+join movies m
+on m.id_movie=s.id_movie
+
+#devuelve el ultimo id de MT
+select mt.id_movietheater 
+from movietheaters mt
+order by mt.id_movietheater desc
+limit 1;
+
+#devuelve una lista de ids de peliculas de "x" cine
+select y.id_movie
+from movietheater_x_movie y
+join movietheaters mt
+on y.id_movietheater = mt.id_movietheater
+where y.id_movietheater = "x"
+;
+
+select c.id_cinema
+from cinemas c
+join movietheaters mt
+on c.id_movietheater = mt.id_movietheater
+where c.id_movietheater = "x"
+;
+
+
+
+delete
+from cinemas
+where id_movietheater < 500;
+
+
+delete
+from movietheater_x_movie 
+where id_movietheater < 500;
+
+delete
+from movietheaters 
+where id_movietheater < 500;
+
+SELECT y.id_movie
+FROM movietheater_x_movie y
+JOIN movietheaters mt
+ON y.id_movietheater = mt.id_movietheater
+WHERE y.id_movietheater = 1;
+
+UPDATE movietheaters 
+SET 
+        name = IFNULL(null, name),
+        address = IFNULL("valor", address),
+        status = IFNULL(status, status)
+WHERE 
+     id_movietheater = 1;
+     
