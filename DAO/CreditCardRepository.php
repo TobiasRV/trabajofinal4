@@ -160,4 +160,30 @@ class CreditCardRepository extends Singleton implements Irepository
 
           return $creditCard;
         }
+
+     //devuelve un arreglo de purchases que coinciden con el id de creditCard
+    public function getPurchasesById($listadoP, $listadoCC)
+    {
+          $sql = "SELECT * FROM CreditCards c JOIN Purchases p ON c.id_creditcard = p.id_creditcard";
+
+          try 
+          {
+               $this->connection = Connection::getInstance();
+               $resultSet = $this->connection->execute($sql);
+          } 
+          catch(Exception $ex) 
+          {
+              throw $ex;
+          }
+
+          if(!empty($resultSet))
+          {
+               return $this->mapear($resultSet);
+          }
+          else
+          {
+               return false;
+          }
+
+    }
 }

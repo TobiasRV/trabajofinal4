@@ -2,11 +2,20 @@
 
 namespace Controllers;
 
-// use DAOJson\UserRepository as UserRepository;
-// use DAOJson\MovieDAO as MovieRepository;
-
-use DAO\UserRepository as UserRepository;
-use DAO\MovieRepository as MovieRepository;
+use DAOJson\UserRepository as UserRepository;
+use DAOJson\MovieDAO as MovieRepository;
+use DAOJson\TicketRepository as TicketRepository;
+use DAOJson\ShowDAO as ShowRepository;
+use DAOJson\PurchaseRepository as PurchaseRepository;
+use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
+use DAOJson\CinemaDAO as CinemaRepository;
+// use DAO\UserRepository as UserRepository;
+// use DAO\MovieRepository as MovieRepository;
+//use DAO\TicketRepository as TicketRepository;
+//use DAO\ShowRepository as ShowRepository;
+//use DAO\PurchaseRepository as PurchaseRepository;
+//use DAO\MovieTheaterDAO as MovieTheaterRepository;
+//use DAO\CinemaDAO as CinemaRepository;
 
 use Models\User as User;
 
@@ -146,5 +155,177 @@ class UserController
         $this->logOut();
     }
 
+    public function consultData()
+    {
+        $ticketsRepo = new TicketRepository();
+        $listadoT = $ticketsRepo->getAll();
+        $soldTickets = count($listadoT);
+
+        $toSoldTickets = $this->toSoldTickets();
+
+        $earnings = $this->calculateEarnings();
+
+        $usersRepo = new UserRepository();
+        $listadoU = $usersRepo->getAll();
+        $registeredUsers = count($listadoU);
+
+        $moviesRepo = new MovieRepository();
+        $listadoM = $moviesRepo->getAll();
+
+        $movieTheatersRepo = new MovieTheaterRepository();
+        $listadoMT = $movieTheatersRepo->getAll();
+
+        require_once(VIEWS_PATH . "consultData.php");
+    }
+
+    public function toSoldTickets($listadoS = null)
+    {
+        if($listadoS != null)
+        {
+            $showsRepo = new ShowRepository();
+            $listadoS = $showsRepo->getAll();
+            $quantity = 0;
+
+            if(is_array($listadoS))
+            {
+                foreach($listadoS as $show)
+                {
+                    $quantity += $show->getSeats();
+                }
+            }
+            else
+            {
+                $quantity += $listadoS->getSeats();
+            }
+        }
+        else
+        {
+            $quantity = 0;
+
+            if(is_array($listadoS))
+            {
+                foreach($listadoS as $show)
+                {
+                    $quantity += $show->getSeats();
+                }
+            }
+            else
+            {
+                $quantity += $listadoS->getSeats();
+            }
+        }
+
+        return $quantity;
+    }
+
+    public function calculateEarnings($listadoP = null)
+    {
+        if($listadoP != null)
+        {
+            $purchasesRepo = new PurchaseRepository();
+            $listadoP = $purchasesRepo->getAll();
+            $quantity = 0;
+
+            if(is_array($listadoP))
+            {
+                foreach($listadoP as $purchase)
+                {
+                    $quantity += $purchase->getTotal();
+                }
+            }
+            else
+            {
+                $quantity += $listadoP->getTotal();
+            }
+        }
+        else
+        {
+            $quantity = 0;
+            if(is_array($listadoP))
+            {
+                foreach($listadoP as $purchase)
+                {
+                    $quantity += $purchase->getTotal();
+                }
+            }
+            else
+            {
+                $quantity += $listadoP->getTotal();
+            }
+        }
+
+        return $quantity;
+    }
+
+    public function searchData($movieTheater = null, $movie = null, $dateInit = null, $dateFin = null)
+    {
+        $usersRepo = new UserRepository();
+        $listadoU = $usersRepo->getAll();
+        $registeredUsers = count($listadoU);
+
+        $moviesRepo = new MovieRepository();
+        $listadoM = $moviesRepo->getAll();
+
+        $movieTheatersRepo = new MovieTheaterRepository();
+        $listadoMT = $movieTheatersRepo->getAll();
+
+        $cinemasRepo = new CinemaRepository();
+        $listadoC = $cinemasRepo->getAll();
+
+        $showsRepo = new ShowRepository();
+        $listadoS = $showsRepo->getAll();
+        $listadoSAux = array ();
+
+        $purchasesRepo = new PurchaseRepository();
+        $listadoP = $purchasesRepo->getAll();
+        $listadoPAux = array ();
+
+        $soldTickets = 0;
+
+        if($movieTheater != null && $movie != null && $dateInit != null && $dateFin != null)
+        {
+            if(is_array($listadoP))
+            {
+                foreach($listadoP as $purchase)
+                {
+                    if(is_array($listadoS))
+                    {
+                        foreach($listadoS as $show)
+                        {
+                            if($show->getId() == $purchase->getIdShow())
+                            {
+                                if($show->getIdMovie() == $movie->getId())
+                                {
+                                    if($show->getDate() >= $dateInit && $show->getDate() <= $dateFin)
+                                    {
+                                        if(is_array($listadoC))
+                                        {
+                                            foreach($listadoC as $cinema)
+                                            {
+                                                if($cinema->getId() == $show->getIdCinema())
+                                                {
+                                                    if($cinema->getIdMovieTheater() == $movieTheater->getId())
+                                                    {
+                                                        array_push($listadoPAux, $purchase);
+                                                        array_push($listadoSAux, $show);
+                                                        $soldTickets += $purchase->getQuantityTickets();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+
+            }
+        }
+    }
 
 }

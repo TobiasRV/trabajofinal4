@@ -15,6 +15,10 @@ if ($userControl->checkSession() != false) {
 
     <html>
 
+    <div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>¡Atención!</strong> Corrobore que los datos sean correctos y confirme su compra.
+    </div>
     <h2 class="card-header info-color white-text text-center py-4">
         <strong>DATOS DE LA COMPRA</strong>
     </h2>

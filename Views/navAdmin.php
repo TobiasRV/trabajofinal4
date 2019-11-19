@@ -24,6 +24,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                          <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>User/userProfile"><i class="fas fa-user"></i> Perfil</a>
+                         <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>User/consultData"><i class="fas fa-question-circle"></i> Consultas</a>
                          <div class="dropdown-divider"></div>
                          <a class="dropdown-item bg-danger text-white" href="<?php echo FRONT_ROOT ?>User/logOut"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                     </div>

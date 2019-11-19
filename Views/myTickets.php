@@ -14,13 +14,9 @@ if ($userControl->checkSession() != false)
 
 
 <html>
-<h2 class="card-header info-color white-text text-center py-4">
-    <strong>MIS TICKETS</strong>
-</h2>
-    <div class="container fluid p-0">
-        <div class="row mt-3">
-            <form class="form-inline" action="<?php echo FRONT_ROOT ?>Ticket/showTickets" method="POST">
-                <div class="form-group">
+<h1 align="center">MIS TICKETS</h1>
+
+            <form class="form-inline" action="<?php echo FRONT_ROOT ?>Ticket/searchTickets" method="POST">
                 <label for="movie">Película:  </label>
                 <select style="width:170px" class="form-control selectpicker" data-live-search="true" id="movie" name="movie" >
                             <option value="" disabled selected>Filtrar por película</option>
@@ -28,17 +24,14 @@ if ($userControl->checkSession() != false)
                                 <option value=<?php echo $movie->getIdMovie(); ?> data-tokens="<?php echo $movie->getTitle(); ?>"><?php echo $movie->getTitle(); ?></option>
                             <?php } ?>
                         </select>
-                </div>
+              
+                    <label for="date">Fecha de Compra:  </label>
+                    <input class="form-control" style="width:1349px" id="date" name="date" placeholder="DD / MM / YYYY" type="text"/>
 
-                <div class="form-group"> 
-                    <label for="date">Fecha:  </label>
-                    <input class="form-control" id="date" name="date" placeholder="DD / MM / YYYY" type="text"/>
-                </div>
-
-                <br><button style="width:100%" class="btn btn-lg btn-secondary" type="submit">Filtrar</button>
+                <br><br><button style="width:100%" class="btn btn-lg btn-secondary" type="submit">Filtrar</button>
             </form>
-    </div>
-    <table class="table table-striped table-dark">
+
+    <table class="table table-hover table-condensed table-bordered table-dark">
         <tbody>
                 <tr>
                     <th scope="row">ID Compra</th>

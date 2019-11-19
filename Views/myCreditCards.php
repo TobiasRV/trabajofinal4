@@ -6,7 +6,7 @@
 ?>
 
 <html>
-    <h1>MIS TARJETAS</h1>
+    <h1 align="center">MIS TARJETAS</h1>
 
     <table class="table table-hover table-condensed table-bordered table-dark">
         <tr>
