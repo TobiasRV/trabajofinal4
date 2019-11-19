@@ -109,4 +109,26 @@ class TicketRepository implements IRepository
     }
 
 
+    public function getTicketsByIdPurchase($idPurchase)
+    {
+
+        $this->retrieveData();
+        $result = array ();
+        
+        if(! is_array($this->ticketList)){
+            $aux = $this->ticketList;
+            $this->ticketList = array();
+            array_push($this->ticketList,$aux);
+        }
+
+        foreach($this->ticketList as $ticket){
+
+            if($ticket->getIdPurchase() == $idPurchase){
+                array_push($result,$ticket);
+            }
+        }
+        return $result;
+    }
+
+
 }

@@ -40,12 +40,26 @@ class PurchaseController
     {
         $userControl = new UserController();
         $showRepo = new ShowRepository();
-        $listado = $showRepo->getAll();
+        $listadoS = $showRepo->getAll();
         $listadoMT = new MovieTheaterRepository();
         $movieTheaters = $listadoMT->getAll();
         $cinemasRepo = new CinemaRepository();
         $listadoCinemas = $cinemasRepo->getAll();
-                
+        $listado = array();
+
+        if(! is_array($listadoS)){
+            $aux= $listadoS;
+            $listadoS = array();
+            array_push($listadoS,$aux);
+        }
+        if($listadoS != null){
+        foreach ($listadoS as $show)
+            {
+                if($show->getIdMovie()==$_SESSION["idMovieSearch"] && $show->getStatus()==true){  
+                    array_push($listado,$show);
+                        }
+            }
+        }            
         require_once(VIEWS_PATH . "purchaseStep2.php");
     }
 
@@ -99,6 +113,12 @@ class PurchaseController
         $userControl = new UserController();
         $creditCardsRepo = new CreditCardRepository();
         $listado = $creditCardsRepo->getCreditCards($_SESSION["loggedUser"]->getId());
+        if(!is_array($listado))
+        {
+            $aux = $listado;
+            $listado = array();
+            array_push($listado,$aux);
+        }
 
        require_once(VIEWS_PATH . "purchaseStep3.php");
     }
@@ -226,14 +246,14 @@ class PurchaseController
             $purchase=$_SESSION["purchase"];
             $purchaseRepo = new PurchaseRepository();
             $purchaseRepo->Add($purchase);
-            $_SESSION["idPurchase"] = $purchaseRepo->getLastPurchase();
+            $ticketsRepo = new TicketRepository();
+            $_SESSION["idPurchase"] = $purchaseRepo->getLastPurchase()->getIdPurchase();
             ?>
-            <script>
-                alert("La compra se ha realizado con éxito.");
-            </script>
+
             <?php
             $this->generateTickets();
-
+           $ticketsEmail = $ticketsRepo->getTicketsByIdPurchase($_SESSION["idPurchase"]);
+            $this->emailTickets($ticketsEmail);
             $this->clearSessionVariables();
             include_once(VIEWS_PATH . "index.php");
         }
@@ -259,6 +279,11 @@ class PurchaseController
         $purchase = $_SESSION["purchase"];
         $showsRepo = new ShowRepository();
         $listadoShows = $showsRepo->getAll();
+        if(!is_array($listadoShows)){
+            $aux = $listadoShows;
+            $listadoShows = array();
+            array_push($listadoShows,$aux);
+        }
         foreach($listadoShows as $shows)
         {
             if($shows->getId() == $purchase->getIdShow())
@@ -268,8 +293,6 @@ class PurchaseController
             }
         }
         $showsRepo->edit($_SESSION["show"]);
-
-        $this->clearSessionVariables();
     }
 
     public function clearSessionVariables()
@@ -299,6 +322,15 @@ class PurchaseController
                 $_SESSION["checkCreditCard"] = true;
             }
         }
+    }
+    public function emailTickets($tickets)
+    {
+    $to_email = $_SESSION['loggedUser']->getEmail();
+    $subject = 'Entradas compradas en MoviePass';
+    $message = 'COMPRASTE ENTRADAS GILASTRUN';
+    $headers = 'From: El equipo de MoviePass, por favor no responder. Le deseamos una buena jornada.';
+    $bool=mail($to_email,$subject,$message,$headers);
+        var_dump($bool);
     }
 
 }

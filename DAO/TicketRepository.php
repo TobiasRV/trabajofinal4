@@ -17,7 +17,6 @@ class TicketRepository extends Singleton implements Irepository
           public function Add($ticket) {
 
 			$sql = "INSERT INTO Tickets (id_purchase) VALUES (:id_purchase)";
-
                $parameters['id_purchase'] = $ticket->getIdPurchase();
 
                try {
@@ -104,5 +103,31 @@ class TicketRepository extends Singleton implements Irepository
 
                return count($resp) > 1 ? $resp : $resp['0'];
 
+        }
+
+        public function getTicketsByIdPurchase($idPurchase)
+        {
+             $sql = "SELECT * FROM Tickets t 
+             WHERE t.id_purchase =:id_purchase";
+          
+          $parameters['id_purchase']= $idPurchase;
+             try 
+             {
+                  $this->connection = Connection::getInstance();
+                  $resultSet = $this->connection->execute($sql,$parameters);
+             } 
+             catch(Exception $ex) 
+             {
+                 throw $ex;
+             }
+   
+             if(!empty($resultSet))
+             {
+                  return $this->mapear($resultSet);
+             }
+             else
+             {
+                  return false;
+             }
         }
 }

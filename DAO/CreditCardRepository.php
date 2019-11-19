@@ -16,10 +16,11 @@ class CreditCardRepository extends Singleton implements Irepository
           }
           public function Add($creditCard) {
 
-			$sql = "INSERT INTO CreditCards (company, number, id_user) VALUES (:company, :number, :id_user)";
+			$sql = "INSERT INTO CreditCards (company, number, status,id_user) VALUES (:company, :number,:status, :id_user)";
 
                $parameters['company'] = $creditCard->getCompany();
                $parameters['number'] = $creditCard->getNumber();
+               $parameters['status'] = $creditCard->getStatus();
                $parameters['id_user'] = $creditCard->getIdUser();
 
                try {

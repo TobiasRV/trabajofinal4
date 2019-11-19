@@ -27,7 +27,7 @@ if ($userControl->checkSession() != false) {
         <select style="width:170px" id="creditCard" name="creditCard" class="form-control selectpicker" data-live-search="true">
         <option value="" disabled selected>Elige una tarjeta...</option>
         <?php
-        if($listado != null){
+        if($listado != false){
         foreach($listado as $creditCard)
         {
             if($creditCard->getStatus()==true){

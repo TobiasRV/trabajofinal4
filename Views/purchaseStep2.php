@@ -38,14 +38,13 @@ if ($userControl->checkSession() != false) {
                 <th>Seleccionar</th>
             </tr>
         <?php 
-            if($listado != null){
-            foreach ($listado as $shows)
-            {
-                if($shows->getIdMovie()==$_SESSION["idMovieSearch"] && $shows->getStatus()==true){  
+            if($listado != false){
                 ?>
             <tr>    
                 
                 <td><?php
+                foreach($listado as $show)
+                {
 
                 foreach($movieTheaters as $mt)
                 {
@@ -56,21 +55,21 @@ if ($userControl->checkSession() != false) {
                         if($cinemas->getIdMovieTheater() == $mt->getId())
                         {
     
-                            if($shows->getIdCinema() == $cinemas->getId())
+                            if($show->getIdCinema() == $cinemas->getId())
                             {
                                 echo $mt->getName(); 
                             }
                         }
-                   
-                     }
+                    }
                 }?></td>
-                <td><?php echo $shows->getDate() . " " . $shows->getTime(); ?></td>
-                <td><input type="radio" name="idShow" id = "idShow" value="<?php echo  $shows->getId(); ?>" required><br></td>          
+                <td><?php echo $show->getDate() . " " . $show->getTime(); ?></td>
+                <td><input type="radio" name="idShow" id = "idShow" value="<?php echo  $show->getId(); ?>" required><br></td>          
             </tr>
             <?php
-                }
             }
         }
+            
+        
         else{
             ?>
             <script LANGUAGE='JavaScript'>
