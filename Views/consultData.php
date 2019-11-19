@@ -29,8 +29,12 @@
                     <option value=<?php echo $movie->getIdMovie(); ?> data-tokens="<?php echo $movie->getTitle(); ?>"><?php echo $movie->getTitle(); ?></option>
                 <?php } ?>
         </select>
-        <p>&nbsp</p><label for="date">Fecha:  </label><p>&nbsp</p>
-        <input class="form-control" id="date" name="date" placeholder="DD / MM / YYYY" type="text"/>
+        <p>&nbsp</p><label for="dateInit">Desde:  </label><p>&nbsp</p>
+        <input class="form-control" id="dateInit" name="dateInit" placeholder="DD / MM / YYYY" type="text"/>
+    <p>&nbsp</p><p>&nbsp</p><p>&nbsp</p>
+
+    <p>&nbsp</p><label for="dateFin">Hasta:  </label><p>&nbsp</p>
+        <input class="form-control" id="dateFin" name="dateFin" placeholder="DD / MM / YYYY" type="text"/>
     <p>&nbsp</p><p>&nbsp</p><p>&nbsp</p>
     <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
 
@@ -78,3 +82,7 @@
     border-radius:50%;
 }
 </style>
+
+<?php 
+    include_once(VIEWS_PATH . "footer.php");
+?>

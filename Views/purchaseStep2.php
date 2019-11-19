@@ -17,7 +17,7 @@ if ($userControl->checkSession() != false) {
         include_once(VIEWS_PATH . "navClient.php"); ?>
     
         
-        
+
 <body>
 
   <div class="card">
@@ -65,7 +65,7 @@ if ($userControl->checkSession() != false) {
                      }
                 }?></td>
                 <td><?php echo $shows->getDate() . " " . $shows->getTime(); ?></td>
-                <td><input type="radio" name="idShow" id = "idShow" value="<?php echo  $shows->getId(); ?>"><br></td>          
+                <td><input type="radio" name="idShow" id = "idShow" value="<?php echo  $shows->getId(); ?>" required><br></td>          
             </tr>
             <?php
                 }

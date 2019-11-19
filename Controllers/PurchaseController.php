@@ -175,9 +175,9 @@ class PurchaseController
             require_once(VIEWS_PATH . "confirmData.php");
         
         ?>
-            <script>
+            <!-- <script>
                 alert("Corrobore que los datos sean correctos y confirme su compra.");
-            </script>
+            </script> -->
             <?php
         }
         else
