@@ -124,6 +124,12 @@ class TicketController
             }
         }
 
+
+        $moviesRepo = new MovieRepository();
+        $listadoM = $moviesRepo->getAll();
+        
+        $userControl = new UserController();
+
         require_once(VIEWS_PATH . "myTickets.php");
     }
 
