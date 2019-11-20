@@ -1,21 +1,21 @@
 <?php namespace Controllers;
 
 //DAO BD
-use DAO\PurchaseRepository as PurchaseRepository;
-use DAO\TicketRepository as TicketRepository;
-use DAO\CreditCardRepository as CreditCardRepository;
-use DAO\MovieRepository as MovieRepository;
-use DAO\ShowRepository as ShowRepository;
-use DAO\UserRepository as UserRepository;
+// use DAO\PurchaseRepository as PurchaseRepository;
+// use DAO\TicketRepository as TicketRepository;
+// use DAO\CreditCardRepository as CreditCardRepository;
+// use DAO\MovieRepository as MovieRepository;
+// use DAO\ShowRepository as ShowRepository;
+// use DAO\UserRepository as UserRepository;
 //END DAO BD
 
 //DAO JSON
-// use DAOJson\PurchaseRepository as PurchaseRepository;
-// use DAOJson\TicketRepository as TicketRepository;
-// use DAOJson\CreditCardRepository as CreditCardRepository;
-// use DAOJson\MovieDAO as MovieRepository;
-// use DAOJson\ShowDAO as ShowRepository;
-// use DAOJson\UserRepository as UserRepository;
+ use DAOJson\PurchaseRepository as PurchaseRepository;
+ use DAOJson\TicketRepository as TicketRepository;
+ use DAOJson\CreditCardRepository as CreditCardRepository;
+ use DAOJson\MovieDAO as MovieRepository;
+ use DAOJson\ShowDAO as ShowRepository;
+ use DAOJson\UserRepository as UserRepository;
 //END DAO JSON
 
 use Controllers\UserController as UserController;
@@ -31,19 +31,9 @@ class TicketController
 
         $moviesRepo = new MovieRepository();
         $listadoM = $moviesRepo->getAll();
-        $usersRepo = new UserRepository();
-        $creditCardsRepo = new CreditCardRepository();
-        $listadoCC = $creditCardsRepo->getAll();
-        $purchasesRepo = new PurchaseRepository();
-        $listadoP = $purchasesRepo->getAll();
-        $ticketsRepo = new TicketRepository();
-        $listadoT = $ticketsRepo->getAll();
-
-        $result = $usersRepo->getCreditCardsById($listadoCC);
-        $result = $creditCardsRepo->getPurchasesById($listadoP, $result);
-        $result = $purchasesRepo->getTicketsById($listadoT, $result);
-
-        $listadoT = $result;
+        
+        
+        $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
 
        require_once(VIEWS_PATH . "myTickets.php");
    }
@@ -559,6 +549,65 @@ class TicketController
     }
 
 
+
+    public function getTicketsByIdUser($idUser)
+    {
+        $creditCardsRepo = new CreditCardRepository();
+        $purchasesRepo = new PurchaseRepository();
+        $ticketsRepo = new TicketRepository();
+
+        $listadoCC = $creditCardsRepo->getCreditCardsByIdUser($idUser);
+        $listadoP = $purchasesRepo->getAll();
+        $listadoT = $ticketsRepo->getAll();
+        $result = array();
+
+        if($listadoCC != null)
+        {
+            if(! is_array($listadoCC))
+            {
+                $aux = $listadoCC;
+                $listadoCC = array();
+                array_push($listadoCC,$aux);
+            }
+            foreach($listadoCC as $creditCard)
+            {
+                if($listadoP != null)
+                {
+                    if(! is_array($listadoP))
+                    {
+                        $aux = $listadoP;
+                        $listadoP = array();
+                        array_push($listadoP,$aux);
+                    }
+                    foreach($listadoP as $purchase)
+                    {
+                        if($creditCard->getId() == $purchase->getIdCreditCard())
+                        {
+                            if($listadoT != null)
+                            {
+                                if(! is_array($listadoT))
+                                {
+                                    $aux = $listadoT;
+                                    $listadoT = array();
+                                    array_push($listadoT,$aux);
+                                }
+                                foreach($listadoT as $ticket)
+                                {
+                                    if($purchase->getIdPurchase() == $ticket->getIdPurchase())
+                                    {
+                                        array_push($result, $ticket);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return $result;
+    }
 
 //end of class    
 }

@@ -5,23 +5,23 @@ use Models\Purchase as Purchase;
 use Controllers\UserController as UserController;
 use Models\CreditCard as CreditCard;
 //DAO BD
-use DAO\MovieRepository as MovieRepository;
-use DAO\ShowRepository as ShowRepository;
-use DAO\MovieTheaterRepository as MovieTheaterRepository;
-use DAO\CinemaRepository as CinemaRepository;
-use DAO\PurchaseRepository as PurchaseRepository;
-use DAO\CreditCardRepository as CreditCardRepository;
-use DAO\TicketRepository as TicketRepository;
+// use DAO\MovieRepository as MovieRepository;
+// use DAO\ShowRepository as ShowRepository;
+// use DAO\MovieTheaterRepository as MovieTheaterRepository;
+// use DAO\CinemaRepository as CinemaRepository;
+// use DAO\PurchaseRepository as PurchaseRepository;
+// use DAO\CreditCardRepository as CreditCardRepository;
+// use DAO\TicketRepository as TicketRepository;
 //END DAO BD
 
 //DAO JSON
-// use DAOJson\movieDAO as MovieRepository;
-// use DAOJson\ShowDAO as ShowRepository;
-// use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
-// use DAOJson\CinemaDAO as CinemaRepository;
-// use DAOJson\PurchaseRepository as PurchaseRepository;
-// use DAOJson\CreditCardRepository as CreditCardRepository;
-// use DAOJson\TicketRepository as TicketRepository;
+use DAOJson\movieDAO as MovieRepository;
+use DAOJson\ShowDAO as ShowRepository;
+use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
+use DAOJson\CinemaDAO as CinemaRepository;
+use DAOJson\PurchaseRepository as PurchaseRepository;
+use DAOJson\CreditCardRepository as CreditCardRepository;
+use DAOJson\TicketRepository as TicketRepository;
 //END DAO JSON
 
 class PurchaseController
@@ -325,12 +325,11 @@ class PurchaseController
     }
     public function emailTickets($tickets)
     {
-    $to_email = $_SESSION['loggedUser']->getEmail();
-    $subject = 'Entradas compradas en MoviePass';
-    $message = 'COMPRASTE ENTRADAS GILASTRUN';
-    $headers = 'From: El equipo de MoviePass, por favor no responder. Le deseamos una buena jornada.';
-    $bool=mail($to_email,$subject,$message,$headers);
-        var_dump($bool);
+        $to_email = $_SESSION['loggedUser']->getEmail();
+        $subject = 'Entradas compradas en MoviePass';
+        $message = 'COMPRASTE ENTRADAS GILASTRUN';
+        $headers = 'From: El equipo de MoviePass, por favor no responder. Le deseamos una buena jornada.';
+        mail($to_email,$subject,$message,$headers);
     }
 
 }

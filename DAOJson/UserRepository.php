@@ -164,36 +164,5 @@ class UserRepository implements IRepository
         }
     }
 
-    //devuelve un arreglo de creditCards que coinciden con el id de usuario en sesión
-    public function getCreditCardsById($listadoCC)
-    {
-        $result = array ();
-
-        if($_SESSION["loggedUser"]->getId() != null)
-        {
-            if(is_array($listadoCC))
-            {
-                foreach($listadoCC as $creditCard)
-                {
-                    if($_SESSION["loggedUser"]->getId() == $creditCard->getIdUser())
-                    {
-                        array_push($result, $creditCard);
-                    }
-                }
-            }
-            else
-            {
-                if($_SESSION["loggedUser"]->getId() == $listadoCC->getIdUser())
-                {
-                    array_push($result, $listadoCC);
-                }
-            }
-        }
-        else
-        {
-            $result = $listadoCC;
-        }
-
-        return $result;
-    }
+    
 }

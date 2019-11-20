@@ -169,61 +169,36 @@ class CreditCardRepository implements IRepository
 
       return $creditCard;
     }
-    
-    //devuelve un arreglo de purchases que coinciden con el id de creditCard
-    public function getPurchasesById($listadoP, $listadoCC)
+
+    //devuelve un arreglo de creditCards que coinciden con el id de usuario en sesión
+    public function getCreditCardsByIdUser($idUser)
     {
         $result = array ();
 
-        if($listadoCC != null)
+        if($idUser != null)
         {
-            if(is_array($listadoCC))
+            $this->retrieveData();
+            if(is_array($this->creditCardList))
             {
-                foreach($listadoCC as $creditCard)
+                foreach($this->creditCardList as $creditCard)
                 {
-                    if(is_array($listadoP))
+                    if($idUser == $creditCard->getIdUser())
                     {
-                        foreach($listadoP as $purchase)
-                        {
-                            if($creditCard->getId() == $purchase->getIdCreditCard())
-                            {
-                                array_push($result, $purchase);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if($creditCard->getId() == $listadoP->getIdCreditCard())
-                        {
-                            array_push($result, $listadoP);
-                        }
+                        array_push($result, $creditCard);
                     }
                 }
             }
             else
             {
-                if(is_array($listadoP))
+                if($idUser == $this->creditCardList->getIdUser())
                 {
-                    foreach($listadoP as $purchase)
-                    {
-                        if($listadoCC->getId() == $purchase->getIdCreditCard())
-                        {
-                            array_push($result, $purchase);
-                        }
-                    }
-                }
-                else
-                {
-                    if($listadoCC->getId() == $listadoP->getIdCreditCard())
-                    {
-                        array_push($result, $listadoP);
-                    }
+                    array_push($result, $this->creditCardList);
                 }
             }
         }
         else
         {
-            $result = $listadoP;
+            $result = $this->creditCardList;
         }
 
         return $result;

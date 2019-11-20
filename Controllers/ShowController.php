@@ -7,8 +7,8 @@ use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\CinemaController as CinemaController;
 use Controllers\MovieController as MovieController;
 
-//use DAOJson\ShowDAO as ShowDAO;
-use DAO\ShowRepository as ShowDAO;
+use DAOJson\ShowDAO as ShowDAO;
+//use DAO\ShowRepository as ShowDAO;
 
 
 class ShowController

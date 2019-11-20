@@ -127,5 +127,38 @@ class PurchaseRepository implements IRepository
         return end($this->purchaseList)->getIdPurchase();
     }
 
-   
+
+   //devuelve un arreglo de purchases que coinciden con el id de creditCard
+   public function getPurchasesByIdCreditCard($idCreditCard)
+   {
+       $result = array ();
+
+       if($idCreditCard != null)
+       {
+            $this->retrieveData();
+            if(is_array($this->purchaseList))
+            {
+                foreach($this->purchaseList as $purchase)
+                {
+                    if($idCreditCard == $purchase->getIdCreditCard())
+                    {
+                        array_push($result, $purchase);
+                    }
+                }
+            }
+            else
+            {
+                if($idCreditCard == $this->purchaseList->getIdCreditCard())
+                {
+                    array_push($result, $this->purchaseList);
+                }
+            }
+       }
+       else
+       {
+            $result = $this->purchaseList;
+       }
+
+       return $result;
+   }
 }
