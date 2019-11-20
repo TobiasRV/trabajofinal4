@@ -1,22 +1,9 @@
-<body class="home">
 
-<?php 
-if ($userControl->checkSession() != false) 
-{
-    if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-    {
-        include_once(VIEWS_PATH . "header.php");
-        include_once(VIEWS_PATH . "navClient.php"); 
-    }
-}
-
-
-?>
 
 
 <html>
 <h1 align="center">MIS TICKETS</h1>
-
+<body class="home">
             <form class="form-inline" action="<?php echo FRONT_ROOT ?>Ticket/searchTickets" method="POST">
             <label for="date">Fecha de Compra:  </label>
                     <input class="form-control" style="width:1349px" id="date" name="date"  placeholder="DD / MM / YYYY" type="text"/>

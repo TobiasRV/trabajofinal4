@@ -5,15 +5,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 
-
-<?php
-    include_once(VIEWS_PATH . "header.php");
-    include_once(VIEWS_PATH . "navAdmin.php");
-?>
-
-<body class="home">
-
- 
+<body class="home"> 
 
 <div align="center">
     <br><h1>Estadísticas</h1>

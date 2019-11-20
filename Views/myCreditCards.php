@@ -1,10 +1,5 @@
 <body class="home">
 
-<?php
-    include_once(VIEWS_PATH . "header.php");
-    include_once(VIEWS_PATH . "navClient.php");
-?>
-
 <html>
     <h1 align="center">MIS TARJETAS</h1>
 

@@ -19,14 +19,40 @@ class CreditCardController
        $creditcardsRepo = new CreditCardRepository();
        $listadoCC = $creditcardsRepo->getAll();
        $userControl = new UserController();
-       if($listadoCC != false){
-       if(! is_array($listadoCC)){
-        $aux = $listadoCC;
-        $listadoCC = array();
-        array_push($listadoCC,$aux);
-    }
-}
-       require_once(VIEWS_PATH . "myCreditCards.php");
+       if($listadoCC != false)
+       {
+            if(! is_array($listadoCC))
+            {
+                $aux = $listadoCC;
+                $listadoCC = array();
+                array_push($listadoCC,$aux);
+            }
+        }
+
+        if ($userControl->checkSession() != false) 
+        {
+            if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "navAdmin.php");
+                include_once(VIEWS_PATH . "myCreditCards.php");
+            } 
+            else 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    include_once(VIEWS_PATH . "myCreditCards.php");
+                }
+            }
+        } 
+        else 
+        {
+            include_once(VIEWS_PATH . "header.php");
+            include_once(VIEWS_PATH . "nav.php");
+            include_once(VIEWS_PATH . "index.php");
+        }
    }
 
    public function changeStatus($id)

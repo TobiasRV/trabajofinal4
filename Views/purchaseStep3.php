@@ -1,16 +1,5 @@
 <body class="home">
 
-<?php 
-
-include_once(VIEWS_PATH . "header.php"); 
-
-
-if ($userControl->checkSession() != false) {
-    if ($_SESSION["loggedUser"]->getPermissions() == 2) {
-        include_once(VIEWS_PATH . "header.php");
-        include_once(VIEWS_PATH . "navClient.php"); 
-    ?>
-
 
 <body>
 
@@ -77,23 +66,6 @@ if ($userControl->checkSession() != false) {
 
 <?php include_once(VIEWS_PATH . "footer.php"); ?>
     
- <?php 
- } 
-    else 
-    {
-        if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-        {
-            include_once(VIEWS_PATH . "index.php");
-        }
-    }
-} 
-else 
-{
-    include_once(VIEWS_PATH . "index.php");
-}
-
-
-?>
 
 <!-- MODAL -->
 <div class="modal fade" id="addCreditCard">

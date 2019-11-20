@@ -34,7 +34,30 @@ class UserController
 
     public function userProfile()
     {
-        require_once(VIEWS_PATH . "profile.php");
+        if ($this->checkSession() != false) 
+        {
+            if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "navAdmin.php");
+                include_once(VIEWS_PATH . "profile.php");
+            } 
+            else 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    include_once(VIEWS_PATH . "profile.php");
+                }
+            }
+        } 
+        else 
+        {
+            include_once(VIEWS_PATH . "header.php");
+            include_once(VIEWS_PATH . "nav.php");
+            include_once(VIEWS_PATH . "index.php");
+        }
     }
 
     public function signUp($username, $password, $email, $firstname, $lastname, $dni)
@@ -202,7 +225,30 @@ class UserController
             array_push($listadoMT,$aux);
         }
 
-        require_once(VIEWS_PATH . "consultData.php");
+        if ($userControl->checkSession() != false) 
+        {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    require_once(VIEWS_PATH . "index.php");
+                }
+                else 
+                {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                    {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navAdmin.php");
+                        include_once(VIEWS_PATH . "consultData.php");
+                    }
+                } 
+            } 
+            else 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
+            }
     }
 
     public function toSoldTickets($listadoS = null)
@@ -369,8 +415,31 @@ class UserController
             array_push($listadoMT,$aux);
         }
 
-        require_once(VIEWS_PATH . "consultData.php");
 
+        if ($userControl->checkSession() != false) 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    require_once(VIEWS_PATH . "index.php");
+                }
+                else 
+                {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                    {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navAdmin.php");
+                        include_once(VIEWS_PATH . "consultData.php");
+                    }
+                } 
+            } 
+            else 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
+            }
     }
 
     //esta está hecha a medias

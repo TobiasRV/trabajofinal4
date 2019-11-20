@@ -33,7 +33,31 @@ class PurchaseController
         $userControl = new UserController();
         $movieRepo = new MovieRepository();
         $listado=$movieRepo->getNowPlayingMovies();
-        require_once(VIEWS_PATH . "purchaseStep1.php");
+
+        if ($userControl->checkSession() != false) 
+        {
+            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "navClient.php");
+                require_once(VIEWS_PATH . "purchaseStep1.php");
+            }
+            else 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navAdmin.php");
+                    include_once(VIEWS_PATH . "index.php");
+                }
+            } 
+        } 
+        else 
+        {
+            include_once(VIEWS_PATH . "header.php");
+            include_once(VIEWS_PATH . "nav.php");
+            include_once(VIEWS_PATH . "index.php");
+        }
     }
 
     public function purchaseStep2()
@@ -59,8 +83,31 @@ class PurchaseController
                     array_push($listado,$show);
                         }
             }
-        }            
-        require_once(VIEWS_PATH . "purchaseStep2.php");
+        } 
+        if ($userControl->checkSession() != false) 
+        {
+            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "navClient.php");
+                require_once(VIEWS_PATH . "purchaseStep2.php");
+            }
+            else 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navAdmin.php");
+                    include_once(VIEWS_PATH . "index.php");
+                }
+            } 
+        } 
+        else 
+        {
+            include_once(VIEWS_PATH . "header.php");
+            include_once(VIEWS_PATH . "nav.php");
+            include_once(VIEWS_PATH . "index.php");
+        }           
     }
 
     public function continuePurchase1($idMovie)
@@ -120,7 +167,30 @@ class PurchaseController
             array_push($listado,$aux);
         }
 
-       require_once(VIEWS_PATH . "purchaseStep3.php");
+        if ($userControl->checkSession() != false) 
+        {
+            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "navClient.php");
+                require_once(VIEWS_PATH . "purchaseStep3.php");
+            }
+            else 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navAdmin.php");
+                    include_once(VIEWS_PATH . "index.php");
+                }
+            } 
+        } 
+        else 
+        {
+            include_once(VIEWS_PATH . "header.php");
+            include_once(VIEWS_PATH . "nav.php");
+            include_once(VIEWS_PATH . "index.php");
+        }
     }
 
     public function confirmPurchase($id_creditcard,  $creditCardNumber, $qTickets)
@@ -192,13 +262,30 @@ class PurchaseController
 
             $showData = $showsRepo->getShowData($_SESSION["purchase"]->getIdShow());
             
-            require_once(VIEWS_PATH . "confirmData.php");
-        
-        ?>
-            <!-- <script>
-                alert("Corrobore que los datos sean correctos y confirme su compra.");
-            </script> -->
-            <?php
+            if ($userControl->checkSession() != false) 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    require_once(VIEWS_PATH . "confirmData.php");
+                }
+                else 
+                {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                    {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navAdmin.php");
+                        include_once(VIEWS_PATH . "index.php");
+                    }
+                } 
+            } 
+            else 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
+            }
         }
         else
         {
@@ -255,12 +342,60 @@ class PurchaseController
            $ticketsEmail = $ticketsRepo->getTicketsByIdPurchase($_SESSION["idPurchase"]);
             $this->emailTickets($ticketsEmail);
             $this->clearSessionVariables();
-            include_once(VIEWS_PATH . "index.php");
+            $userControl = new UserController();
+            if ($userControl->checkSession() != false) 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    require_once(VIEWS_PATH . "index.php");
+                }
+                else 
+                {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                    {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navAdmin.php");
+                        include_once(VIEWS_PATH . "index.php");
+                    }
+                } 
+            } 
+            else 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
+            }
         }
         else
         {
             $this->clearSessionVariables();
-            include_once(VIEWS_PATH . "index.php");
+            $userControl = new UserController();
+            if ($userControl->checkSession() != false) 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    require_once(VIEWS_PATH . "index.php");
+                }
+                else 
+                {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                    {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navAdmin.php");
+                        include_once(VIEWS_PATH . "index.php");
+                    }
+                } 
+            } 
+            else 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
+            }
         }
     }
 
