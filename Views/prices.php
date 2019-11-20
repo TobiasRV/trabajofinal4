@@ -1,6 +1,11 @@
 <body class="home">
 
 <html>
+    <div class="alert alert-warning alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Le recordamos que los días <strong>martes y miércoles</strong>, comprando <strong>dos entradas o más</strong>,
+    obtiene un <strong>25% de descuento</strong> sobre el total de su compra.
+    </div>
     <h1 align="center">TARIFAS</h1><br>
 
 <?php
