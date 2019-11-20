@@ -13,34 +13,80 @@
 
 <body class="home">
 
-<br><br>
-<form class="form-inline" action="<?php echo FRONT_ROOT ?>User/searchData" method="POST">
-        <p>&nbsp</p><label for="movie">Cines:  </label><p>&nbsp</p>
-        <select style="width:170px" class="form-control selectpicker" data-live-search="true" id="movie" name="movie" >
-            <option value="" disabled selected>Filtrar por cine</option>
-                <?php foreach ($listadoMT as $movieTheater) { ?>
-                    <option value=<?php echo $movieTheater->getId(); ?> data-tokens="<?php echo $movieTheater->getName(); ?>"><?php echo $movieTheater->getName(); ?></option>
-                <?php } ?>
-        </select>
-        <p>&nbsp</p><label for="movie">Película:  </label><p>&nbsp</p>
-        <select style="width:170px" class="form-control selectpicker" data-live-search="true" id="movie" name="movie" >
-            <option value="" disabled selected>Filtrar por película</option>
-                <?php foreach ($listadoM as $movie) { ?>
-                    <option value=<?php echo $movie->getIdMovie(); ?> data-tokens="<?php echo $movie->getTitle(); ?>"><?php echo $movie->getTitle(); ?></option>
-                <?php } ?>
-        </select>
-        <p>&nbsp</p><label for="dateInit">Desde:  </label><p>&nbsp</p>
-        <input class="form-control" id="dateInit" name="dateInit" placeholder="DD / MM / YYYY" type="text"/>
-    <p>&nbsp</p><p>&nbsp</p><p>&nbsp</p>
+ 
 
-    <p>&nbsp</p><label for="dateFin">Hasta:  </label><p>&nbsp</p>
-        <input class="form-control" id="dateFin" name="dateFin" placeholder="DD / MM / YYYY" type="text"/>
-    <p>&nbsp</p><p>&nbsp</p><p>&nbsp</p>
-    <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+<div align="center">
+    <br><h1>Estadísticas</h1>
+</div>
 
+<table class="table table-hover table-condensed table-bordered table-dark">
+    
+    <thead>
+    
+        <th> </th>
+        <th>Desde</th>
+        <th>Hasta</th>
+        <th>Acción</th>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <form class="form-inline" action="<?php echo FRONT_ROOT ?>User/searchByDates" method="POST">
+                <th scope="row">Entre fechas</th>
+                <td>
+                    <input type="date" class="form-control" id="dateInit" name="dateInit" placeholder="DD / MM / YYYY" required/>  
+                </td>
+                <td>
+                    <input type="date" class="form-control" id="dateFin" name="dateFin" placeholder="DD / MM / YYYY" required/>
+                </td>
+                <td>
+                    <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                </td>
+            </form>
+        </tr>
+        <tr>
+            <form class="form-inline" action="<?php echo FRONT_ROOT ?>User/searchByMovieTheater" method="POST">
+                <th scope="row">Cine</th>
+                <td colspan="2">
+                    <select style="width:800px" class="form-control selectpicker" data-live-search="true" id="movie" name="movie" required>
+                    <option value="" disabled selected>Filtrar por cine</option>
+                        <?php foreach ($listadoMT as $movieTheater) { ?>
+                            <option value=<?php echo $movieTheater->getId(); ?> data-tokens="<?php echo $movieTheater->getName(); ?>"><?php echo $movieTheater->getName(); ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn btn-outline-secondary" type="submit">Filtrar</button>         
+                </td>
+            </form>
+        </tr>
+        <tr>
+            <form class="form-inline" action="<?php echo FRONT_ROOT ?>User/searchByMovie" method="POST">
+                <th scope="row">Película</th>
+                <td colspan="2">
+                    <select style="width:800px" class="form-control selectpicker" data-live-search="true" id="movie" name="movie" required>
+                        <option value="" disabled selected>Filtrar por película</option>
+                            <?php foreach ($listadoM as $movie) { ?>
+                                <option value=<?php echo $movie->getIdMovie(); ?> data-tokens="<?php echo $movie->getTitle(); ?>"><?php echo $movie->getTitle(); ?></option>
+                            <?php } ?>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                </td>
+            </form>
+        </tr>
+
+    </tbody>
+
+</table>
+
+<form action="<?php echo FRONT_ROOT ?>User/consultData" method="POST">
+<button type="submit" class="btn btn-info btn-block">Restaurar valores iniciales</button>
 </form>
 
-<br><br><br><br>
+<br><br>
 <div class="row w-100">
         <div class="col-md-3">
             <div class="card border-info mx-sm-1 p-3">

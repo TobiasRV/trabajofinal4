@@ -159,10 +159,21 @@ class UserController
         $this->logOut();
     }
 
+    //funciones del admin
+
+    //esta funciona bien, para que funcione bien la muestra de datos,
+    //antes de llamar a la vista es necesario setearle valores a las variables
+    //soldTickets, toSoldTickets, earnings, registeredUsers (respetando esos nombres)
     public function consultData()
     {
         $ticketsRepo = new TicketRepository();
         $listadoT = $ticketsRepo->getAll();
+        if(! is_array($listadoT))
+        {
+            $aux = $listadoT;
+            $listadoT = array();
+            array_push($listadoT,$aux);
+        }
         $soldTickets = count($listadoT);
 
         $toSoldTickets = $this->toSoldTickets();
@@ -171,6 +182,12 @@ class UserController
 
         $usersRepo = new UserRepository();
         $listadoU = $usersRepo->getAll();
+        if(! is_array($listadoU))
+        {
+            $aux = $listadoU;
+            $listadoU = array();
+            array_push($listadoU,$aux);
+        }
         $registeredUsers = count($listadoU);
 
         $moviesRepo = new MovieRepository();
@@ -178,6 +195,12 @@ class UserController
 
         $movieTheatersRepo = new MovieTheaterRepository();
         $listadoMT = $movieTheatersRepo->getAll();
+        if(! is_array($listadoMT))
+        {
+            $aux = $listadoMT;
+            $listadoMT = array();
+            array_push($listadoMT,$aux);
+        }
 
         require_once(VIEWS_PATH . "consultData.php");
     }
@@ -261,10 +284,77 @@ class UserController
         return $quantity;
     }
 
-    public function searchData($movieTheater = null, $movie = null, $dateInit = null, $dateFin = null)
+    //esta hay que arreglarla porque no muestra bien los datos (creo que no muestra bien entradas vendidas)
+    public function searchByDates($dateInit, $dateFin)
     {
+        $dateInit = str_replace('/', '-', $dateInit);
+        $dateInit = date("Y-m-d", strtotime($dateInit));
+        $dateFin = str_replace('/', '-', $dateFin);
+        $dateFin = date("Y-m-d", strtotime($dateFin));
+
+        $purchasesRepo = new PurchaseRepository();
+        $listadoP = $purchasesRepo->getAll();
+        $showsRepo = new ShowRepository();
+        $listadoS = $showsRepo->getAll();
+        $ticketsRepo = new TicketRepository();
+        $listadoT = $ticketsRepo->getAll();
+
+        $resultPurchase = array();
+        $resultShow = array();
+        $resultTicket = array();
+
+        if(! is_array($listadoP))
+        {
+            $aux = $listadoP;
+            $listadoP = array();
+            array_push($listadoP,$aux);
+        }
+        foreach($listadoP as $purchase)
+        {
+            if($purchase->getPurchaseDate() >= $dateInit && $purchase->getPurchaseDate() <= $dateFin)
+            {
+                array_push($resultPurchase, $purchase);
+            }
+            if(! is_array($listadoS))
+            {
+                $aux = $listadoS;
+                $listadoS = array();
+                array_push($listadoS,$aux);
+            }
+            foreach($listadoS as $show)
+            {
+                if($purchase->getIdShow() == $show->getId() && $show->getDate() >= $dateInit && $show->getDate() <= $dateFin)
+                {
+                    array_push($resultShow, $show);
+                }
+            }
+            if(! is_array($listadoT))
+            {
+                $aux = $listadoT;
+                $listadoT = array();
+                array_push($listadoT,$aux);
+            }
+            foreach($listadoT as $ticket)
+            {
+                if($purchase->getIdPurchase() == $ticket->getIdPurchase())
+                {
+                    array_push($resultTicket, $ticket);
+                }
+            }
+        }
+
+        $soldTickets = count($resultTicket);
+        $toSoldTickets = $this->toSoldTickets($resultShow);
+        $earnings = $this->calculateEarnings($resultPurchase);
+
         $usersRepo = new UserRepository();
         $listadoU = $usersRepo->getAll();
+        if(! is_array($listadoU))
+        {
+            $aux = $listadoU;
+            $listadoU = array();
+            array_push($listadoU,$aux);
+        }
         $registeredUsers = count($listadoU);
 
         $moviesRepo = new MovieRepository();
@@ -272,64 +362,37 @@ class UserController
 
         $movieTheatersRepo = new MovieTheaterRepository();
         $listadoMT = $movieTheatersRepo->getAll();
+        if(! is_array($listadoMT))
+        {
+            $aux = $listadoMT;
+            $listadoMT = array();
+            array_push($listadoMT,$aux);
+        }
 
-        $cinemasRepo = new CinemaRepository();
-        $listadoC = $cinemasRepo->getAll();
+        require_once(VIEWS_PATH . "consultData.php");
 
-        $showsRepo = new ShowRepository();
-        $listadoS = $showsRepo->getAll();
-        $listadoSAux = array ();
+    }
 
+    //esta está hecha a medias
+    public function searchByMovieTheater($movieTheaterId)
+    {
         $purchasesRepo = new PurchaseRepository();
         $listadoP = $purchasesRepo->getAll();
-        $listadoPAux = array ();
+        $showsRepo = new ShowRepository();
+        $listadoS = $showsRepo->getAll();
+        $ticketsRepo = new TicketRepository();
+        $listadoT = $ticketsRepo->getAll();
+        $movieTheatersRepo = new MovieTheaterRepository();
+        $listadoMT = $movieTheatersRepo->getAll();
+        $moviesRepo = new MovieRepository();
+        $listadoM = $moviesRepo->getAll();
 
-        $soldTickets = 0;
+        $resultPurchase = array();
+        $resultShow = array();
+        $resultTicket = array();
 
-        if($movieTheater != null && $movie != null && $dateInit != null && $dateFin != null)
-        {
-            if(is_array($listadoP))
-            {
-                foreach($listadoP as $purchase)
-                {
-                    if(is_array($listadoS))
-                    {
-                        foreach($listadoS as $show)
-                        {
-                            if($show->getId() == $purchase->getIdShow())
-                            {
-                                if($show->getIdMovie() == $movie->getId())
-                                {
-                                    if($show->getDate() >= $dateInit && $show->getDate() <= $dateFin)
-                                    {
-                                        if(is_array($listadoC))
-                                        {
-                                            foreach($listadoC as $cinema)
-                                            {
-                                                if($cinema->getId() == $show->getIdCinema())
-                                                {
-                                                    if($cinema->getIdMovieTheater() == $movieTheater->getId())
-                                                    {
-                                                        array_push($listadoPAux, $purchase);
-                                                        array_push($listadoSAux, $show);
-                                                        $soldTickets += $purchase->getQuantityTickets();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-
-            }
-        }
     }
+
+    //falta hacer searchByMovie($movie)
 
 }
