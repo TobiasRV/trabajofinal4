@@ -225,7 +225,7 @@ class UserController
             array_push($listadoMT,$aux);
         }
 
-        if ($userControl->checkSession() != false) 
+        if ($this->checkSession() != false) 
         {
                 if ($_SESSION["loggedUser"]->getPermissions() == 2) 
                 {
@@ -416,7 +416,7 @@ class UserController
         }
 
 
-        if ($userControl->checkSession() != false) 
+        if ($this->checkSession() != false) 
             {
                 if ($_SESSION["loggedUser"]->getPermissions() == 2) 
                 {
