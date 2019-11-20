@@ -4,10 +4,13 @@ namespace Controllers;
 
 use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\ShowController as ShowController;
+use Controllers\UserController as UserController;
 use Models\Cinema as Cinema;
 
 use DAOJson\CinemaDAO as CinemaDAO;
+use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
 // use DAO\CinemaRepository as CinemaDAO;
+// use DAO\MovieTheaterRepository as MovieTheaterRepository;
 
 
 class CinemaController
@@ -215,5 +218,53 @@ class CinemaController
             }
         }
         return $result;
+    }
+
+
+    public function showPrices()
+    {
+        $cinemasRepo = new CinemaDAO();
+        $listadoC = $cinemasRepo->getAll();
+        $movieTheatersRepo = new MovieTheaterRepository();
+        $listadoMT = $movieTheatersRepo->getAll();
+        $userControl = new UserController();
+
+        if(!is_array($listadoC))
+        {
+            $aux = $listadoC;
+            $listadoC = array();
+            array_push($listadoC,$aux);
+        }
+        if(!is_array($listadoMT))
+        {
+            $aux = $listadoMT;
+            $listadoMT = array();
+            array_push($listadoMT,$aux);
+        }
+
+        if ($userControl->checkSession() != false) 
+        {
+            if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "navAdmin.php");
+                include_once(VIEWS_PATH . "prices.php");
+            } 
+            else 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    include_once(VIEWS_PATH . "prices.php");
+                }
+            }
+        } 
+        else 
+        {
+            include_once(VIEWS_PATH . "header.php");
+            include_once(VIEWS_PATH . "nav.php");
+            include_once(VIEWS_PATH . "prices.php");
+        }
     }
 }

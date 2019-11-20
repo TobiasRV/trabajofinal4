@@ -13,6 +13,9 @@
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/showMovies">Cartelera</a>
                </li>
                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cinema/showPrices">Tarifas</a>
+               </li>
+               <li class="nav-item">
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?>MovieTheater/viewCreateMovieTheaterOne">Cargar Cine</a>
                </li>
                <li class="nav-item">
