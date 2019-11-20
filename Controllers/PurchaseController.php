@@ -3,25 +3,26 @@
 use Models\Ticket as Ticket;
 use Models\Purchase as Purchase;
 use Controllers\UserController as UserController;
+use Controllers\MovieController as MovieController;
 use Models\CreditCard as CreditCard;
 //DAO BD
-// use DAO\MovieRepository as MovieRepository;
-// use DAO\ShowRepository as ShowRepository;
-// use DAO\MovieTheaterRepository as MovieTheaterRepository;
-// use DAO\CinemaRepository as CinemaRepository;
-// use DAO\PurchaseRepository as PurchaseRepository;
-// use DAO\CreditCardRepository as CreditCardRepository;
-// use DAO\TicketRepository as TicketRepository;
+use DAO\MovieRepository as MovieRepository;
+use DAO\ShowRepository as ShowRepository;
+use DAO\MovieTheaterRepository as MovieTheaterRepository;
+use DAO\CinemaRepository as CinemaRepository;
+use DAO\PurchaseRepository as PurchaseRepository;
+use DAO\CreditCardRepository as CreditCardRepository;
+use DAO\TicketRepository as TicketRepository;
 //END DAO BD
 
 //DAO JSON
-use DAOJson\movieDAO as MovieRepository;
-use DAOJson\ShowDAO as ShowRepository;
-use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
-use DAOJson\CinemaDAO as CinemaRepository;
-use DAOJson\PurchaseRepository as PurchaseRepository;
-use DAOJson\CreditCardRepository as CreditCardRepository;
-use DAOJson\TicketRepository as TicketRepository;
+// use DAOJson\movieDAO as MovieRepository;
+// use DAOJson\ShowDAO as ShowRepository;
+// use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
+// use DAOJson\CinemaDAO as CinemaRepository;
+// use DAOJson\PurchaseRepository as PurchaseRepository;
+// use DAOJson\CreditCardRepository as CreditCardRepository;
+// use DAOJson\TicketRepository as TicketRepository;
 //END DAO JSON
 
 class PurchaseController
@@ -460,10 +461,32 @@ class PurchaseController
     }
     public function emailTickets($tickets)
     {
+        $movieController = new MovieController();
+        // if(!is_array($tickets)){
+        //     $aux = $tickets
+        //     $tickets = array();
+        //     array_push($tickets,$aux);
+        // }
+        
         $to_email = $_SESSION['loggedUser']->getEmail();
         $subject = 'Entradas compradas en MoviePass';
-        $message = 'COMPRASTE ENTRADAS GILASTRUN';
-        $headers = 'From: El equipo de MoviePass, por favor no responder. Le deseamos una buena jornada.';
+        $message ="
+        <html> <head>
+        <title>MoviePass</title>
+        </head> 
+        <body>
+        <p> Felicidades usted adquirio ". count($tickets)." entradas para ".$movieController->searchMovieById($_SESSION["idMovieSearch"])->getTitle().", aqui estan sus codigos QR </p>";
+        
+        foreach($tickets as $t){
+        $message .= 
+        "<td><img src="." https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl= ".$t->getIdTicket()."&choe=UTF-8 hspace="."20"."></td><br></br><br></br>";
+        }
+        $message .= "  </body>
+        </html>";
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        //$headers .= 'From: El equipo de MoviePass, por favor no responder. Le deseamos una buena jornada.';
         mail($to_email,$subject,$message,$headers);
     }
 

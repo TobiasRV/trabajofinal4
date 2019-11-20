@@ -51,7 +51,7 @@
                             <tr>
                                 <td><?php echo $listadoT->getIdPurchase(); ?></td>
                                 <td><?php echo $listadoT->getIdTicket(); ?></td>
-                                <td><?php QRcode::png("a");?></td>
+                                <td><img src="https://chart.googleapis.com/chart?chs=50x50&cht=qr&chl=<?php echo $listadoT->getIdTicket(); ?>&choe=UTF-8"></td>
                             </tr>
                             <?php
                         }
