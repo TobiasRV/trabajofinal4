@@ -1,7 +1,6 @@
 <body class="home">
 
 <?php 
-
 if ($userControl->checkSession() != false) 
 {
     if ($_SESSION["loggedUser"]->getPermissions() == 2) 
@@ -10,6 +9,8 @@ if ($userControl->checkSession() != false)
         include_once(VIEWS_PATH . "navClient.php"); 
     }
 }
+
+
 ?>
 
 
@@ -34,8 +35,11 @@ if ($userControl->checkSession() != false)
         <tbody>
                 <tr>
                     <th scope="row">ID Compra</th>
-                
+                    
                     <th scope="row">Ticket N°</th>
+
+                    <th scope="row">Codigo Qr</th>
+                    
                 </tr>
                 <?php
                     if($listadoT != null) 
@@ -48,6 +52,8 @@ if ($userControl->checkSession() != false)
                             <tr>
                                 <td><?php echo $t->getIdPurchase(); ?></td>
                                 <td><?php echo $t->getIdTicket(); ?></td>
+                                <td><img src="https://chart.googleapis.com/chart?chs=50x50&cht=qr&chl=<?php echo $t->getIdTicket(); ?>&choe=UTF-8"></td>
+                                
                             </tr>
                         <?php
                             }
@@ -58,6 +64,7 @@ if ($userControl->checkSession() != false)
                             <tr>
                                 <td><?php echo $listadoT->getIdPurchase(); ?></td>
                                 <td><?php echo $listadoT->getIdTicket(); ?></td>
+                                <td><?php QRcode::png("a");?></td>
                             </tr>
                             <?php
                         }
@@ -91,6 +98,8 @@ if ($userControl->checkSession() != false)
     <?php 
         include_once(VIEWS_PATH . "footer.php"); 
     ?>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

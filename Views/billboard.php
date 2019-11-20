@@ -104,12 +104,17 @@ if ($userControl->checkSession() != false) {
                                 <?php $movieTheatersOfMovie = array();
                                   $movieTheatersOfMovie = $movieTheaterController->getMovieTheathersNameOfMovie($value->getIdMovie());
                                   if(!empty($movieTheatersOfMovie)){?>
-                                    <h4>    Cines: </h4>
-                                    <ul class="list-group">
-                                        <?php foreach($movieTheatersOfMovie as $movieTheater){ ?>
-                                            <li class="list-group-item"><?php echo $movieTheater;?></li>
-                                        <?php }} ?>
-                                    </ul>
+                                  <table class="table table-condensed table-bordered table-light">
+                                  <thead>
+
+                                        <th class="text-center">Cines</th>
+                                  </thead>
+                                    <?php foreach($movieTheatersOfMovie as $movieTheater){ ?>
+
+                                        <tbody> <tr><td><?php echo $movieTheater; ?></td></tr></tbody>
+
+                                    <?php }} ?>
+                                  </table>
                             </div>
                         </div>
                     </div>

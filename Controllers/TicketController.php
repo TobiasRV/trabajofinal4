@@ -20,6 +20,8 @@
 
 use Controllers\UserController as UserController;
 
+
+
 class TicketController
 {
 
@@ -302,6 +304,7 @@ class TicketController
 
         return $result;
     }
+
 
 //end of class    
 }
