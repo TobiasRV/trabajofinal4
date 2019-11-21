@@ -84,7 +84,8 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    
+                                    <th scope="col">Selección</th>
                                     <th scope="col">Id</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Generos</th>
@@ -93,7 +94,10 @@
                             <tbody>
                                 <?php foreach ($nowPlaying as $val) {  ?>
                                     <tr>
-                                        <th scope="col"><input type="checkbox" name="moviechecked[]" value="<?php echo $val->getIdMovie(); ?>" /></th>
+
+                                        <th scope="col">
+                                            <input type="checkbox" name="moviechecked[]" value="<?php echo $val->getIdMovie(); ?>" data-toggle="toggle" data-on="Si" data-off="No" data-onstyle="success" data-offstyle="danger" data-width="80">
+                                        </th>
                                         <th scope="row"><?php echo $val->getIdMovie(); ?></th>
                                         <td><?php echo $val->getTitle(); ?></td>
                                         <td><?php
@@ -121,6 +125,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
 
     <?php include_once(VIEWS_PATH . "footer.php"); ?>
