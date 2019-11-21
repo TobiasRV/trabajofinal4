@@ -13,7 +13,7 @@ class Show
     
     public function __construct()
     {
-        $this->status = true;
+        $this->status = 1;
     }
 
     public function getId()

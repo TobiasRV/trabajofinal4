@@ -67,12 +67,12 @@ class UserController
         $add = true;
 
         $userRepo = new UserRepository();
-       foreach($userRepo->getAll() as $values){
-           if($values->getEmail() == $email|| $values->getUserName() == $username){
-               $add=false;
-           }
-        } 
-        if($add){
+        foreach ($userRepo->getAll() as $values) {
+            if ($values->getEmail() == $email || $values->getUserName() == $username) {
+                $add = false;
+            }
+        }
+        if ($add) {
             $user = new User(); //crea el nuevo usuario y setea los datos
             $user->setUserName($username);
             $user->setPassword($password);
@@ -85,17 +85,15 @@ class UserController
 
             $_SESSION["loggedUser"] = $user; //se setea el usuario en sesion a la variable session  
             require_once(VIEWS_PATH . "index.php"); //vista del home
-        }
-        else
-        {   
-            echo "No se ha podido registrar el usuario. Inténtelo de nuevo." . "<br>";//manejar mensajes con excepciones
+        } else {
+            echo "No se ha podido registrar el usuario. Inténtelo de nuevo." . "<br>"; //manejar mensajes con excepciones
             $this->signUpForm(); //si no se pudo registrar el usuario se redirecciona al formulario para volver a ingresar datos
         }
     }
 
 
 
-    public function logInForm()
+    public function logInForm($msj = null)
     {
         require_once(VIEWS_PATH . "login.php");
     }
@@ -103,19 +101,17 @@ class UserController
     public function logIn($user = null, $password = null)
     {
 
-        $login = false;
+        $msj = "Datos incorrectos";
         $userRepo = new UserRepository();
-        $userList=$userRepo->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
+        $userList = $userRepo->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
         $view = null;
         $i = 0;
-        foreach ($userList as $values)
-        {
+        foreach ($userList as $values) {
 
-            if (($values->getUserName() == $user) && ($values->getPassword() == $password)) 
-            {   
+            if (($values->getUserName() == $user) && ($values->getPassword() == $password)) {
 
 
-                $login = true;
+                $msj = null;
                 $loggedUser = new User();
                 $loggedUser->setId($values->getId());
                 $loggedUser->setUserName($user);
@@ -129,18 +125,11 @@ class UserController
                 $movieRepo = new MovieRepository();
                 $movieRepo->updateDataBase();
                 require_once(VIEWS_PATH . "index.php");
-           }
+            }
         }
-        
-        if($login == false){
-            $this->logInForm(); //al estar incorrectos los datos se redirecciona al formulario para volverlos a ingresar
 
-            ?>
-            <script>
-                alert("Los datos ingresados son incorrectos. Intente nuevamente.");
-            </script>
-            <?php
-
+        if ($msj != null) {
+            $this->logInForm($msj); //al estar incorrectos los datos se redirecciona al formulario para volverlos a ingresar
         }
     }
 
@@ -169,8 +158,8 @@ class UserController
         }
     }
 
-    public function modifyUser($firstname, $lastname, $email,$dni, $username, $password)
-    { 
+    public function modifyUser($firstname, $lastname, $email, $dni, $username, $password)
+    {
         $newUser = new User();
         $newUser->setId($_SESSION['loggedUser']->getId());
         $newUser->setFirstname($firstname);
@@ -193,11 +182,10 @@ class UserController
     {
         $ticketsRepo = new TicketRepository();
         $listadoT = $ticketsRepo->getAll();
-        if(! is_array($listadoT))
-        {
+        if (!is_array($listadoT)) {
             $aux = $listadoT;
             $listadoT = array();
-            array_push($listadoT,$aux);
+            array_push($listadoT, $aux);
         }
         //variable que va a la vista
         $soldTickets = count($listadoT);
@@ -210,11 +198,10 @@ class UserController
 
         $usersRepo = new UserRepository();
         $listadoU = $usersRepo->getAll();
-        if(! is_array($listadoU))
-        {
+        if (!is_array($listadoU)) {
             $aux = $listadoU;
             $listadoU = array();
-            array_push($listadoU,$aux);
+            array_push($listadoU, $aux);
         }
         //variable que va a la vista
         $registeredUsers = count($listadoU);
@@ -226,11 +213,10 @@ class UserController
         //lista de Cines que va a la vista(para elegir filtros)
         $movieTheatersRepo = new MovieTheaterRepository();
         $listadoMT = $movieTheatersRepo->getAll();
-        if(! is_array($listadoMT))
-        {
+        if (!is_array($listadoMT)) {
             $aux = $listadoMT;
             $listadoMT = array();
-            array_push($listadoMT,$aux);
+            array_push($listadoMT, $aux);
         }
 
         if ($this->checkSession() != false) 
@@ -323,11 +309,10 @@ class UserController
         $resultShow = array();
         $resultTicket = array();
 
-        if(! is_array($listadoP))
-        {
+        if (!is_array($listadoP)) {
             $aux = $listadoP;
             $listadoP = array();
-            array_push($listadoP,$aux);
+            array_push($listadoP, $aux);
         }
         if(! is_array($listadoS))
         {
@@ -370,11 +355,10 @@ class UserController
 
         $usersRepo = new UserRepository();
         $listadoU = $usersRepo->getAll();
-        if(! is_array($listadoU))
-        {
+        if (!is_array($listadoU)) {
             $aux = $listadoU;
             $listadoU = array();
-            array_push($listadoU,$aux);
+            array_push($listadoU, $aux);
         }
         $registeredUsers = count($listadoU);
 
@@ -383,38 +367,13 @@ class UserController
 
         $movieTheatersRepo = new MovieTheaterRepository();
         $listadoMT = $movieTheatersRepo->getAll();
-        if(! is_array($listadoMT))
-        {
+        if (!is_array($listadoMT)) {
             $aux = $listadoMT;
             $listadoMT = array();
-            array_push($listadoMT,$aux);
+            array_push($listadoMT, $aux);
         }
 
-
-        if ($this->checkSession() != false) 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-                {
-                    include_once(VIEWS_PATH . "header.php");
-                    include_once(VIEWS_PATH . "navClient.php");
-                    require_once(VIEWS_PATH . "index.php");
-                }
-                else 
-                {
-                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                    {
-                        include_once(VIEWS_PATH . "header.php");
-                        include_once(VIEWS_PATH . "navAdmin.php");
-                        include_once(VIEWS_PATH . "consultData.php");
-                    }
-                } 
-            } 
-            else 
-            {
-                include_once(VIEWS_PATH . "header.php");
-                include_once(VIEWS_PATH . "nav.php");
-                include_once(VIEWS_PATH . "index.php");
-            }
+        require_once(VIEWS_PATH . "consultData.php");
     }
 
     //esta está hecha a medias

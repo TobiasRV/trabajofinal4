@@ -122,11 +122,6 @@ class CinemaController
     }
 
 
-
-
-
-
-
     public function createCinema($name, $seatsNumber, $price, $idMovieTheater)
     {
         $cinema = new Cinema();
@@ -138,8 +133,10 @@ class CinemaController
 
         $this->cinemaDAO->Add($cinema);
     }
-    public function modifyCinema($id, $status, $name, $seatsNumber, $idMovieTheater)
+
+    public function modifyCinema($id, $status, $name, $seatsNumber, $ticketPrice, $idMovieTheater)
     {
+        $movieTheaterController = new MovieTheaterController();
         $cinemaList = $this->cinemaDAO->getAll();
         $cinemaAux = new Cinema();
         foreach ($cinemaList as $cinema) {
@@ -147,12 +144,22 @@ class CinemaController
                 $cinemaAux->setId($id);
                 $cinemaAux->setStatus($status);
                 $cinemaAux->setName($name);
+                $cinemaAux->setTicketPrice($ticketPrice);
                 $cinemaAux->createSeats($seatsNumber);
                 $cinemaAux->setIdMovieTheater($idMovieTheater);
                 break;
             }
         }
-        $this->cinemaDao->edit($cinemaAux);
+        $this->cinemaDAO->edit($cinemaAux);
+        
+        $movieTheaterController->listCinemas();
+
+    }
+
+    public function viewModifyCinema($idCinema){
+        $cinema = $this->getCinemaById($idCinema);
+
+        require_once(VIEWS_PATH . "modifycinema.php");
     }
     
 

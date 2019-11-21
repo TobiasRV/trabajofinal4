@@ -3,12 +3,12 @@
 
 require_once(VIEWS_PATH . "header.php");
 require_once(VIEWS_PATH . "navAdmin.php");
-        ?>
+?>
 
 
 <body class="home">
-    <div class="container">
-        <h1>Crear Cine</h1>
+    <div class="container">     
+        <h1>Crear Cine</h1> 
         <form action="<?php echo FRONT_ROOT ?>MovieTheater/viewCreateMovieTheaterTwo" method="post">
             <div class="form-group">
                 <label for="name">Nombre</label>
@@ -31,5 +31,16 @@ require_once(VIEWS_PATH . "navAdmin.php");
             </div>
         </form>
     </div>
+    
 
-    <?php include_once(VIEWS_PATH . "footer.php"); ?>
+
+<?php if($msj != null){?>
+    <script>swal({
+  title: "Error!",
+  text: "<?php echo $msj; ?>",
+  icon: "warning",
+});</script>
+<?php } ?>
+
+<?php include_once(VIEWS_PATH . "footer.php"); 
+ 

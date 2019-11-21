@@ -13,6 +13,7 @@
     <script src="https://kit.fontawesome.com/21dd680c2a.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<?php echo FRONT_CSS; ?>style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>MoviePass</title>
 </head>
 
@@ -65,5 +66,13 @@ include_once(VIEWS_PATH . "nav.php");
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
 
+
+    <?php if($msj != null){?>
+        <script>swal({
+    title: "Error!",
+    text: "<?php echo $msj; ?>",
+    icon: "warning",
+    });</script>
+    <?php } ?>
     <?php
-    include_once(VIEWS_PATH . "footer.php");
+    include_once(VIEWS_PATH . "footer.php");?>

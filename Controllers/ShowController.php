@@ -24,26 +24,35 @@ class ShowController
     {
         $showList = $this->showDAO->getAll();
         $result = array();
-        if($showList != false){
-            if(is_array($showList))
-            {
-                foreach ($showList as $show) 
-                {
-                    if ($show->getIdCinema() == $idCinema) 
-                    {
+        if ($showList != false) {
+            if (is_array($showList)) {
+                foreach ($showList as $show) {
+                    if ($show->getIdCinema() == $idCinema) {
                         array_push($result, $show);
                     }
                 }
-            }
-            else
-            {
-                array_push($result, $showList);  
+            } else {
+                array_push($result, $showList);
             }
         }
         return $result;
     }
 
-    public function createShow($idCinema, $date, $time, $idMovie,$seats)
+    public function getShowListByCinemaByDate($idCinema)
+    {
+        $showList = $this->getShowListByCinema($idCinema);
+        $result = array();
+
+        foreach ($showList as $show) {
+            if ($show->getDate() >= date("Y-m-d")) {
+                array_push($result, $show);
+            }
+        }
+
+        return $result;
+    }
+
+    public function createShow($idCinema, $date, $time, $idMovie, $seats)
     {
         $movieTheaterController = new MovieTheaterController();
         $show = new Show();
@@ -54,9 +63,8 @@ class ShowController
         $show->setSeats($seats);
 
         $this->showDAO->Add($show);
-        
+
         $movieTheaterController->listCinemas();
-        
     }
 
 
@@ -84,30 +92,32 @@ class ShowController
     {
         $showList = $this->showDAO->getAll();
 
-        if($showList != false){
-            if(is_array($showList)){
-            foreach ($showList as $show) {
-                if ($show->getIdCinema() == $idCinema) {
-                    $this->deleteShowById($show->getId());
+        if ($showList != false) {
+            if (is_array($showList)) {
+                foreach ($showList as $show) {
+                    if ($show->getIdCinema() == $idCinema) {
+                        $this->deleteShowById($show->getId());
+                    }
                 }
-            }
-        }
-            else {
+            } else {
                 if ($showList->getIdCinema() == $idCinema) {
-                $this->deleteShowById($showList->getId());
+                    $this->deleteShowById($showList->getId());
                 }
             }
         }
+    }
+
+    public function deleteShowByIdAndView($id){
+        $this->showDAO->deleteFisico($id);
+        $movieTheaterController = new MovieTheaterController();
+        $movieTheaterController->listCinemas();
+        
     }
 
     public function deleteShowById($id)
     {
-
-        $showList = $this->showDAO->deleteFisico($id);
+        $this->showDAO->deleteFisico($id);
     }
-
-
-
 
 
     public function addShowOne($movieTheaterName = null, $cinemaName = null)
@@ -135,30 +145,28 @@ class ShowController
 
         $freeIds = array();
 
-        if(is_array($billBoard)){
+        if (is_array($billBoard)) {
             foreach ($billBoard as $movieId) {
                 if (!in_array($movieId, $takenIds)) {
                     array_push($freeIds, $movieId);
                 }
             }
-        } 
-        else{
+        } else {
             if (!in_array($billBoard, $takenIds)) {
                 array_push($freeIds, $billBoard);
             }
-        }  
+        }
 
         $movieTheater = $movieTheaterController->getMovieTheaterByName($movieTheaterName);
 
         $freeMovies = array();
-        if(is_array($movieTheater->getBillBoard())){
+        if (is_array($movieTheater->getBillBoard())) {
             foreach ($movieTheater->getBillBoard() as $idMovie) {
                 if (in_array($idMovie, $freeIds)) {
                     array_push($freeMovies, $movieController->searchMovieById($idMovie));
                 }
             }
-        }
-        else{
+        } else {
             if (in_array($movieTheater->getBillBoard(), $freeIds)) {
                 array_push($freeMovies, $movieController->searchMovieById($movieTheater->getBillBoard()));
             }
@@ -199,11 +207,10 @@ class ShowController
 
         $result = array();
         $showList = array();
-        
-        if($movieTheater == null){
+
+        if ($movieTheater == null) {
             $showList = $movieController->getNowPlaying();
-        }
-        elseif ($movieTheater == "allMovieTheaters") {
+        } elseif ($movieTheater == "allMovieTheaters") {
             $showList = $movieTheaterController->getShowsOfAllMovieTheater();
         } else {
             $showList = $movieTheaterController->getShowsByMovieTheater($movieTheaterController->getNameById($movieTheater));
@@ -213,16 +220,16 @@ class ShowController
             foreach ($showList as $show) {
                 if ($show->getDate() == $date) {
                     $movie = $movieController->searchMovieById($show->getIdMovie());
-                    if(!in_array($movie, $result)){
-                    array_push($result, $movie);
+                    if (!in_array($movie, $result)) {
+                        array_push($result, $movie);
                     }
                 }
             }
         } else {
             foreach ($showList as $show) {
                 $movie = $movieController->searchMovieById($show->getIdMovie());
-                if(!in_array($movie, $result)){
-                array_push($result, $movie);
+                if (!in_array($movie, $result)) {
+                    array_push($result, $movie);
                 }
             }
         }

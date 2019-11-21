@@ -11,7 +11,7 @@ class MovieTheater
 
     public function __construct()
     {
-		$this->status = true;
+		$this->status = 1;
     }
     
 	public function getId(){

@@ -34,5 +34,17 @@
         "tickets": [],
         "dni": "41306776",
         "creditCards": []
+    },
+    {
+        "id": 3,
+        "userName": "ChristianSol",
+        "password": "1234",
+        "email": "correofalso123@gmail.com",
+        "firstname": "Christian",
+        "lastname": "Soldano",
+        "permissions": 1,
+        "tickets": [],
+        "dni": "40020327",
+        "creditCards": []
     }
 ]
