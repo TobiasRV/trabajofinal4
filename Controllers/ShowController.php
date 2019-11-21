@@ -7,8 +7,8 @@ use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\CinemaController as CinemaController;
 use Controllers\MovieController as MovieController;
 
-use DAOJson\ShowDAO as ShowDAO;
-//use DAO\ShowRepository as ShowDAO;
+// use DAOJson\ShowDAO as ShowDAO;
+use DAO\ShowRepository as ShowDAO;
 
 
 class ShowController
@@ -206,37 +206,50 @@ class ShowController
         $movieController = new MovieController();
 
         $result = array();
-        $showList = array();
-
-        if ($movieTheater == null) {
-            $showList = $movieController->getNowPlaying();
-        } elseif ($movieTheater == "allMovieTheaters") {
-            $showList = $movieTheaterController->getShowsOfAllMovieTheater();
-        } else {
-            $showList = $movieTheaterController->getShowsByMovieTheater($movieTheaterController->getNameById($movieTheater));
-        }
-
-        if ($date != null) {
-            foreach ($showList as $show) {
-                if ($show->getDate() == $date) {
-                    $movie = $movieController->searchMovieById($show->getIdMovie());
-                    if (!in_array($movie, $result)) {
+        $list = array();
+        
+        if($movieTheater == null){
+            $list = $movieController->getNowPlaying();
+                if($date != null){
+                    foreach($list as $movie){
+                        if($movie->getReleaseDate() == $date){
                         array_push($result, $movie);
                     }
                 }
+                
             }
-        } else {
-            foreach ($showList as $show) {
-                $movie = $movieController->searchMovieById($show->getIdMovie());
-                if (!in_array($movie, $result)) {
+            else{
+                $result = $list;
+            } 
+        }
+        else{
+            if ($movieTheater == "allMovieTheaters") {
+                $list = $movieTheaterController->getShowsOfAllMovieTheater();
+            } else {
+                $list = $movieTheaterController->getShowsByMovieTheater($movieTheaterController->getNameById($movieTheater));
+            }
+
+            if ($date != null) {
+                foreach ($list as $show) {
+                    if ($show->getDate() == $date) {
+                        $movie = $movieController->searchMovieById($show->getIdMovie());
+                        if(!in_array($movie, $result)){
+                        array_push($result, $movie);
+                        }
+                    }
+                }
+            } else {
+                foreach ($list as $show) {
+                    $movie = $movieController->searchMovieById($show->getIdMovie());
+                    if(!in_array($movie, $result)){
                     array_push($result, $movie);
+                    }
                 }
             }
         }
-
+        
         return $result;
     }
-
 
     public function generatePossibleTimes($idCinema, $date)
     {

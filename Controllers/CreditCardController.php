@@ -1,11 +1,11 @@
 <?php namespace Controllers;
 
 //DAO BD
-//use DAO\CreditCardRepository as CreditCardRepository;
+use DAO\CreditCardRepository as CreditCardRepository;
 //END DAO BD
 
 //DAO JSON
-use DAOJson\CreditCardRepository as CreditCardRepository;
+// use DAOJson\CreditCardRepository as CreditCardRepository;
 //END DAO JSON
 
 use Models\CreditCard as CreditCard;
