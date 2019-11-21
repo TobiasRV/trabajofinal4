@@ -1,4 +1,6 @@
-<?php namespace Models;
+<?php
+
+namespace Models;
 
 class Purchase
 {
@@ -11,9 +13,7 @@ class Purchase
     private $idCreditCard;
 
     public function __construct()
-    {
-        
-    }
+    { }
 
     public function getIdPurchase()
     {
@@ -22,9 +22,9 @@ class Purchase
 
     public function setIdPurchase($idPurchase)
     {
-        $this->idPurchase=$idPurchase;
+        $this->idPurchase = $idPurchase;
     }
-   
+
 
     public function getPurchaseDate()
     {
@@ -33,44 +33,44 @@ class Purchase
 
     public function setPurchaseDate($purchaseDate)
     {
-        $this->purchaseDate=$purchaseDate;
+        $this->purchaseDate = $purchaseDate;
     }
-    
+
     public function getQuantityTickets()
     {
         return $this->quantityTickets;
     }
     public function setQuantityTickets($quantityTickets)
     {
-        $this->quantityTickets=$quantityTickets;
+        $this->quantityTickets = $quantityTickets;
     }
-    
+
     public function getTotal()
     {
         return $this->total;
     }
     public function setTotal($total)
     {
-        $this->total=$total;
+        $this->total = $total;
     }
 
-    
+
     public function getDiscount()
     {
         return $this->discount;
     }
     public function setDiscount($discount)
     {
-        $this->discount=$discount;
+        $this->discount = $discount;
     }
-    
+
     public function getEmailUser()
     {
         return $this->emailUser;
     }
     public function setEmailUser($emailUser)
     {
-        $this->emailUser=$emailUser;
+        $this->emailUser = $emailUser;
     }
 
     public function getIdShow()
@@ -79,7 +79,7 @@ class Purchase
     }
     public function setIdShow($idShow)
     {
-        $this->idShow=$idShow;
+        $this->idShow = $idShow;
     }
 
     public function getIdCreditCard()
@@ -88,7 +88,6 @@ class Purchase
     }
     public function setIdCreditCard($idCreditCard)
     {
-        $this->idCreditCard=$idCreditCard;
+        $this->idCreditCard = $idCreditCard;
     }
-
 }

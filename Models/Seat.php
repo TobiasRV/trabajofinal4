@@ -1,28 +1,35 @@
-<?php namespace Models;
+<?php
 
-class Seat{
-    private $number;
-    private $status;
+namespace Models;
 
-    public function __construct($number,$status)
-    {
-        $this->number = $number;
-        $this->status = $status;
-    }
+class Seat
+{
+	private $number;
+	private $status;
 
-    public function getNumber(){
+	public function __construct($number, $status)
+	{
+		$this->number = $number;
+		$this->status = $status;
+	}
+
+	public function getNumber()
+	{
 		return $this->number;
 	}
 
-	public function setNumber($number){
+	public function setNumber($number)
+	{
 		$this->number = $number;
 	}
 
-	public function getStatus(){
+	public function getStatus()
+	{
 		return $this->status;
 	}
 
-	public function setStatus($status){
+	public function setStatus($status)
+	{
 		$this->status = $status;
 	}
 }

@@ -1,21 +1,23 @@
-<?php namespace DAOJson;
+<?php
+
+namespace DAOJson;
 
 use Models\Purchase as Purchase;
 use DAOJson\IRepository as IRepository;
 
 class PurchaseRepository implements IRepository
 {
-    private $purchaseList = array ();
+    private $purchaseList = array();
 
-    public function __constructor(){
+    public function __constructor()
+    { }
 
-    }
+    public function Add($purchase)
+    {
 
-    public function Add($purchase){ 
 
-        
         $this->retrieveData();
-    
+
         if (empty($this->purchaseList)) {
             $newId = 1;
         } else {
@@ -31,36 +33,34 @@ class PurchaseRepository implements IRepository
     public function read($id)
     {
         $this->retrieveData();
-        $flag=false;
+        $flag = false;
         $purchaseReturn = new Ticket();
-        foreach($this->purchaseList as $p)
-        {
-            if(!$flag)
-            {
-                if($id==$p->getIdPurchase())
-                {
-                    $flag=true;
-                    $purchaseReturn=$p;
+        foreach ($this->purchaseList as $p) {
+            if (!$flag) {
+                if ($id == $p->getIdPurchase()) {
+                    $flag = true;
+                    $purchaseReturn = $p;
                 }
             }
         }
         return $purchaseReturn;
     }
 
-    public function getAll(){
+    public function getAll()
+    {
 
         $this->retrieveData();
 
         return $this->purchaseList;
     }
 
-    public function saveData(){
+    public function saveData()
+    {
 
         $arrayToJson = array();
 
-        foreach($this->purchaseList as $purchase){
+        foreach ($this->purchaseList as $purchase) {
 
-            //id?
             $valuesArray["id"] = $purchase->getIdPurchase();
             $valuesArray["purchaseDate"] = $purchase->getPurchaseDate();
             $valuesArray["quantityTickets"] = $purchase->getQuantityTickets();
@@ -68,7 +68,7 @@ class PurchaseRepository implements IRepository
             $valuesArray["discount"] = $purchase->getDiscount();
             $valuesArray["idShow"] = $purchase->getIdShow();
             $valuesArray["idCreditCard"] = $purchase->getIdCreditCard();
-           
+
 
             array_push($arrayToJson, $valuesArray);
         }
@@ -79,20 +79,21 @@ class PurchaseRepository implements IRepository
     }
 
 
-    public function retrieveData(){
+    public function retrieveData()
+    {
 
-        $this->purchaseList = array ();
-       
-        if(file_exists('Data/purchases.json')){
+        $this->purchaseList = array();
+
+        if (file_exists('Data/purchases.json')) {
 
             $jsonContent = file_get_contents('Data/purchases.json');
-    
-            $arrayToDecode= ($jsonContent) ? json_decode($jsonContent, true) : array();
-         
-            foreach($arrayToDecode as $valuesArray){
+
+            $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
+
+            foreach ($arrayToDecode as $valuesArray) {
 
                 $purchase = new Purchase();
-                
+
                 $purchase->setIdPurchase($valuesArray["id"]);
                 $purchase->setPurchaseDate($valuesArray["purchaseDate"]);
                 $purchase->setQuantityTickets($valuesArray["quantityTickets"]);
@@ -100,24 +101,19 @@ class PurchaseRepository implements IRepository
                 $purchase->setDiscount($valuesArray["discount"]);
                 $purchase->setIdShow($valuesArray["idShow"]);
                 $purchase->setIdCreditCard($valuesArray["idCreditCard"]);
-              
 
-                //$purchase->toString();
                 array_push($this->purchaseList, $purchase);
             }
         }
     }
 
-    public function edit($purchase) {
-
-        //se supone que no podes editar una compra
-      }
+    public function edit($purchase)
+    { }
 
 
-          
-        public function delete($name) {
-           //No nos pidieron reembolsos asi que queda asi por ahora
-            }
+
+    public function delete($name)
+    { }
 
 
     public function getLastPurchase()
@@ -128,37 +124,28 @@ class PurchaseRepository implements IRepository
     }
 
 
-   //devuelve un arreglo de purchases que coinciden con el id de creditCard
-   public function getPurchasesByIdCreditCard($idCreditCard)
-   {
-       $result = array ();
+    //devuelve un arreglo de purchases que coinciden con el id de creditCard
+    public function getPurchasesByIdCreditCard($idCreditCard)
+    {
+        $result = array();
 
-       if($idCreditCard != null)
-       {
+        if ($idCreditCard != null) {
             $this->retrieveData();
-            if(is_array($this->purchaseList))
-            {
-                foreach($this->purchaseList as $purchase)
-                {
-                    if($idCreditCard == $purchase->getIdCreditCard())
-                    {
+            if (is_array($this->purchaseList)) {
+                foreach ($this->purchaseList as $purchase) {
+                    if ($idCreditCard == $purchase->getIdCreditCard()) {
                         array_push($result, $purchase);
                     }
                 }
-            }
-            else
-            {
-                if($idCreditCard == $this->purchaseList->getIdCreditCard())
-                {
+            } else {
+                if ($idCreditCard == $this->purchaseList->getIdCreditCard()) {
                     array_push($result, $this->purchaseList);
                 }
             }
-       }
-       else
-       {
+        } else {
             $result = $this->purchaseList;
-       }
+        }
 
-       return $result;
-   }
+        return $result;
+    }
 }

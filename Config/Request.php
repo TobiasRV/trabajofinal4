@@ -2,13 +2,12 @@
 
     class Request
     {
-        private $controller; // aca se almacena el nombre del controller
-        private $method; // aca se almacena el nombre del metodo del controller
-        private $parameters = array(); // aca se almacenan los parametros
+        private $controller; 
+        private $method; 
+        private $parameters = array(); 
         public function __construct()
         {
-            // descompone la url recibida de manera tal de obtener el nombre del controller
-            // y el method a ejecutar.
+
             $url = filter_input(INPUT_GET, "url", FILTER_SANITIZE_URL);  
             $urlArray = explode("/", $url);
             $urlArray = array_filter($urlArray);

@@ -1,32 +1,38 @@
-<?php namespace Models;
+<?php
+
+namespace Models;
 
 class MovieTheater
-{ 
+{
 	private $id;
 	private $status;
 	private $name;
 	private $address;
-    private $billBoard = array();
+	private $billBoard = array();
 	private $cinemas = array();
 
-    public function __construct()
-    {
+	public function __construct()
+	{
 		$this->status = 1;
-    }
-    
-	public function getId(){
+	}
+
+	public function getId()
+	{
 		return $this->id;
 	}
 
-	public function setId($id){
+	public function setId($id)
+	{
 		$this->id = $id;
 	}
 
-	public function getStatus(){
+	public function getStatus()
+	{
 		return $this->status;
 	}
 
-	public function setStatus($status){
+	public function setStatus($status)
+	{
 		$this->status = $status;
 	}
 
@@ -58,10 +64,10 @@ class MovieTheater
 	public function setBillBoard($billBoard)
 	{
 		$this->billBoard = $billBoard;
-    }
-    
+	}
 
-    public function getCinemas()
+
+	public function getCinemas()
 	{
 		return $this->cinemas;
 	}

@@ -184,7 +184,6 @@ class MovieRepository extends Singleton implements Irepository{
 
   
           public function delete($id_movie) {
-               echo "La base de datos de peliculas es sagrada y blasfemo el que quiera atentar contra ella.";
           }
 
 

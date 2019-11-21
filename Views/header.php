@@ -16,6 +16,14 @@
      <link rel="stylesheet" href="<?php echo FRONT_CSS; ?>estilos.css">
      <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-     <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+     <script type="text/javascript">
+          (function() {
+               var css = document.createElement('link');
+               css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css';
+               css.rel = 'stylesheet';
+               css.type = 'text/css';
+               document.getElementsByTagName('head')[0].appendChild(css);
+          })();
+     </script>
      <title>MoviePass</title>
 </head>

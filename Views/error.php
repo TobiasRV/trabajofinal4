@@ -11,7 +11,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
 
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="<?php echo FRONT_CSS;?>errorstyle.css" />
+	<link type="text/css" rel="stylesheet" href="<?php echo FRONT_CSS; ?>errorstyle.css" />
 
 
 </head>
@@ -24,7 +24,7 @@
 				<h1>Error!</h1>
 				<h2>Algo salió mal:</h2>
 			</div>
-			<a href="<?php echo FRONT_ROOT?>">Ir a la pagina de inicio</a>
+			<a href="<?php echo FRONT_ROOT ?>">Ir a la pagina de inicio</a>
 		</div>
 	</div>
 

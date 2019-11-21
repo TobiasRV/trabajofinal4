@@ -19,7 +19,7 @@ class CinemaDAO implements IRepository
             $lastElement = end($this->cinemaList);
             $cinema->setId($lastElement->getId() + 1);
         }
-       
+
 
         array_push($this->cinemaList, $cinema);
 
@@ -101,24 +101,22 @@ class CinemaDAO implements IRepository
     public function read($id)
     {
         $this->retrieveData();
-        $flag=false;
+        $flag = false;
         $cinemaReturn = new Cinema();
-        foreach($this->cinemaList as $t)
-        {
-            if(!$flag)
-            {
-                if($id==$t->getId())
-                {
-                    $flag=true;
-                    $cinemaReturn=$t;
+        foreach ($this->cinemaList as $t) {
+            if (!$flag) {
+                if ($id == $t->getId()) {
+                    $flag = true;
+                    $cinemaReturn = $t;
                 }
             }
         }
         return $cinemaReturn;
     }
 
-    
-    public function edit($cinema){
+
+    public function edit($cinema)
+    {
 
         $this->retrieveData();
         foreach ($this->cinemaList as $cine) {
@@ -128,7 +126,7 @@ class CinemaDAO implements IRepository
                 $cine->setTicketPrice($cinema->getTicketPrice());
                 $cine->setSeats($cinema->getSeats());
                 $cine->setIdMovieTheater($cinema->getIdMovieTheater());
-    
+
                 break;
             }
         }
@@ -138,7 +136,7 @@ class CinemaDAO implements IRepository
     public function deleteFisico($id)
     {
 
-        
+
         $this->retrieveData();
 
         foreach ($this->cinemaList as $cinema) {
@@ -150,8 +148,5 @@ class CinemaDAO implements IRepository
         }
 
         $this->saveData();
-      
-
     }
-
 }

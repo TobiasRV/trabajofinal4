@@ -1,4 +1,6 @@
-<?php namespace Models;
+<?php
+
+namespace Models;
 
 class Show
 {
@@ -10,7 +12,7 @@ class Show
     private $idCinema;
     private $idMovie;
 
-    
+
     public function __construct()
     {
         $this->status = 1;
@@ -23,7 +25,7 @@ class Show
 
     public function setId($id)
     {
-        $this->id=$id;
+        $this->id = $id;
     }
 
     public function getTime()
@@ -33,7 +35,7 @@ class Show
 
     public function setTime($time)
     {
-        $this->time=$time;
+        $this->time = $time;
     }
 
     public function getStatus()
@@ -43,7 +45,7 @@ class Show
 
     public function setStatus($status)
     {
-        $this->status=$status;
+        $this->status = $status;
     }
     public function getSeats()
     {
@@ -52,7 +54,7 @@ class Show
 
     public function setSeats($seats)
     {
-        $this->seats=$seats;
+        $this->seats = $seats;
     }
 
     public function getDate()
@@ -62,7 +64,7 @@ class Show
 
     public function setDate($date)
     {
-        $this->date=$date;
+        $this->date = $date;
     }
 
     public function getIdCinema()
@@ -72,7 +74,7 @@ class Show
 
     public function setIdCinema($idCinema)
     {
-        $this->idCinema=$idCinema;
+        $this->idCinema = $idCinema;
     }
 
     public function getIdMovie()
@@ -82,6 +84,6 @@ class Show
 
     public function setIdMovie($idMovie)
     {
-        $this->idMovie=$idMovie;
+        $this->idMovie = $idMovie;
     }
 }

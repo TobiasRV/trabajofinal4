@@ -84,7 +84,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    
+
                                     <th scope="col">Selección</th>
                                     <th scope="col">Id</th>
                                     <th scope="col">Nombre</th>

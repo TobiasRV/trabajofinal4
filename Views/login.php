@@ -26,53 +26,55 @@ include_once(VIEWS_PATH . "nav.php");
 ?>
 
 <body class="home">
-<br><br><br><br>
-    
-        <!-- Sing in  Form -->
-        <section class="sign-in">
-            <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
-                        <figure><img src="<?php echo FRONT_ROOT; ?>Views/img/logo.png" alt="sing up image"></figure>
-                        <a href="<?php echo FRONT_ROOT?>User/signUpForm" class="signup-image-link">Crear Cuenta</a>
-                    </div>
+    <br><br><br><br>
 
-                    <div class="signin-form">
-                        <h2 class="form-title">Iniciar Sesión</h2>
-                        <form action="<?php echo FRONT_ROOT ?>User/logIn" method="post" class="register-form" id="login-form">
-                            <div class="form-group">
-                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="user" id="name" placeholder="Usuario" required="required" />
-                            </div>
-                            <div class="form-group">
-                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="password" placeholder="Contraseña" required="required" />
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Recordarme</label>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Ingresar" />
-                            </div>
-                        </form>
-                    </div>
+    <!-- Sing in  Form -->
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="<?php echo FRONT_ROOT; ?>Views/img/logo.png" alt="sing up image"></figure>
+                    <a href="<?php echo FRONT_ROOT ?>User/signUpForm" class="signup-image-link">Crear Cuenta</a>
+                </div>
+
+                <div class="signin-form">
+                    <h2 class="form-title">Iniciar Sesión</h2>
+                    <form action="<?php echo FRONT_ROOT ?>User/logIn" method="post" class="register-form" id="login-form">
+                        <div class="form-group">
+                            <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="user" id="name" placeholder="Usuario" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="password" id="password" placeholder="Contraseña" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Recordarme</label>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Ingresar" />
+                        </div>
+                    </form>
                 </div>
             </div>
-        </section>
- 
+        </div>
+    </section>
+
 
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
 
 
-    <?php if($msj != null){?>
-        <script>swal({
-    title: "Error!",
-    text: "<?php echo $msj; ?>",
-    icon: "warning",
-    });</script>
+    <?php if ($msj != null) { ?>
+        <script>
+            swal({
+                title: "Error!",
+                text: "<?php echo $msj; ?>",
+                icon: "warning",
+            });
+        </script>
     <?php } ?>
     <?php
-    include_once(VIEWS_PATH . "footer.php");?>
+    include_once(VIEWS_PATH . "footer.php"); ?>

@@ -59,7 +59,7 @@ class MovieTheaterRepository extends Singleton implements Irepository
                
            }
 
-          //Devuelve el ultimo id insertado en MovieTheaters (creo)
+          //Devuelve el ultimo id insertado en MovieTheaters
           public function getLastInsertId()
           {
                $sql = "SELECT mt.id_movietheater 

@@ -68,7 +68,7 @@ class CinemaRepository extends Singleton implements Irepository
     if($cinemaList != false){
     if(is_array($cinemaList)){
         foreach($cinemaList as $cine ){
-            $cine->createSeats($cine->getSeats());//esto funca porque en la bd se guarda como int no array
+            $cine->createSeats($cine->getSeats());//esto funciona porque en la bd se guarda como int no array
         }
     }
     else {

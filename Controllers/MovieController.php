@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use DAOJson\movieDAO as MovieDAO;  
+use DAOJson\movieDAO as MovieDAO;
 use DAOJson\CinemaDAO as CinemaDAO;
 
 // use DAO\movieRepository as MovieDAO;
@@ -197,6 +197,22 @@ class MovieController
             require_once(VIEWS_PATH . "error.php");
             require_once(VIEWS_PATH . "footer.php");
         } else {
+            $userControl = new UserController();
+
+            if ($userControl->checkSession() != false) {
+                if ($_SESSION["loggedUser"]->getPermissions() == 1) {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navAdmin.php");
+                } else {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 2) {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navClient.php");
+                    }
+                }
+            } else {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+            }
             require_once(VIEWS_PATH . "billboard.php");
         }
     }

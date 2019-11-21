@@ -60,9 +60,7 @@
                             <input id="id" name="id" type="hidden" value="<?php echo $cinema->getId(); ?>">
                             <input id="movieTheaterName" name="movieTheaterName" type="hidden" value="<?php echo $movieTheater->getName(); ?>">
                             <button name="summit" type="summit" class="btn btn-danger fas fa-trash-alt"></button>
-                            <!--POR QUE ESTE BOTON NO ANDA? -->
-                            <!-- <a class="" href="<?php //echo FRONT_ROOT . "Cinema/deleteCinemaById/" .$cinema->getId() . "/" .$movieTheater->getName() ; 
-                                                        ?>"></a> -->
+
                         </form>
                     </td>
                 </tr>

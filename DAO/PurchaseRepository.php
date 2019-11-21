@@ -54,7 +54,6 @@ class PurchaseRepository extends Singleton implements Irepository
                     return false;
           }
 
-
           public function getAll() {
                $sql = "SELECT * FROM Purchases";
 
@@ -71,16 +70,10 @@ class PurchaseRepository extends Singleton implements Irepository
                     return false;
           }
 
-
           public function edit($purchase) {
-
-            //se supone que no podes editar una compra
           }
-
-  
-              
-              public function delete($name) {
-               //No nos pidieron reembolsos asi que queda asi por ahora
+    
+          public function delete($name) {
                 }
 
 

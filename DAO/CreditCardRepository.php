@@ -91,17 +91,7 @@ class CreditCardRepository extends Singleton implements Irepository
   
               
               public function delete($name) {
-            //    $sql = "UPDATE  CreditCard SET status=:status WHERE name = :name";
-               
-            //    $parameters['status'] = false;
-            //    $parameters['name'] = $name;
-           
-            //    try {
-            //        $this->connection = Connection::getInstance();
-            //       return $this->connection->ExecuteNonQuery($sql, $parameters);
-            //   } catch(\PDOException $ex) {
-            //          throw $ex;
-            //     }
+
                 }
 
 
@@ -124,7 +114,6 @@ class CreditCardRepository extends Singleton implements Irepository
 
         }
 
-        //funciones extras
 
         public function getCreditCards($id_user)
         {

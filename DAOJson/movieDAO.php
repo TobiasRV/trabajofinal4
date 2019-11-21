@@ -1,25 +1,27 @@
-<?php namespace DAOJson; 
+<?php
+
+namespace DAOJson;
 
 use DAOJson\IRepository as IRepository;
 use Models\Movie as Movie;
 use Models\Genre as Genre;
 
-class movieDAO{
+class movieDAO
+{
 
     public function __construct()
-    {
-        
-    }
-    
-    public function getNowPlayingMovies(){
+    { }
 
-     $json = file_get_contents('https://api.themoviedb.org/3/movie/now_playing?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1');
+    public function getNowPlayingMovies()
+    {
+
+        $json = file_get_contents('https://api.themoviedb.org/3/movie/now_playing?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1');
         $jsonArray = json_decode($json, true);
         $arrayJsonData = $jsonArray["results"];
         $movies = array();
 
 
-        for($i=0;$i<count($arrayJsonData); $i++){
+        for ($i = 0; $i < count($arrayJsonData); $i++) {
             $jsonData = $arrayJsonData[$i];
             $adult = $jsonData["adult"];
             $idGenre = array();
@@ -43,12 +45,13 @@ class movieDAO{
             $movie->setReleaseDate($releaseDate);
             $movie->setBackdropPath($backdropPath);
 
-            array_push($movies,$movie);
-        }        
+            array_push($movies, $movie);
+        }
         return $movies;
     }
 
-    public function getUpcomingMovies(){
+    public function getUpcomingMovies()
+    {
 
         $json = file_get_contents('https://api.themoviedb.org/3/movie/upcoming?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX&page=1');
         $jsonArray = json_decode($json, true);
@@ -57,7 +60,7 @@ class movieDAO{
 
 
 
-        for($i=0;$i<count($arrayJsonData); $i++){
+        for ($i = 0; $i < count($arrayJsonData); $i++) {
             $jsonData = $arrayJsonData[$i];
             $adult = $jsonData["adult"];
             $idGenre = array();
@@ -81,19 +84,20 @@ class movieDAO{
             $movie->setReleaseDate($releaseDate);
             $movie->setBackdropPath($backdropPath);
 
-            array_push($movies,$movie);
-        }    
-        return $movies;    
+            array_push($movies, $movie);
+        }
+        return $movies;
     }
 
-    public function getGenres(){
-        
+    public function getGenres()
+    {
+
         $json = file_get_contents('https://api.themoviedb.org/3/genre/movie/list?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX');
         $jsonArray = json_decode($json, true);
         $arrayJsonData = $jsonArray["genres"];
         $genres = array();
 
-        for($i=0;$i<count($arrayJsonData); $i++){
+        for ($i = 0; $i < count($arrayJsonData); $i++) {
             $jsonData = $arrayJsonData[$i];
             $id = $jsonData["id"];
             $name = $jsonData["name"];
@@ -102,19 +106,20 @@ class movieDAO{
             $genre->setId($id);
             $genre->setName($name);
 
-            array_push($genres,$genre);
-        }        
+            array_push($genres, $genre);
+        }
         return $genres;
     }
 
-    public function getMovieDetails($idMovie){
-        $json = file_get_contents('https://api.themoviedb.org/3/movie/'. $idMovie.'?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX');
+    public function getMovieDetails($idMovie)
+    {
+        $json = file_get_contents('https://api.themoviedb.org/3/movie/' . $idMovie . '?api_key=ead8068ec023b7d01ad25d135bf8f620&language=es-MX');
         $jsonData = json_decode($json, true);
         $adult = $jsonData["adult"];
         $genresArray = $jsonData["genres"];
         $idGenre = array();
 
-        foreach($genresArray as $genres){
+        foreach ($genresArray as $genres) {
             array_push($idGenre, $genres["id"]);
         }
         $idMovie = $jsonData["id"];
@@ -139,30 +144,21 @@ class movieDAO{
     }
 
     public function updateDataBase()
-    {
-    }
+    { }
     public function getAll()
     {
         return $this->getNowPlayingMovies();
     }
 
     public function Add($movie)
-    {
-
-    }
+    { }
 
     public function read($id_movie)
-    {
-
-    }
+    { }
 
     public function edit($movie)
-    {
+    { }
 
-    }
-
-    public function delete($id_movie) 
-    {
-
-    }
+    public function delete($id_movie)
+    { }
 }

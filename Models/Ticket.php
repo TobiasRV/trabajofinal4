@@ -1,30 +1,34 @@
-<?php namespace Models;
+<?php
 
-class Ticket{
-    private $idTicket;
+namespace Models;
+
+class Ticket
+{
+	private $idTicket;
 	private $idPurchase;
-	
-    
 
-    public function __construct($idTicket=null, $idPurchase=null)
-    {
-        
-    }
 
-    public function getIdTicket(){
+
+	public function __construct($idTicket = null, $idPurchase = null)
+	{ }
+
+	public function getIdTicket()
+	{
 		return $this->idTicket;
 	}
 
-	public function setIdTicket($idTicket){
+	public function setIdTicket($idTicket)
+	{
 		$this->idTicket = $idTicket;
 	}
 
-	public function getIdPurchase(){
+	public function getIdPurchase()
+	{
 		return $this->idPurchase;
 	}
 
-	public function setIdPurchase($idPurchase){
+	public function setIdPurchase($idPurchase)
+	{
 		$this->idPurchase = $idPurchase;
 	}
-
 }

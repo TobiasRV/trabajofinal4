@@ -36,6 +36,7 @@ class ShowController
                         }
                     }
                 } else {
+                    if ($showList->getIdCinema() == $idCinema)
                     array_push($result, $showList);
                 }
             }

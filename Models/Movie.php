@@ -14,8 +14,8 @@ class Movie
 	private $backdropPath;
 	private $idGenre = array();
 
-	public function __construc($idMovie = null,$title = null,$originalTitle = null,$adult = null,$overview = null,$releaseDate = null,$posterPath = null,$backdropPath = null)
-	{ 
+	public function __construc($idMovie = null, $title = null, $originalTitle = null, $adult = null, $overview = null, $releaseDate = null, $posterPath = null, $backdropPath = null)
+	{
 		$this->idMovie = $idMovie;
 		$this->title = $title;
 		$this->originalTitle = $originalTitle;
@@ -89,7 +89,7 @@ class Movie
 		$this->releaseDate = $releaseDate;
 	}
 
-	
+
 	public function getPosterPath()
 	{
 		return $this->posterPath;
@@ -120,5 +120,4 @@ class Movie
 	{
 		$this->idGenre = $idGenre;
 	}
-
 }

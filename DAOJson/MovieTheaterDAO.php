@@ -138,7 +138,7 @@ class MovieTheaterDAO implements IRepository
 
                 if (!empty($movieTheater->getBillBoard()))
                     $mt->setBillBoard($movieTheater->getBillBoard());
-                    else
+                else
                     $mt->setBillBoard(array());
 
                 break;

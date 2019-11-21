@@ -284,4 +284,3 @@
 
 
     <?php require_once(VIEWS_PATH . "footer.php"); ?>
-                                                                    
