@@ -1,4 +1,6 @@
-<?php namespace Controllers;
+<?php
+
+namespace Controllers;
 
 use Models\Ticket as Ticket;
 use Models\Purchase as Purchase;
@@ -25,6 +27,10 @@ use DAO\TicketRepository as TicketRepository;
 // use DAOJson\TicketRepository as TicketRepository;
 //END DAO JSON
 
+use Exception;
+use PDOException;
+
+
 class PurchaseController
 {
 
@@ -33,31 +39,35 @@ class PurchaseController
     {
         $userControl = new UserController();
         $movieRepo = new MovieRepository();
-        $listado=$movieRepo->getNowPlayingMovies();
+        try {
+            $listado = $movieRepo->getNowPlayingMovies();
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
 
-        if ($userControl->checkSession() != false) 
-        {
-            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-            {
-                include_once(VIEWS_PATH . "header.php");
-                include_once(VIEWS_PATH . "navClient.php");
-                require_once(VIEWS_PATH . "purchaseStep1.php");
-            }
-            else 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                {
+
+            if ($userControl->checkSession() != false) {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) {
                     include_once(VIEWS_PATH . "header.php");
-                    include_once(VIEWS_PATH . "navAdmin.php");
-                    include_once(VIEWS_PATH . "index.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    require_once(VIEWS_PATH . "purchaseStep1.php");
+                } else {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navAdmin.php");
+                        include_once(VIEWS_PATH . "index.php");
+                    }
                 }
-            } 
-        } 
-        else 
-        {
-            include_once(VIEWS_PATH . "header.php");
-            include_once(VIEWS_PATH . "nav.php");
-            include_once(VIEWS_PATH . "index.php");
+            } else {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
+            }
         }
     }
 
@@ -65,52 +75,54 @@ class PurchaseController
     {
         $userControl = new UserController();
         $showRepo = new ShowRepository();
-        $listadoS = $showRepo->getAll();
-        $listadoMT = new MovieTheaterRepository();
-        $movieTheaters = $listadoMT->getAll();
-        $cinemasRepo = new CinemaRepository();
-        $listadoCinemas = $cinemasRepo->getAll();
-        $listado = array();
+        try {
+            $listadoS = $showRepo->getAll();
+            $listadoMT = new MovieTheaterRepository();
+            $movieTheaters = $listadoMT->getAll();
+            $cinemasRepo = new CinemaRepository();
+            $listadoCinemas = $cinemasRepo->getAll();
+            $listado = array();
 
-        if(! is_array($listadoS)){
-            $aux= $listadoS;
-            $listadoS = array();
-            array_push($listadoS,$aux);
-        }
-        if($listadoS != null){
-        foreach ($listadoS as $show)
-            {
-                if($show->getIdMovie()==$_SESSION["idMovieSearch"] && $show->getStatus()==true){  
-                    array_push($listado,$show);
-                        }
+            if (!is_array($listadoS)) {
+                $aux = $listadoS;
+                $listadoS = array();
+                array_push($listadoS, $aux);
             }
-        } 
-        if ($userControl->checkSession() != false) 
-        {
-            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-            {
-                include_once(VIEWS_PATH . "header.php");
-                include_once(VIEWS_PATH . "navClient.php");
-                require_once(VIEWS_PATH . "purchaseStep2.php");
-            }
-            else 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                {
-                    include_once(VIEWS_PATH . "header.php");
-                    include_once(VIEWS_PATH . "navAdmin.php");
-                    include_once(VIEWS_PATH . "index.php");
+            if ($listadoS != null) {
+                foreach ($listadoS as $show) {
+                    if ($show->getIdMovie() == $_SESSION["idMovieSearch"] && $show->getStatus() == true) {
+                        array_push($listado, $show);
+                    }
                 }
-            } 
-        } 
-        else 
-        {
-            include_once(VIEWS_PATH . "header.php");
-            include_once(VIEWS_PATH . "nav.php");
-            include_once(VIEWS_PATH . "index.php");
-        }           
-    }
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
 
+            if ($userControl->checkSession() != false) {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    require_once(VIEWS_PATH . "purchaseStep2.php");
+                } else {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navAdmin.php");
+                        include_once(VIEWS_PATH . "index.php");
+                    }
+                }
+            } else {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
+            }
+        }
+    }
     public function continuePurchase1($idMovie)
     {
         $_SESSION["idMovieSearch"] = $idMovie;
@@ -122,38 +134,44 @@ class PurchaseController
         $purchase = new Purchase();
         $purchase->setIdShow($idShow);
         $showRepo = new ShowRepository();
-        $showObj = $showRepo->read($idShow); 
+        $showObj = $showRepo->read($idShow);
         $_SESSION["purchase"] = $purchase;
-        $_SESSION["idCinema"]=$showObj->getIdCinema();
-        $_SESSION["avaiableSeats"]=$showObj->getSeats();
+        $_SESSION["idCinema"] = $showObj->getIdCinema();
+        $_SESSION["avaiableSeats"] = $showObj->getSeats();
         //setear nombre de cine en session
         $cinemas = new CinemaRepository();
-        $cinemasRepo = $cinemas->getAll();
-        $idMovieTheater=0;
-        foreach($cinemasRepo as $cinemas)
-        {
-            if($cinemas->getId() == $_SESSION["idCinema"])
-            {
-                $idMovieTheater = $cinemas->getIdMovieTheater();
+
+        try {
+            $cinemasRepo = $cinemas->getAll();
+            $idMovieTheater = 0;
+            foreach ($cinemasRepo as $cinemas) {
+                if ($cinemas->getId() == $_SESSION["idCinema"]) {
+                    $idMovieTheater = $cinemas->getIdMovieTheater();
+                }
             }
-        }
 
-        $movieTheaters = new MovieTheaterRepository();
-        $movieTheatersRepo = $movieTheaters->getAll();
-        $nameMovieTheater="";
-        foreach($movieTheatersRepo as $movieTheaters)
-        {
-            if($movieTheaters->getId() == $idMovieTheater)
-            {
-                $nameMovieTheater = $movieTheaters->getName();
+            $movieTheaters = new MovieTheaterRepository();
+            $movieTheatersRepo = $movieTheaters->getAll();
+            $nameMovieTheater = "";
+            foreach ($movieTheatersRepo as $movieTheaters) {
+                if ($movieTheaters->getId() == $idMovieTheater) {
+                    $nameMovieTheater = $movieTheaters->getName();
+                }
             }
+            $_SESSION["nameMovieTheater"] = $nameMovieTheater;
+
+            $_SESSION["checkCreditCard"] = false;
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
-        $_SESSION["nameMovieTheater"] = $nameMovieTheater;
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
 
-        $_SESSION["checkCreditCard"] = false;
-
-        $this->purchaseStep3();
-        
+            $this->purchaseStep3();
+        }
     }
 
     public function purchaseStep3()
@@ -161,35 +179,27 @@ class PurchaseController
         $userControl = new UserController();
         $creditCardsRepo = new CreditCardRepository();
         $listado = $creditCardsRepo->getCreditCards($_SESSION["loggedUser"]->getId());
-        if($listado !=null){
-        if(!is_array($listado))
-        {
-            $aux = $listado;
-            $listado = array();
-            array_push($listado,$aux);
+        if ($listado != null) {
+            if (!is_array($listado)) {
+                $aux = $listado;
+                $listado = array();
+                array_push($listado, $aux);
+            }
         }
-    }
 
-        if ($userControl->checkSession() != false) 
-        {
-            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-            {
+        if ($userControl->checkSession() != false) {
+            if ($_SESSION["loggedUser"]->getPermissions() == 2) {
                 include_once(VIEWS_PATH . "header.php");
                 include_once(VIEWS_PATH . "navClient.php");
                 require_once(VIEWS_PATH . "purchaseStep3.php");
-            }
-            else 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                {
+            } else {
+                if ($_SESSION["loggedUser"]->getPermissions() == 1) {
                     include_once(VIEWS_PATH . "header.php");
                     include_once(VIEWS_PATH . "navAdmin.php");
                     include_once(VIEWS_PATH . "index.php");
                 }
-            } 
-        } 
-        else 
-        {
+            }
+        } else {
             include_once(VIEWS_PATH . "header.php");
             include_once(VIEWS_PATH . "nav.php");
             include_once(VIEWS_PATH . "index.php");
@@ -199,119 +209,105 @@ class PurchaseController
     public function confirmPurchase($id_creditcard,  $creditCardNumber, $qTickets)
     {
         $this->checkCreditCardNumber($creditCardNumber);
-        if($_SESSION["checkCreditCard"] == true)
-        {
+        if ($_SESSION["checkCreditCard"] == true) {
             $ccRepo = new CreditCardRepository();
-            $listadoCC = $ccRepo->getAll();
-            foreach($listadoCC as $ccs)
-            {
-                if($ccs->getId() == $id_creditcard)
-                {
-                    
-                    $creditCard = new CreditCard();
-                    $creditCard->setCompany($ccs->getCompany());
-                    $creditCard->setNumber($ccs->getNumber());
-                    $creditCard->setIdUser($ccs->getIdUser($_SESSION["loggedUser"]->getId()));
-                }
-            }
-            $creditCard = $ccRepo->getId($creditCard);
-            $_SESSION["creditCard"] = $creditCard;
+            try {
+                $listadoCC = $ccRepo->getAll();
+                foreach ($listadoCC as $ccs) {
+                    if ($ccs->getId() == $id_creditcard) {
 
-            $listado = new CinemaRepository();
-            $cinemas = $listado->getAll();
-            foreach($cinemas as $cm)
-            {
-                if($cm->getId() == $_SESSION["idCinema"])
-                {
-                    $_SESSION["ticketPrice"] = $cm->getTicketPrice();
-                    
-                }
-            }
-        
-            //se comprueba que haya suficientes asientos libres para realizar la compra
-            if($_SESSION["avaiableSeats"] >= $qTickets)
-            {
-                $purchase = new Purchase();
-                $purchase=$_SESSION["purchase"];
-                $purchase->setPurchaseDate(date('Y-m-d'));
-                $purchase->setQuantityTickets($qTickets);
-                
-                $totalAux=$purchase->getQuantityTickets() * $_SESSION["ticketPrice"];
-                if($this->checkDiscount()==true)
-                {
-                    $purchase->setDiscount(0.25);
-                }
-                $purchase->setTotal($totalAux - ($totalAux * $purchase->getDiscount()));
-                $purchase->setIdCreditCard($_SESSION["creditCard"]->getId());
-
-                $_SESSION["purchase"] = $purchase;
-                
-
-                
-            }
-
-            $userControl = new UserController();
-            $moviesRepo = new MovieRepository();
-            $showsRepo = new ShowRepository();
-            $listMovies = $moviesRepo->getAll();
-            $nameMovie="";
-            foreach($listMovies as $lm)
-            {
-                if($lm->getIdMovie() == $_SESSION["idMovieSearch"])
-                {
-                    $nameMovie=$lm->getTitle();
-                }
-            }
-
-            $showData = $showsRepo->getShowData($_SESSION["purchase"]->getIdShow());
-            
-            if ($userControl->checkSession() != false) 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-                {
-                    include_once(VIEWS_PATH . "header.php");
-                    include_once(VIEWS_PATH . "navClient.php");
-                    require_once(VIEWS_PATH . "confirmData.php");
-                }
-                else 
-                {
-                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                    {
-                        include_once(VIEWS_PATH . "header.php");
-                        include_once(VIEWS_PATH . "navAdmin.php");
-                        include_once(VIEWS_PATH . "index.php");
+                        $creditCard = new CreditCard();
+                        $creditCard->setCompany($ccs->getCompany());
+                        $creditCard->setNumber($ccs->getNumber());
+                        $creditCard->setIdUser($ccs->getIdUser($_SESSION["loggedUser"]->getId()));
                     }
-                } 
-            } 
-            else 
-            {
-                include_once(VIEWS_PATH . "header.php");
-                include_once(VIEWS_PATH . "nav.php");
-                include_once(VIEWS_PATH . "index.php");
+                }
+                $creditCard = $ccRepo->getId($creditCard);
+                $_SESSION["creditCard"] = $creditCard;
+
+                $listado = new CinemaRepository();
+                $cinemas = $listado->getAll();
+                foreach ($cinemas as $cm) {
+                    if ($cm->getId() == $_SESSION["idCinema"]) {
+                        $_SESSION["ticketPrice"] = $cm->getTicketPrice();
+                    }
+                }
+
+                //se comprueba que haya suficientes asientos libres para realizar la compra
+                if ($_SESSION["avaiableSeats"] >= $qTickets) {
+                    $purchase = new Purchase();
+                    $purchase = $_SESSION["purchase"];
+                    $purchase->setPurchaseDate(date('Y-m-d'));
+                    $purchase->setQuantityTickets($qTickets);
+
+                    $totalAux = $purchase->getQuantityTickets() * $_SESSION["ticketPrice"];
+                    if ($this->checkDiscount() == true) {
+                        $purchase->setDiscount(0.25);
+                    }
+                    $purchase->setTotal($totalAux - ($totalAux * $purchase->getDiscount()));
+                    $purchase->setIdCreditCard($_SESSION["creditCard"]->getId());
+
+                    $_SESSION["purchase"] = $purchase;
+                }
+
+                $userControl = new UserController();
+                $moviesRepo = new MovieRepository();
+                $showsRepo = new ShowRepository();
+                $listMovies = $moviesRepo->getAll();
+                $nameMovie = "";
+                foreach ($listMovies as $lm) {
+                    if ($lm->getIdMovie() == $_SESSION["idMovieSearch"]) {
+                        $nameMovie = $lm->getTitle();
+                    }
+                }
+
+                $showData = $showsRepo->getShowData($_SESSION["purchase"]->getIdShow());
+            } catch (Exception $ex) {
+                $msj = $ex;
             }
-        }
-        else
-        {
+            if (isset($msj)) {
+                require_once(VIEWS_PATH . "header.php");
+                require_once(VIEWS_PATH . "error.php");
+                require_once(VIEWS_PATH . "footer.php");
+            } else {
+
+
+                if ($userControl->checkSession() != false) {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 2) {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navClient.php");
+                        require_once(VIEWS_PATH . "confirmData.php");
+                    } else {
+                        if ($_SESSION["loggedUser"]->getPermissions() == 1) {
+                            include_once(VIEWS_PATH . "header.php");
+                            include_once(VIEWS_PATH . "navAdmin.php");
+                            include_once(VIEWS_PATH . "index.php");
+                        }
+                    }
+                } else {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "nav.php");
+                    include_once(VIEWS_PATH . "index.php");
+                }
+            }
+        } else {
             ?>
             <script>
                 alert("Número de Tarjeta incorrecto, por favor ingrese de nuevo los datos.");
             </script>
-            <?php
+<?php
 
             $this->purchaseStep3();
         }
-        
     }
 
     public function checkDiscount()
     {
-        $flag=false;
-        $day=date('l');
-        if( $day=="Tuesday" || $day=="Wednesday")
-        {
-            if($_SESSION["purchase"]->getQuantityTickets()>=2)
-            {
-                $flag=true;
+        $flag = false;
+        $day = date('l');
+        if ($day == "Tuesday" || $day == "Wednesday") {
+            if ($_SESSION["purchase"]->getQuantityTickets() >= 2) {
+                $flag = true;
             }
         }
 
@@ -325,81 +321,83 @@ class PurchaseController
         $newCreditCard->setCompany($company);
         $newCreditCard->setIdUser($_SESSION["loggedUser"]->getId());
         $creditCardRepo = new CreditCardRepository();
-        $creditCardRepo->Add($newCreditCard);
-        $this->purchaseStep3();
+        try {
+            $creditCardRepo->Add($newCreditCard);
+            $this->purchaseStep3();
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        }
     }
+
+
 
     public function checkButton($value)
     {
-        if($value == "CONFIRMAR")
-        {
-            $purchase=$_SESSION["purchase"];
-            $purchaseRepo = new PurchaseRepository();
-            $purchaseRepo->Add($purchase);
-            $ticketsRepo = new TicketRepository();
-            $_SESSION["idPurchase"] = $purchaseRepo->getLastPurchase()->getIdPurchase();
-            ?>
-
-            <?php
-            $this->generateTickets();
-           $ticketsEmail = $ticketsRepo->getTicketsByIdPurchase($_SESSION["idPurchase"]);  
-           if(!is_array($ticketsEmail)){
-               $aux = $ticketsEmail;
-               $ticketsEmail = array();
-               array_push($ticketsEmail,$aux);
-           }
-            $this->emailTickets($ticketsEmail);
-            $this->clearSessionVariables();
-            $userControl = new UserController();
-            if ($userControl->checkSession() != false) 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-                {
-                    include_once(VIEWS_PATH . "header.php");
-                    include_once(VIEWS_PATH . "navClient.php");
-                    require_once(VIEWS_PATH . "index.php");
+        if ($value == "CONFIRMAR") {
+            try {
+                $purchase = $_SESSION["purchase"];
+                $purchaseRepo = new PurchaseRepository();
+                $purchaseRepo->Add($purchase);
+                $ticketsRepo = new TicketRepository();
+                $_SESSION["idPurchase"] = $purchaseRepo->getLastPurchase()->getIdPurchase();
+                $this->generateTickets();
+                $ticketsEmail = $ticketsRepo->getTicketsByIdPurchase($_SESSION["idPurchase"]);
+                if (!is_array($ticketsEmail)) {
+                    $aux = $ticketsEmail;
+                    $ticketsEmail = array();
+                    array_push($ticketsEmail, $aux);
                 }
-                else 
-                {
-                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                    {
-                        include_once(VIEWS_PATH . "header.php");
-                        include_once(VIEWS_PATH . "navAdmin.php");
-                        include_once(VIEWS_PATH . "index.php");
-                    }
-                } 
-            } 
-            else 
-            {
-                include_once(VIEWS_PATH . "header.php");
-                include_once(VIEWS_PATH . "nav.php");
-                include_once(VIEWS_PATH . "index.php");
+                $this->emailTickets($ticketsEmail);
+                $this->clearSessionVariables();
+                $userControl = new UserController();
+            } catch (Exception $ex) {
+                $msj = $ex;
             }
-        }
-        else
-        {
+            if (isset($msj)) {
+                require_once(VIEWS_PATH . "header.php");
+                require_once(VIEWS_PATH . "error.php");
+                require_once(VIEWS_PATH . "footer.php");
+            } else {
+
+                if ($userControl->checkSession() != false) {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 2) {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navClient.php");
+                        require_once(VIEWS_PATH . "index.php");
+                    } else {
+                        if ($_SESSION["loggedUser"]->getPermissions() == 1) {
+                            include_once(VIEWS_PATH . "header.php");
+                            include_once(VIEWS_PATH . "navAdmin.php");
+                            include_once(VIEWS_PATH . "index.php");
+                        }
+                    }
+                } else {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "nav.php");
+                    include_once(VIEWS_PATH . "index.php");
+                }
+            }
+        } else {
             $this->clearSessionVariables();
             $userControl = new UserController();
-            if ($userControl->checkSession() != false) 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-                {
+            if ($userControl->checkSession() != false) {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) {
                     include_once(VIEWS_PATH . "header.php");
                     include_once(VIEWS_PATH . "navClient.php");
                     require_once(VIEWS_PATH . "index.php");
-                }
-                else 
-                {
-                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                    {
+                } else {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) {
                         include_once(VIEWS_PATH . "header.php");
                         include_once(VIEWS_PATH . "navAdmin.php");
                         include_once(VIEWS_PATH . "index.php");
                     }
-                } 
-            } 
-            else 
-            {
+                }
+            } else {
                 include_once(VIEWS_PATH . "header.php");
                 include_once(VIEWS_PATH . "nav.php");
                 include_once(VIEWS_PATH . "index.php");
@@ -409,33 +407,39 @@ class PurchaseController
 
     public function generateTickets()
     {
-        $q_Tickets = $_SESSION["purchase"]->getQuantityTickets();
-        for($i=0;$i<$q_Tickets;$i++)
-        {
-            $ticket = new Ticket();
-            $ticket->setIdPurchase($_SESSION["idPurchase"]);
-            $ticketsRepo = new TicketRepository();
-            $ticketsRepo->Add($ticket);
-        }
-
-        //Se resta de la capacidad de asientos de la funcion la cantidad de tickets comprados
-        $purchase = $_SESSION["purchase"];
-        $showsRepo = new ShowRepository();
-        $listadoShows = $showsRepo->getAll();
-        if(!is_array($listadoShows)){
-            $aux = $listadoShows;
-            $listadoShows = array();
-            array_push($listadoShows,$aux);
-        }
-        foreach($listadoShows as $shows)
-        {
-            if($shows->getId() == $purchase->getIdShow())
-            {
-                $shows->setSeats($shows->getSeats() - $purchase->getQuantityTickets());
-                $_SESSION["show"]=$shows;
+        try {
+            $q_Tickets = $_SESSION["purchase"]->getQuantityTickets();
+            for ($i = 0; $i < $q_Tickets; $i++) {
+                $ticket = new Ticket();
+                $ticket->setIdPurchase($_SESSION["idPurchase"]);
+                $ticketsRepo = new TicketRepository();
+                $ticketsRepo->Add($ticket);
             }
+
+            //Se resta de la capacidad de asientos de la funcion la cantidad de tickets comprados
+            $purchase = $_SESSION["purchase"];
+            $showsRepo = new ShowRepository();
+            $listadoShows = $showsRepo->getAll();
+            if (!is_array($listadoShows)) {
+                $aux = $listadoShows;
+                $listadoShows = array();
+                array_push($listadoShows, $aux);
+            }
+            foreach ($listadoShows as $shows) {
+                if ($shows->getId() == $purchase->getIdShow()) {
+                    $shows->setSeats($shows->getSeats() - $purchase->getQuantityTickets());
+                    $_SESSION["show"] = $shows;
+                }
+            }
+            $showsRepo->edit($_SESSION["show"]);
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
-        $showsRepo->edit($_SESSION["show"]);
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        }
     }
 
     public function clearSessionVariables()
@@ -452,41 +456,47 @@ class PurchaseController
         unset($_SESSION["checkCreditCard"]);
     }
 
-
     public function checkCreditCardNumber($number)
     {
-        $creditCardsRepo = new CreditCardRepository();
-        $listadoCC = $creditCardsRepo->getAll();
-
-        foreach($listadoCC as $cc)
-        {
-            if($cc->getNumber() == $number)
-            {
-                $_SESSION["checkCreditCard"] = true;
+        try {
+            $creditCardsRepo = new CreditCardRepository();
+            $listadoCC = $creditCardsRepo->getAll();
+            foreach ($listadoCC as $cc) {
+                if ($cc->getNumber() == $number) {
+                    $_SESSION["checkCreditCard"] = true;
+                }
             }
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
         }
     }
+
     public function emailTickets($tickets)
     {
         $movieController = new MovieController();
-        // if(!is_array($tickets)){
-        //     $aux = $tickets
-        //     $tickets = array();
-        //     array_push($tickets,$aux);
-        // }
-        
+        if (!is_array($tickets)) {
+            $aux = $tickets;
+            $tickets = array();
+            array_push($tickets, $aux);
+        }
+
         $to_email = $_SESSION['loggedUser']->getEmail();
         $subject = 'Entradas compradas en MoviePass';
-        $message ="
+        $message = "
         <html> <head>
         <title>MoviePass</title>
         </head> 
         <body>
-        <p> Felicidades usted adquirio ". count($tickets)." entradas para ".$movieController->searchMovieById($_SESSION["idMovieSearch"])->getTitle().", aqui estan sus codigos QR </p>";
-        
-        foreach($tickets as $t){
-        $message .= 
-        "<td><img src="." https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl= ".$t->getIdTicket()."&choe=UTF-8 hspace="."20"."></td><br></br><br></br>";
+        <p> Felicidades usted adquirio " . count($tickets) . " entradas para " . $movieController->searchMovieById($_SESSION["idMovieSearch"])->getTitle() . ", aqui estan sus codigos QR </p>";
+
+        foreach ($tickets as $t) {
+            $message .=
+                "<td><img src=" . " https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl= " . $t->getIdTicket() . "&choe=UTF-8 hspace=" . "20" . "></td><br></br><br></br>";
         }
         $message .= "  </body>
         </html>";
@@ -494,7 +504,6 @@ class PurchaseController
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         //$headers .= 'From: El equipo de MoviePass, por favor no responder. Le deseamos una buena jornada.';
-        mail($to_email,$subject,$message,$headers);
+        mail($to_email, $subject, $message, $headers);
     }
-
 }

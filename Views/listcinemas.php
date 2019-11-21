@@ -1,4 +1,5 @@
 <body class="home">
+
     <h1>Listado de Cines</h1>
 
     <table class="table table-hover table-condensed table-bordered table-dark">
@@ -283,3 +284,4 @@
 
 
     <?php require_once(VIEWS_PATH . "footer.php"); ?>
+                                                                    

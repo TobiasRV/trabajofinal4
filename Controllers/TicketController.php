@@ -1,4 +1,6 @@
-<?php namespace Controllers;
+<?php
+
+namespace Controllers;
 
 //DAO BD
 use DAO\PurchaseRepository as PurchaseRepository;
@@ -18,6 +20,10 @@ use DAO\UserRepository as UserRepository;
 // use DAOJson\UserRepository as UserRepository;
 //END DAO JSON
 
+use Exception;
+use PDOException;
+
+
 use Controllers\UserController as UserController;
 
 
@@ -25,153 +31,233 @@ use Controllers\UserController as UserController;
 class TicketController
 {
 
-   public function showTickets()
-   {
+    public function showTickets()
+    {
         $userControl = new UserController();
-
-        $result = array ();
-
+        $result = array();
         $moviesRepo = new MovieRepository();
-        $listadoM = $moviesRepo->getAll();
-        
-        
-        $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
+        try {
+            $listadoM = $moviesRepo->getAll();
+            $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
 
-        if ($userControl->checkSession() != false) 
-        {
-            if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-            {
-                include_once(VIEWS_PATH . "header.php");
-                include_once(VIEWS_PATH . "navAdmin.php");
-                include_once(VIEWS_PATH . "myTickets.php");
-            } 
-            else 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-                {
+
+            if ($userControl->checkSession() != false) {
+                if ($_SESSION["loggedUser"]->getPermissions() == 1) {
                     include_once(VIEWS_PATH . "header.php");
-                    include_once(VIEWS_PATH . "navClient.php");
+                    include_once(VIEWS_PATH . "navAdmin.php");
                     include_once(VIEWS_PATH . "myTickets.php");
+                } else {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 2) {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navClient.php");
+                        include_once(VIEWS_PATH . "myTickets.php");
+                    }
                 }
+            } else {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
             }
-        } 
-        else 
-        {
-            include_once(VIEWS_PATH . "header.php");
-            include_once(VIEWS_PATH . "nav.php");
-            include_once(VIEWS_PATH . "index.php");
         }
     }
 
-   public function searchTickets($date = null,$movie = null)
+    public function searchTickets($date = null, $movie = null)
     {
-        if($date != null)
-        {
-            $date = str_replace('/', '-', $date );
+        if ($date != null) {
+            $date = str_replace('/', '-', $date);
             $date = date("Y-m-d", strtotime($date));
         }
-
-        if($movie != null && $date != null)
-        {
-            $listadoT = $this->getTicketsByMovieAndDate($movie, $date);
-        }
-        else
-        {
-            if($movie != null)
-            {
-                $listadoT = $this->getTicketsByMovie($movie);
-            }
-            else
-            {
-                if($date != null)
-                {
-                    $listadoT = $this->getTicketsByDate($date);
-                }
-                else
-                {
-                    $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
+        try {
+            if ($movie != null && $date != null) {
+                $listadoT = $this->getTicketsByMovieAndDate($movie, $date);
+            } else {
+                if ($movie != null) {
+                    $listadoT = $this->getTicketsByMovie($movie);
+                } else {
+                    if ($date != null) {
+                        $listadoT = $this->getTicketsByDate($date);
+                    } else {
+                        $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
+                    }
                 }
             }
+            $moviesRepo = new MovieRepository();
+            $listadoM = $moviesRepo->getAll();
+
+            $userControl = new UserController();
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
 
-
-        $moviesRepo = new MovieRepository();
-        $listadoM = $moviesRepo->getAll();
-        
-        $userControl = new UserController();
-
-        if ($userControl->checkSession() != false) 
-        {
-            if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-            {
-                include_once(VIEWS_PATH . "header.php");
-                include_once(VIEWS_PATH . "navAdmin.php");
-                include_once(VIEWS_PATH . "myTickets.php");
-            } 
-            else 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-                {
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+            if ($userControl->checkSession() != false) {
+                if ($_SESSION["loggedUser"]->getPermissions() == 1) {
                     include_once(VIEWS_PATH . "header.php");
-                    include_once(VIEWS_PATH . "navClient.php");
+                    include_once(VIEWS_PATH . "navAdmin.php");
                     include_once(VIEWS_PATH . "myTickets.php");
+                } else {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 2) {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navClient.php");
+                        include_once(VIEWS_PATH . "myTickets.php");
+                    }
                 }
+            } else {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
             }
-        } 
-        else 
-        {
-            include_once(VIEWS_PATH . "header.php");
-            include_once(VIEWS_PATH . "nav.php");
-            include_once(VIEWS_PATH . "index.php");
         }
     }
-
     public function getTicketsByMovie($movie)
     {
-        $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
-        $result = array();
+        try {
+            $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
+            $result = array();
 
-        if($listadoT != null)
-        {
-            if($movie != null)
-            {
+            if ($listadoT != null) {
+                if ($movie != null) {
+                    $purchasesRepo = new PurchaseRepository();
+                    $listadoP = $purchasesRepo->getAll();
+                    $showsRepo = new ShowRepository();
+                    $listadoS = $showsRepo->getAll();
+                    $moviesRepo = new MovieRepository();
+                    $listadoM = $moviesRepo->getAll();
+
+                    if (!is_array($listadoP)) {
+                        $aux = $listadoP;
+                        $listadoP = array();
+                        array_push($listadoP, $aux);
+                    }
+                    foreach ($listadoP as $purchase) {
+                        if (!is_array($listadoS)) {
+                            $aux = $listadoS;
+                            $listadoS = array();
+                            array_push($listadoS, $aux);
+                        }
+                        foreach ($listadoS as $show) {
+                            if (!is_array($listadoT)) {
+                                $aux = $listadoT;
+                                $listadoT = array();
+                                array_push($listadoT, $aux);
+                            }
+                            foreach ($listadoT as $ticket) {
+                                if ($ticket->getIdPurchase() == $purchase->getIdPurchase()) {
+                                    if ($purchase->getIdShow() == $show->getId()) {
+                                        if ($show->getIdMovie() == $movie) {
+                                            array_push($result, $ticket);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    $result = $listadoT;
+                }
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+
+            return $result;
+        }
+    }
+    public function getTicketsByDate($date)
+    {
+        try {
+            $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
+            $result = array();
+
+            if ($date != null) {
                 $purchasesRepo = new PurchaseRepository();
                 $listadoP = $purchasesRepo->getAll();
-                $showsRepo = new ShowRepository();
-                $listadoS = $showsRepo->getAll();
-                $moviesRepo = new MovieRepository();
-                $listadoM = $moviesRepo->getAll();
-
-                if(! is_array($listadoP))
-                {
-                    $aux = $listadoP;
-                    $listadoP = array();
-                    array_push($listadoP,$aux);
-                }
-                foreach($listadoP as $purchase)
-                {
-                    if(! is_array($listadoS))
-                    {
-                        $aux = $listadoS;
-                        $listadoS = array();
-                        array_push($listadoS,$aux);
+                if ($listadoP != false) {
+                    if (!is_array($listadoP)) {
+                        $aux = $listadoP;
+                        $listadoP = array();
+                        array_push($listadoP, $aux);
                     }
-                    foreach($listadoS as $show)
-                    {
-                        if(! is_array($listadoT))
-                        {
+                    foreach ($listadoP as $purchase) {
+                        if (!is_array($listadoT)) {
                             $aux = $listadoT;
                             $listadoT = array();
-                            array_push($listadoT,$aux);
+                            array_push($listadoT, $aux);
                         }
-                        foreach($listadoT as $ticket)
-                        {
-                            if($ticket->getIdPurchase() == $purchase->getIdPurchase())
-                            {
-                                if($purchase->getIdShow() == $show->getId())
-                                {
-                                    if($show->getIdMovie() == $movie)
-                                    {
+                        foreach ($listadoT as $ticket) {
+                            if ($ticket->getIdPurchase() == $purchase->getIdPurchase()) {
+                                if ($purchase->getPurchaseDate() == $date) {
+                                    array_push($result, $ticket);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                $result = $listadoT;
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+            return $result;
+        }
+    }
+    public function getTicketsByMovieAndDate($movie, $date)
+    {
+        $result = array();
+        $purchasesRepo = new PurchaseRepository();
+        try {
+            $listadoP = $purchasesRepo->getAll();
+            $showsRepo = new ShowRepository();
+            $listadoS = $showsRepo->getAll();
+
+            $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
+
+            if ($listadoP != false) {
+                if (!is_array($listadoP)) {
+                    $aux = $listadoP;
+                    $listadoP = array();
+                    array_push($listadoP, $aux);
+                }
+                foreach ($listadoP as $purchase) {
+                    if (!is_array($listadoS)) {
+                        $aux = $listadoS;
+                        $listadoS = array();
+                        array_push($listadoS, $aux);
+                    }
+                    foreach ($listadoS as $show) {
+                        if (!is_array($listadoT)) {
+                            $aux = $listadoT;
+                            $listadoT = array();
+                            array_push($listadoT, $aux);
+                        }
+                        foreach ($listadoT as $ticket) {
+                            if ($ticket->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date) {
+                                if ($purchase->getIdShow() == $show->getId()) {
+                                    if ($show->getIdMovie() == $movie) {
                                         array_push($result, $ticket);
                                     }
                                 }
@@ -180,177 +266,73 @@ class TicketController
                     }
                 }
             }
-            else
-            {
-                $result = $listadoT;
-            }
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
 
-        return $result;
+
+            return $result;
+        }
     }
-
-    public function getTicketsByDate($date)
-    {
-        $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
-        $result = array ();
-
-        if($date != null)
-        {
-            $purchasesRepo = new PurchaseRepository();
-            $listadoP = $purchasesRepo->getAll();
-            if($listadoP != false)
-            {
-                if(! is_array($listadoP))
-                {
-                    $aux = $listadoP;
-                    $listadoP = array();
-                    array_push($listadoP,$aux);
-                }
-                foreach($listadoP as $purchase)
-                {
-                    if(! is_array($listadoT))
-                    {
-                        $aux = $listadoT;
-                        $listadoT = array();
-                        array_push($listadoT,$aux);
-                    }  
-                    foreach($listadoT as $ticket)
-                    {
-                        if($ticket->getIdPurchase() == $purchase->getIdPurchase())
-                        {
-                            if($purchase->getPurchaseDate() == $date)
-                            {
-                                array_push($result, $ticket);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            $result = $listadoT;
-        }
-        
-        return $result;
-    }
-
-    public function getTicketsByMovieAndDate($movie, $date)
-    {
-        $result = array ();
-        $purchasesRepo = new PurchaseRepository();
-        $listadoP = $purchasesRepo->getAll();
-        $showsRepo = new ShowRepository();
-        $listadoS = $showsRepo->getAll();
-
-        $listadoT = $this->getTicketsByIdUser($_SESSION["loggedUser"]->getId());
-
-        if($listadoP != false)
-        {
-            if(! is_array($listadoP))
-            {
-                $aux = $listadoP;
-                $listadoP = array();
-                array_push($listadoP,$aux);
-            }
-            foreach($listadoP as $purchase)
-            {
-                if(! is_array($listadoS))
-                {
-                    $aux = $listadoS;
-                    $listadoS = array();
-                    array_push($listadoS,$aux);
-                }
-                foreach($listadoS as $show)
-                {
-                    if(! is_array($listadoT))
-                    {
-                        $aux = $listadoT;
-                        $listadoT = array();
-                        array_push($listadoT,$aux);
-                    }
-                    foreach($listadoT as $ticket)
-                    {
-                        if($ticket->getIdPurchase() == $purchase->getIdPurchase() && $purchase->getPurchaseDate() == $date)
-                        {
-                            if($purchase->getIdShow() == $show->getId())
-                            {
-                                if($show->getIdMovie() == $movie)
-                                {
-                                    array_push($result, $ticket);
-                                }
-                            }
-                        }
-                    }
-                        
-                }
-            }
-        }
-
-        return $result;
-    }
-
-
 
     public function getTicketsByIdUser($idUser)
     {
         $creditCardsRepo = new CreditCardRepository();
         $purchasesRepo = new PurchaseRepository();
         $ticketsRepo = new TicketRepository();
+        try {
+            $listadoCC = $creditCardsRepo->getCreditCardsByIdUser($idUser);
+            $listadoP = $purchasesRepo->getAll();
+            $listadoT = $ticketsRepo->getAll();
+            $result = array();
 
-        $listadoCC = $creditCardsRepo->getCreditCardsByIdUser($idUser);
-        $listadoP = $purchasesRepo->getAll();
-        $listadoT = $ticketsRepo->getAll();
-        $result = array();
-
-        if($listadoCC != null)
-        {
-            if(! is_array($listadoCC))
-            {
-                $aux = $listadoCC;
-                $listadoCC = array();
-                array_push($listadoCC,$aux);
-            }
-            foreach($listadoCC as $creditCard)
-            {
-                if($listadoP != null)
-                {
-                    if(! is_array($listadoP))
-                    {
-                        $aux = $listadoP;
-                        $listadoP = array();
-                        array_push($listadoP,$aux);
-                    }
-                    foreach($listadoP as $purchase)
-                    {
-                        if($creditCard->getId() == $purchase->getIdCreditCard())
-                        {
-                            if($listadoT != null)
-                            {
-                                if(! is_array($listadoT))
-                                {
-                                    $aux = $listadoT;
-                                    $listadoT = array();
-                                    array_push($listadoT,$aux);
-                                }
-                                foreach($listadoT as $ticket)
-                                {
-                                    if($purchase->getIdPurchase() == $ticket->getIdPurchase())
-                                    {
-                                        array_push($result, $ticket);
+            if ($listadoCC != null) {
+                if (!is_array($listadoCC)) {
+                    $aux = $listadoCC;
+                    $listadoCC = array();
+                    array_push($listadoCC, $aux);
+                }
+                foreach ($listadoCC as $creditCard) {
+                    if ($listadoP != null) {
+                        if (!is_array($listadoP)) {
+                            $aux = $listadoP;
+                            $listadoP = array();
+                            array_push($listadoP, $aux);
+                        }
+                        foreach ($listadoP as $purchase) {
+                            if ($creditCard->getId() == $purchase->getIdCreditCard()) {
+                                if ($listadoT != null) {
+                                    if (!is_array($listadoT)) {
+                                        $aux = $listadoT;
+                                        $listadoT = array();
+                                        array_push($listadoT, $aux);
+                                    }
+                                    foreach ($listadoT as $ticket) {
+                                        if ($purchase->getIdPurchase() == $ticket->getIdPurchase()) {
+                                            array_push($result, $ticket);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-
             }
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
 
-        return $result;
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+            return $result;
+        }
     }
-
-
-//end of class    
 }

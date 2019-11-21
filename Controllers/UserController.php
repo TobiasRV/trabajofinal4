@@ -25,6 +25,10 @@ use Models\Purchase as Purchase;
 use Models\User as User;
 use Models\Show as Show;
 
+use Exception;
+use PDOException;
+
+
 class UserController
 {
 
@@ -36,26 +40,19 @@ class UserController
 
     public function userProfile()
     {
-        if ($this->checkSession() != false) 
-        {
-            if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-            {
+        if ($this->checkSession() != false) {
+            if ($_SESSION["loggedUser"]->getPermissions() == 1) {
                 include_once(VIEWS_PATH . "header.php");
                 include_once(VIEWS_PATH . "navAdmin.php");
                 include_once(VIEWS_PATH . "profile.php");
-            } 
-            else 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-                {
+            } else {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) {
                     include_once(VIEWS_PATH . "header.php");
                     include_once(VIEWS_PATH . "navClient.php");
                     include_once(VIEWS_PATH . "profile.php");
                 }
             }
-        } 
-        else 
-        {
+        } else {
             include_once(VIEWS_PATH . "header.php");
             include_once(VIEWS_PATH . "nav.php");
             include_once(VIEWS_PATH . "index.php");
@@ -67,69 +64,88 @@ class UserController
         $add = true;
 
         $userRepo = new UserRepository();
-        foreach ($userRepo->getAll() as $values) {
-            if ($values->getEmail() == $email || $values->getUserName() == $username) {
-                $add = false;
+        try {
+            foreach ($userRepo->getAll() as $values) {
+                if ($values->getEmail() == $email || $values->getUserName() == $username) {
+                    $add = false;
+                }
             }
-        }
-        if ($add) {
-            $user = new User(); //crea el nuevo usuario y setea los datos
-            $user->setUserName($username);
-            $user->setPassword($password);
-            $user->setFirstname($firstname);
-            $user->setLastname($lastname);
-            $user->setEmail($email);
-            $user->setPermissions(2);
-            $user->setDni($dni);
-            $userRepo->Add($user);
+            if ($add) {
+                $user = new User(); //crea el nuevo usuario y setea los datos
+                $user->setUserName($username);
+                $user->setPassword($password);
+                $user->setFirstname($firstname);
+                $user->setLastname($lastname);
+                $user->setEmail($email);
+                $user->setPermissions(2);
+                $user->setDni($dni);
+                $userRepo->Add($user);
 
-            $_SESSION["loggedUser"] = $user; //se setea el usuario en sesion a la variable session  
-            require_once(VIEWS_PATH . "index.php"); //vista del home
-        } else {
-            echo "No se ha podido registrar el usuario. Inténtelo de nuevo." . "<br>"; //manejar mensajes con excepciones
-            $this->signUpForm(); //si no se pudo registrar el usuario se redirecciona al formulario para volver a ingresar datos
+                $_SESSION["loggedUser"] = $user; //se setea el usuario en sesion a la variable session  
+                require_once(VIEWS_PATH . "index.php"); //vista del home
+            } else {
+                echo "No se ha podido registrar el usuario. Inténtelo de nuevo." . "<br>"; //manejar mensajes con excepciones
+                $this->signUpForm(); //si no se pudo registrar el usuario se redirecciona al formulario para volver a ingresar datos
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
         }
     }
-
-
 
     public function logInForm($msj = null)
     {
         require_once(VIEWS_PATH . "login.php");
     }
 
+    //Manejo dudoso de excepcion
     public function logIn($user = null, $password = null)
     {
 
         $msj = "Datos incorrectos";
         $userRepo = new UserRepository();
-        $userList = $userRepo->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
-        $view = null;
-        $i = 0;
-        foreach ($userList as $values) {
+        try {
+            $userList = $userRepo->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
+            $view = null;
+            $i = 0;
+            foreach ($userList as $values) {
 
-            if (($values->getUserName() == $user) && ($values->getPassword() == $password)) {
+                if (($values->getUserName() == $user) && ($values->getPassword() == $password)) {
 
 
-                $msj = null;
-                $loggedUser = new User();
-                $loggedUser->setId($values->getId());
-                $loggedUser->setUserName($user);
-                $loggedUser->setPassword($password);
-                $loggedUser->setFirstname($values->getFirstName());
-                $loggedUser->setLastname($values->getLastName());
-                $loggedUser->setEmail($values->getEmail());
-                $loggedUser->setPermissions($values->getPermissions());
-                $loggedUser->setDni($values->getDni());
-                $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
-                $movieRepo = new MovieRepository();
-                $movieRepo->updateDataBase();
-                require_once(VIEWS_PATH . "index.php");
+                    $msj = null;
+                    $loggedUser = new User();
+                    $loggedUser->setId($values->getId());
+                    $loggedUser->setUserName($user);
+                    $loggedUser->setPassword($password);
+                    $loggedUser->setFirstname($values->getFirstName());
+                    $loggedUser->setLastname($values->getLastName());
+                    $loggedUser->setEmail($values->getEmail());
+                    $loggedUser->setPermissions($values->getPermissions());
+                    $loggedUser->setDni($values->getDni());
+                    $_SESSION["loggedUser"] = $loggedUser; //se setea el usuario en sesion a la variable session
+                    $movieRepo = new MovieRepository();
+                    $movieRepo->updateDataBase();
+                    require_once(VIEWS_PATH . "index.php");
+                }
             }
+
+            if ($msj != null) {
+                $this->logInForm($msj); //al estar incorrectos los datos se redirecciona al formulario para volverlos a ingresar
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
 
-        if ($msj != null) {
-            $this->logInForm($msj); //al estar incorrectos los datos se redirecciona al formulario para volverlos a ingresar
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
         }
     }
 
@@ -169,99 +185,116 @@ class UserController
         $newUser->setUsername($username);
         $newUser->setPassword($password);
         $userList = new UserRepository();
-        $userList->edit($newUser);
-        $this->logOut();
+        try {
+            $userList->edit($newUser);
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+
+            $this->logOut();
+        }
     }
 
     //funciones del admin
 
-    //esta funciona bien, para que funcione bien la muestra de datos,
     //antes de llamar a la vista es necesario setearle valores a las variables
     //soldTickets, toSoldTickets, earnings, registeredUsers (respetando esos nombres)
     public function consultData()
     {
-        $ticketsRepo = new TicketRepository();
-        $listadoT = $ticketsRepo->getAll();
-        if (!is_array($listadoT)) {
-            $aux = $listadoT;
-            $listadoT = array();
-            array_push($listadoT, $aux);
+        try {
+            $ticketsRepo = new TicketRepository();
+            $listadoT = $ticketsRepo->getAll();
+            if ($listadoT != null) {
+                if (!is_array($listadoT)) {
+                    $aux = $listadoT;
+                    $listadoT = array();
+                    array_push($listadoT, $aux);
+                }
+                $soldTickets = count($listadoT);
+            } else {
+                $soldTickets = 0;
+            }
+
+
+            //devuelve los tickets sin vender
+            $toSoldTickets = $this->toSoldTickets();
+
+            //variable que va a la vista
+            $earnings = $this->calculateEarnings();
+
+            $usersRepo = new UserRepository();
+            $listadoU = $usersRepo->getAll();
+            if (!is_array($listadoU)) {
+                $aux = $listadoU;
+                $listadoU = array();
+                array_push($listadoU, $aux);
+            }
+            //variable que va a la vista
+            $registeredUsers = count($listadoU);
+
+            //lista de pelis que va a la vista(para elegir filtros)
+            $moviesRepo = new MovieRepository();
+            $listadoM = $moviesRepo->getAll();
+
+            //lista de Cines que va a la vista(para elegir filtros)
+            $movieTheatersRepo = new MovieTheaterRepository();
+            $listadoMT = $movieTheatersRepo->getAll();
+            if (!is_array($listadoMT)) {
+                $aux = $listadoMT;
+                $listadoMT = array();
+                array_push($listadoMT, $aux);
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
-        //variable que va a la vista
-        $soldTickets = count($listadoT);
 
-        //devuelve los tickets sin vender
-        $toSoldTickets = $this->toSoldTickets();
-
-        //variable que va a la vista
-        $earnings = $this->calculateEarnings();
-
-        $usersRepo = new UserRepository();
-        $listadoU = $usersRepo->getAll();
-        if (!is_array($listadoU)) {
-            $aux = $listadoU;
-            $listadoU = array();
-            array_push($listadoU, $aux);
-        }
-        //variable que va a la vista
-        $registeredUsers = count($listadoU);
-
-        //lista de pelis que va a la vista(para elegir filtros)
-        $moviesRepo = new MovieRepository();
-        $listadoM = $moviesRepo->getAll();
-
-        //lista de Cines que va a la vista(para elegir filtros)
-        $movieTheatersRepo = new MovieTheaterRepository();
-        $listadoMT = $movieTheatersRepo->getAll();
-        if (!is_array($listadoMT)) {
-            $aux = $listadoMT;
-            $listadoMT = array();
-            array_push($listadoMT, $aux);
-        }
-
-        if ($this->checkSession() != false) 
-        {
-                if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-                {
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+            if ($this->checkSession() != false) {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) {
                     include_once(VIEWS_PATH . "header.php");
                     include_once(VIEWS_PATH . "navClient.php");
                     require_once(VIEWS_PATH . "index.php");
-                }
-                else 
-                {
-                    if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                    {
+                } else {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) {
                         include_once(VIEWS_PATH . "header.php");
                         include_once(VIEWS_PATH . "navAdmin.php");
                         include_once(VIEWS_PATH . "consultData.php");
                     }
-                } 
-            } 
-            else 
-            {
+                }
+            } else {
                 include_once(VIEWS_PATH . "header.php");
                 include_once(VIEWS_PATH . "nav.php");
                 include_once(VIEWS_PATH . "index.php");
             }
+        }
     }
 
     public function toSoldTickets($listadoS = null)
     {
         $quantity = 0;
-        if($listadoS == null)
-        {
+        if ($listadoS == null) {
             $showsRepo = new ShowRepository();
             $listadoS = $showsRepo->getAll();
         }
-        if(!is_array($listadoS))
-        {
-            $aux = $listadoS;
-            $listadoS = array();
-            array_push($listadoS,$aux);
-        }
-        foreach($listadoS as $show)
-        {
-            $quantity += $show->getSeats();
+        if ($listadoS != null) {
+            if (!is_array($listadoS)) {
+                $aux = $listadoS;
+                $listadoS = array();
+                array_push($listadoS, $aux);
+            }
+            foreach ($listadoS as $show) {
+                $quantity += $show->getSeats();
+            }
         }
 
         return $quantity;
@@ -270,163 +303,160 @@ class UserController
     public function calculateEarnings($listadoP = null)
     {
         $quantity = 0;
-        if($listadoP == null)
-        {
-            echo "asd";
+        if ($listadoP == null) {
             $purchasesRepo = new PurchaseRepository();
             $listadoP = $purchasesRepo->getAll();
-
         }
-        if(!is_array($listadoP))
-        {
-            $aux = $listadoP;
-            $listadoP = array();
-            array_push($listadoP,$aux);
+        if ($listadoP != null) {
+            if (!is_array($listadoP)) {
+                $aux = $listadoP;
+                $listadoP = array();
+                array_push($listadoP, $aux);
+            }
+            foreach ($listadoP as $purchase) {
+                $quantity += $purchase->getTotal();
+            }
         }
-        foreach($listadoP as $purchase)
-        {
-            $quantity += $purchase->getTotal();
-        }    
         return $quantity;
     }
 
-    //andando
     public function searchByDates($dateInit, $dateFin)
     {
         $dateInit = str_replace('/', '-', $dateInit);
         $dateInit = date("Y-m-d", strtotime($dateInit));
         $dateFin = str_replace('/', '-', $dateFin);
         $dateFin = date("Y-m-d", strtotime($dateFin));
+        try {
+            $purchasesRepo = new PurchaseRepository();
+            $listadoP = $purchasesRepo->getAll();
+            $showsRepo = new ShowRepository();
+            $listadoS = $showsRepo->getAll();
+            $ticketsRepo = new TicketRepository();
+            $listadoT = $ticketsRepo->getAll();
 
-        $purchasesRepo = new PurchaseRepository();
-        $listadoP = $purchasesRepo->getAll();
-        $showsRepo = new ShowRepository();
-        $listadoS = $showsRepo->getAll();
-        $ticketsRepo = new TicketRepository();
-        $listadoT = $ticketsRepo->getAll();
+            $resultPurchase = array();
+            $resultShow = array();
+            $resultTicket = array();
 
-        $resultPurchase = array();
-        $resultShow = array();
-        $resultTicket = array();
+            if (!is_array($listadoP)) {
+                $aux = $listadoP;
+                $listadoP = array();
+                array_push($listadoP, $aux);
+            }
+            if (!is_array($listadoS)) {
+                $aux = $listadoS;
+                $listadoS = array();
+                array_push($listadoS, $aux);
+            }
+            if (!is_array($listadoT)) {
+                $aux = $listadoT;
+                $listadoT = array();
+                array_push($listadoT, $aux);
+            }
 
-        if (!is_array($listadoP)) {
-            $aux = $listadoP;
-            $listadoP = array();
-            array_push($listadoP, $aux);
-        }
-        if(! is_array($listadoS))
-        {
-            $aux = $listadoS;
-            $listadoS = array();
-            array_push($listadoS,$aux);
-        }
-        if(! is_array($listadoT))
-        {
-            $aux = $listadoT;
-            $listadoT = array();
-            array_push($listadoT,$aux);
-        }
-
-        foreach($listadoP as $purchase)
-        {
-            if($purchase->getPurchaseDate() >= $dateInit && $purchase->getPurchaseDate() <= $dateFin)
-            {
-                foreach($listadoT as $ticket)
-                {
-                    if($purchase->getIdPurchase() == $ticket->getIdPurchase())
-                    {
-                        array_push($resultTicket, $ticket);
+            foreach ($listadoP as $purchase) {
+                if ($purchase->getPurchaseDate() >= $dateInit && $purchase->getPurchaseDate() <= $dateFin) {
+                    foreach ($listadoT as $ticket) {
+                        if ($purchase->getIdPurchase() == $ticket->getIdPurchase()) {
+                            array_push($resultTicket, $ticket);
+                        }
                     }
+                    array_push($resultPurchase, $purchase);
                 }
-                array_push($resultPurchase, $purchase);
             }
-        }
-        foreach($listadoS as $show)
-        {
-            if($show->getDate() >= $dateInit && $show->getDate() <= $dateFin)
-            {
-                array_push($resultShow, $show);
+            foreach ($listadoS as $show) {
+                if ($show->getDate() >= $dateInit && $show->getDate() <= $dateFin) {
+                    array_push($resultShow, $show);
+                }
             }
+
+            $soldTickets = count($resultTicket);
+            $toSoldTickets = $this->toSoldTickets($resultShow);
+            $earnings = $this->calculateEarnings($resultPurchase);
+
+            $usersRepo = new UserRepository();
+            $listadoU = $usersRepo->getAll();
+            if (!is_array($listadoU)) {
+                $aux = $listadoU;
+                $listadoU = array();
+                array_push($listadoU, $aux);
+            }
+            $registeredUsers = count($listadoU);
+
+            $moviesRepo = new MovieRepository();
+            $listadoM = $moviesRepo->getAll();
+
+            $movieTheatersRepo = new MovieTheaterRepository();
+            $listadoMT = $movieTheatersRepo->getAll();
+            if (!is_array($listadoMT)) {
+                $aux = $listadoMT;
+                $listadoMT = array();
+                array_push($listadoMT, $aux);
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
-
-        $soldTickets = count($resultTicket);
-        $toSoldTickets = $this->toSoldTickets($resultShow);
-        $earnings = $this->calculateEarnings($resultPurchase);
-
-        $usersRepo = new UserRepository();
-        $listadoU = $usersRepo->getAll();
-        if (!is_array($listadoU)) {
-            $aux = $listadoU;
-            $listadoU = array();
-            array_push($listadoU, $aux);
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+            require_once(VIEWS_PATH . "consultData.php");
         }
-        $registeredUsers = count($listadoU);
-
-        $moviesRepo = new MovieRepository();
-        $listadoM = $moviesRepo->getAll();
-
-        $movieTheatersRepo = new MovieTheaterRepository();
-        $listadoMT = $movieTheatersRepo->getAll();
-        if (!is_array($listadoMT)) {
-            $aux = $listadoMT;
-            $listadoMT = array();
-            array_push($listadoMT, $aux);
-        }
-
-        require_once(VIEWS_PATH . "consultData.php");
     }
 
-    //esta está hecha a medias
     public function searchByMovieTheater($movieTheaterId)
     {
-        $purchasesRepo = new PurchaseRepository();
-        $listadoP = $purchasesRepo->getAll();
-        $showsRepo = new ShowRepository();
-        $listadoS = $showsRepo->getAll();
-        $ticketsRepo = new TicketRepository();
-        $listadoT = $ticketsRepo->getAll();
-        $cinemaRepo = new CinemaRepository();
-        $listadoC = $cinemaRepo->getAll();
+        try {
+            $purchasesRepo = new PurchaseRepository();
+            $listadoP = $purchasesRepo->getAll();
+            $showsRepo = new ShowRepository();
+            $listadoS = $showsRepo->getAll();
+            $ticketsRepo = new TicketRepository();
+            $listadoT = $ticketsRepo->getAll();
+            $cinemaRepo = new CinemaRepository();
+            $listadoC = $cinemaRepo->getAll();
 
-        $resultPurchase = array();
-        $resultShow = array();
-        $resultTicket = array();
+            $resultPurchase = array();
+            $resultShow = array();
+            $resultTicket = array();
 
-        if(!is_array($listadoC)){
-            $aux=$listadoC;
-            $listadoC = array();
-            array_push($listadoC,$aux);
-        }
+            if (!is_array($listadoC)) {
+                $aux = $listadoC;
+                $listadoC = array();
+                array_push($listadoC, $aux);
+            }
 
-        if(!is_array($listadoS)){
-            $aux=$listadoS;
-            $listadoS = array();
-            array_push($listadoS,$aux);
-        }
+            if (!is_array($listadoS)) {
+                $aux = $listadoS;
+                $listadoS = array();
+                array_push($listadoS, $aux);
+            }
 
-        if(!is_array($listadoP)){
-            $aux=$listadoP;
-            $listadoP = array();
-            array_push($listadoP,$aux);
-        }
+            if (!is_array($listadoP)) {
+                $aux = $listadoP;
+                $listadoP = array();
+                array_push($listadoP, $aux);
+            }
 
-        if(!is_array($listadoT)){
-            $aux=$listadoT;
-            $listadoT = array();
-            array_push($listadoT,$aux);
-        }
+            if (!is_array($listadoT)) {
+                $aux = $listadoT;
+                $listadoT = array();
+                array_push($listadoT, $aux);
+            }
 
-        foreach($listadoC as $cinema){
-            if($cinema->getIdMovieTheater() == $movieTheaterId){
-                foreach($listadoS as $show){
-                    if($show->getIdCinema() == $cinema->getId()){
-                        array_push($resultShow,$show);
-                        foreach($listadoP as $purchase){
-                            if($purchase->getIdShow() == $show->getId()){
-                                array_push($resultPurchase,$purchase);
-                                foreach($listadoT as $ticket){
-                                    if($ticket->getIdPurchase() == $purchase->getIdPurchase()){
-                                        array_push($resultTicket,$ticket);
+            foreach ($listadoC as $cinema) {
+                if ($cinema->getIdMovieTheater() == $movieTheaterId) {
+                    foreach ($listadoS as $show) {
+                        if ($show->getIdCinema() == $cinema->getId()) {
+                            array_push($resultShow, $show);
+                            foreach ($listadoP as $purchase) {
+                                if ($purchase->getIdShow() == $show->getId()) {
+                                    array_push($resultPurchase, $purchase);
+                                    foreach ($listadoT as $ticket) {
+                                        if ($ticket->getIdPurchase() == $purchase->getIdPurchase()) {
+                                            array_push($resultTicket, $ticket);
+                                        }
                                     }
                                 }
                             }
@@ -434,179 +464,171 @@ class UserController
                     }
                 }
             }
-        }
-
-
-
-        $soldTickets = count($resultTicket);
-        $toSoldTickets = $this->toSoldTickets($resultShow);
-        if($resultPurchase == null){
-            $resultPurchase = new Purchase();
-        }
-        $earnings = $this->calculateEarnings($resultPurchase);
-
-
-        $usersRepo = new UserRepository();
-        $listadoU = $usersRepo->getAll();
-        if(! is_array($listadoU))
-        {
-            $aux = $listadoU;
-            $listadoU = array();
-            array_push($listadoU,$aux);
-        }
-        $registeredUsers = count($listadoU);
-
-        $moviesRepo = new MovieRepository();
-        $listadoM = $moviesRepo->getAll();
-
-        $movieTheatersRepo = new MovieTheaterRepository();
-        $listadoMT = $movieTheatersRepo->getAll();
-        if(! is_array($listadoMT))
-        {
-            $aux = $listadoMT;
-            $listadoMT = array();
-            array_push($listadoMT,$aux);
-        }
-
-
-
-        if ($this->checkSession() != false) 
-        {
-            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-            {
-                include_once(VIEWS_PATH . "header.php");
-                include_once(VIEWS_PATH . "navClient.php");
-                require_once(VIEWS_PATH . "index.php");
+            $soldTickets = count($resultTicket);
+            $toSoldTickets = $this->toSoldTickets($resultShow);
+            if ($resultPurchase == null) {
+                $resultPurchase = new Purchase();
             }
-            else 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                {
-                    include_once(VIEWS_PATH . "header.php");
-                    include_once(VIEWS_PATH . "navAdmin.php");
-                    include_once(VIEWS_PATH . "consultData.php");
-                }
-            } 
-        } 
-        else 
-        {
-            include_once(VIEWS_PATH . "header.php");
-            include_once(VIEWS_PATH . "nav.php");
-            include_once(VIEWS_PATH . "index.php");
+            $earnings = $this->calculateEarnings($resultPurchase);
+
+
+            $usersRepo = new UserRepository();
+            $listadoU = $usersRepo->getAll();
+            if (!is_array($listadoU)) {
+                $aux = $listadoU;
+                $listadoU = array();
+                array_push($listadoU, $aux);
+            }
+            $registeredUsers = count($listadoU);
+
+            $moviesRepo = new MovieRepository();
+            $listadoM = $moviesRepo->getAll();
+
+            $movieTheatersRepo = new MovieTheaterRepository();
+            $listadoMT = $movieTheatersRepo->getAll();
+            if (!is_array($listadoMT)) {
+                $aux = $listadoMT;
+                $listadoMT = array();
+                array_push($listadoMT, $aux);
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
 
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+
+            if ($this->checkSession() != false) {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    require_once(VIEWS_PATH . "index.php");
+                } else {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navAdmin.php");
+                        include_once(VIEWS_PATH . "consultData.php");
+                    }
+                }
+            } else {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
+            }
+        }
     }
 
-    public function searchByMovie($idMovie){
-        $purchasesRepo = new PurchaseRepository();
-        $listadoP = $purchasesRepo->getAll();
-        $showsRepo = new ShowRepository();
-        $listadoS = $showsRepo->getAll();
-        $ticketsRepo = new TicketRepository();
-        $listadoT = $ticketsRepo->getAll();
+    public function searchByMovie($idMovie)
+    {
 
-        
-        $resultPurchase = array();
-        $resultShow = array();
-        $resultTicket = array();
-
-        if(!is_array($listadoS)){
-            $aux=$listadoS;
-            $listadoS = array();
-            array_push($listadoS,$aux);
-        }
-
-        if(!is_array($listadoP)){
-            $aux=$listadoP;
-            $listadoP = array();
-            array_push($listadoP,$aux);
-        }
-
-        if(!is_array($listadoT)){
-            $aux=$listadoT;
-            $listadoT = array();
-            array_push($listadoT,$aux);
-        }
+        try {
+            $purchasesRepo = new PurchaseRepository();
+            $listadoP = $purchasesRepo->getAll();
+            $showsRepo = new ShowRepository();
+            $listadoS = $showsRepo->getAll();
+            $ticketsRepo = new TicketRepository();
+            $listadoT = $ticketsRepo->getAll();
 
 
-        foreach($listadoS as $show){
-            if($show->getIdMovie() == $idMovie){
-                array_push($resultShow,$show);
-                foreach($listadoP as $purchase){
-                    if($purchase->getIdShow() == $show->getId()){
-                        array_push($resultPurchase,$purchase);
-                        foreach($listadoT as $ticket){
-                            if($ticket->getIdPurchase() == $purchase->getIdPurchase()){
-                                array_push($resultTicket,$ticket);
+            $resultPurchase = array();
+            $resultShow = array();
+            $resultTicket = array();
+
+            if (!is_array($listadoS)) {
+                $aux = $listadoS;
+                $listadoS = array();
+                array_push($listadoS, $aux);
+            }
+
+            if (!is_array($listadoP)) {
+                $aux = $listadoP;
+                $listadoP = array();
+                array_push($listadoP, $aux);
+            }
+
+            if (!is_array($listadoT)) {
+                $aux = $listadoT;
+                $listadoT = array();
+                array_push($listadoT, $aux);
+            }
+
+
+            foreach ($listadoS as $show) {
+                if ($show->getIdMovie() == $idMovie) {
+                    array_push($resultShow, $show);
+                    foreach ($listadoP as $purchase) {
+                        if ($purchase->getIdShow() == $show->getId()) {
+                            array_push($resultPurchase, $purchase);
+                            foreach ($listadoT as $ticket) {
+                                if ($ticket->getIdPurchase() == $purchase->getIdPurchase()) {
+                                    array_push($resultTicket, $ticket);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        
-
-        $soldTickets = count($resultTicket);
-        if($resultShow == null){
-            $resultShow = new Show();
-        }
-        $toSoldTickets = $this->toSoldTickets($resultShow);
-        if($resultPurchase == null){
-            $resultPurchase = new Purchase();
-        }
-        $earnings = $this->calculateEarnings($resultPurchase);
 
 
-        $usersRepo = new UserRepository();
-        $listadoU = $usersRepo->getAll();
-        if(! is_array($listadoU))
-        {
-            $aux = $listadoU;
-            $listadoU = array();
-            array_push($listadoU,$aux);
-        }
-        $registeredUsers = count($listadoU);
-
-        $moviesRepo = new MovieRepository();
-        $listadoM = $moviesRepo->getAll();
-
-        $movieTheatersRepo = new MovieTheaterRepository();
-        $listadoMT = $movieTheatersRepo->getAll();
-        if(! is_array($listadoMT))
-        {
-            $aux = $listadoMT;
-            $listadoMT = array();
-            array_push($listadoMT,$aux);
-        }
-
-
-
-        if ($this->checkSession() != false) 
-        {
-            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-            {
-                include_once(VIEWS_PATH . "header.php");
-                include_once(VIEWS_PATH . "navClient.php");
-                require_once(VIEWS_PATH . "index.php");
+            $soldTickets = count($resultTicket);
+            if ($resultShow == null) {
+                $resultShow = new Show();
             }
-            else 
-            {
-                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-                {
-                    include_once(VIEWS_PATH . "header.php");
-                    include_once(VIEWS_PATH . "navAdmin.php");
-                    include_once(VIEWS_PATH . "consultData.php");
-                }
-            } 
-        } 
-        else 
-        {
-            include_once(VIEWS_PATH . "header.php");
-            include_once(VIEWS_PATH . "nav.php");
-            include_once(VIEWS_PATH . "index.php");
+            $toSoldTickets = $this->toSoldTickets($resultShow);
+            if ($resultPurchase == null) {
+                $resultPurchase = new Purchase();
+            }
+            $earnings = $this->calculateEarnings($resultPurchase);
+
+
+            $usersRepo = new UserRepository();
+            $listadoU = $usersRepo->getAll();
+            if (!is_array($listadoU)) {
+                $aux = $listadoU;
+                $listadoU = array();
+                array_push($listadoU, $aux);
+            }
+            $registeredUsers = count($listadoU);
+
+            $moviesRepo = new MovieRepository();
+            $listadoM = $moviesRepo->getAll();
+
+            $movieTheatersRepo = new MovieTheaterRepository();
+            $listadoMT = $movieTheatersRepo->getAll();
+            if (!is_array($listadoMT)) {
+                $aux = $listadoMT;
+                $listadoMT = array();
+                array_push($listadoMT, $aux);
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
         }
-    
 
-     }
-
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+            if ($this->checkSession() != false) {
+                if ($_SESSION["loggedUser"]->getPermissions() == 2) {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navClient.php");
+                    require_once(VIEWS_PATH . "index.php");
+                } else {
+                    if ($_SESSION["loggedUser"]->getPermissions() == 1) {
+                        include_once(VIEWS_PATH . "header.php");
+                        include_once(VIEWS_PATH . "navAdmin.php");
+                        include_once(VIEWS_PATH . "consultData.php");
+                    }
+                }
+            } else {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "nav.php");
+                include_once(VIEWS_PATH . "index.php");
+            }
+        }
+    }
 }

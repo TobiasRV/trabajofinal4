@@ -11,6 +11,10 @@ use DAO\CinemaRepository as CinemaDAO;
 use Controllers\MovieTheaterController as MovieTheaterController;
 use Models\Movie as Movie;
 
+use Exception;
+use PDOException;
+
+
 class MovieController
 {
     private $movieDAO;
@@ -59,15 +63,12 @@ class MovieController
     public function getMovieListByIdList($idArray = array())
     {
         $result = array();
-        if(is_array($idArray)){ 
-            foreach ($idArray as $id) 
-            {
+        if (is_array($idArray)) {
+            foreach ($idArray as $id) {
                 array_push($result, $this->searchMovieById($id));
             }
-        }
-        else
-        {
-        array_push($result, $this->searchMovieById($idArray));
+        } else {
+            array_push($result, $this->searchMovieById($idArray));
         }
         return $result;
     }
@@ -147,44 +148,6 @@ class MovieController
         return $result;
     }
 
-
-    // public function searchMovie($selectTime = "null", $selectGenre = "null")
-    // {
-    //     $result = array();
-    //     if ($selectTime != "null") {
-    //         if ($selectTime === "nowPlaying") {
-    //             if ($selectGenre != "null") {
-
-    //                 $result = $this->getNowPlayingMovieByGenre($selectGenre);
-    //             } else {
-    //                 $result = $this->getNowPlaying();
-    //             }
-    //         }
-    //         if ($selectTime === "upcoming") {
-    //             if ($selectGenre != "null") {
-    //                 $result = $this->getUpcomingMovieByGenre($selectGenre);
-    //             } else {
-    //                 $result = $this->getUpcoming();
-    //             }
-    //         }
-    //     } else {
-    //         $result = $this->getNowPlaying();
-    //     }
-    //     return $result;
-    // }
-
-
-    // public function showMovies($selectTime = "null", $selectGenre = "null")
-    // {
-    //     $movies = array();
-    //     $movies = $this->searchMovie($selectTime, $selectGenre);
-    //     $genres = array();
-    //     $genres = $this->getGenres();
-    //     // $cinemaRepository = new CinemaRepository();
-    //     // $cinemaList = $cinemaRepository->getAll();
-    //     require_once(VIEWS_PATH . "billboard.php");
-    // }
-
     public function filterMoviesByGenre($movieList, $genre)
     {
         $result = array();
@@ -199,11 +162,9 @@ class MovieController
         return $result;
     }
 
-
     public function searchMovie($selectMovieTheather = null, $selectDate = null, $selectGenre = null)
     {
         $showController = new ShowController();
-
         $result = array();
         $movieList = array();
 
@@ -219,12 +180,22 @@ class MovieController
 
     public function showMovies($selectMovieTheather = null, $selectDate = null, $selectGenre = null)
     {
-        $movieTheaterController = new MovieTheaterController();
-        $movies = array();
-        $movies = $this->searchMovie($selectMovieTheather, $selectDate, $selectGenre);
-        $genres = array();
-        $genres = $this->getGenres();
-        $movieTheatherList = $movieTheaterController->getMovieTheaterList();
-        require_once(VIEWS_PATH . "billboard.php");
+        try {
+            $movieTheaterController = new MovieTheaterController();
+            $movies = array();
+            $movies = $this->searchMovie($selectMovieTheather, $selectDate, $selectGenre);
+            $genres = array();
+            $genres = $this->getGenres();
+            $movieTheatherList = $movieTheaterController->getAvailableMovieTheaterList();
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+            require_once(VIEWS_PATH . "billboard.php");
+        }
     }
 }
