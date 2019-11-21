@@ -42,12 +42,12 @@ class UserController
         $add = true;
 
         $userRepo = new UserRepository();
-       foreach($userRepo->getAll() as $values){
-           if($values->getEmail() == $email|| $values->getUserName() == $username){
-               $add=false;
-           }
-        } 
-        if($add){
+        foreach ($userRepo->getAll() as $values) {
+            if ($values->getEmail() == $email || $values->getUserName() == $username) {
+                $add = false;
+            }
+        }
+        if ($add) {
             $user = new User(); //crea el nuevo usuario y setea los datos
             $user->setUserName($username);
             $user->setPassword($password);
@@ -60,17 +60,15 @@ class UserController
 
             $_SESSION["loggedUser"] = $user; //se setea el usuario en sesion a la variable session  
             require_once(VIEWS_PATH . "index.php"); //vista del home
-        }
-        else
-        {   
-            echo "No se ha podido registrar el usuario. Inténtelo de nuevo." . "<br>";//manejar mensajes con excepciones
+        } else {
+            echo "No se ha podido registrar el usuario. Inténtelo de nuevo." . "<br>"; //manejar mensajes con excepciones
             $this->signUpForm(); //si no se pudo registrar el usuario se redirecciona al formulario para volver a ingresar datos
         }
     }
 
 
 
-    public function logInForm()
+    public function logInForm($msj = null)
     {
         require_once(VIEWS_PATH . "login.php");
     }
@@ -78,19 +76,17 @@ class UserController
     public function logIn($user = null, $password = null)
     {
 
-        $login = false;
+        $msj = "Datos incorrectos";
         $userRepo = new UserRepository();
-        $userList=$userRepo->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
+        $userList = $userRepo->getAll(); //levantar todos los usuarios registrados en el json hasta el momento (comprobado)
         $view = null;
         $i = 0;
-        foreach ($userList as $values)
-        {
+        foreach ($userList as $values) {
 
-            if (($values->getUserName() == $user) && ($values->getPassword() == $password)) 
-            {   
+            if (($values->getUserName() == $user) && ($values->getPassword() == $password)) {
 
 
-                $login = true;
+                $msj = null;
                 $loggedUser = new User();
                 $loggedUser->setId($values->getId());
                 $loggedUser->setUserName($user);
@@ -104,18 +100,11 @@ class UserController
                 $movieRepo = new MovieRepository();
                 $movieRepo->updateDataBase();
                 require_once(VIEWS_PATH . "index.php");
-           }
+            }
         }
-        
-        if($login == false){
-            $this->logInForm(); //al estar incorrectos los datos se redirecciona al formulario para volverlos a ingresar
 
-            ?>
-            <script>
-                alert("Los datos ingresados son incorrectos. Intente nuevamente.");
-            </script>
-            <?php
-
+        if ($msj != null) {
+            $this->logInForm($msj); //al estar incorrectos los datos se redirecciona al formulario para volverlos a ingresar
         }
     }
 
@@ -144,8 +133,8 @@ class UserController
         }
     }
 
-    public function modifyUser($firstname, $lastname, $email,$dni, $username, $password)
-    { 
+    public function modifyUser($firstname, $lastname, $email, $dni, $username, $password)
+    {
         $newUser = new User();
         $newUser->setId($_SESSION['loggedUser']->getId());
         $newUser->setFirstname($firstname);
@@ -168,11 +157,10 @@ class UserController
     {
         $ticketsRepo = new TicketRepository();
         $listadoT = $ticketsRepo->getAll();
-        if(! is_array($listadoT))
-        {
+        if (!is_array($listadoT)) {
             $aux = $listadoT;
             $listadoT = array();
-            array_push($listadoT,$aux);
+            array_push($listadoT, $aux);
         }
         $soldTickets = count($listadoT);
 
@@ -182,11 +170,10 @@ class UserController
 
         $usersRepo = new UserRepository();
         $listadoU = $usersRepo->getAll();
-        if(! is_array($listadoU))
-        {
+        if (!is_array($listadoU)) {
             $aux = $listadoU;
             $listadoU = array();
-            array_push($listadoU,$aux);
+            array_push($listadoU, $aux);
         }
         $registeredUsers = count($listadoU);
 
@@ -195,11 +182,10 @@ class UserController
 
         $movieTheatersRepo = new MovieTheaterRepository();
         $listadoMT = $movieTheatersRepo->getAll();
-        if(! is_array($listadoMT))
-        {
+        if (!is_array($listadoMT)) {
             $aux = $listadoMT;
             $listadoMT = array();
-            array_push($listadoMT,$aux);
+            array_push($listadoMT, $aux);
         }
 
         require_once(VIEWS_PATH . "consultData.php");
@@ -207,37 +193,26 @@ class UserController
 
     public function toSoldTickets($listadoS = null)
     {
-        if($listadoS == null)
-        {
+        if ($listadoS == null) {
             $showsRepo = new ShowRepository();
             $listadoS = $showsRepo->getAll();
             $quantity = 0;
 
-            if(is_array($listadoS))
-            {
-                foreach($listadoS as $show)
-                {
+            if (is_array($listadoS)) {
+                foreach ($listadoS as $show) {
                     $quantity += $show->getSeats();
                 }
-            }
-            else
-            {
+            } else {
                 $quantity += $listadoS->getSeats();
             }
-        }
-        else 
-        {
+        } else {
             $quantity = 0;
 
-            if(is_array($listadoS))
-            {
-                foreach($listadoS as $show)
-                {
+            if (is_array($listadoS)) {
+                foreach ($listadoS as $show) {
                     $quantity += $show->getSeats();
                 }
-            }
-            else
-            {
+            } else {
                 $quantity += $listadoS->getSeats();
             }
         }
@@ -247,36 +222,25 @@ class UserController
 
     public function calculateEarnings($listadoP = null)
     {
-        if($listadoP == null)
-        {
+        if ($listadoP == null) {
             $purchasesRepo = new PurchaseRepository();
             $listadoP = $purchasesRepo->getAll();
             $quantity = 0;
 
-            if(is_array($listadoP))
-            {
-                foreach($listadoP as $purchase)
-                {
+            if (is_array($listadoP)) {
+                foreach ($listadoP as $purchase) {
                     $quantity += $purchase->getTotal();
                 }
-            }
-            else
-            {
+            } else {
                 $quantity += $listadoP->getTotal();
             }
-        }
-        else
-        {
+        } else {
             $quantity = 0;
-            if(is_array($listadoP))
-            {
-                foreach($listadoP as $purchase)
-                {
+            if (is_array($listadoP)) {
+                foreach ($listadoP as $purchase) {
                     $quantity += $purchase->getTotal();
                 }
-            }
-            else
-            {
+            } else {
                 $quantity += $listadoP->getTotal();
             }
         }
@@ -303,41 +267,32 @@ class UserController
         $resultShow = array();
         $resultTicket = array();
 
-        if(! is_array($listadoP))
-        {
+        if (!is_array($listadoP)) {
             $aux = $listadoP;
             $listadoP = array();
-            array_push($listadoP,$aux);
+            array_push($listadoP, $aux);
         }
-        foreach($listadoP as $purchase)
-        {
-            if($purchase->getPurchaseDate() >= $dateInit && $purchase->getPurchaseDate() <= $dateFin)
-            {
+        foreach ($listadoP as $purchase) {
+            if ($purchase->getPurchaseDate() >= $dateInit && $purchase->getPurchaseDate() <= $dateFin) {
                 array_push($resultPurchase, $purchase);
             }
-            if(! is_array($listadoS))
-            {
+            if (!is_array($listadoS)) {
                 $aux = $listadoS;
                 $listadoS = array();
-                array_push($listadoS,$aux);
+                array_push($listadoS, $aux);
             }
-            foreach($listadoS as $show)
-            {
-                if($purchase->getIdShow() == $show->getId() && $show->getDate() >= $dateInit && $show->getDate() <= $dateFin)
-                {
+            foreach ($listadoS as $show) {
+                if ($purchase->getIdShow() == $show->getId() && $show->getDate() >= $dateInit && $show->getDate() <= $dateFin) {
                     array_push($resultShow, $show);
                 }
             }
-            if(! is_array($listadoT))
-            {
+            if (!is_array($listadoT)) {
                 $aux = $listadoT;
                 $listadoT = array();
-                array_push($listadoT,$aux);
+                array_push($listadoT, $aux);
             }
-            foreach($listadoT as $ticket)
-            {
-                if($purchase->getIdPurchase() == $ticket->getIdPurchase())
-                {
+            foreach ($listadoT as $ticket) {
+                if ($purchase->getIdPurchase() == $ticket->getIdPurchase()) {
                     array_push($resultTicket, $ticket);
                 }
             }
@@ -349,11 +304,10 @@ class UserController
 
         $usersRepo = new UserRepository();
         $listadoU = $usersRepo->getAll();
-        if(! is_array($listadoU))
-        {
+        if (!is_array($listadoU)) {
             $aux = $listadoU;
             $listadoU = array();
-            array_push($listadoU,$aux);
+            array_push($listadoU, $aux);
         }
         $registeredUsers = count($listadoU);
 
@@ -362,15 +316,13 @@ class UserController
 
         $movieTheatersRepo = new MovieTheaterRepository();
         $listadoMT = $movieTheatersRepo->getAll();
-        if(! is_array($listadoMT))
-        {
+        if (!is_array($listadoMT)) {
             $aux = $listadoMT;
             $listadoMT = array();
-            array_push($listadoMT,$aux);
+            array_push($listadoMT, $aux);
         }
 
         require_once(VIEWS_PATH . "consultData.php");
-
     }
 
     //esta está hecha a medias
@@ -390,7 +342,6 @@ class UserController
         $resultPurchase = array();
         $resultShow = array();
         $resultTicket = array();
-
     }
 
     //falta hacer searchByMovie($movie)

@@ -1,74 +1,29 @@
 [
     {
-        "id": 1,
-        "date": "2019-11-16",
-        "time": "20:30",
-        "id_cinema": "1",
-        "id_movie": "475557",
-        "seats": 45,
-        "status": true
-    },
-    {
-        "id": 2,
-        "date": "2019-11-22",
-        "time": "10:00",
-        "id_cinema": "2",
-        "id_movie": "330457",
-        "seats": 40,
-        "status": true
-    },
-    {
         "id": 3,
-        "date": "2019-11-17",
-        "time": "13:30",
+        "date": "2019-11-20",
+        "time": "10:00",
         "id_cinema": "1",
-        "id_movie": "420809",
-        "seats": 50,
-        "status": true
+        "id_movie": "504949",
+        "seats": "15",
+        "status": 1
     },
     {
         "id": 4,
-        "date": "2019-11-19",
-        "time": "17:00",
-        "id_cinema": "7",
-        "id_movie": "454640",
-        "seats": 60,
-        "status": true
+        "date": "2019-11-21",
+        "time": "10:00",
+        "id_cinema": "1",
+        "id_movie": "475557",
+        "seats": "15",
+        "status": 1
     },
     {
         "id": 5,
-        "date": "2019-11-16",
-        "time": "13:30",
+        "date": "2019-11-22",
+        "time": "17:00",
         "id_cinema": "1",
-        "id_movie": "499701",
-        "seats": 50,
-        "status": true
-    },
-    {
-        "id": 6,
-        "date": "2019-11-24",
-        "time": "00:00",
-        "id_cinema": "2",
-        "id_movie": "330457",
-        "seats": 29,
-        "status": true
-    },
-    {
-        "id": 7,
-        "date": "2019-12-01",
-        "time": "13:30",
-        "id_cinema": "8",
-        "id_movie": "521777",
-        "seats": "20",
-        "status": true
-    },
-    {
-        "id": 8,
-        "date": "2019-11-30",
-        "time": "10:00",
-        "id_cinema": "6",
-        "id_movie": "290859",
-        "seats": 45,
-        "status": true
+        "id_movie": "475557",
+        "seats": "15",
+        "status": 1
     }
 ]

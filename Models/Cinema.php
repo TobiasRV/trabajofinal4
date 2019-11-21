@@ -15,7 +15,7 @@ class Cinema
 
 	public function __construct()
 	{	
-		$this->status = true;
+		$this->status = 1;
 	}
 
 

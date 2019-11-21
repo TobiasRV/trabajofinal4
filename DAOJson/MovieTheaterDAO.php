@@ -10,7 +10,8 @@ class MovieTheaterDAO implements IRepository
 
     private $movieTheaterList = array();
 
-    public function saveList($newList){
+    public function saveList($newList)
+    {
         $this->movieTheaterList = $newList;
         $this->saveData();
     }
@@ -25,12 +26,11 @@ class MovieTheaterDAO implements IRepository
             $lastElement = end($this->movieTheaterList);
             $movieTheater->setId($lastElement->getId() + 1);
         }
-       
+
 
         array_push($this->movieTheaterList, $movieTheater);
 
         $this->savedata();
-
     }
 
     public function getById($id)
@@ -103,25 +103,23 @@ class MovieTheaterDAO implements IRepository
     {
 
         $this->retrieveData();
-        $flag=false;
+        $flag = false;
         $movieTheaterReturn = new MovieTheater();
-        foreach($this->movieTheaterList as $t)
-        {
-            if(!$flag)
-            {
-                if($id==$t->getId())
-                {
-                    $flag=true;
-                    $movieTheaterReturn=$t;
+        foreach ($this->movieTheaterList as $t) {
+            if (!$flag) {
+                if ($id == $t->getId()) {
+                    $flag = true;
+                    $movieTheaterReturn = $t;
                 }
             }
         }
         return $movieTheaterReturn;
     }
 
-    public function edit($movieTheater){
+    public function edit($movieTheater)
+    {
 
-    $this->retrieveData();
+        $this->retrieveData();
 
         foreach ($this->movieTheaterList as $mt) {
             if ($mt->getId() == $movieTheater->getId()) {
@@ -140,6 +138,8 @@ class MovieTheaterDAO implements IRepository
 
                 if (!empty($movieTheater->getBillBoard()))
                     $mt->setBillBoard($movieTheater->getBillBoard());
+                    else
+                    $mt->setBillBoard(array());
 
                 break;
             }
@@ -147,7 +147,7 @@ class MovieTheaterDAO implements IRepository
         $this->saveData();
     }
 
-    public function editBillBoard($id,$billboard)
+    public function editBillBoard($id, $billboard)
     {
         $this->retrieveData();
         $movieTheaterList = $this->movieTheaterDAO->getAll();
@@ -159,21 +159,19 @@ class MovieTheaterDAO implements IRepository
             }
         }
         $this->saveData();
-
     }
 
 
-    public function deleteFisico($id){
-
-    $this->retrieveData();
-
-    foreach ($this->movieTheaterList as $movieTheater) 
+    public function deleteFisico($id)
     {
-        if ($movieTheater->getId() == $id)
-        {            
-            $idToDelete = array_search($movieTheater, $this->movieTheaterList);
-            unset($this->movieTheaterList[$idToDelete]);
-            break;
+
+        $this->retrieveData();
+
+        foreach ($this->movieTheaterList as $movieTheater) {
+            if ($movieTheater->getId() == $id) {
+                $idToDelete = array_search($movieTheater, $this->movieTheaterList);
+                unset($this->movieTheaterList[$idToDelete]);
+                break;
             }
         }
 
