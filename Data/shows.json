@@ -23,7 +23,7 @@
         "time": "17:00",
         "id_cinema": "1",
         "id_movie": "475557",
-        "seats": "15",
+        "seats": 12,
         "status": 1
     }
 ]

@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "company": "Visa",
+        "number": "1234567",
+        "status": true,
+        "idUser": 1
+    },
+    {
+        "id": 2,
+        "company": "Visa",
+        "number": "1234567",
+        "status": true,
+        "idUser": 2
+    }
+]

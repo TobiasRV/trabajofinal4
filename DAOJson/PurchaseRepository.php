@@ -124,7 +124,7 @@ class PurchaseRepository implements IRepository
     {
 
         $this->retrieveData();
-        return end($this->purchaseList)->getIdPurchase();
+        return end($this->purchaseList);
     }
 
 
