@@ -122,6 +122,9 @@ class ShowController
 
     public function addShowOne($movieTheaterName = null, $cinemaName = null)
     {
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
+
         require_once(VIEWS_PATH . "addshowone.php");
     }
 
@@ -129,6 +132,10 @@ class ShowController
     {
         $cinemaController = new CinemaController();
         $timeList = $this->generatePossibleTimes($cinemaController->getCinemaIdByName($cinemaName), $date);
+
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
+
         require_once(VIEWS_PATH . "addshowtwo.php");
     }
 
@@ -173,6 +180,9 @@ class ShowController
         }
 
         $arrayGeneros = $movieController->getGenres();
+
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
 
         require_once(VIEWS_PATH . "addshowthree.php");
     }

@@ -1,9 +1,3 @@
-<?php
-require_once(VIEWS_PATH . "header.php");
-require_once(VIEWS_PATH . "navAdmin.php");
-
-?>
-
 <body class="home">
     <h1>Listado de Cines</h1>
 

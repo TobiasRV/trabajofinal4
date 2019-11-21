@@ -1,6 +1,11 @@
 <?php namespace Views;
 
 use Controllers\UserController as UserController;
+use Controllers\MovieController as MovieController;
+
+$api = new MovieController();
+
+$movies = $api->get3Upcoming();
 
 $control = new UserController();
 
