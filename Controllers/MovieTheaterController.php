@@ -141,13 +141,20 @@ class MovieTheaterController
     {
         $movieTheaterList = $this->movieTheaterDAO->getAll();
         $result = 1;
-        foreach ($movieTheaterList as $movieTheater) {
+        if($movieTheaterList != null){
+            if(!is_array($movieTheaterList)){
+                $aux = $movieTheaterList;
+                $movieTheaterList = array();
+                array_push($movieTheaterList,$aux);
+            }
+            foreach ($movieTheaterList as $movieTheater) {
             if ($movieTheater->getName() == $movieTheaterName) {
 
                 $result = 0;
                 break;
             }
         }
+    }
         return $result;
     }
 
