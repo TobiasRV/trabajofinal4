@@ -12,7 +12,7 @@
     foreach ($listadoMT as $movieTheater) {
         ?>
         <div id="MainMenu">
-            <div class="list-group panel">
+            <div class="list-group panel" align="center">
                 <a href="#why" align="center" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><?php echo strtoupper($movieTheater->getName()); ?></a>
                 <div class="collapse" id="why">
                     <?php

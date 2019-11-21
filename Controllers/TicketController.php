@@ -3,21 +3,21 @@
 namespace Controllers;
 
 //DAO BD
-// use DAO\PurchaseRepository as PurchaseRepository;
-// use DAO\TicketRepository as TicketRepository;
-// use DAO\CreditCardRepository as CreditCardRepository;
-// use DAO\MovieRepository as MovieRepository;
-// use DAO\ShowRepository as ShowRepository;
-// use DAO\UserRepository as UserRepository;
+use DAO\PurchaseRepository as PurchaseRepository;
+use DAO\TicketRepository as TicketRepository;
+use DAO\CreditCardRepository as CreditCardRepository;
+use DAO\MovieRepository as MovieRepository;
+use DAO\ShowRepository as ShowRepository;
+use DAO\UserRepository as UserRepository;
 //END DAO BD
 
 //DAO JSON
-use DAOJson\PurchaseRepository as PurchaseRepository;
-use DAOJson\TicketRepository as TicketRepository;
-use DAOJson\CreditCardRepository as CreditCardRepository;
-use DAOJson\MovieDAO as MovieRepository;
-use DAOJson\ShowDAO as ShowRepository;
-use DAOJson\UserRepository as UserRepository;
+// use DAOJson\PurchaseRepository as PurchaseRepository;
+// use DAOJson\TicketRepository as TicketRepository;
+// use DAOJson\CreditCardRepository as CreditCardRepository;
+// use DAOJson\MovieDAO as MovieRepository;
+// use DAOJson\ShowDAO as ShowRepository;
+// use DAOJson\UserRepository as UserRepository;
 //END DAO JSON
 
 use Exception;
@@ -286,6 +286,7 @@ class TicketController
         $purchasesRepo = new PurchaseRepository();
         $ticketsRepo = new TicketRepository();
         try {
+            
             $listadoCC = $creditCardsRepo->getCreditCardsByIdUser($idUser);
             $listadoP = $purchasesRepo->getAll();
             $listadoT = $ticketsRepo->getAll();

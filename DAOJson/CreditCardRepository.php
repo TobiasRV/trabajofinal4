@@ -181,9 +181,7 @@ class CreditCardRepository implements IRepository
                     array_push($result, $this->creditCardList);
                 }
             }
-        } else {
-            $result = $this->creditCardList;
-        }
+        } 
 
         return $result;
     }

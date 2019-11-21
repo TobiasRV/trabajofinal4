@@ -2,24 +2,24 @@
 
 namespace Controllers;
 
-use DAOJson\UserRepository as UserRepository;
-use DAOJson\MovieDAO as MovieRepository;
-use DAOJson\TicketRepository as TicketRepository;
-use DAOJson\ShowDAO as ShowRepository;
-use DAOJson\PurchaseRepository as PurchaseRepository;
-use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
-use DAOJson\CinemaDAO as CinemaRepository;
+// use DAOJson\UserRepository as UserRepository;
+// use DAOJson\MovieDAO as MovieRepository;
+// use DAOJson\TicketRepository as TicketRepository;
+// use DAOJson\ShowDAO as ShowRepository;
+// use DAOJson\PurchaseRepository as PurchaseRepository;
+// use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
+// use DAOJson\CinemaDAO as CinemaRepository;
 
 
 
 
-// use DAO\UserRepository as UserRepository;
-// use DAO\MovieRepository as MovieRepository;
-// use DAO\TicketRepository as TicketRepository;
-// use DAO\ShowRepository as ShowRepository;
-// use DAO\PurchaseRepository as PurchaseRepository;
-// use DAO\MovieTheaterRepository as MovieTheaterRepository;
-// use DAO\CinemaRepository as CinemaRepository;
+use DAO\UserRepository as UserRepository;
+use DAO\MovieRepository as MovieRepository;
+use DAO\TicketRepository as TicketRepository;
+use DAO\ShowRepository as ShowRepository;
+use DAO\PurchaseRepository as PurchaseRepository;
+use DAO\MovieTheaterRepository as MovieTheaterRepository;
+use DAO\CinemaRepository as CinemaRepository;
 
 use Models\Purchase as Purchase;
 use Models\User as User;

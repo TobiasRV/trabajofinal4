@@ -143,6 +143,12 @@ class ShowRepository extends Singleton implements Irepository
           $showRepo = new ShowRepository();
           $showRepo = $this->getAll();
           $showData = "";
+          if(!is_array($showRepo))
+          {
+               $aux = $showRepo;
+               $showRepo = array();
+               array_push($showRepo, $aux);
+          }
           foreach ($showRepo as $shows) {
                if ($shows->getId() == $id) {
                     $showData = $shows->getDate() . " " . $shows->getTime();

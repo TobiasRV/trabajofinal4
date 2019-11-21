@@ -183,4 +183,30 @@ class CreditCardRepository extends Singleton implements Irepository
           }
 
     }
+
+    public function getCreditCardsByIdUser($idUser)
+    {
+     $sql = "SELECT * FROM CreditCards c  WHERE c.id_user = id_user";
+
+     $parameters['id_user'] = $idUser;
+
+     try 
+     {
+          $this->connection = Connection::getInstance();
+          $resultSet = $this->connection->execute($sql,$parameters);
+     } 
+     catch(Exception $ex) 
+     {
+         throw $ex;
+     }
+
+     if(!empty($resultSet))
+     {
+          return $this->mapear($resultSet);
+     }
+     else
+     {
+          return false;
+     }
+    }
 }

@@ -8,23 +8,23 @@ use Controllers\UserController as UserController;
 use Controllers\MovieController as MovieController;
 use Models\CreditCard as CreditCard;
 //DAO BD
-// use DAO\MovieRepository as MovieRepository;
-// use DAO\ShowRepository as ShowRepository;
-// use DAO\MovieTheaterRepository as MovieTheaterRepository;
-// use DAO\CinemaRepository as CinemaRepository;
-// use DAO\PurchaseRepository as PurchaseRepository;
-// use DAO\CreditCardRepository as CreditCardRepository;
-// use DAO\TicketRepository as TicketRepository;
+use DAO\MovieRepository as MovieRepository;
+use DAO\ShowRepository as ShowRepository;
+use DAO\MovieTheaterRepository as MovieTheaterRepository;
+use DAO\CinemaRepository as CinemaRepository;
+use DAO\PurchaseRepository as PurchaseRepository;
+use DAO\CreditCardRepository as CreditCardRepository;
+use DAO\TicketRepository as TicketRepository;
 //END DAO BD
 
 //DAO JSON
-use DAOJson\movieDAO as MovieRepository;
-use DAOJson\ShowDAO as ShowRepository;
-use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
-use DAOJson\CinemaDAO as CinemaRepository;
-use DAOJson\PurchaseRepository as PurchaseRepository;
-use DAOJson\CreditCardRepository as CreditCardRepository;
-use DAOJson\TicketRepository as TicketRepository;
+// use DAOJson\movieDAO as MovieRepository;
+// use DAOJson\ShowDAO as ShowRepository;
+// use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
+// use DAOJson\CinemaDAO as CinemaRepository;
+// use DAOJson\PurchaseRepository as PurchaseRepository;
+// use DAOJson\CreditCardRepository as CreditCardRepository;
+// use DAOJson\TicketRepository as TicketRepository;
 //END DAO JSON
 
 use Exception;
@@ -213,9 +213,13 @@ class PurchaseController
             $ccRepo = new CreditCardRepository();
             try {
                 $listadoCC = $ccRepo->getAll();
+                if(!is_array($listadoCC)){
+                    $aux = $listadoCC;
+                    $listadoCC = array();
+                    array_push($listadoCC,$aux);
+                }
                 foreach ($listadoCC as $ccs) {
                     if ($ccs->getId() == $id_creditcard) {
-
                         $creditCard = new CreditCard();
                         $creditCard->setCompany($ccs->getCompany());
                         $creditCard->setNumber($ccs->getNumber());
@@ -458,9 +462,15 @@ class PurchaseController
 
     public function checkCreditCardNumber($number)
     {
+
         try {
             $creditCardsRepo = new CreditCardRepository();
             $listadoCC = $creditCardsRepo->getAll();
+            if(!is_array($listadoCC)){
+                $aux = $listadoCC;
+                $listadoCC = array();
+                array_push($listadoCC,$aux);
+            }
             foreach ($listadoCC as $cc) {
                 if ($cc->getNumber() == $number) {
                     $_SESSION["checkCreditCard"] = true;
@@ -496,7 +506,7 @@ class PurchaseController
 
         foreach ($tickets as $t) {
             $message .=
-                "<td><img src=" . " https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl= " . $t->getIdTicket() . "&choe=UTF-8 hspace=" . "20" . "></td><br></br><br></br>";
+                "<td><img src=" . " https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl= " . $t->getIdTicket() . "&choe=UTF-8 hspace=" . "20" . "></td><br></br><br></br>";
         }
         $message .= "  </body>
         </html>";
