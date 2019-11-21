@@ -47,43 +47,32 @@ class CinemaController
         return $result;
     }
 
-    public function getShowsByCinemaList($cinemaList = array())
+    public function getShowsByCinemaList($cinemaList = null)
     {
 
         $result = array();
-        if(is_array($cinemaList)){ 
-        foreach ($cinemaList as $cinema) 
-        {
-            $showsList = $this->showController->getListByCinema($cinema);
-            if($showsList != false)
+        if($cinemaList != false){
+            if(!is_array($cinemaList)){ 
+                $aux = $cinemaList;
+                $cinemaList = array();
+                array_push($cinemaList,$aux);
+            }
+            foreach ($cinemaList as $cinema) 
             {
-                if(is_array($showsList)){
+                $showsList = $this->showController->getShowListByCinema($cinema);
+                if($showsList != false)
+                {
+                    if(!is_array($showsList)){
+                        $aux = $showsList;
+                        $showsList = array();
+                        array_push($showsList,$aux);
+                    }
                     foreach ($showsList as $show) {
                         array_push($result, $show);
                     }
-                }
-                else{
-                    array_push($result, $showsList);
                 }
             }
         }
-        }
-        else
-        {
-            $showsList = $this->showController->getListByCinema($cinemaList);
-            if($showsList != false)
-            {
-                if(is_array($showsList)){
-                    foreach ($showsList as $show) {
-                        array_push($result, $show);
-                    }
-                }
-                else{
-                    array_push($result, $showsList);
-                }
-            }   
-        }
-
         return $result;
     }
 
