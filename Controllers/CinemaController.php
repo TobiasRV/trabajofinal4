@@ -6,8 +6,15 @@ use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\ShowController as ShowController;
 use Models\Cinema as Cinema;
 
+<<<<<<< Updated upstream
 //use DAOJson\CinemaDAO as CinemaDAO;
 use DAO\CinemaRepository as CinemaDAO;
+=======
+// use DAOJson\CinemaDAO as CinemaDAO;
+// use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
+use DAO\CinemaRepository as CinemaDAO;
+use DAO\MovieTheaterRepository as MovieTheaterRepository;
+>>>>>>> Stashed changes
 
 
 class CinemaController

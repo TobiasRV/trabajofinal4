@@ -10,12 +10,21 @@ use DAO\UserRepository as UserRepository;
 //END DAO BD
 
 //DAO JSON
+<<<<<<< Updated upstream
 // use DAOJson\PurchaseRepository as PurchaseRepository;
 // use DAOJson\TicketRepository as TicketRepository;
 // use DAOJson\CreditCardRepository as CreditCardRepository;
 // use DAOJson\MovieDAO as MovieRepository;
 // use DAOJson\ShowRepository as ShowRepository;
 // use DAOJson\UserRepository as UserRepository;
+=======
+//  use DAOJson\PurchaseRepository as PurchaseRepository;
+//  use DAOJson\TicketRepository as TicketRepository;
+//  use DAOJson\CreditCardRepository as CreditCardRepository;
+//  use DAOJson\MovieDAO as MovieRepository;
+//  use DAOJson\ShowDAO as ShowRepository;
+//  use DAOJson\UserRepository as UserRepository;
+>>>>>>> Stashed changes
 //END DAO JSON
 
 use Controllers\UserController as UserController;

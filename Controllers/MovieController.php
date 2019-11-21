@@ -5,8 +5,13 @@ namespace Controllers;
 // use DAOJson\movieDAO as MovieDAO;  
 // use DAOJson\CinemaDAO as CinemaDAO;
 
+<<<<<<< Updated upstream
 use DAO\movieRepository as MovieDAO;
 use DAO\CinemaRepository as CinemaDAO;
+=======
+ use DAO\movieRepository as MovieDAO;
+ use DAO\CinemaRepository as CinemaDAO;
+>>>>>>> Stashed changes
 
 use Controllers\MovieTheaterController as MovieTheaterController;
 use Models\Movie as Movie;

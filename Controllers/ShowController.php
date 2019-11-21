@@ -7,8 +7,13 @@ use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\CinemaController as CinemaController;
 use Controllers\MovieController as MovieController;
 
+<<<<<<< Updated upstream
 //use DAOJson\ShowDAO as ShowDAO;
 use DAO\ShowRepository as ShowDAO;
+=======
+use DAOJson\ShowDAO as ShowDAO;
+//use DAO\ShowRepository as ShowDAO;
+>>>>>>> Stashed changes
 
 
 class ShowController

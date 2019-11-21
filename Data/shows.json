@@ -22,6 +22,7 @@
         "date": "2019-11-17",
         "time": "13:30",
         "id_cinema": "1",
+<<<<<<< Updated upstream
         "id_movie": "420809",
         "seats": 50,
         "status": true
@@ -61,5 +62,10 @@
         "id_movie": "521777",
         "seats": "20",
         "status": true
+=======
+        "id_movie": "475557",
+        "seats": "15",
+        "status": 1
+>>>>>>> Stashed changes
     }
 ]
