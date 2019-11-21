@@ -7,10 +7,10 @@ use Controllers\ShowController as ShowController;
 use Controllers\UserController as UserController;
 use Models\Cinema as Cinema;
 
-use DAOJson\CinemaDAO as CinemaDAO;
-use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
-// use DAO\CinemaRepository as CinemaDAO;
-// use DAO\MovieTheaterRepository as MovieTheaterRepository;
+// use DAOJson\CinemaDAO as CinemaDAO;
+// use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
+use DAO\CinemaRepository as CinemaDAO;
+use DAO\MovieTheaterRepository as MovieTheaterRepository;
 
 
 class CinemaController
@@ -54,7 +54,7 @@ class CinemaController
         if(is_array($cinemaList)){ 
         foreach ($cinemaList as $cinema) 
         {
-            $showsList = $this->showController->getShowListByCinema($cinema);
+            $showsList = $this->showController->getListByCinema($cinema);
             if($showsList != false)
             {
                 if(is_array($showsList)){
@@ -63,14 +63,14 @@ class CinemaController
                     }
                 }
                 else{
-                    array_push($result, $showList);
+                    array_push($result, $showsList);
                 }
             }
         }
         }
         else
         {
-            $showsList = $this->showController->getShowListByCinema($cinemaList);
+            $showsList = $this->showController->getListByCinema($cinemaList);
             if($showsList != false)
             {
                 if(is_array($showsList)){
@@ -79,7 +79,7 @@ class CinemaController
                     }
                 }
                 else{
-                    array_push($result, $showList);
+                    array_push($result, $showsList);
                 }
             }   
         }
