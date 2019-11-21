@@ -14,8 +14,8 @@
             <label for="quantityTickets" style="font-size:20px;">Funciones</label><br>
         <input type="text" id="myInput" class="form-control" onkeyup="filterSearch()" placeholder="Buscar por cine..">
         
-        <table id="myTable" class="table table-striped table-dark">
-            <tr class="header" >
+        <table id="myTable" class="table table-hover table-condensed table-bordered table-dark">
+            <tr>
                 <th style="width:60%;">Cine</th>
                 <th style="width:40%;">Función</th>
                 <th>Seleccionar</th>
@@ -25,7 +25,7 @@
                 ?>
             <tr>    
                 
-                <td><?php
+                <?php
                 foreach($listado as $show)
                 {
 
@@ -40,20 +40,21 @@
     
                             if($show->getIdCinema() == $cinemas->getId())
                             {
-                                echo $mt->getName(); 
+                            ?>
+                                <td><?php echo $mt->getName(); ?></td>
+                            <?php
                             }
                         }
                     }
-                }?></td>
+                }?>
                 <td><?php echo $show->getDate() . " " . $show->getTime(); ?></td>
                 <td><input type="radio" name="idShow" id = "idShow" value="<?php echo  $show->getId(); ?>" required><br></td>          
             </tr>
             <?php
             }
-        }
-            
-        
-        else{
+        }  
+        else
+        {
             ?>
             <script LANGUAGE='JavaScript'>
                 window.alert('No hay funciones disponibles para esta pelicula, intente eligiendo otra.')
