@@ -7,10 +7,10 @@ use Controllers\ShowController as ShowController;
 use Controllers\UserController as UserController;
 use Models\Cinema as Cinema;
 
-// use DAOJson\CinemaDAO as CinemaDAO;
-// use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
-use DAO\CinemaRepository as CinemaDAO;
-use DAO\MovieTheaterRepository as MovieTheaterRepository;
+use DAOJson\CinemaDAO as CinemaDAO;
+use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
+// use DAO\CinemaRepository as CinemaDAO;
+// use DAO\MovieTheaterRepository as MovieTheaterRepository;
 
 
 class CinemaController
@@ -158,6 +158,9 @@ class CinemaController
 
     public function viewModifyCinema($idCinema){
         $cinema = $this->getCinemaById($idCinema);
+
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
 
         require_once(VIEWS_PATH . "modifycinema.php");
     }

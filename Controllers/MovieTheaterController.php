@@ -195,6 +195,9 @@ class MovieTheaterController
 
     public function viewCreateMovieTheaterOne($msj = null)
     {
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
+
         require_once(VIEWS_PATH . "addmovietheaterone.php");
     }
 
@@ -217,6 +220,9 @@ class MovieTheaterController
         } else {
             array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($movieTheater->getBillBoard()));
         }
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
+
         require_once(VIEWS_PATH . "addmovietheatertwo.php");
     }
 
@@ -235,6 +241,9 @@ class MovieTheaterController
                     array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($idMovie));
                 }
             }
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "navAdmin.php");
+
             require_once(VIEWS_PATH . "addmovietheatertwo.php");
         }
         else{
@@ -298,6 +307,8 @@ class MovieTheaterController
         } else {
             array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($movieTheater->getBillBoard()));
         }
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
 
         require_once(VIEWS_PATH . "addmovietheaterthree.php");
     }
@@ -319,6 +330,8 @@ class MovieTheaterController
         } else {
             array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($movieTheater->getBillBoard()));
         }
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
 
         require_once(VIEWS_PATH . "addmovietheaterthree.php");
     }
@@ -340,7 +353,8 @@ class MovieTheaterController
         }
 
         $this->modifyMovieTheater($this->getIdByName($movieTheaterName), null, null, null, $this->cinemaController->getListIdCinema($this->getIdByName($movieTheaterName)), null);
-
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
 
         require_once(VIEWS_PATH . "addmovietheaterfour.php");
     }
@@ -352,6 +366,10 @@ class MovieTheaterController
         $nowPlaying = $this->movieController->getNowPlaying();
         $movieTheaterList = $this->getMovieTheaterList();
         $arrayGeneros = $this->movieController->getGenres();
+
+        require_once(VIEWS_PATH . "header.php");
+        require_once(VIEWS_PATH . "navAdmin.php");
+
         require_once(VIEWS_PATH . "listcinemas.php");
     }
 
