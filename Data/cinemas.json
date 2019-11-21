@@ -3,7 +3,7 @@
         "id": 1,
         "status": "1",
         "name": "Sala Atmos",
-        "ticketPrice": "100",
+        "ticketPrice": "1000",
         "idMovieTheater": "1",
         "seats": [
             {

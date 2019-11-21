@@ -133,6 +133,11 @@ class CreditCardRepository extends Singleton implements Irepository
              $creditCards = array ();
              if($repo != null)
              {
+               if(! is_array($repo)){
+                  $aux = $repo;
+                  $repo = array();
+                  array_push($repo,$aux);
+               }
                foreach($repo as $cc)
                {
                     if($cc->getIdUser() == $id_user)

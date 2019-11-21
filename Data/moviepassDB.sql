@@ -2,7 +2,6 @@ create database MoviePass;
 use MoviePass;
 
 
-
 -------------------------------------------------------------------------------
 --                               TABLES
 -------------------------------------------------------------------------------
@@ -60,10 +59,6 @@ CONSTRAINT fk_shows_id_cinema foreign key (id_cinema) references Cinemas(id_cine
 CONSTRAINT fk_shows_id_movie foreign key (id_movie) references Movies(id_movie)
 );
 
-
-
-
-
 create table Genres(
 id_genre int,
 genre varchar(50),
@@ -78,8 +73,6 @@ CONSTRAINT fk_genre_x_movie_id_genre FOREIGN KEY (id_genre) references Genres(id
 CONSTRAINT fk_genre_x_movie_id_movie FOREIGN KEY (id_movie) references Movies(id_movie)
 );
 
-
-
 CREATE TABLE Users(
 id_user int auto_increment not null,
 userName varchar(50) not null,
@@ -93,7 +86,6 @@ CONSTRAINT pk_id_user PRIMARY KEY (id_user),
 CONSTRAINT unq_email UNIQUE (email)
 );
 
-
 create table creditcards (
 id_creditcard int auto_increment,
 company varchar(50),
@@ -103,7 +95,6 @@ id_user int,
 constraint pk_id_creditcard primary key (id_creditcard),
 CONSTRAINT fk_id_user FOREIGN KEY (id_user) references Users(id_user)
 );
-
 
 create table purchases(
 id_purchase int auto_increment not null,
@@ -115,7 +106,7 @@ id_show int,
 id_creditcard int,
 CONSTRAINT pk_id_purchase PRIMARY KEY (id_purchase),
 CONSTRAINT fk_id_creditcard_purchases FOREIGN KEY (id_creditcard) references creditcards(id_creditcard),
-CONSTRAINT fk_id_show_purchases FOREIGN KEY (id_show) references Shows(id_show)
+CONSTRAINT fk_id_show_purchases FOREIGN KEY (id_show) references Shows(id_show) ON DELETE CASCADE
 
 );
 
@@ -123,13 +114,8 @@ create table Tickets (
 id_ticket int auto_increment,
 id_purchase int,
 constraint id_ticket primary key (id_ticket),
-CONSTRAINT fk_id_purchases foreign key (id_purchase) references purchases (id_purchase)
+CONSTRAINT fk_id_purchases foreign key (id_purchase) references purchases (id_purchase) ON DELETE CASCADE
 );
-
-
-
-
-
 
 -------------------------------------------------------------------------------
 --                         STORE PROCEDURES
@@ -166,23 +152,13 @@ join Cinemas c
 on s.id_cinema=c.id_cinema;
 END//
 
-
 -------------------------------------------------------------------------------
 --                             INSERTS
 -------------------------------------------------------------------------------
 
-
 call cargarU ('juanludu', 'Juan', 'Luduenia', 'juan@gmail.com', 41306521, 1, '1234');
 call cargarU ('bpilegi98', 'Bianca', 'Pilegi', 'bianca@gmail.com', 41307541, 2, '4321');
-call cargarU('asd', 'asd', 'asd', 'asd@gmail.com', 41306988, 2, 'asd123');
  
-insert into creditcards (company, number, id_user) values ("Visa", 456879215 , 2);
-insert into creditcards (company, number, id_user) values ("Master", 456879218 , 2);
-insert into creditcards (company, number, id_user) values ("Visa", 456879888 , 2);
-
-
-
-
 -------------------------------------------------------------------------------
 --                            FUNCIONES RANDOMS
 -------------------------------------------------------------------------------
