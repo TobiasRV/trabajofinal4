@@ -2,26 +2,28 @@
 
 namespace Controllers;
 
-use DAOJson\UserRepository as UserRepository;
-use DAOJson\MovieDAO as MovieRepository;
-use DAOJson\TicketRepository as TicketRepository;
-use DAOJson\ShowDAO as ShowRepository;
-use DAOJson\PurchaseRepository as PurchaseRepository;
-use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
-use DAOJson\CinemaDAO as CinemaRepository;
+// use DAOJson\UserRepository as UserRepository;
+// use DAOJson\MovieDAO as MovieRepository;
+// use DAOJson\TicketRepository as TicketRepository;
+// use DAOJson\ShowDAO as ShowRepository;
+// use DAOJson\PurchaseRepository as PurchaseRepository;
+// use DAOJson\MovieTheaterDAO as MovieTheaterRepository;
+// use DAOJson\CinemaDAO as CinemaRepository;
 
 
 
 
-// use DAO\UserRepository as UserRepository;
-// use DAO\MovieRepository as MovieRepository;
-// use DAO\TicketRepository as TicketRepository;
-// use DAO\ShowRepository as ShowRepository;
-// use DAO\PurchaseRepository as PurchaseRepository;
-// use DAO\MovieTheaterDAO as MovieTheaterRepository;
-// use DAO\CinemaDAO as CinemaRepository;
+use DAO\UserRepository as UserRepository;
+use DAO\MovieRepository as MovieRepository;
+use DAO\TicketRepository as TicketRepository;
+use DAO\ShowRepository as ShowRepository;
+use DAO\PurchaseRepository as PurchaseRepository;
+use DAO\MovieTheaterRepository as MovieTheaterRepository;
+use DAO\CinemaRepository as CinemaRepository;
 
+use Models\Purchase as Purchase;
 use Models\User as User;
+use Models\Show as Show;
 
 class UserController
 {
@@ -197,10 +199,13 @@ class UserController
             $listadoT = array();
             array_push($listadoT,$aux);
         }
+        //variable que va a la vista
         $soldTickets = count($listadoT);
 
+        //devuelve los tickets sin vender
         $toSoldTickets = $this->toSoldTickets();
 
+        //variable que va a la vista
         $earnings = $this->calculateEarnings();
 
         $usersRepo = new UserRepository();
@@ -211,11 +216,14 @@ class UserController
             $listadoU = array();
             array_push($listadoU,$aux);
         }
+        //variable que va a la vista
         $registeredUsers = count($listadoU);
 
+        //lista de pelis que va a la vista(para elegir filtros)
         $moviesRepo = new MovieRepository();
         $listadoM = $moviesRepo->getAll();
 
+        //lista de Cines que va a la vista(para elegir filtros)
         $movieTheatersRepo = new MovieTheaterRepository();
         $listadoMT = $movieTheatersRepo->getAll();
         if(! is_array($listadoMT))
@@ -253,39 +261,21 @@ class UserController
 
     public function toSoldTickets($listadoS = null)
     {
+        $quantity = 0;
         if($listadoS == null)
         {
             $showsRepo = new ShowRepository();
             $listadoS = $showsRepo->getAll();
-            $quantity = 0;
-
-            if(is_array($listadoS))
-            {
-                foreach($listadoS as $show)
-                {
-                    $quantity += $show->getSeats();
-                }
-            }
-            else
-            {
-                $quantity += $listadoS->getSeats();
-            }
         }
-        else 
+        if(!is_array($listadoS))
         {
-            $quantity = 0;
-
-            if(is_array($listadoS))
-            {
-                foreach($listadoS as $show)
-                {
-                    $quantity += $show->getSeats();
-                }
-            }
-            else
-            {
-                $quantity += $listadoS->getSeats();
-            }
+            $aux = $listadoS;
+            $listadoS = array();
+            array_push($listadoS,$aux);
+        }
+        foreach($listadoS as $show)
+        {
+            $quantity += $show->getSeats();
         }
 
         return $quantity;
@@ -293,44 +283,28 @@ class UserController
 
     public function calculateEarnings($listadoP = null)
     {
+        $quantity = 0;
         if($listadoP == null)
         {
+            echo "asd";
             $purchasesRepo = new PurchaseRepository();
             $listadoP = $purchasesRepo->getAll();
-            $quantity = 0;
 
-            if(is_array($listadoP))
-            {
-                foreach($listadoP as $purchase)
-                {
-                    $quantity += $purchase->getTotal();
-                }
-            }
-            else
-            {
-                $quantity += $listadoP->getTotal();
-            }
         }
-        else
+        if(!is_array($listadoP))
         {
-            $quantity = 0;
-            if(is_array($listadoP))
-            {
-                foreach($listadoP as $purchase)
-                {
-                    $quantity += $purchase->getTotal();
-                }
-            }
-            else
-            {
-                $quantity += $listadoP->getTotal();
-            }
+            $aux = $listadoP;
+            $listadoP = array();
+            array_push($listadoP,$aux);
         }
-
+        foreach($listadoP as $purchase)
+        {
+            $quantity += $purchase->getTotal();
+        }    
         return $quantity;
     }
 
-    //esta hay que arreglarla porque no muestra bien los datos (creo que no muestra bien entradas vendidas)
+    //andando
     public function searchByDates($dateInit, $dateFin)
     {
         $dateInit = str_replace('/', '-', $dateInit);
@@ -355,37 +329,38 @@ class UserController
             $listadoP = array();
             array_push($listadoP,$aux);
         }
+        if(! is_array($listadoS))
+        {
+            $aux = $listadoS;
+            $listadoS = array();
+            array_push($listadoS,$aux);
+        }
+        if(! is_array($listadoT))
+        {
+            $aux = $listadoT;
+            $listadoT = array();
+            array_push($listadoT,$aux);
+        }
+
         foreach($listadoP as $purchase)
         {
             if($purchase->getPurchaseDate() >= $dateInit && $purchase->getPurchaseDate() <= $dateFin)
             {
+                foreach($listadoT as $ticket)
+                {
+                    if($purchase->getIdPurchase() == $ticket->getIdPurchase())
+                    {
+                        array_push($resultTicket, $ticket);
+                    }
+                }
                 array_push($resultPurchase, $purchase);
             }
-            if(! is_array($listadoS))
+        }
+        foreach($listadoS as $show)
+        {
+            if($show->getDate() >= $dateInit && $show->getDate() <= $dateFin)
             {
-                $aux = $listadoS;
-                $listadoS = array();
-                array_push($listadoS,$aux);
-            }
-            foreach($listadoS as $show)
-            {
-                if($purchase->getIdShow() == $show->getId() && $show->getDate() >= $dateInit && $show->getDate() <= $dateFin)
-                {
-                    array_push($resultShow, $show);
-                }
-            }
-            if(! is_array($listadoT))
-            {
-                $aux = $listadoT;
-                $listadoT = array();
-                array_push($listadoT,$aux);
-            }
-            foreach($listadoT as $ticket)
-            {
-                if($purchase->getIdPurchase() == $ticket->getIdPurchase())
-                {
-                    array_push($resultTicket, $ticket);
-                }
+                array_push($resultShow, $show);
             }
         }
 
@@ -451,17 +426,228 @@ class UserController
         $listadoS = $showsRepo->getAll();
         $ticketsRepo = new TicketRepository();
         $listadoT = $ticketsRepo->getAll();
-        $movieTheatersRepo = new MovieTheaterRepository();
-        $listadoMT = $movieTheatersRepo->getAll();
-        $moviesRepo = new MovieRepository();
-        $listadoM = $moviesRepo->getAll();
+        $cinemaRepo = new CinemaRepository();
+        $listadoC = $cinemaRepo->getAll();
 
         $resultPurchase = array();
         $resultShow = array();
         $resultTicket = array();
 
+        if(!is_array($listadoC)){
+            $aux=$listadoC;
+            $listadoC = array();
+            array_push($listadoC,$aux);
+        }
+
+        if(!is_array($listadoS)){
+            $aux=$listadoS;
+            $listadoS = array();
+            array_push($listadoS,$aux);
+        }
+
+        if(!is_array($listadoP)){
+            $aux=$listadoP;
+            $listadoP = array();
+            array_push($listadoP,$aux);
+        }
+
+        if(!is_array($listadoT)){
+            $aux=$listadoT;
+            $listadoT = array();
+            array_push($listadoT,$aux);
+        }
+
+        foreach($listadoC as $cinema){
+            if($cinema->getIdMovieTheater() == $movieTheaterId){
+                foreach($listadoS as $show){
+                    if($show->getIdCinema() == $cinema->getId()){
+                        array_push($resultShow,$show);
+                        foreach($listadoP as $purchase){
+                            if($purchase->getIdShow() == $show->getId()){
+                                array_push($resultPurchase,$purchase);
+                                foreach($listadoT as $ticket){
+                                    if($ticket->getIdPurchase() == $purchase->getIdPurchase()){
+                                        array_push($resultTicket,$ticket);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        $soldTickets = count($resultTicket);
+        $toSoldTickets = $this->toSoldTickets($resultShow);
+        if($resultPurchase == null){
+            $resultPurchase = new Purchase();
+        }
+        $earnings = $this->calculateEarnings($resultPurchase);
+
+
+        $usersRepo = new UserRepository();
+        $listadoU = $usersRepo->getAll();
+        if(! is_array($listadoU))
+        {
+            $aux = $listadoU;
+            $listadoU = array();
+            array_push($listadoU,$aux);
+        }
+        $registeredUsers = count($listadoU);
+
+        $moviesRepo = new MovieRepository();
+        $listadoM = $moviesRepo->getAll();
+
+        $movieTheatersRepo = new MovieTheaterRepository();
+        $listadoMT = $movieTheatersRepo->getAll();
+        if(! is_array($listadoMT))
+        {
+            $aux = $listadoMT;
+            $listadoMT = array();
+            array_push($listadoMT,$aux);
+        }
+
+
+
+        if ($this->checkSession() != false) 
+        {
+            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "navClient.php");
+                require_once(VIEWS_PATH . "index.php");
+            }
+            else 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navAdmin.php");
+                    include_once(VIEWS_PATH . "consultData.php");
+                }
+            } 
+        } 
+        else 
+        {
+            include_once(VIEWS_PATH . "header.php");
+            include_once(VIEWS_PATH . "nav.php");
+            include_once(VIEWS_PATH . "index.php");
+        }
+
     }
 
-    //falta hacer searchByMovie($movie)
+    public function searchByMovie($idMovie){
+        $purchasesRepo = new PurchaseRepository();
+        $listadoP = $purchasesRepo->getAll();
+        $showsRepo = new ShowRepository();
+        $listadoS = $showsRepo->getAll();
+        $ticketsRepo = new TicketRepository();
+        $listadoT = $ticketsRepo->getAll();
+
+        
+        $resultPurchase = array();
+        $resultShow = array();
+        $resultTicket = array();
+
+        if(!is_array($listadoS)){
+            $aux=$listadoS;
+            $listadoS = array();
+            array_push($listadoS,$aux);
+        }
+
+        if(!is_array($listadoP)){
+            $aux=$listadoP;
+            $listadoP = array();
+            array_push($listadoP,$aux);
+        }
+
+        if(!is_array($listadoT)){
+            $aux=$listadoT;
+            $listadoT = array();
+            array_push($listadoT,$aux);
+        }
+
+
+        foreach($listadoS as $show){
+            if($show->getIdMovie() == $idMovie){
+                array_push($resultShow,$show);
+                foreach($listadoP as $purchase){
+                    if($purchase->getIdShow() == $show->getId()){
+                        array_push($resultPurchase,$purchase);
+                        foreach($listadoT as $ticket){
+                            if($ticket->getIdPurchase() == $purchase->getIdPurchase()){
+                                array_push($resultTicket,$ticket);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+
+        $soldTickets = count($resultTicket);
+        if($resultShow == null){
+            $resultShow = new Show();
+        }
+        $toSoldTickets = $this->toSoldTickets($resultShow);
+        if($resultPurchase == null){
+            $resultPurchase = new Purchase();
+        }
+        $earnings = $this->calculateEarnings($resultPurchase);
+
+
+        $usersRepo = new UserRepository();
+        $listadoU = $usersRepo->getAll();
+        if(! is_array($listadoU))
+        {
+            $aux = $listadoU;
+            $listadoU = array();
+            array_push($listadoU,$aux);
+        }
+        $registeredUsers = count($listadoU);
+
+        $moviesRepo = new MovieRepository();
+        $listadoM = $moviesRepo->getAll();
+
+        $movieTheatersRepo = new MovieTheaterRepository();
+        $listadoMT = $movieTheatersRepo->getAll();
+        if(! is_array($listadoMT))
+        {
+            $aux = $listadoMT;
+            $listadoMT = array();
+            array_push($listadoMT,$aux);
+        }
+
+
+
+        if ($this->checkSession() != false) 
+        {
+            if ($_SESSION["loggedUser"]->getPermissions() == 2) 
+            {
+                include_once(VIEWS_PATH . "header.php");
+                include_once(VIEWS_PATH . "navClient.php");
+                require_once(VIEWS_PATH . "index.php");
+            }
+            else 
+            {
+                if ($_SESSION["loggedUser"]->getPermissions() == 1) 
+                {
+                    include_once(VIEWS_PATH . "header.php");
+                    include_once(VIEWS_PATH . "navAdmin.php");
+                    include_once(VIEWS_PATH . "consultData.php");
+                }
+            } 
+        } 
+        else 
+        {
+            include_once(VIEWS_PATH . "header.php");
+            include_once(VIEWS_PATH . "nav.php");
+            include_once(VIEWS_PATH . "index.php");
+        }
+    
+
+     }
 
 }
