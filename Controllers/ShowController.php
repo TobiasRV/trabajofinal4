@@ -7,8 +7,8 @@ use Controllers\MovieTheaterController as MovieTheaterController;
 use Controllers\CinemaController as CinemaController;
 use Controllers\MovieController as MovieController;
 
-// use DAOJson\ShowDAO as ShowDAO;
-use DAO\ShowRepository as ShowDAO;
+use DAOJson\ShowDAO as ShowDAO;
+// use DAO\ShowRepository as ShowDAO;
 
 use Exception;
 use PDOException;
@@ -170,6 +170,32 @@ class ShowController
         require_once(VIEWS_PATH . "navAdmin.php");
         require_once(VIEWS_PATH . "addshowone.php");
     }
+
+    public function getShowsOfMovie($movieId)
+    {
+        $movieTheaterController = new MovieTheaterController();
+        try {
+            $showList = $movieTheaterController->getShowsOfAllMovieTheater();
+            $result = array();
+
+            foreach ($showList as $show) {
+                if ($movieId == $show->getIdMovie()) {
+                    array_push($result, $show);
+                }
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+            return $result;
+        }
+    }
+
+    
 
     public function addShowTwo($movieTheaterName, $cinemaName, $date)
     {

@@ -7,8 +7,8 @@ use Controllers\ShowController as ShowController;
 use Controllers\MovieController as MovieController;
 use Models\MovieTheater as MovieTheater;
 
-//use DAOJson\MovieTheaterDAO as MovieTheaterDAO;
-use DAO\MovieTheaterRepository as MovieTheaterDAO;
+use DAOJson\MovieTheaterDAO as MovieTheaterDAO;
+// use DAO\MovieTheaterRepository as MovieTheaterDAO;
 
 use Exception;
 use PDOException;
@@ -134,13 +134,13 @@ class MovieTheaterController
         }
     }
 
-    public function getShowsByMovieTheater($movieTheaterName)
+    public function getShowsByMovieTheater($movieTheaterId)
     {
         try {
             $movieTheaterList = $this->movieTheaterDAO->getAll();
             $result = array();
             foreach ($movieTheaterList as $movieTheater) {
-                if ($movieTheater->getName() == $movieTheaterName) {
+                if ($movieTheater->getName() == $movieTheaterId) {
                     $result = $this->cinemaController->getShowsByCinemaList($movieTheater->getCinemas());
                     break;
                 }
@@ -158,31 +158,9 @@ class MovieTheaterController
     }
 
 
-    public function getMovieTheathersNameOfMovie($movieId)
-    {
-        try {
-            $showList = $this->getShowsOfAllMovieTheater();
-            $movieTheaterNameList = array();
+    
 
-            foreach ($showList as $show) {
-                if ($movieId == $show->getIdMovie()) {
-                    $cinema = $this->cinemaController->getCinemaById($show->getIdCinema());
-                    array_push($movieTheaterNameList, $this->getNameById($cinema->getIdMovieTheater()));
-                }
-            }
-        } catch (Exception $ex) {
-            $msj = $ex;
-        }
-        if (isset($msj)) {
-            require_once(VIEWS_PATH . "header.php");
-            require_once(VIEWS_PATH . "error.php");
-            require_once(VIEWS_PATH . "footer.php");
-        } else {
-            return $movieTheaterNameList;
-        }
-    }
-
-    public function checkNameAvailablity($movieTheaterName)
+    public function checkNameAvailablity($movieTheaterId)
     {
         try {
             $movieTheaterList = $this->movieTheaterDAO->getAll();
@@ -194,7 +172,7 @@ class MovieTheaterController
                     array_push($movieTheaterList, $aux);
                 }
                 foreach ($movieTheaterList as $movieTheater) {
-                    if ($movieTheater->getName() == $movieTheaterName) {
+                    if ($movieTheater->getName() == $movieTheaterId) {
 
                         $result = 0;
                         break;
@@ -275,14 +253,14 @@ class MovieTheaterController
 
 
 
-    public function viewAddBillBoard($movieTheaterName, $moviechecked = array())
+    public function viewAddBillBoard($movieTheaterId, $moviechecked = array())
     {
         try {
             $nowPlaying = $this->movieController->getNowPlaying();
             $arrayGeneros = $this->movieController->getGenres();
-            $this->modifyMovieTheater($this->getIdByName($movieTheaterName), null, null, null, null, $moviechecked);
+            $this->modifyMovieTheater($this->getIdByName($movieTheaterId), null, null, null, null, $moviechecked);
 
-            $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
+            $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterId));
             $movieTheaterBillBoard = array();
             if (is_array($movieTheater->getBillBoard())) {
                 foreach ($movieTheater->getBillBoard() as $idMovie) {
@@ -351,10 +329,16 @@ class MovieTheaterController
         }
     }
 
-    public function backToViewOne($movieTheaterName)
+    public function backToViewOne($movieTheaterId)
     {
-        $this->deleteMovieTheaterById($this->getIdByName($movieTheaterName));
+        $this->deleteMovieTheaterById($this->getIdByName($movieTheaterId));
         $this->viewCreateMovieTheaterOne();
+    }
+
+    public function getBillBoardByMovieTheaterId($movieTheaterId)
+    {
+        $movieTheater = $this->getMovieTheaterByName($movieTheaterId);
+        return $movieTheater->getBillBoard();
     }
 
     public function getBillBoardByMovieTheaterName($movieTheaterName)
@@ -363,14 +347,14 @@ class MovieTheaterController
         return $movieTheater->getBillBoard();
     }
 
-    public function getMovieTheaterByName($movieTheaterName)
+    public function getMovieTheaterByName($movieTheaterId)
     {
         try {
             $movieTheaterList = $this->getMovieTheaterList();
             $result = null;
             if (is_array($movieTheaterList)) {
                 foreach ($movieTheaterList as $movieTheater) {
-                    if ($movieTheater->getName() == $movieTheaterName) {
+                    if ($movieTheater->getName() == $movieTheaterId) {
                         $result = $movieTheater;
                         break;
                     }
@@ -392,12 +376,40 @@ class MovieTheaterController
         }
     }
 
-    public function viewCreateMovieTheaterThree($movieTheaterName)
+    public function getMovieTheaterById($movieTheaterId)
     {
         try {
-            $cinemaList = $this->cinemaController->getCinemaList($this->getIdByName($movieTheaterName));
+            $movieTheaterList = $this->getMovieTheaterList();
+            $result = null;
+            if (is_array($movieTheaterList)) {
+                foreach ($movieTheaterList as $movieTheater) {
+                    if ($movieTheater->getId() == $movieTheaterId) {
+                        $result = $movieTheater;
+                        break;
+                    }
+                }
+            } else {
+                if ($movieTheater->getName() == $movieTheaterList) {
+                    $result = $movieTheater;
+                }
+            }
+        } catch (Exception $ex) {
+            $msj = $ex;
+        }
+        if (isset($msj)) {
+            require_once(VIEWS_PATH . "header.php");
+            require_once(VIEWS_PATH . "error.php");
+            require_once(VIEWS_PATH . "footer.php");
+        } else {
+            return $result;
+        }
+    }
+    public function viewCreateMovieTheaterThree($movieTheaterId)
+    {
+        try {
+            $cinemaList = $this->cinemaController->getCinemaList($this->getIdByName($movieTheaterId));
             $arrayGeneros = $this->movieController->getGenres();
-            $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
+            $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterId));
             $movieTheaterBillBoard = array();
             if (is_array($movieTheater->getBillBoard())) {
                 foreach ($movieTheater->getBillBoard() as $idMovie) {
@@ -419,14 +431,14 @@ class MovieTheaterController
             require_once(VIEWS_PATH . "addmovietheaterthree.php");
         }
     }
-    public function viewAddCinema($movieTheaterName, $cinemaName, $seats, $price)
+    public function viewAddCinema($movieTheaterId, $cinemaName, $seats, $price)
     {
 
-        $this->cinemaController->createCinema($cinemaName, $seats, $price, $this->getIdByName($movieTheaterName));
-        $cinemaList = $this->cinemaController->getCinemaList($this->getIdByName($movieTheaterName));
+        $this->cinemaController->createCinema($cinemaName, $seats, $price, $this->getIdByName($movieTheaterId));
+        $cinemaList = $this->cinemaController->getCinemaList($this->getIdByName($movieTheaterId));
 
         $arrayGeneros = $this->movieController->getGenres();
-        $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
+        $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterId));
         $movieTheaterBillBoard = array();
 
         if (is_array($movieTheater->getBillBoard())) {
@@ -442,12 +454,12 @@ class MovieTheaterController
         require_once(VIEWS_PATH . "addmovietheaterthree.php");
     }
 
-    public function viewCreateMovieTheaterFour($movieTheaterName)
+    public function viewCreateMovieTheaterFour($movieTheaterId)
     {
 
-        $cinemaList = $this->cinemaController->getCinemaList($this->getIdByName($movieTheaterName));
+        $cinemaList = $this->cinemaController->getCinemaList($this->getIdByName($movieTheaterId));
         $arrayGeneros = $this->movieController->getGenres();
-        $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterName));
+        $movieTheater = $this->movieTheaterDAO->getById($this->getIdByName($movieTheaterId));
         $movieTheaterBillBoard = array();
 
         if (is_array($movieTheater->getBillBoard())) {
@@ -458,7 +470,7 @@ class MovieTheaterController
             array_push($movieTheaterBillBoard, $this->movieController->searchMovieById($movieTheater->getBillBoard()));
         }
 
-        $this->modifyMovieTheater($this->getIdByName($movieTheaterName), null, null, null, $this->cinemaController->getListIdCinema($this->getIdByName($movieTheaterName)), null);
+        $this->modifyMovieTheater($this->getIdByName($movieTheaterId), null, null, null, $this->cinemaController->getListIdCinema($this->getIdByName($movieTheaterId)), null);
         require_once(VIEWS_PATH . "header.php");
         require_once(VIEWS_PATH . "navAdmin.php");
 

@@ -101,17 +101,30 @@ if ($userControl->checkSession() != false) {
                                 </div>
                             </div>
                             <div class="modal-footer-left">
-                                <?php $movieTheatersOfMovie = array();
-                                  $movieTheatersOfMovie = $movieTheaterController->getMovieTheathersNameOfMovie($value->getIdMovie());
-                                  if(!empty($movieTheatersOfMovie)){?>
+                                <h2>Funciones:</h2>
+                                <?php $ShowsOfMovie = array();
+                                  $ShowsOfMovie = $showController->getShowsOfMovie($value->getIdMovie());
+                                  if(!empty($ShowsOfMovie)){?>
                                   <table class="table table-condensed table-bordered table-light">
                                   <thead>
 
-                                        <th class="text-center">Cines</th>
+                                        <th>Cines</th>
+                                        <th>Sala</th>
+                                        <th>Fecha</th>
+                                        <th>Horario</th>
                                   </thead>
-                                    <?php foreach($movieTheatersOfMovie as $movieTheater){ ?>
-
-                                        <tbody> <tr><td><?php echo $movieTheater; ?></td></tr></tbody>
+                                    <?php foreach($ShowsOfMovie as $show){ 
+                                        $cinema = $cinemaController->getCinemaById($show->getIdCinema());
+                                        $movieTheather =  $movieTheaterController->getMovieTheaterById($cinema->getIdMovieTheater());
+                                        ?>
+                                        <tbody>
+                                             <tr>
+                                                 <td><?php echo $movieTheather->getName(); ?></td>
+                                                 <td><?php echo $cinema->getName(); ?></td>
+                                                 <td><?php echo $show->getDate(); ?></td>
+                                                 <td><?php echo $show->getTime(); ?></td>
+                                            </tr>
+                                        </tbody>
 
                                     <?php }} ?>
                                   </table>

@@ -2,11 +2,11 @@
 
 namespace Controllers;
 
-// use DAOJson\movieDAO as MovieDAO;  
-// use DAOJson\CinemaDAO as CinemaDAO;
+use DAOJson\movieDAO as MovieDAO;  
+use DAOJson\CinemaDAO as CinemaDAO;
 
-use DAO\movieRepository as MovieDAO;
-use DAO\CinemaRepository as CinemaDAO;
+// use DAO\movieRepository as MovieDAO;
+// use DAO\CinemaRepository as CinemaDAO;
 
 use Controllers\MovieTheaterController as MovieTheaterController;
 use Models\Movie as Movie;
@@ -187,6 +187,8 @@ class MovieController
             $genres = array();
             $genres = $this->getGenres();
             $movieTheatherList = $movieTheaterController->getAvailableMovieTheaterList();
+            $showController = new ShowController();
+            $cinemaController = new CinemaController();
         } catch (Exception $ex) {
             $msj = $ex;
         }

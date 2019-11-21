@@ -2,8 +2,8 @@
     {
         "id": 1,
         "status": "1",
-        "name": "Sala Atmos",
-        "ticketPrice": "1000",
+        "name": "Sala Atmos 2",
+        "ticketPrice": "300",
         "idMovieTheater": "1",
         "seats": [
             {
@@ -64,6 +64,66 @@
             },
             {
                 "number": 15,
+                "status": false
+            },
+            {
+                "number": 16,
+                "status": false
+            },
+            {
+                "number": 17,
+                "status": false
+            },
+            {
+                "number": 18,
+                "status": false
+            },
+            {
+                "number": 19,
+                "status": false
+            },
+            {
+                "number": 20,
+                "status": false
+            },
+            {
+                "number": 21,
+                "status": false
+            },
+            {
+                "number": 22,
+                "status": false
+            },
+            {
+                "number": 23,
+                "status": false
+            },
+            {
+                "number": 24,
+                "status": false
+            },
+            {
+                "number": 25,
+                "status": false
+            },
+            {
+                "number": 26,
+                "status": false
+            },
+            {
+                "number": 27,
+                "status": false
+            },
+            {
+                "number": 28,
+                "status": false
+            },
+            {
+                "number": 29,
+                "status": false
+            },
+            {
+                "number": 30,
                 "status": false
             }
         ]
