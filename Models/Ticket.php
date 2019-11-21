@@ -2,7 +2,8 @@
 
 class Ticket{
     private $idTicket;
-    private $idPurchase;
+	private $idPurchase;
+	
     
 
     public function __construct($idTicket=null, $idPurchase=null)

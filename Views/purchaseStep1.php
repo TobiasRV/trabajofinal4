@@ -1,20 +1,9 @@
 <body class="home">
 
-<?php 
 
-//Paso 1 de la compra de tickets
+<!-- Paso 1 de la compra de tickets -->
+ 
 
-date_default_timezone_set('America/Argentina/Buenos_Aires');
-$date= date('d/m/Y');
-$mod_date = strtotime($date."+ 6 days");
-
-include_once(VIEWS_PATH . "header.php"); 
-
-
-if ($userControl->checkSession() != false) {
-    if ($_SESSION["loggedUser"]->getPermissions() == 2) {
-        include_once(VIEWS_PATH . "header.php");
-        include_once(VIEWS_PATH . "navClient.php"); ?>
 <body>
 
 <div class="card">
@@ -62,23 +51,6 @@ if ($userControl->checkSession() != false) {
 
 <?php include_once(VIEWS_PATH . "footer.php"); ?>
     
- <?php 
- } 
-    else 
-    {
-        if ($_SESSION["loggedUser"]->getPermissions() == 1) 
-        {
-            include_once(VIEWS_PATH . "index.php");
-        }
-    }
-} 
-else 
-{
-    include_once(VIEWS_PATH . "index.php");
-}
-
-
-?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

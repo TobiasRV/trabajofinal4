@@ -1,24 +1,7 @@
-<link rel="stylesheet" href="<?php echo VIEWS_PATH ?>css/shoppingCart.css">
+<!-- Paso 2 de la compra de tickets -->
+          
 <body class="home">
 
-
-<?php 
-
-//Paso 2 de la compra de tickets
-
-//include_once(VIEWS_PATH . "header.php"); 
-
-
-
-
-if ($userControl->checkSession() != false) {
-    if ($_SESSION["loggedUser"]->getPermissions() == 2) {
-        include_once(VIEWS_PATH . "header.php");
-        include_once(VIEWS_PATH . "navClient.php"); ?>
-    
-        
-
-<body>
 
   <div class="card">
     <h2 class="card-header info-color white-text text-center py-4">
@@ -93,17 +76,6 @@ if ($userControl->checkSession() != false) {
 
 
   <?php include_once(VIEWS_PATH . "footer.php"); ?>
-    
-    <?php } else {
-        if ($_SESSION["loggedUser"]->getPermissions() == 2) {
-            include_once(VIEWS_PATH . "index.php");
-        }
-    }
-} else {
-            include_once(VIEWS_PATH . "index.php");
-}
-
-?>
 
 <script>
         function filterSearch() {
@@ -133,3 +105,4 @@ if ($userControl->checkSession() != false) {
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="<?php echo VIEWS_PATH ?>css/shoppingCart.css">

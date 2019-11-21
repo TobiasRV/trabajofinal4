@@ -1,18 +1,5 @@
 <body class="home">
 
-<?php
-
-
-
-if ($userControl->checkSession() != false) {
-    if ($_SESSION["loggedUser"]->getPermissions() == 2) {
-        include_once(VIEWS_PATH . "header.php");
-        include_once(VIEWS_PATH . "navClient.php"); 
-    }
-}
-?>
-
-
     <html>
 
     <div class="alert alert-danger alert-dismissible">

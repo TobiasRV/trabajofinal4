@@ -1,21 +1,9 @@
-<body class="home">
 
-<?php 
-
-if ($userControl->checkSession() != false) 
-{
-    if ($_SESSION["loggedUser"]->getPermissions() == 2) 
-    {
-        include_once(VIEWS_PATH . "header.php");
-        include_once(VIEWS_PATH . "navClient.php"); 
-    }
-}
-?>
 
 
 <html>
 <h1 align="center">MIS TICKETS</h1>
-
+<body class="home">
             <form class="form-inline" action="<?php echo FRONT_ROOT ?>Ticket/searchTickets" method="POST">
             <label for="date">Fecha de Compra:  </label>
                     <input class="form-control" style="width:1349px" id="date" name="date"  placeholder="DD / MM / YYYY" type="text"/>
@@ -34,8 +22,11 @@ if ($userControl->checkSession() != false)
         <tbody>
                 <tr>
                     <th scope="row">ID Compra</th>
-                
+                    
                     <th scope="row">Ticket N°</th>
+
+                    <th scope="row">Codigo Qr</th>
+                    
                 </tr>
                 <?php
                     if($listadoT != null) 
@@ -48,6 +39,8 @@ if ($userControl->checkSession() != false)
                             <tr>
                                 <td><?php echo $t->getIdPurchase(); ?></td>
                                 <td><?php echo $t->getIdTicket(); ?></td>
+                                <td><img src="https://chart.googleapis.com/chart?chs=50x50&cht=qr&chl=<?php echo $t->getIdTicket(); ?>&choe=UTF-8"></td>
+                                
                             </tr>
                         <?php
                             }
@@ -58,6 +51,7 @@ if ($userControl->checkSession() != false)
                             <tr>
                                 <td><?php echo $listadoT->getIdPurchase(); ?></td>
                                 <td><?php echo $listadoT->getIdTicket(); ?></td>
+                                <td><img src="https://chart.googleapis.com/chart?chs=50x50&cht=qr&chl=<?php echo $listadoT->getIdTicket(); ?>&choe=UTF-8"></td>
                             </tr>
                             <?php
                         }
@@ -91,6 +85,8 @@ if ($userControl->checkSession() != false)
     <?php 
         include_once(VIEWS_PATH . "footer.php"); 
     ?>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
