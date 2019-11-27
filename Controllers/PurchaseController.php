@@ -506,6 +506,7 @@ class PurchaseController
 
         foreach ($tickets as $t) {
             $message .=
+            //api google para qr
                 "<td><img src=" . " https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl= " . $t->getIdTicket() . "&choe=UTF-8 hspace=" . "20" . "></td><br></br><br></br>";
         }
         $message .= "  </body>

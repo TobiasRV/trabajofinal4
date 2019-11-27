@@ -285,7 +285,7 @@ class MovieTheaterController
 
     public function viewCreateMovieTheaterTwo($name, $address, $arrayMovies = array(), $cinemas = array())
     {
-        try {
+  
             $msj = $this->createMovieTheater($name, $address);
             if ($msj == null) {
                 $nowPlaying = $this->movieController->getNowPlaying();
@@ -304,14 +304,7 @@ class MovieTheaterController
             } else {
                 $this->viewCreateMovieTheaterOne($msj);
             }
-        } catch (Exception $ex) {
-            $msj = $ex;
-        }
-        if (isset($msj)) {
-            require_once(VIEWS_PATH . "header.php");
-            require_once(VIEWS_PATH . "error.php");
-            require_once(VIEWS_PATH . "footer.php");
-        }
+        
     }
 
     public function deleteMovieTheaterById($id)
